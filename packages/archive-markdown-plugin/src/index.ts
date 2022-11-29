@@ -3,7 +3,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import { createMarkdownToVueRenderFn } from './markdownToVue'
 import { CleanUrlsMode } from './types'
 
-export function createarchiveMdPlugin(
+export function createArchiveMdPlugin(
   markdownOptions: MarkdownOptions,
   cleanUrls?: CleanUrlsMode,
 ): Plugin {

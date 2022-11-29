@@ -2,6 +2,7 @@ import '@idux/components/style/core/reset.default.css'
 import '@idux/components/style/core/reset-scroll.default.css'
 import '@idux/components/default.less'
 import '@idux/cdk/index.css'
+import '@idux/archive-markdown-plugin/style/themes/default.css'
 
 import '../page/variables.less'
 import './variables.less'

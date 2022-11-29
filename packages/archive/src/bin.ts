@@ -9,7 +9,7 @@ const { version } = JSON.parse(fs.readFileSync(resolve(__dirname, '../package.js
 
 process.env.NODE_ENV = 'development'
 
-const program = sade('idux-archive')
+const program = sade('archive')
 program.version(version)
 
 program.command('dev')

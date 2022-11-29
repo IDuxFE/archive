@@ -2,8 +2,8 @@ import type { SetOptional } from 'type-fest'
 import type { ResolvedarchiveConfig } from './types'
 import type { ResolvedSidebarRecord, ResolvedPageTab, ResolvedPageData } from '@idux/archive-app'
 import { type InlineConfig, type Plugin, loadConfigFromFile, searchForWorkspaceRoot, mergeConfig } from 'vite'
-import { createarchiveMdPlugin } from '@idux/archive-markdown-plugin'
-import { createarchivePlugin } from '@idux/archive-plugin'
+import { createArchiveMdPlugin } from '@idux/archive-markdown-plugin'
+import { createArchivePlugin } from '@idux/archive-plugin'
 
 import { dirname, join } from 'pathe'
 import { createRequire } from 'node:module'
@@ -72,9 +72,9 @@ async function createCommonViteConfig(
 
   const plugins: Plugin[] = []
 
-  plugins.push(createarchiveMdPlugin(archiveConfig.markdownOptions))
+  plugins.push(createArchiveMdPlugin(archiveConfig.markdownOptions))
   plugins.push(
-    createarchivePlugin({
+    createArchivePlugin({
       onDemosCollected: archiveConfig.onDemosCollected,
       collectors: archiveConfig.collectors,
     }),
@@ -124,11 +124,13 @@ export async function createBuildViteConfig(
   const buildViteConfig = mergeConfig(commonViteConfig, {
     mode: 'development',
     build: {
-      lib: isAppBuild ? false : {
-        entry: '',
-        formats: ['es'],
-        fileName: 'index.js'
-      },
+      lib: isAppBuild
+        ? false
+        : {
+            entry: '',
+            formats: ['es'],
+            fileName: 'index.js',
+          },
       rollupOptions: {
         input: join(BUNDLE_PATH, `${target}-${archiveConfig.theme}.js`),
         plugins: [
@@ -178,6 +180,10 @@ export async function createDevViteConfig(archiveConfig: ResolvedarchiveConfig):
             ignored: ['**/vite.config.*'],
           },
           hmr: true,
+        },
+        optimizeDeps: {
+          entries: [join(BUNDLE_PATH, `app-${archiveConfig.theme}.js`)],
+          exclude: ['archive'],
         },
       }
     },

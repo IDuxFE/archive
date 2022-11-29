@@ -1,5 +1,5 @@
 import type { Collector, CollectedDemo } from '@idux/archive-plugin'
-import type { VueCollectorOptions } from '@idux/archive-plugin-collector-vue'
+import type { VueCollectorOptions } from '@idux/archive-collector-vue'
 import type { MarkdownOptions } from '@idux/archive-markdown-plugin'
 import type { NavRecord, SidebarRecord, ResolvedNavRecord, ResolvedSidebarRecord, RouteRecord, PageAnchorOptions } from '@idux/archive-app'
 

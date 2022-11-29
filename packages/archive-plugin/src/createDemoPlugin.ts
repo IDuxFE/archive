@@ -81,7 +81,7 @@ function resolveCollector(
   }
 }
 
-export function createarchivePlugin(options?: Options): Plugin {
+export function createArchivePlugin(options?: Options): Plugin {
   let config: ResolvedConfig
   let demoStorage: DemoStorage
   let resolvedOptions: ResolvedOptions

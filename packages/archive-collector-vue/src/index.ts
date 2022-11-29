@@ -79,7 +79,7 @@ async function resolveDemo(absolutePath: string) {
 }
 
 function createDemoRenderer(setup?: string): (demo: CollectedDemo) => string {
-  return demo => `import { createInstance } from '@idux/archive-plugin-collector-vue/client'
+  return demo => `import { createInstance } from '@idux/archive-collector-vue/client'
 import demo from 'virtual:archive-demo-data:${demo.id}'
 ${setup && `import setup from ${JSON.stringify(setup)}`}
 
