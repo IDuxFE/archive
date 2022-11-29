@@ -1,0 +1,7 @@
+.dark .archive-code-light {
+  display: none;
+}
+
+html:not(.dark) .archive-code-dark {
+  display: none;
+}

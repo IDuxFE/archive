@@ -1,0 +1,90 @@
+.custom-block {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 16px 16px 8px;
+  line-height: 24px;
+  font-size: 14px;
+  color: var(--archive-md-text-color);
+}
+
+.custom-block.info {
+  border-color: var(--archive-md-custom-block-info-border);
+  color: var(--archive-md-custom-block-info-text);
+  background-color: var(--archive-md-custom-block-info-bg);
+}
+
+.custom-block.info code {
+  background-color: var(--archive-md-custom-block-info-code-bg);
+}
+
+.custom-block.success {
+  border-color: var(--archive-md-custom-block-tip-border);
+  color: var(--archive-md-custom-block-tip-text);
+  background-color: var(--archive-md-custom-block-tip-bg);
+}
+
+.custom-block.success code {
+  background-color: var(--archive-md-custom-block-tip-code-bg);
+}
+
+.custom-block.warning {
+  border-color: var(--archive-md-custom-block-warning-border);
+  color: var(--archive-md-custom-block-warning-text);
+  background-color: var(--archive-md-custom-block-warning-bg);
+}
+
+.custom-block.warning code {
+  background-color: var(--archive-md-custom-block-warning-code-bg);
+}
+
+.custom-block.error {
+  border-color: var(--archive-md-custom-block-danger-border);
+  color: var(--archive-md-custom-block-danger-text);
+  background-color: var(--archive-md-custom-block-danger-bg);
+}
+
+.custom-block.error code {
+  background-color: var(--archive-md-custom-block-danger-code-bg);
+}
+
+.custom-block.details {
+  border-color: var(--archive-md-custom-block-details-border);
+  color: var(--archive-md-custom-block-details-text);
+  background-color: var(--archive-md-custom-block-details-bg);
+}
+
+.custom-block.details code {
+  background-color: var(--archive-md-custom-block-details-code-bg);
+}
+
+.custom-block-title {
+  font-weight: 700;
+}
+
+.custom-block p + p {
+  margin: 8px 0;
+}
+
+.custom-block.details summary {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.custom-block.details summary + p {
+  margin: 8px 0;
+}
+
+.custom-block a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: opacity 0.25s;
+}
+
+.custom-block a:hover {
+  opacity: 0.6;
+}
+
+.custom-block code {
+  font-size: var(--archive-md-custom-block-code-font-size);
+}

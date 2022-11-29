@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+  },
+  "include": ["."],
+  "exclude": ["node_modules", "coverage", "dist", "vite.config.ts"],
+}

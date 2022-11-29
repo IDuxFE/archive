@@ -1,0 +1,91 @@
+@import './variables.less';
+
+@demo-prefix: ~'@{prefix}-demo';
+
+.@{demo-prefix} {
+  width: var(--archive-app-demo-width);
+  padding: var(--archive-app-demo-padding);
+  margin-bottom: var(--archive-app-demo-margin-bottom);
+  box-sizing: border-box;
+
+  &__title {
+    font-size: var(--archive-app-demo-title-font-size);
+    color: var(--archive-app-demo-title-color);
+    margin: 8px 0 12px 0;
+  }
+
+  &__description {
+    font-size: var(--archive-app-demo-description-font-size);
+    color: var(--archive-app-demo-description-color);
+    margin: 0 0 12px 0;
+  }
+
+  &__content {
+    width: 100%;
+    padding: var(--archive-app-demo-content-padding);
+    border: var(--archive-app-demo-stage-border);
+    box-sizing: border-box;
+    background: var(--archive-app-demo-content-background);
+    box-shadow: var(--archive-app-demo-content-box-shadow);
+
+    &-inner {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  &__stage {
+    box-sizing: border-box;
+    padding: var(--archive-app-demo-stage-padding);
+    background: var(--archive-app-demo-stage-background);
+  }
+
+  &__tools {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    height: var(--archive-app-demo-tools-height);
+    padding: var(--archive-app-demo-tools-padding);
+    gap: var(--archive-app-demo-tools-gap);
+    background: var(--archive-app-demo-tools-background);
+  }
+
+  &__tool {
+    font-size: var(--archive-app-demo-tool-font-size);
+    cursor: pointer;
+  }
+
+  &__source-code__content > div[class*='language-'] {
+    margin: 0;
+  }
+}
+
+.@{demo-prefix}-code-fade-down {
+  &-enter-active {
+    transition: opacity var(--archive-app-demo-source-code-transition-duration)
+        var(--archive-app-demo-source-code-transition-timing-fn),
+      transform var(--archive-app-demo-source-code-transition-duration)
+        var(--archive-app-demo-source-code-transition-timing-fn);
+  }
+
+  &-leave-active {
+    transition: opacity var(--archive-app-demo-source-code-transition-duration)
+        var(--archive-app-demo-source-code-transition-timing-fn),
+      transform var(--archive-app-demo-source-code-transition-duration)
+        var(--archive-app-demo-source-code-transition-timing-fn);
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  &-enter-to,
+  &-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

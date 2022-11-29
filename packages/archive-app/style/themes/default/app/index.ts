@@ -1,0 +1,10 @@
+import '@idux/components/style/core/reset.default.css'
+import '@idux/components/style/core/reset-scroll.default.css'
+import '@idux/components/default.less'
+import '@idux/cdk/index.css'
+
+import '../page/variables.less'
+import './variables.less'
+import '../../../app.less'
+import '../../../page.less'
+import '../../../demo.less'

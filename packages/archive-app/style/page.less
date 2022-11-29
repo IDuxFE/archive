@@ -1,0 +1,123 @@
+@import './variables.less';
+
+.@{prefix}__page {
+  min-height: 600px;
+  padding-bottom: 32px;
+  padding-left: 64px;
+  padding-right: 168px;
+
+  &__header {
+    margin-bottom: 8px;
+
+    > .archive-app-radio-group {
+      padding: 4px;
+      background-color: #eceff3;
+
+      border-radius: 22px;
+
+      .archive-app-radio-button {
+        text-align: center;
+        font-size: 16px;
+        height: 36px;
+        line-height: 36px;
+        min-width: 96px;
+        background-color: #eceff3;
+        color: #333333;
+        border: none;
+        border-radius: 18px;
+
+        &::before {
+          content: unset;
+        }
+
+        &:not(:first-child) {
+          margin-left: 4px;
+        }
+
+        &.archive-app-radio-checked {
+          background: @color-primary;
+          color: #fff;
+          box-shadow: @shadow-bottom-sm;
+        }
+      }
+    }
+  }
+
+  &__title {
+    display: inline-block;
+    height: 60px;
+    margin-bottom: 16px;
+    font-size: 30px;
+  }
+
+  &__description {
+    margin-top: -12px;
+    margin-bottom: 16px;
+  }
+
+  &__content {
+    width: 100%;
+    position: relative;
+
+    &__anchor {
+      position: absolute;
+      top: @spacing-sm;
+      right: 0;
+    
+      .archive-app-affix-content {
+        padding: 16px;
+      }
+      .archive-app-anchor {
+        &-link {
+          &-title {
+            width: @toc-width;
+          }
+        }
+      }
+
+      @media (max-width: @screen-xs-max) {
+        & {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // &-api {
+  //   table {
+  //     overflow-x: auto;
+  //     overflow-y: hidden;
+  //     line-height: 22px;
+
+  //     td {
+  //       & code {
+  //         color: @color-magenta;
+  //       }
+  //     }
+
+  //     @media (max-width: @screen-xs-max) {
+  //       display: block;
+  //     }
+  //   }
+  // }
+
+  // &-theme {
+  //   margin-top: 24px;
+
+  //   table {
+  //     overflow-x: auto;
+  //     overflow-y: hidden;
+  //     line-height: 22px;
+
+  //     td {
+  //       & code {
+  //         color: @color-magenta;
+  //       }
+  //     }
+
+  //     @media (max-width: @screen-xs-max) {
+  //       display: block;
+  //     }
+  //   }
+  // }
+}

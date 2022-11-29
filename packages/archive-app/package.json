@@ -1,0 +1,35 @@
+{
+  "name": "@idux/archive-app",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && pnpm run build:app && pnpm run build:style && pnpm run build:types",
+    "build:app": "vite build",
+    "build:style": "rimraf dist/app/themes && node ./scripts/buildStyle.js",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir ./dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@idux/cdk": "^1.1.2",
+    "@idux/components": "^1.1.2",
+    "@idux/archive-markdown-plugin": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "@idux/archive-plugin": "^0.0.1",
+    "lodash-es": "^4.17.21",
+    "rollup": "^3.4.0",
+    "vue": "^3.2.41",
+    "vue-router": "^4.1.6"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.41",
+    "vue-router": "^4.1.6"
+  }
+}

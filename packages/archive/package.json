@@ -1,0 +1,36 @@
+{
+  "name": "@idux/archive",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/src/index.d.ts",
+  "bin": {
+    "archive": "./dist/bin.mjs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && pnpm run build:scripts && pnpm run build:types",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir ./dist",
+    "build:scripts": "node ./scripts/buildScripts.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@idux/archive-app": "^0.0.1",
+    "@idux/archive-markdown-plugin": "^0.0.1",
+    "@idux/archive-plugin": "^0.0.1",
+    "@idux/archive-collector-vue": "^0.0.1",
+    "change-case": "^4.1.2",
+    "chokidar": "^3.5.3",
+    "jiti": "^1.16.0",
+    "pathe": "^1.0.0",
+    "picocolors": "^1.0.0",
+    "sade": "^1.8.1"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
+    "lodash-es": "^4.17.21",
+    "rollup": "^3.4.0"
+  }
+}

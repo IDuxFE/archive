@@ -1,0 +1,141 @@
+/**
+ * Colors Theme
+ * -------------------------------------------------------------------------- */
+@import '../code.css';
+@import '../doc.css';
+@import '../custom-block.css';
+
+:root {
+  --archive-md-background-color: #fff;
+  --archive-md-background-color-mute: #f1f1f1;
+  --archive-md-background-color-alt: #f9f9f9;
+
+  --archive-md-divider-color: #e0e0e0;
+  --archive-md-divider-color-light: #eeeeee;
+
+  --archive-md-divider-inverse: rgba(84, 84, 84, 0.65);
+  --archive-md-divider-inverse-light: rgba(60, 60, 60, 0.12);
+
+  --archive-md-text-color: #1f1f1f;
+  --archive-md-text-color-light: rgb(0 0 0 / 45%);
+  --archive-md-text-color-inverse: #fff;
+
+  --archive-md-text-color-code: #476582;
+
+  --archive-md-color-primary: #1c6eff;
+  --archive-md-color-primary-lighter: #e8f4ff;
+  --archive-md-color-primary-light: #458fff;
+  --archive-md-color-primary-dark: #0d51d9;
+
+  --archive-md-font-size: 14px;
+}
+
+.dark {
+  --archive-md-background-color: #242424;
+  --archive-md-background-color-mute: #3a3a3a;
+  --archive-md-background-color-alt: #1a1a1a;
+
+  --archive-md-divider-color: rgba(84, 84, 84, 0.65);
+  --archive-md-divider-color-light: rgba(84, 84, 84, 0.48);
+
+  --archive-md-divider-color-inverse: rgba(60, 60, 60, 0.29);
+  --archive-md-divider-color-inverse-light: rgba(60, 60, 60, 0.12);
+
+  --archive-md-text-color: rgba(235, 235, 235, 0.6);
+  --archive-md-text-color-light: rgba(245, 245, 245, 0.6);
+  --archive-md-text-color-inverse: rgba(60, 60, 60, 0.7);
+
+  --archive-md-text-color-code: #c9def1;
+}
+
+/**
+ * Typography
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --archive-md-font-family-base: 'Inter var experimental', 'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --archive-md-font-family-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+}
+
+/**
+ * Component: Code
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --archive-md-code-line-height: 1.7;
+  --archive-md-code-font-size: 0.875em;
+
+  --archive-md-code-block-color: rgba(255, 255, 255, 0.87);
+  --archive-md-code-block-bg: #292d3e;
+
+  --archive-md-code-line-highlight-color: rgba(0, 0, 0, 0.5);
+  --archive-md-code-line-number-color: rgba(235, 235, 235, 0.38);
+
+  --archive-md-code-line-diff-add-color: rgba(125, 191, 123, 0.1);
+  --archive-md-code-line-diff-add-symbol-color: rgba(125, 191, 123, 0.5);
+
+  --archive-md-code-line-diff-remove-color: rgba(255, 128, 128, 0.05);
+  --archive-md-code-line-diff-remove-symbol-color: rgba(255, 128, 128, 0.5);
+
+  --archive-md-code-line-error-color: rgba(237, 60, 80, 0.25);
+  --archive-md-code-line-warning-color: rgba(255, 197, 23, 0.25);
+
+  --archive-md-code-copy-code-hover-bg: rgba(255, 255, 255, 0.05);
+  --archive-md-code-copy-code-active-text: rgba(235, 235, 235, 0.6);
+}
+
+.dark {
+  --archive-md-code-block-bg: var(--archive-md-background-color-alt);
+}
+
+/* check */
+/**
+ * Component: Custom Block 
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --archive-md-custom-block-code-font-size: 13px;
+
+  --archive-md-custom-block-info-border: var(--archive-md-divider-color-light);
+  --archive-md-custom-block-info-text: var(--librarie-text-color);
+  --archive-md-custom-block-info-bg: var(--archive-md-color-primary-lighter);
+  --archive-md-custom-block-info-code-bg: #e5e5e5;
+
+  --archive-md-custom-block-success-border: #45d9a3;
+  --archive-md-custom-block-success-text: #12a679;
+  --archive-md-custom-block-success-bg: #f5fffa;
+  --archive-md-custom-block-success-code-bg: var(--archive-md-custom-block-success-bg);
+
+  --archive-md-custom-block-warning-border: #ffc145;
+  --archive-md-custom-block-warning-text: #fdaa1d;
+  --archive-md-custom-block-warning-bg: #fffae8;
+  --archive-md-custom-block-warning-code-bg: var(--archive-md-custom-block-warning-bg);
+
+  --archive-md-custom-block-error-border: #ff5752;
+  --archive-md-custom-block-error-text: #cf171d;
+  --archive-md-custom-block-error-bg: #fff7f5;
+  --archive-md-custom-block-error-code-bg: var(--archive-md-custom-block-error-bg);
+
+  --archive-md-custom-block-details-border: var(--archive-md-divider-color-light);
+  --archive-md-custom-block-details-text: var(--librarie-text-color);
+  --archive-md-custom-block-details-bg: var(--archive-md-background-color-mute);
+  --archive-md-custom-block-details-code-bg: var(--archive-md-custom-block-details-bg);
+}
+
+.dark {
+  --archive-md-custom-block-detail-border: var(--archive-md-divider-color-light);
+  --archive-md-custom-block-detail-bg: #2f2f2f;
+  --archive-md-custom-block-detail-code-bg: #282828;
+
+  --archive-md-custom-block-success-border: var(--archive-md-color-primary-lighter);
+  --archive-md-custom-block-success-text: var(--archive-md-color-primary-light);
+
+  --archive-md-custom-block-warning-border: rgba(255, 197, 23, 0.25);
+  --archive-md-custom-block-warning-text: #fcd253;
+
+  --archive-md-custom-block-error-border: rgba(237, 60, 80, 0.25);
+  --archive-md-custom-block-error-text: #f54e82;
+}

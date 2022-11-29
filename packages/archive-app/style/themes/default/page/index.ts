@@ -1,0 +1,15 @@
+import './reset.less'
+import '@idux/components/_private/overlay/style/themes/default.less'
+
+import '@idux/components/radio/style/themes/default.less'
+import '@idux/components/tooltip/style/themes/default.less'
+import '@idux/components/message/style/themes/default.less'
+import '@idux/components/tabs/style/themes/default.less'
+import '@idux/components/icon/style/themes/default.less'
+import '@idux/components/anchor/style/themes/default.less'
+import '@idux/components/affix/style/themes/default.less'
+import '@idux/archive-markdown-plugin/style/themes/default.css'
+
+import './variables.less'
+import '../../../page.less'
+import '../../../demo.less'
