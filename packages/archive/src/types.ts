@@ -1,28 +1,28 @@
 import type { Collector, CollectedDemo } from '@idux/archive-plugin'
 import type { VueCollectorOptions } from '@idux/archive-collector-vue'
 import type { MarkdownOptions } from '@idux/archive-markdown-plugin'
-import type { NavRecord, SidebarRecord, ResolvedNavRecord, ResolvedSidebarRecord, RouteRecord, PageAnchorOptions } from '@idux/archive-app'
+import type { NavRecord, ResolvedNavRecord, RouteRecord, ThemeOptions } from '@idux/archive-app'
+import type { SetRequired } from 'type-fest'
 
-export interface archiveVueCollector extends Partial<VueCollectorOptions> {
+export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
   name: 'vue'
 }
 
-export type archiveTheme = 'default' | 'seer'
-
-export interface archiveConfig {
-  navConfig?: (demos: CollectedDemo[], root: string) => NavRecord[] | undefined
-  sidebarConfig?: (demos: CollectedDemo[], root: string) => SidebarRecord[] | Record<string, SidebarRecord[]>
-  collectors?: (Collector | archiveVueCollector)[]
+export type ArchiveThemeStyle = 'default' | 'seer'
+export interface ArchiveThemeOptions extends ThemeOptions {
+  themeStyle?: ArchiveThemeStyle
+}
+export interface ArchiveConfig {
+  navConfig?: (demos: CollectedDemo[], root: string) => NavRecord[]
+  collectors?: (Collector | ArchiveVueCollector)[]
   markdownOptions?: MarkdownOptions
-  pageAnchor: PageAnchorOptions | boolean
-  theme?: archiveTheme
+  theme?: ArchiveThemeOptions
   dist?: string
   root?: string
 }
 
 export interface RecordsContext {
-  resolvedNavRecords: ResolvedNavRecord[] | undefined
-  resolvedSidebarRecords: ResolvedSidebarRecord[] | Record<string, ResolvedSidebarRecord[]>
+  resolvedNavRecords: ResolvedNavRecord[]
   routeRecords: RouteRecord[]
 }
 
@@ -30,8 +30,7 @@ export interface ResolvedarchiveConfig {
   collectors: Collector[]
   onDemosCollected: (demos: CollectedDemo[]) => void
   getResolvedRecords: () => RecordsContext
-  theme: archiveTheme
-  pageAnchor: PageAnchorOptions | boolean
+  theme: SetRequired<ArchiveThemeOptions, 'themeStyle'>
   markdownOptions: MarkdownOptions
   dist: string
   root: string

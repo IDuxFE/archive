@@ -1,6 +1,8 @@
 import './reset.less'
 
 import '@idux/components/_private/overlay/style/themes/seer.less'
+import '@idux/components/button/style/themes/seer.less'
+import '@idux/components/space/style/themes/seer.less'
 import '@idux/components/radio/style/themes/seer.less'
 import '@idux/components/tooltip/style/themes/seer.less'
 import '@idux/components/message/style/themes/seer.less'
@@ -13,3 +15,4 @@ import '@idux/archive-markdown-plugin/style/themes/seer.css'
 import './variables.less'
 import '../../../page.less'
 import '../../../demo.less'
+import './overwrite.less'

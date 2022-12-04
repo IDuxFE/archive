@@ -1,14 +1,16 @@
 import type { AppMountOptions, PageInstance } from '../types'
 
+import { resolveThemeOptions } from '../resolveThemeOptions'
 import { createPageInstance } from './createPageInstance'
 
 export function createAllPageInstance(options: AppMountOptions) {
-  const { routeRecords, pageAnchor } = options
+  const { routeRecords, theme } = options
+  const reseolvedTheme = resolveThemeOptions(theme)
 
   const instances: Record<string, PageInstance> = {}
 
   routeRecords.forEach(record => {
-    instances[record.path] = createPageInstance(record, pageAnchor)
+    instances[record.path] = createPageInstance(record, reseolvedTheme)
   })
 
   return instances

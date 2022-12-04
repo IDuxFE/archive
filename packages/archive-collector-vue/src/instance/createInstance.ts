@@ -21,6 +21,7 @@ function mountDemo(el: HTMLElement, demo: ResolvedVue3Demo, setup?: VueCollector
   if (!__demo_mount_app__) {
     __demo_mount_app__ = createApp({ render: () => createVNode('div') })
     setup?.setupApp?.(__demo_mount_app__)
+    __demo_mount_app__.mount(document.createDocumentFragment())
   }
 
   let vm = createVNode(defineAsyncComponent(demo.component))

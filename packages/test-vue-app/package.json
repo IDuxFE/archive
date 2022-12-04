@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@idux/cdk": "^1.1.2",
-    "@idux/components": "^1.1.2",
+    "@idux/cdk": "^1.2.0",
+    "@idux/components": "^1.2.0",
     "vue": "^3.2.41"
   },
   "devDependencies": {

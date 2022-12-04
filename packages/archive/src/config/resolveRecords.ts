@@ -1,9 +1,6 @@
 import type { RecordsContext } from '../types'
 import type {
-  AppMountOptions,
-  ResolvedSidebarRecord,
   ResolvedNavRecord,
-  SidebarRecord,
   NavRecord,
   RouteRecord,
   PageData,
@@ -12,60 +9,24 @@ import type {
 } from '@idux/archive-app'
 
 import { mapTree, normalizePath } from '../utils'
-import { isArray } from 'lodash-es'
 
-export function resolveRecords(
-  navRecords: NavRecord[] | undefined,
-  sidebarRecords: SidebarRecord[] | Record<string, SidebarRecord[]>,
-): RecordsContext {
+export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
   const routeRecords: RouteRecord[] = []
-  const sidebarNavRecordMap = new Map<string, ResolvedNavRecord & { type: 'sidebar' }>()
 
-  let resolvedSidebarRecords: AppMountOptions['sidebarRecords']
-  let resolvedNavRecords: AppMountOptions['navRecords']
+  let resolvedNavRecords: ResolvedNavRecord[]
+  let recordsMap = new Map<NavRecord, ResolvedNavRecord & { type: 'sub' }>()
 
-  const resolveSidebarRecords = (records: SidebarRecord[], sidebar?: string) => {
-    return mapTree(records, 'children', (record, parents) => {
-      const resolvedRecord = { ...record } as ResolvedSidebarRecord
-      if (resolvedRecord.type === 'item') {
-        resolvedRecord.path =
-          parents
-            .reverse()
-            .map(p => p.id)
-            .join('/') +
-          '/' +
-          resolvedRecord.id
-
-        if (sidebar && sidebarNavRecordMap.has(sidebar)) {
-          const sidbarNavRecord = sidebarNavRecordMap.get(sidebar)!
-          resolvedRecord.path = normalizePath(sidbarNavRecord.prefix + '/' + resolvedRecord.path)
-        } else {
-          resolvedRecord.path = normalizePath('/' + resolvedRecord.path)
-        }
-
-        const resolvedData = resolvePageData(resolvedRecord.pageData)
-        resolvedRecord.pageData = resolvedData
-
-        routeRecords.push({
-          path: resolvedRecord.path,
-          pageData: resolvedRecord.pageData,
-        })
-      }
-
-      return resolvedRecord
-    })
-  }
-
-  const resolveNavRecords = (records: NavRecord[]) => {
+  const resolveSidebarRecords = (records: NavRecord[]) => {
     return mapTree(records, 'children', (record, parents) => {
       const resolvedRecord = { ...record } as ResolvedNavRecord
       if (resolvedRecord.type === 'item') {
         resolvedRecord.path = normalizePath(
           '/' +
-            parents
+            [...parents]
               .reverse()
               .map(p => p.id)
               .join('/') +
+            '/' +
             resolvedRecord.id,
         )
 
@@ -76,49 +37,28 @@ export function resolveRecords(
           path: resolvedRecord.path,
           pageData: resolvedRecord.pageData,
         })
+
+        parents.forEach(parent => {
+          if (parent.type === 'sub' && recordsMap.has(parent)) {
+            const parentRecord = recordsMap.get(parent)!
+            parentRecord.path = resolvedRecord.path
+            recordsMap.delete(parent)
+          }
+        })
       }
 
-      if (resolvedRecord.type === 'sidebar') {
-        resolvedRecord.prefix = normalizePath(
-          '/' +
-            parents
-              .reverse()
-              .map(p => p.id)
-              .join('/') +
-            resolvedRecord.sidebar,
-        )
-        sidebarNavRecordMap.set(resolvedRecord.sidebar, resolvedRecord)
+      if (resolvedRecord.type === 'sub') {
+        recordsMap.set(record, resolvedRecord)
       }
 
       return resolvedRecord
     })
   }
 
-  if (navRecords) {
-    resolvedNavRecords = resolveNavRecords(navRecords)
-  }
-
-  if (isArray(sidebarRecords)) {
-    resolvedSidebarRecords = resolveSidebarRecords(sidebarRecords)
-  } else {
-    let temp = {} as Record<string, ResolvedSidebarRecord[]>
-    Object.entries(sidebarRecords).forEach(([sidebar, records]) => {
-      temp[sidebar] = resolveSidebarRecords(records, sidebar)
-
-      const sidebarNavRecord = sidebarNavRecordMap.get(sidebar)
-      if (sidebarNavRecord && temp[sidebar][0]) {
-        sidebarNavRecord.path = normalizePath(sidebarNavRecord.prefix + '/' + temp[sidebar][0].id)
-      }
-    })
-
-    resolvedSidebarRecords = temp
-  }
-
-  sidebarNavRecordMap.clear()
+  resolvedNavRecords = resolveSidebarRecords(navRecords)
 
   return {
     resolvedNavRecords,
-    resolvedSidebarRecords,
     routeRecords,
   }
 }

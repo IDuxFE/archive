@@ -1,82 +1,48 @@
 import type { Except } from 'type-fest'
 import type { PageData, ResolvedPageData } from './page'
+import type { MenuItemProps, MenuSubProps, MenuItemGroupProps } from '@idux/components/menu'
 
 interface NavRecordBase {
   id: string
   name: string
 }
-interface ItemNavRecord extends NavRecordBase {
-  type: 'item'
-  pageData: PageData
-}
-interface SidebarNavRecord extends NavRecordBase {
-  type: 'sidebar'
-  sidebar: string
-}
 interface LinkNavRecord extends NavRecordBase {
-  type: 'link'
-  link: string
-}
-interface DropdownNavRecord extends NavRecordBase {
-  type: 'dropdown'
-  children: NavRecord[]
-}
-
-interface SidebarRecordBase {
-  id: string
-  name: string
-}
-interface LinkSidebarRecord extends SidebarRecordBase {
   type: 'link'
   link: string
 }
 
 // TODO: support custom
-interface ItemSidebarRecord extends SidebarRecordBase {
+interface ItemNavRecord extends NavRecordBase {
   type: 'item'
   pageData: PageData
 }
-interface SubSidebarRecord extends SidebarRecordBase {
+interface SubNavRecord extends NavRecordBase {
   type: 'sub'
-  children: SidebarRecord[]
+  children: NavRecord[]
 }
-interface GroupSidebarRecord extends SidebarRecordBase {
+interface GroupNavRecord extends NavRecordBase {
   type: 'group'
-  children: SidebarRecord[]
+  children: NavRecord[]
 }
 
-export type NavRecordType = 'item' | 'sidebar' | 'link' | 'dropdown'
-export type SidebarRecordType = 'item' | 'group' | 'link' | 'sub'
+export type NavRecordType = 'item' | 'group' | 'link' | 'sub'
 
 interface ResolvedItemNavRecord extends Except<ItemNavRecord, 'pageData'> {
   path: string
   pageData: ResolvedPageData
 }
-interface ResolvedSidebarNavRecord extends SidebarNavRecord {
-  path: string
-  prefix: string
+interface ResolvedGroupNavRecord extends Except<GroupNavRecord, 'children'> {
+  children: ResolvedNavRecord[]
 }
-export type NavRecord = ItemNavRecord | SidebarNavRecord | LinkNavRecord | DropdownNavRecord
-export type ResolvedNavRecord =
-  | ResolvedItemNavRecord
-  | ResolvedSidebarNavRecord
-  | LinkNavRecord
-  | DropdownNavRecord
+interface ResolvedSubNavRecord extends Except<SubNavRecord, 'children'> {
+  path: string
+  children: ResolvedNavRecord[]
+}
+export type NavRecord = ItemNavRecord | LinkNavRecord | GroupNavRecord | SubNavRecord
+export type ResolvedNavRecord = ResolvedItemNavRecord | LinkNavRecord | ResolvedGroupNavRecord | ResolvedSubNavRecord
 
-interface ResolvedItemSidebarRecord extends Except<ItemSidebarRecord, 'pageData'> {
-  path: string
-  pageData: 
-  ResolvedPageData
-}
-interface ResolvedGroupSidebarRecord extends Except<GroupSidebarRecord, 'children'> {
-  children: ResolvedSidebarRecord[]
-}
-interface ResolvedSubSidebarRecord extends Except<SubSidebarRecord, 'children'> {
-  children: ResolvedSidebarRecord[]
-}
-export type SidebarRecord = ItemSidebarRecord | LinkSidebarRecord | GroupSidebarRecord | SubSidebarRecord
-export type ResolvedSidebarRecord =
-  | ResolvedItemSidebarRecord
-  | LinkSidebarRecord
-  | ResolvedGroupSidebarRecord
-  | ResolvedSubSidebarRecord
+export type ResolvedMenuData =
+  | (Except<ResolvedItemNavRecord, 'type'> & MenuItemProps & { recordType: 'item' })
+  | (Except<LinkNavRecord, 'type'> & MenuItemProps & { recordType: 'link' })
+  | (Except<ResolvedGroupNavRecord, 'type'> & MenuItemGroupProps & { recordType: 'group' })
+  | (Except<ResolvedSubNavRecord, 'type'> & MenuSubProps & { recordType: 'sub' })

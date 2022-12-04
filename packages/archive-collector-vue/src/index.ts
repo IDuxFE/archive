@@ -2,25 +2,33 @@ import type { CollectedDemo, Collector, SourceCode } from '@idux/archive-plugin'
 import type { VueCollectorOptions } from './types'
 
 import { parse } from '@vue/compiler-sfc'
-import { createMarkdownRenderer } from '@idux/archive-markdown-plugin'
+import { type MarkdownRenderer, createMarkdownRenderer } from '@idux/archive-markdown-plugin'
 import { readFileSync } from 'fs'
 import { basename, dirname, resolve, isAbsolute } from 'pathe'
 
 const META_BLOCK_TYPE = 'archive-meta'
 
 export function createVueCollector(options: VueCollectorOptions): Collector {
+  let mdRendererPromise: Promise<MarkdownRenderer>
+  const getMarkdownRenderer = () => {
+    if (!mdRendererPromise) {
+      mdRendererPromise = createMarkdownRenderer(options.srcDir ?? '.')
+    }
+
+    return mdRendererPromise
+  }
 
   return {
-    name: 'vue3',
-    resolver: resolveDemo,
+    name: 'vue',
+    resolver: absolutePath => resolveDemo(absolutePath, getMarkdownRenderer),
     demoRenderer: createDemoRenderer(options?.setup),
     ...options,
   }
 }
 
-async function resolveDemo(absolutePath: string) {
+async function resolveDemo(absolutePath: string, getMarkdownRenderer: () => Promise<MarkdownRenderer>) {
   const demoDirPath = dirname(absolutePath)
-  const md = await createMarkdownRenderer(demoDirPath)
+  const md = await getMarkdownRenderer()
 
   const genCodeHtml = (code: string) => md.render('```html \r\n' + code + '\r\n ```')
 
@@ -38,6 +46,7 @@ async function resolveDemo(absolutePath: string) {
       _desc && (description = _desc)
       _dep && (dependencies = _dep)
     } catch (err) {
+      console.error(err)
       // TODO: error log
     }
   }
@@ -56,6 +65,7 @@ async function resolveDemo(absolutePath: string) {
           const resolvedFilePath = isAbsolute(depPath) ? depPath : resolve(demoDirPath, depPath)
           depFile = readFileSync(resolvedFilePath, 'utf-8')
         } catch (err) {
+          console.error(err)
           //TODO: error log
         }
 
@@ -69,6 +79,8 @@ async function resolveDemo(absolutePath: string) {
       })
       .filter(Boolean) as SourceCode[]),
   ]
+
+  console.log('vue demo resolved', absolutePath)
 
   return {
     title,

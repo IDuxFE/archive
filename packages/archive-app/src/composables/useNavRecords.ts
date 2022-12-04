@@ -1,21 +1,20 @@
-import type { AppMountOptions, ResolvedNavRecord } from '../types'
+import type { NavRecordType, ResolvedNavRecord, ResolvedMenuData } from '../types'
 import { type ComputedRef, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { type RouteLocationNormalizedLoaded } from 'vue-router'
 
-import { traverseTree } from '../utils'
+import { mapTree } from '../utils'
 
 export interface NavRecordsContext {
-  records: ResolvedNavRecord[] | undefined
-  activeSidebar: ComputedRef<string | undefined>
-  activeSidebarNavRecord: ComputedRef<ResolvedNavRecord | undefined>
   activeRecords: ComputedRef<ResolvedNavRecord[]>
+  menuData: ResolvedMenuData[]
 }
 
-export function useNavRecords(navRecords: AppMountOptions['navRecords']): NavRecordsContext {
-  const route = useRoute()
+export function useNavRecords(
+  navRecords: ResolvedNavRecord[],
+  route: RouteLocationNormalizedLoaded,
+): NavRecordsContext {
   const pathRecordMap = new Map<string, ResolvedNavRecord>()
   const parentRecordMap = new Map<string, ResolvedNavRecord>()
-  const sidebarPrefixMap = new Map<string, ResolvedNavRecord & { type: 'sidebar' }>()
 
   const traverseParents = (record: ResolvedNavRecord, fn: (parent: ResolvedNavRecord) => void) => {
     const parent = parentRecordMap.get(record.id)
@@ -27,34 +26,44 @@ export function useNavRecords(navRecords: AppMountOptions['navRecords']): NavRec
     traverseParents(parent, fn)
   }
 
-  const processRecords = (records: ResolvedNavRecord[]) => {
-    traverseTree(records, 'children', (record, parents) => {
+  const getMenuDataType = (type: NavRecordType): ResolvedMenuData['type'] => {
+    switch (type) {
+      case 'item':
+      case 'sub':
+        return type
+
+      case 'group':
+        return 'itemGroup'
+      case 'link':
+      default:
+        return 'item'
+    }
+  }
+  const processRecords = (records: ResolvedNavRecord[]) =>
+    mapTree(records, 'children', (record, parents) => {
       if (record.type === 'item') {
         pathRecordMap.set(record.path, record)
-      } else if (record.type === 'sidebar') {
-        sidebarPrefixMap.set(record.prefix, record)
       }
 
       if (parents[0]) {
         parentRecordMap.set(record.id, parents[0])
       }
+
+      const menu = {
+        ...record,
+        key: (record as any).path ?? record.id,
+        type: getMenuDataType(record.type),
+        label: record.name,
+        recordType: record.type,
+      }
+
+      return menu as ResolvedMenuData
     })
-  }
 
-  if (navRecords) {
-    processRecords(navRecords)
-  }
-
-  const activeSidebarNavRecord = computed(() => {
-    const prefix = [...sidebarPrefixMap.keys()].find(p => route.path.startsWith(p))
-
-    return prefix ? sidebarPrefixMap.get(prefix) : undefined
-  })
-  const activeSidebar = computed(() => activeSidebarNavRecord.value?.sidebar)
-
+  const menuData = processRecords(navRecords)
   const activeRecords = computed(() => {
     const _activeRecords: ResolvedNavRecord[] = []
-    const currentActiveRecord = pathRecordMap.get(route.path) ?? activeSidebarNavRecord.value
+    const currentActiveRecord = pathRecordMap.get(route.path)
 
     if (currentActiveRecord) {
       _activeRecords.push(currentActiveRecord)
@@ -65,9 +74,7 @@ export function useNavRecords(navRecords: AppMountOptions['navRecords']): NavRec
   })
 
   return {
-    records: navRecords,
-    activeSidebar,
-    activeSidebarNavRecord,
+    menuData,
     activeRecords,
   }
 }

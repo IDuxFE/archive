@@ -57,8 +57,19 @@
     cursor: pointer;
   }
 
-  &__source-code__content > div[class*='language-'] {
-    margin: 0;
+  &__source-code {
+    .archive-app-tabs {
+      background: var(--archive-app-demo-content-background);
+    }
+    .archive-app-tabs-pane-wrapper {
+      padding-top: 0;
+    }
+
+    &__content > div[class*='language-'] {
+      margin: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
   }
 }
 

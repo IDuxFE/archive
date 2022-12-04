@@ -170,8 +170,7 @@
   border: none;
 }
 
-.archive-md table th:not(:last-child),
-.archive-md table td:not(:last-child) {
+.archive-md table th:not(:last-child) {
   border-right: 1px solid var(--archive-md-divider-color);
 }
 
