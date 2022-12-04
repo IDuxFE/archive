@@ -7,6 +7,7 @@ export type Theme = 'default' | 'seer'
 
 export interface VueCollectorOptions extends Except<Collector, 'name'> {
   setup?: string
+  srcDir?: string
 }
 
 export interface VueCollectorSetup {

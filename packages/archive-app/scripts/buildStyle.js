@@ -1,6 +1,6 @@
 const { build } = require('vite')
 const { resolve } = require('path')
-const { unlink } = require('fs/promises')
+const { unlinkSync, existsSync } = require('fs')
 
 const getConfig = (theme) => ({
   configFile: false,
@@ -10,18 +10,19 @@ const getConfig = (theme) => ({
     cssCodeSplit: true,
 
     lib: {
-      entry: '',
+      entry: theme.input,
       formats: ['es'],
     },
 
     rollupOptions: {
-      input: {
-        [`themes/${theme.name}/${theme.chunk}`]: theme.input,
-      },
+      // input: {
+      //   [`themes/${theme.name}/${theme.chunk}`]: theme.input,
+      // },
       output: {
-        entryFileNames: '[name].js',
+        entryFileNames: `__temp__.js`,
         assetFileNames: `themes/${theme.name}/${theme.chunk}.css`,
-      }
+      },
+      external: []
     },
   },
   css: {
@@ -30,6 +31,7 @@ const getConfig = (theme) => ({
         javascriptEnabled: true,
         modifyVars: {
           '@idux-prefix': 'archive-app',
+          '@idux-pro-prefix': 'archive-app-pro'
         },
       },
     },
@@ -46,7 +48,11 @@ const themes = [
 ;(async () => {
   await Promise.all(themes.map(async theme => {
     await build(getConfig(theme))
-    await unlink(resolve(__dirname, `../dist/themes/${theme.name}/${theme.chunk}.js`))
+
+    const styleTempFile = resolve(__dirname, '../dist/__temp__.js')
+    if (existsSync(styleTempFile)) {
+      unlinkSync(styleTempFile)
+    }
     // await appendFile(resolve(__dirname, `../dist/themes/${theme.name}/${theme.chunk}.js`), `\n import "./${theme.chunk}.css"`)
   }))
 })()

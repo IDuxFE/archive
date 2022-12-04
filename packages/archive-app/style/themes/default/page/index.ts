@@ -1,6 +1,8 @@
 import './reset.less'
-import '@idux/components/_private/overlay/style/themes/default.less'
 
+import '@idux/components/_private/overlay/style/themes/default.less'
+import '@idux/components/button/style/themes/default.less'
+import '@idux/components/space/style/themes/default.less'
 import '@idux/components/radio/style/themes/default.less'
 import '@idux/components/tooltip/style/themes/default.less'
 import '@idux/components/message/style/themes/default.less'

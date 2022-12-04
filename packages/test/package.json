@@ -8,7 +8,9 @@
     "build": ""
   },
   "dependencies": {
-    "@idux/components": "^1.1.2",
+    "@idux/cdk": "^1.2.0",
+    "@idux/components": "^1.2.0",
+    "@idux/pro": "^1.2.0",
     "vue": "^3.2.41"
   },
   "devDependencies": {

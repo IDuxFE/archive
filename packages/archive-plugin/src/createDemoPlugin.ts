@@ -102,6 +102,9 @@ export function createArchivePlugin(options?: Options): Plugin {
       resolvedOptions = resolveOptions(config, options)
       demoStorage = createDemoStorage(resolvedOptions)
 
+      await collectAllDemos(resolvedOptions, demoStorage)
+      resolvedOptions.onDemosCollected(demoStorage.getAll())
+
       if (config.command !== 'build') {
         watchDemos(resolvedOptions, demoStorage)
       } else {

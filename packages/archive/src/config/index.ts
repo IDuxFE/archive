@@ -1,5 +1,6 @@
-import type { archiveConfig, ResolvedarchiveConfig } from '../types'
+import type { ArchiveConfig, ResolvedarchiveConfig } from '../types'
 import type { CollectedDemo } from '@idux/archive-plugin'
+import type { SetRequired } from 'type-fest'
 
 import { parse, join, dirname } from 'pathe'
 import { existsSync } from 'fs'
@@ -7,16 +8,16 @@ import { pathToFileURL } from 'node:url'
 
 import { resolveRecords } from './resolveRecords'
 import { resolveCollectors } from './resolveCollectors'
-import { getSidebarRecordsByDirectory } from './getSidebarRecordsByDirectory'
+import { directoryNavGetter } from './directoryNavGetter'
 
 export const configFileNames = ['archive.config.js']
 
-export function defineConfig(config: archiveConfig): archiveConfig {
+export function defineConfig(config: ArchiveConfig): ArchiveConfig {
   return config
 }
 
 export async function loadConfig(cwd: string = process.cwd()): Promise<{
-  config: archiveConfig | undefined
+  config: ArchiveConfig | undefined
   configFilePath: string | undefined
 }> {
   const configFilePath = findUp(cwd, configFileNames)
@@ -45,8 +46,8 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<{
   }
 }
 
-export function resolveConfig(config?: archiveConfig): ResolvedarchiveConfig {
-  const { navConfig, sidebarConfig, theme, pageAnchor, collectors, markdownOptions, dist, root } = mergeConfig(config)
+export function resolveConfig(config?: ArchiveConfig): ResolvedarchiveConfig {
+  const { navConfig, theme, collectors, markdownOptions, dist, root } = mergeConfig(config)
 
   let running = false
   let resolvedRecords: ReturnType<typeof resolveRecords>
@@ -58,9 +59,7 @@ export function resolveConfig(config?: archiveConfig): ResolvedarchiveConfig {
 
     running = true
     const navRecords = navConfig(demos, root)
-    const sidebarRecords = sidebarConfig(demos, root)
-
-    resolvedRecords = resolveRecords(navRecords, sidebarRecords)
+    resolvedRecords = resolveRecords(navRecords)
     running = false
   }
 
@@ -71,23 +70,25 @@ export function resolveConfig(config?: archiveConfig): ResolvedarchiveConfig {
     onDemosCollected,
     getResolvedRecords,
     theme,
-    pageAnchor,
     markdownOptions,
     dist,
     root,
   }
 }
 
-function mergeConfig(config?: archiveConfig): Required<archiveConfig> {
-  const { navConfig, sidebarConfig, theme, pageAnchor, collectors, markdownOptions, dist, root } = config ?? {}
+function mergeConfig(
+  config?: ArchiveConfig,
+): Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }> {
+  const { navConfig, theme, collectors, markdownOptions, dist, root } = config ?? {}
   const resolvedRoot = root ?? process.cwd()
 
   return {
-    navConfig: navConfig ?? (() => undefined),
-    sidebarConfig: sidebarConfig ?? ((demos, root) => getSidebarRecordsByDirectory(demos, root)),
+    navConfig: navConfig ?? ((demos, root) => directoryNavGetter(demos, root)),
     collectors: collectors ?? [],
-    theme: theme ?? 'default',
-    pageAnchor: pageAnchor ?? true,
+    theme: {
+      themeStyle: theme?.themeStyle ?? 'default',
+      ...(theme ?? {}),
+    },
     markdownOptions: markdownOptions ?? {},
     dist: dist ?? 'dist',
     root: resolvedRoot,

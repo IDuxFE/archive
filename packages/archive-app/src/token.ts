@@ -1,17 +1,20 @@
-import type { InjectionKey } from 'vue'
-import type { NavRecordsContext } from './composables/useNavRecords'
-import type { SidebarRecordsContext } from './composables/useSidbarRecords'
+import type { ComputedRef, InjectionKey } from 'vue'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import type { BreakpointKey } from '@idux/cdk/breakpoint'
-import type { PageAnchorOptions } from './types'
+import type { NavRecordsContext } from './composables/useNavRecords'
+import type { ResolvedNavRecord, ResolvedThemeOptions, PageAnchorOptions } from './types'
 
-export interface AppContext {
-  navContext: NavRecordsContext
-  sidebarContext: SidebarRecordsContext
+export interface AppContext extends NavRecordsContext {
+  route: RouteLocationNormalizedLoaded
+  theme: ResolvedThemeOptions
+  navRecords: ResolvedNavRecord[]
   breakpoints: Record<BreakpointKey, boolean>
 }
 
 export interface PageContext {
-  pageAnchor: PageAnchorOptions | boolean
+  headerFixed: ComputedRef<boolean>
+  headerHeight: ComputedRef<number>
+  anchorOptions: PageAnchorOptions | boolean
 }
 
 export const appContextToken = Symbol('appContext') as InjectionKey<AppContext>

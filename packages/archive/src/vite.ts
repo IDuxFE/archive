@@ -1,14 +1,12 @@
 import type { SetOptional } from 'type-fest'
 import type { ResolvedarchiveConfig } from './types'
-import type { ResolvedSidebarRecord, ResolvedPageTab, ResolvedPageData } from '@idux/archive-app'
+import type { ResolvedNavRecord, ResolvedPageTab, ResolvedPageData } from '@idux/archive-app'
 import { type InlineConfig, type Plugin, loadConfigFromFile, searchForWorkspaceRoot, mergeConfig } from 'vite'
 import { createArchiveMdPlugin } from '@idux/archive-markdown-plugin'
 import { createArchivePlugin } from '@idux/archive-plugin'
 
 import { dirname, join } from 'pathe'
 import { createRequire } from 'node:module'
-
-import { isArray } from 'lodash-es'
 
 const _require = createRequire(import.meta.url)
 const BUNDLE_PATH = join(dirname(_require.resolve('@idux/archive-app/package.json')), 'bundle')
@@ -37,7 +35,7 @@ function genPageDataScript(pageData: ResolvedPageData) {
     .map(tab => genPageTabScript(tab))
     .join(',')}]}`
 }
-function genSidebarRecordsScript(records: ResolvedSidebarRecord[]): string {
+function genNavRecordsScript(records: ResolvedNavRecord[]): string {
   return `[${records.map(record => {
     if (record.type === 'link') {
       return JSON.stringify(record)
@@ -48,15 +46,15 @@ function genSidebarRecordsScript(records: ResolvedSidebarRecord[]): string {
         return JSON.stringify(record)
       }
 
-      const tempRecord = { ...record } as SetOptional<ResolvedSidebarRecord & { type: 'item' }, 'pageData'>
+      const tempRecord = { ...record } as SetOptional<ResolvedNavRecord & { type: 'item' }, 'pageData'>
       delete tempRecord.pageData
       return `{${JSON.stringify(tempRecord).slice(1, -1)}, pageData: ${genPageDataScript(record.pageData)}}`
     }
 
-    const tempRecord = { ...record } as SetOptional<ResolvedSidebarRecord & { type: 'sub' }, 'children'>
+    const tempRecord = { ...record } as SetOptional<ResolvedNavRecord & { type: 'sub' }, 'children'>
     delete tempRecord.children
 
-    return `{${JSON.stringify(tempRecord).slice(1, -1)}, children: ${genSidebarRecordsScript(record.children)}}`
+    return `{${JSON.stringify(tempRecord).slice(1, -1)}, children: ${genNavRecordsScript(record.children)}}`
   })}]`
 }
 
@@ -90,17 +88,12 @@ async function createCommonViteConfig(
     // TODO: hmr
     load(id) {
       if (id.startsWith(RESOLVED_APP_MOUNT_OPTIONS_ID)) {
-        const { resolvedNavRecords, resolvedSidebarRecords, routeRecords } = archiveConfig.getResolvedRecords()
-        const sidebarRecordsScript = isArray(resolvedSidebarRecords)
-          ? genSidebarRecordsScript(resolvedSidebarRecords)
-          : `{${Object.keys(resolvedSidebarRecords)
-              .map(key => `${JSON.stringify(key)}: ${genSidebarRecordsScript(resolvedSidebarRecords[key])}`)
-              .join(',')}}`
+        const { resolvedNavRecords, routeRecords } = archiveConfig.getResolvedRecords()
+        const navRecordsScript = genNavRecordsScript(resolvedNavRecords)
         return `export default {
           el: '#app',
-          pageAnchor: ${JSON.stringify(archiveConfig.pageAnchor)},
-          navRecords: ${JSON.stringify(resolvedNavRecords)},
-          sidebarRecords: ${sidebarRecordsScript},
+          theme: ${JSON.stringify(archiveConfig.theme)},
+          navRecords: ${navRecordsScript},
           routeRecords: [${routeRecords
             .map(record => `{path: ${JSON.stringify(record.path)}, pageData: ${genPageDataScript(record.pageData)}}`)
             .join(',')}],
@@ -129,10 +122,10 @@ export async function createBuildViteConfig(
         : {
             entry: '',
             formats: ['es'],
-            fileName: 'index.js',
+            fileName: 'index',
           },
       rollupOptions: {
-        input: join(BUNDLE_PATH, `${target}-${archiveConfig.theme}.js`),
+        input: join(BUNDLE_PATH, `${target}-${archiveConfig.theme.themeStyle}.js`),
         plugins: [
           {
             name: 'archive-build-rollup-options-override',
@@ -182,7 +175,7 @@ export async function createDevViteConfig(archiveConfig: ResolvedarchiveConfig):
           hmr: true,
         },
         optimizeDeps: {
-          entries: [join(BUNDLE_PATH, `app-${archiveConfig.theme}.js`)],
+          entries: [join(BUNDLE_PATH, `app-${archiveConfig.theme.themeStyle}.js`)],
           exclude: ['archive'],
         },
       }
@@ -205,7 +198,7 @@ export async function createDevViteConfig(archiveConfig: ResolvedarchiveConfig):
     </head>
     <body>
       <div id="app"></div>
-      <script type="module" src="/@fs/${BUNDLE_PATH}/app-${archiveConfig.theme}.js"></script>
+      <script type="module" src="/@fs/${BUNDLE_PATH}/app-${archiveConfig.theme.themeStyle}.js"></script>
     </body>
   </html>`
             // Apply Vite HTML transforms. This injects the Vite HMR client, and

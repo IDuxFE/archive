@@ -2,77 +2,81 @@
 
 .@{prefix}__page {
   min-height: 600px;
-  padding-bottom: 32px;
-  padding-left: 64px;
-  padding-right: 168px;
-
   &__header {
     margin-bottom: 8px;
+    background-color: #fff;
 
     > .archive-app-radio-group {
-      padding: 4px;
       background-color: #eceff3;
+      border-radius: 20px;
+      padding: 4px;
+      height: 40px;
 
-      border-radius: 22px;
-
-      .archive-app-radio-button {
-        text-align: center;
-        font-size: 16px;
-        height: 36px;
-        line-height: 36px;
-        min-width: 96px;
-        background-color: #eceff3;
-        color: #333333;
+      .archive-app-button {
+        background-color: transparent;
+        min-width: 64px;
+        height: 32px;
         border: none;
-        border-radius: 18px;
-
-        &::before {
-          content: unset;
-        }
-
-        &:not(:first-child) {
-          margin-left: 4px;
-        }
+        border-radius: 16px;
 
         &.archive-app-radio-checked {
           background: @color-primary;
-          color: #fff;
-          box-shadow: @shadow-bottom-sm;
+          box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.12),
+          0 5px 12px 4px rgba(0, 0, 0, 0.09);
         }
+      }
+    }
+    &-affix .archive-app-affix-content {
+      z-index: 9999;
+    }
+
+    &--fixed {
+      border-bottom: 1px solid #d3d7de;
+
+      > .archive-app-radio-group {
+        margin-bottom: -20px;
+      }
+
+      .@{prefix}__page__title {
+        margin-top: 32px;
+        font-size: 24px;
+      }
+      .@{prefix}__page__description {
+        display: none;
       }
     }
   }
 
   &__title {
     display: inline-block;
-    height: 60px;
+    width: 100%;
+    margin-top: 8px;
     margin-bottom: 16px;
     font-size: 30px;
+    transition: all 0.2s cubic-bezier(0.37, 0, 0.63, 1);
   }
 
   &__description {
-    margin-top: -12px;
     margin-bottom: 16px;
   }
 
   &__content {
     width: 100%;
-    position: relative;
+    display: flex;
+    &__inner {
+      width: 100%;
+    }
 
     &__anchor {
-      position: absolute;
-      top: @spacing-sm;
-      right: 0;
-    
+      flex-shrink: 0;
+
       .archive-app-affix-content {
-        padding: 16px;
+        width: @toc-width;
       }
-      .archive-app-anchor {
-        &-link {
-          &-title {
-            width: @toc-width;
-          }
-        }
+      .archive-app-anchor-wrapper {
+        width: @toc-width;
+        padding: 16px;
+        background-color: transparent;
       }
 
       @media (max-width: @screen-xs-max) {

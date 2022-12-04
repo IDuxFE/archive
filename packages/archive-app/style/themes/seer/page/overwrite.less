@@ -1,0 +1,18 @@
+@import '../../../variables.less';
+
+.@{prefix}__page {
+  &__header {
+    padding-left: calc(50% - 960px / 2 - @toc-width / 2);
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    &__inner {
+      width: 960px;
+      margin-left: calc(50% - 960px / 2 - @toc-width / 2);
+      flex-shrink: 0;
+    }
+  }
+}

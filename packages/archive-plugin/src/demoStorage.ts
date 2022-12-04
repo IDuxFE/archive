@@ -6,17 +6,19 @@ import { resolve, basename } from 'pathe'
 
 export function watchDemos(options: ResolvedOptions, demoStorage: DemoStorage): FSWatcher {
   const { root } = options
-  const { add, remove } = demoStorage
+  const { add, remove, notifyListChange } = demoStorage
 
   const { matchPatterns, ignorePatterns } = getPatterns(options)
   const watcher = watch(matchPatterns, { cwd: root, ignored: ignorePatterns.length > 0 ? ignorePatterns : undefined })
 
   watcher
-    .on('add', file => {
-      add(file)
-    })
+    // .on('add', file => {
+    //   add(file)
+    //   notifyListChange()
+    // })
     .on('unlink', file => {
       remove(file)
+      notifyListChange()
     })
 
   return watcher
@@ -49,6 +51,8 @@ export function createDemoStorage(options: ResolvedOptions): DemoStorage {
 
     demoMap.set(demo.id, demo)
     pathMap.set(absolutePath, demo.id)
+
+    console.log('demo collected', relativePath)
   }
 
   const demoChangeHandlers: ((demo: CollectedDemo) => void)[] = [
@@ -57,7 +61,7 @@ export function createDemoStorage(options: ResolvedOptions): DemoStorage {
     },
   ]
 
-  const notifyListChange = () => {
+  const _notifyListChange = () => {
     for (const handler of listChangeHandlers) {
       handler()
     }
@@ -67,16 +71,16 @@ export function createDemoStorage(options: ResolvedOptions): DemoStorage {
       handler(demo)
     }
   }
+  const notifyListChange = () => {
+    // Delay in case file renaming fired Add event before Unlink event
+    setTimeout(_notifyListChange, 100)
+  }
 
   const add = async (relativePath: string) => {
     await collectDemo(relativePath)
-
-    // Delay in case file renaming fired Add event before Unlink event
-    setTimeout(notifyListChange, 100)
   }
   const remove = (id: string) => {
     demoMap.delete(id)
-    notifyListChange()
   }
   const get = (id: string) => {
     if (pathMap.has(id)) {
