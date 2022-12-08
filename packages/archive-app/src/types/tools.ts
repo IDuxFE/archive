@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, VNode } from 'vue'
 import type { Except, SetOptional } from 'type-fest'
 import type { ResolvedDemo, LoadedSourceCode } from '@idux/archive-plugin'
 
@@ -13,14 +13,14 @@ export interface ToolRenderParams extends Except<ResolvedDemo, 'sourceCodes' | '
 
 export interface DemoToolBase {
   tooltip: string
-  icon: string
+  render: () => VNode
 }
 
-interface DemoToolExpandCode extends SetOptional<Except<DemoToolBase, 'icon'>, 'tooltip'> {
+interface DemoToolExpandCode extends SetOptional<Except<DemoToolBase, 'render'>, 'tooltip'> {
   type: 'expandCode'
-  icon: [string, string]
+  render: (expanded: boolean) => VNode
 }
-interface DemoToolCopyCode extends SetOptional<DemoToolBase, 'tooltip' | 'icon'> {
+interface DemoToolCopyCode extends SetOptional<DemoToolBase, 'tooltip' | 'render'> {
   type: 'copyCode'
 }
 interface DemoToolLink extends DemoToolBase {

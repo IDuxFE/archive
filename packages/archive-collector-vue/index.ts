@@ -1,4 +1,5 @@
 export * from './src/index'
 export type {
-  VueCollectorOptions
+  VueCollectorOptions,
+  VueCollectorSetup,
 } from './src/types'

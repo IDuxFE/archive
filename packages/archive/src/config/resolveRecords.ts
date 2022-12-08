@@ -67,7 +67,7 @@ function resolvePageData(pageData: PageData): ResolvedPageData {
   const resolvedData: ResolvedPageData = {
     title: pageData.title,
     description: pageData.description,
-    demos: pageData.demos,
+    demoIds: pageData.demoIds,
   }
 
   if (pageData.tabs) {

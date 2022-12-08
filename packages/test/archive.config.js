@@ -1,11 +1,19 @@
 import { dirname, resolve, basename } from 'path'
 import { fileURLToPath } from 'node:url'
 
-import { directoryNavGetter } from '@idux/archive'
+import { directoryNavGetter, defineConfig } from '@idux/archive'
 
-export default {
-  root: resolve(dirname(fileURLToPath(import.meta.url)), './demos'),
-  theme: 'seer',
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+export default defineConfig({
+  root: resolve(__dirname, './demos'),
+  setupFile: resolve(__dirname, './setup.ts'),
+  theme: {
+    themeStyle: 'seer',
+    layout: {
+      type: 'sider'
+    }
+  },
   navConfig: (demos, root) => directoryNavGetter(demos, root, {
     getPageInfo: (dir) => {
       return {
@@ -22,4 +30,4 @@ export default {
       { type: 'expandCode' }
     ]
   })
-}
+})

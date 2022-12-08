@@ -113,7 +113,7 @@
 .archive-md a {
   font-weight: 500;
   color: var(--archive-md-color-primary);
-  text-decoration-style: dotted;
+  text-decoration: none;
   transition: color 0.25s;
 }
 

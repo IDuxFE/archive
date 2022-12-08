@@ -38,13 +38,15 @@ async function resolveDemo(absolutePath: string, getMarkdownRenderer: () => Prom
   let dependencies: string[] = []
   let title: string | undefined
   let description: string | undefined
+  let rest = {}
   const metaBlock = descriptor.customBlocks.find(block => block.type === META_BLOCK_TYPE)
   if (metaBlock) {
     try {
-      const { title: _title, description: _desc, dependencies: _dep } = JSON.parse(metaBlock.content)
+      const { title: _title, description: _desc, dependencies: _dep, ..._rest } = JSON.parse(metaBlock.content)
       _title && (title = _title)
       _desc && (description = _desc)
       _dep && (dependencies = _dep)
+      _rest && (rest = _rest)
     } catch (err) {
       console.error(err)
       // TODO: error log
@@ -83,6 +85,7 @@ async function resolveDemo(absolutePath: string, getMarkdownRenderer: () => Prom
   console.log('vue demo resolved', absolutePath)
 
   return {
+    ...rest,
     title,
     description,
     component: `() => import(${JSON.stringify(absolutePath)})`,

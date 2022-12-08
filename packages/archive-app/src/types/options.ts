@@ -1,7 +1,10 @@
+import type { ResolvedDemo } from '@idux/archive-plugin';
 import type { ResolvedPageData } from './page'
+import type { DemoTool } from './tools'
 import type { ResolvedNavRecord } from './records'
+import type { PageHeaderRenderer, PageContentRenderer } from './renderers'
 import type { ProLayoutType, ProLayoutTheme } from '@idux/pro/layout'
-import type { RequireAtLeastOne  } from 'type-fest'
+import type { App } from 'vue'
 
 export interface RouteRecord {
   path: string
@@ -9,6 +12,16 @@ export interface RouteRecord {
 }
 export interface PageAnchorOptions {
   maxLevel: number
+}
+
+export interface Renderers {
+  pageHeader?: PageHeaderRenderer
+  pageContent?: PageContentRenderer
+}
+
+export interface AppSetupOptions {
+  getInitVisibleDemoIds?: (demos?: ResolvedDemo[]) => string[]
+  getDemoTools?: (demos: ResolvedDemo) => DemoTool[]
 }
 
 export interface ThemeOptions {
@@ -20,9 +33,8 @@ export interface ThemeOptions {
     headerAffix?: boolean
     enableAnchor?: boolean
     anchorMaxLevel?: number
-  }
+  },
 }
-
 
 export interface  ResolvedThemeOptions {
   layout: Exclude<Required<ThemeOptions['layout']>, undefined>
@@ -32,6 +44,9 @@ export interface  ResolvedThemeOptions {
 export interface AppMountOptions {
   el: string
   theme?: ThemeOptions
+  setupApp?: (app: App) => void
+  setupOptions?: AppSetupOptions
+  renderers?: Renderers
   pageAnchor?: PageAnchorOptions | boolean
   navRecords: ResolvedNavRecord[]
   routeRecords: RouteRecord[]

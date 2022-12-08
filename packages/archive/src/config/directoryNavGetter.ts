@@ -70,7 +70,7 @@ export function directoryNavGetter(
         pageData: {
           title: 'Demos',
           description: '',
-          demos: demos.map(demo => ({ id: demo.id, tools: options?.getDemoTools?.(demo) })),
+          demoIds: demos.map(demo => demo.id),
         },
       },
     ]
@@ -92,7 +92,6 @@ function resolveDir(
     navRoots,
     ignorePatterns,
     getPageInfo = defaultGetPageInfo,
-    getDemoTools,
     filterDemos,
     sortDemos,
     mapRecords,
@@ -122,7 +121,7 @@ function resolveDir(
         demos = demos?.sort(sortDemos)
       }
 
-      const _demos = demos?.map(demo => ({ id: demo.id, tools: getDemoTools?.(demo) }))
+      const _demoIds = demos?.map(demo => demo.id)
       const {
         id: pageId = file,
         name: pageName = file,
@@ -131,7 +130,7 @@ function resolveDir(
         tabs = [],
       } = getPageInfo(subdir) ?? {}
 
-      if (!_demos && !tabs.length) {
+      if (!_demoIds && !tabs.length) {
         const subItem = {
           type: 'sub',
           id: pageId,
@@ -151,7 +150,7 @@ function resolveDir(
         const demoTab = tabs.find(tab => tab.id === 'demos')
 
         if (demoTab) {
-          demoTab.demos = _demos
+          demoTab.demoIds = _demoIds
         }
         pageData = {
           title: pageTitle,
@@ -162,7 +161,7 @@ function resolveDir(
         pageData = {
           title: pageTitle,
           description,
-          demos: _demos,
+          demoIds: _demoIds,
         }
       }
 

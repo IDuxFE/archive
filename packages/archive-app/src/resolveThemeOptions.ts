@@ -10,6 +10,6 @@ export function resolveThemeOptions(options?: ThemeOptions): ResolvedThemeOption
       headerAffix: options?.page?.headerAffix ?? false,
       enableAnchor: options?.page?.enableAnchor ?? true,
       anchorMaxLevel: options?.page?.anchorMaxLevel ?? 3
-    }
+    },
   }
 }

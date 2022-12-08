@@ -1,22 +1,17 @@
 import type { Except } from 'type-fest'
 import type { DemoTool } from './tools'
 
-export interface DemoData {
-  id: string
-  tools?: DemoTool[]
-}
-
 export interface PageData {
   title: string
   description: string
   tabs?: PageTab[]
-  demos?: DemoData[]
+  demoIds?: string[]
 }
 export interface PageTab {
   id: string
   name: string
   src?: string
-  demos?: DemoData[]
+  demoIds?: string[]
 }
 export interface ResolvedPageTab extends Except<PageTab, 'src'> {
   component?: () => Promise<any>

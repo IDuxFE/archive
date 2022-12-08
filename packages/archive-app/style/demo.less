@@ -12,6 +12,21 @@
     font-size: var(--archive-app-demo-title-font-size);
     color: var(--archive-app-demo-title-color);
     margin: 8px 0 12px 0;
+
+    .anchor {
+      float: left;
+      margin-left: -.87em;
+      padding-right: .23em;
+      font-weight: 500;
+      opacity: 0;
+      transition: color .25s,opacity .25s;
+      text-decoration: none;
+    }
+    
+    
+    &:hover .anchor {
+      opacity: 1;
+    }
   }
 
   &__description {

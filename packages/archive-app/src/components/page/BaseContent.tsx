@@ -11,7 +11,7 @@ export default defineComponent({
   props: {
     visible: { type: Boolean, required: true },
   },
-  setup(props, { slots }) {
+  setup(props, { slots, expose }) {
     const { anchorOptions } = inject(pageContextToken)!
 
     const enableAnchor = computed(() => !!anchorOptions)
@@ -25,6 +25,13 @@ export default defineComponent({
       const anchorWidth = anchorEl.value?.$el.getBoundingClientRect().width
       contentPaddingReight.value = anchorWidth ? `${anchorWidth}px` : undefined
     }
+    const updateAnchor = () => {
+      if (!rootEl.value) {
+        return
+      }
+
+      anchorDatas.value = parseAnchors(rootEl.value, anchorMaxLevel.value)
+    }
     watch([anchorDatas, () => props.visible], ([, visible]) => {
       visible && nextTick(calcContentPadding)
     })
@@ -35,7 +42,7 @@ export default defineComponent({
 
       const observer = new MutationObserver(mutations => {
         if (mutations.findIndex(m => m.type === 'childList') > -1) {
-          anchorDatas.value = parseAnchors(rootEl.value!, anchorMaxLevel.value)
+          updateAnchor()
         }
       })
       observer.observe(rootEl.value!, {
@@ -44,21 +51,19 @@ export default defineComponent({
         attributes: false,
       })
 
-      anchorDatas.value = parseAnchors(rootEl.value!, anchorMaxLevel.value)
+      updateAnchor()
     })
+
+    expose({ updateAnchor })
 
     return () => (
       <div class="archive-app__page__content">
         <div class="archive-app__page__content__inner" ref={rootEl}>
           {slots.default?.()}
         </div>
-        {anchorDatas.value && (
-          <Anchor
-            ref={anchorEl}
-            class="archive-app__page__content__anchor"
-            data={anchorDatas.value}
-          />
-        )}
+        {anchorDatas.value?.length ? (
+          <Anchor ref={anchorEl} class="archive-app__page__content__anchor" data={anchorDatas.value} />
+        ) : undefined}
       </div>
     )
   },
@@ -87,8 +92,14 @@ function parseAnchors(root: HTMLElement, maxLevel: number): AnchorData[] {
     anchorStack.pop()
     stackTop = anchorStack[anchorStack.length - 1]
   }
-  traverseTree(root.children, 'children', el => {
-    if (!el.id || !el.textContent) {
+  const hiddenEls: Element[] = []
+  traverseTree(root.children, 'children', (el, parents) => {
+    if (getComputedStyle(el).display === 'none') {
+      hiddenEls.push(el)
+      return
+    }
+
+    if (!el.id || !el.textContent || parents.some(parent => hiddenEls.includes(parent))) {
       return
     }
 

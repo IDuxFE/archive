@@ -9,23 +9,23 @@ export default defineComponent({
     const elRef = ref<HTMLElement>()
     const { mount, unmount } = (() => {
       return {
-        mount: async () => {
-          await props.demoInstance.mount?.(elRef.value!)
+        mount: async (instance: DemoInstance) => {
+          await instance.mount?.(elRef.value!)
         },
-        unmount: async () => {
-          await props.demoInstance.unmount()
+        unmount: async (instance: DemoInstance) => {
+          await instance.unmount()
         },
       }
     })()
 
-    onMounted(mount)
-    onBeforeUnmount(unmount)
+    onMounted(() => mount(props.demoInstance))
+    onBeforeUnmount(() => unmount(props.demoInstance))
 
     watch(
       () => props.demoInstance,
-      async () => {
-        await unmount()
-        await mount()
+      async (current, pre) => {
+        await unmount(pre)
+        await mount(current)
       },
     )
 

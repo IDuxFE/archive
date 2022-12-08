@@ -75,7 +75,7 @@ export default defineComponent({
       if (tool.type === 'expandCode') {
         return (
           <DemoToolComp prefixCls={props.prefixCls!} tooltip={tool.tooltip ?? expandedTitle.value} onClick={onExpanded}>
-            <IxIcon name={expanded.value ? 'unexpand' : 'expand'} />
+            {tool.render ? tool.render(expanded.value) : <IxIcon name={expanded.value ? 'unexpand' : 'expand'} />}
           </DemoToolComp>
         )
       }
@@ -83,7 +83,7 @@ export default defineComponent({
       if (tool.type === 'copyCode') {
         return (
           <DemoToolComp prefixCls={props.prefixCls!} tooltip={tool.tooltip ?? copyTitle.value} onClick={onCopy}>
-            <IxIcon name={tool.icon ?? 'copy'}></IxIcon>
+            {tool.render ? tool.render() : <IxIcon name={'copy'}></IxIcon>}
           </DemoToolComp>
         )
       }
@@ -92,7 +92,7 @@ export default defineComponent({
         return (
           <DemoToolComp prefixCls={props.prefixCls!} tooltip={tool.tooltip} onClick={onCopy}>
             <a class={`${mergedPrefixCls}__tool-link`} href={tool.link} target="_blank" rel="noopener noreferrer">
-              <IxIcon name={tool.icon ?? 'link'}></IxIcon>
+              {tool.render ? tool.render() : <IxIcon name={'link'}></IxIcon>}
             </a>
           </DemoToolComp>
         )
@@ -132,7 +132,7 @@ export default defineComponent({
           {demoData.title && (
             <h3 id={demoData.id} class={`${mergedPrefixCls}__title`}>
               <span>{demoData.title}</span>
-              <a class="anchor">#</a>
+              <a class="anchor" href={'#' + demoData.id}>#</a>
             </h3>
           )}
           {demoData.description && <p class={`${mergedPrefixCls}__description`}>{demoData.description}</p>}

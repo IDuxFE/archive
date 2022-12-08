@@ -12,7 +12,8 @@ export interface VueCollectorOptions extends Except<Collector, 'name'> {
 
 export interface VueCollectorSetup {
   setupApp?: (app: App) => void
-  render?: (vm: VNode) => VNode
+  renderApp?: (children: VNode[]) => VNode
+  render?: (vm: VNode, demo: ResolvedVue3Demo) => VNode
 }
 
 export interface ResolvedVue3Demo extends Except<ResolvedDemo, 'component'> {

@@ -1,5 +1,5 @@
 import type { SetOptional } from 'type-fest'
-import type { ResolvedarchiveConfig } from './types'
+import type { ResolvedArchiveConfig } from './types'
 import type { ResolvedNavRecord, ResolvedPageTab, ResolvedPageData } from '@idux/archive-app'
 import { type InlineConfig, type Plugin, loadConfigFromFile, searchForWorkspaceRoot, mergeConfig } from 'vite'
 import { createArchiveMdPlugin } from '@idux/archive-markdown-plugin'
@@ -58,8 +58,15 @@ function genNavRecordsScript(records: ResolvedNavRecord[]): string {
   })}]`
 }
 
+// function genThemeScript(theme: ResolvedArchiveConfig['theme']) {
+//   const { rendererFile, themeStyle } = theme
+//   return `${rendererFile ? `import renderers from ${rendererFile}` : ''}
+
+//   `
+// }
+
 async function createCommonViteConfig(
-  archiveConfig: ResolvedarchiveConfig,
+  archiveConfig: ResolvedArchiveConfig,
   mode: 'build' | 'dev',
 ): Promise<InlineConfig> {
   const userViteConfigFile = await loadConfigFromFile({ command: mode === 'dev' ? 'serve' : 'build', mode })
@@ -90,13 +97,26 @@ async function createCommonViteConfig(
       if (id.startsWith(RESOLVED_APP_MOUNT_OPTIONS_ID)) {
         const { resolvedNavRecords, routeRecords } = archiveConfig.getResolvedRecords()
         const navRecordsScript = genNavRecordsScript(resolvedNavRecords)
-        return `export default {
+        const { setupFile } = archiveConfig
+
+        return `${setupFile ? `import setupContext from '${setupFile}'` : ''}
+        
+        export default {
           el: '#app',
           theme: ${JSON.stringify(archiveConfig.theme)},
           navRecords: ${navRecordsScript},
           routeRecords: [${routeRecords
             .map(record => `{path: ${JSON.stringify(record.path)}, pageData: ${genPageDataScript(record.pageData)}}`)
             .join(',')}],
+          ${
+            setupFile
+              ? [
+                  'setupApp: setupContext.setupApp',
+                  'setupOptions: setupContext.options',
+                  'renderers: setupContext.renderers',
+                ].join(',')
+              : ''
+          }
         }`
       }
     },
@@ -109,7 +129,7 @@ async function createCommonViteConfig(
 }
 
 export async function createBuildViteConfig(
-  archiveConfig: ResolvedarchiveConfig,
+  archiveConfig: ResolvedArchiveConfig,
   target: 'page' | 'app',
 ): Promise<InlineConfig> {
   const commonViteConfig = await createCommonViteConfig(archiveConfig, 'build')
@@ -158,7 +178,7 @@ export async function createBuildViteConfig(
   return buildViteConfig
 }
 
-export async function createDevViteConfig(archiveConfig: ResolvedarchiveConfig): Promise<InlineConfig> {
+export async function createDevViteConfig(archiveConfig: ResolvedArchiveConfig): Promise<InlineConfig> {
   const devViteConfig = await createCommonViteConfig(archiveConfig, 'dev')
 
   devViteConfig.plugins!.push({

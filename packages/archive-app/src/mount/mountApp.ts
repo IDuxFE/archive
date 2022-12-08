@@ -14,9 +14,9 @@ import { resolveRoutes } from '../resolveRoutes'
 import { resolveThemeOptions } from '../resolveThemeOptions'
 
 export function mountApp(options: AppMountOptions) {
-  const { navRecords, routeRecords, el } = options
+  const { navRecords, routeRecords, el, renderers, setupOptions, setupApp } = options
   const theme = resolveThemeOptions(options.theme)
-  const routes = resolveRoutes(routeRecords, theme)
+  const routes = resolveRoutes(routeRecords, theme, renderers, setupOptions)
 
   const app = createApp({
     setup() {
@@ -53,6 +53,8 @@ export function mountApp(options: AppMountOptions) {
       }),
     )
     .use(iduxInstall)
+
+  setupApp?.(app)
 
   app.mount(el)
 }

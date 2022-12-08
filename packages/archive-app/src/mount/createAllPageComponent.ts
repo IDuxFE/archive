@@ -5,13 +5,13 @@ import { resolveThemeOptions } from '../resolveThemeOptions'
 import { createPageComponent } from './createPageComponent'
 
 export function createAllPageComponents(options: AppMountOptions) {
-  const { routeRecords, theme } = options
+  const { routeRecords, theme, renderers, setupOptions, setupApp } = options
   const reseolvedTheme = resolveThemeOptions(theme)
 
   const components: Record<string, DefineComponent> = {}
 
   routeRecords.forEach(record => {
-    components[record.path] = createPageComponent(record, reseolvedTheme)
+    components[record.path] = createPageComponent(record, reseolvedTheme, renderers, setupOptions, setupApp)
   })
 
   return components
