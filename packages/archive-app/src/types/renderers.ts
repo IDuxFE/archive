@@ -5,10 +5,10 @@ import type { ResolvedDemo } from '@idux/archive-plugin'
 type CustomRenderer<D extends Record<string, any>> = (data: D, nodes: VNode[]) => VNodeChild
 
 export interface PageHeaderRendererData {
-  title: string
-  description: string
-  tabs: ResolvedPageTab[]
-  activeTabId: string
+  title?: string
+  description?: string
+  tabs?: ResolvedPageTab[]
+  activeTabId?: string
   setActiveTabId: (tabId: string) => void
 }
 export type PageHeaderRenderer = CustomRenderer<PageHeaderRendererData>

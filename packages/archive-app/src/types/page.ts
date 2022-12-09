@@ -1,24 +1,40 @@
-import type { Except } from 'type-fest'
-import type { DemoTool } from './tools'
+import type { Except, RequireExactlyOne } from 'type-fest'
 
-export interface PageData {
-  title: string
-  description: string
-  tabs?: PageTab[]
-  demoIds?: string[]
+interface BasePageData {
+  title?: string
+  description?: string
+  src: string
+  tabs: PageTab[]
+  demoIds: string[]
 }
-export interface PageTab {
+
+interface BasePageTab {
   id: string
   name: string
-  src?: string
-  demoIds?: string[]
+  src: string
+  demoIds: string[]
 }
-export interface ResolvedPageTab extends Except<PageTab, 'src'> {
-  component?: () => Promise<any>
-}
-export interface ResolvedPageData extends Except<PageData, 'tabs'> {
-  tabs?: ResolvedPageTab[]
-}
+
+export type PageData = RequireExactlyOne<BasePageData, 'tabs' | 'demoIds' | 'src'>
+export type PageTab = RequireExactlyOne<BasePageTab, 'src' | 'demoIds'>
+
+export type ServerResolvedPageTab = RequireExactlyOne<Except<BasePageTab, 'src'> & {
+  component: string
+}, 'demoIds' | 'component'>
+
+export type ServerResolvedPageData = RequireExactlyOne<Except<BasePageData, 'tabs' | 'src'> & {
+  tabs: ServerResolvedPageTab[]
+  component: string
+}, 'tabs' | 'demoIds' | 'component'>
+
+export type ResolvedPageTab = RequireExactlyOne<Except<BasePageTab, 'src'> & {
+  component: () => Promise<any>
+}, 'demoIds' | 'component'>
+
+export type ResolvedPageData = RequireExactlyOne<Except<BasePageData, 'tabs' | 'src'> & {
+  tabs: ResolvedPageTab[]
+  component: () => Promise<any>
+}, 'tabs' | 'demoIds' | 'component'>
 
 export interface AnchorData {
   level: number

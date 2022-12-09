@@ -7,5 +7,11 @@ export default {
       console.log(data)
       return [h('div', 'test'),...nodes]
     }
+  },
+  options: {
+    getDemoTools: (demo) => [
+      { type: 'copyCode' },
+      { type: 'expandCode' }
+    ]
   }
 } as SetupContext

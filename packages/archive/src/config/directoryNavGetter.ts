@@ -16,23 +16,30 @@ export interface DirectoryNavGetterOptions {
   navRoots?: string[]
   ignorePatterns?: RegExp[]
 
-  getPageInfo?: (dir: string) => PageInfo | undefined
+  checkIsPage?: (path: string) => boolean
+  getPageInfo?: (path: string, isDir: boolean) => PageInfo | undefined
   getDemoTools?: (demo: CollectedDemo) => DemoTool[]
   filterDemos?: (demos: CollectedDemo) => boolean
   sortDemos?: (demo1: CollectedDemo, demo2: CollectedDemo) => number
-  
+
   mapRecords?: (dir: string, records: NavRecord[]) => NavRecord[]
 }
 
-const defaultGetPageInfo = (dir: string): PageInfo => {
-  const id = basename(dir)
+const defaultGetPageInfo = (path: string, isDir: boolean): PageInfo => {
+  const id = basename(path).replace(/\.page\.(vue|md)$/, '')
+  if (!isDir) {
+    return {
+      id,
+      name: id,
+    }
+  }
 
   const TAB_MATCH_REG = /\.tab\.(vue|md)$/
-  const tabs = readdirSync(dir)
+  const tabs = readdirSync(path)
     .filter(file => TAB_MATCH_REG.test(file))
     .map(tab => {
       const tabName = tab.replace(TAB_MATCH_REG, '')
-      return { id: tabName, name: tabName, src: resolve(dir, tab) }
+      return { id: tabName, name: tabName, src: resolve(path, tab) }
     }) as PageTab[]
 
   return {
@@ -42,6 +49,9 @@ const defaultGetPageInfo = (dir: string): PageInfo => {
     description: '',
     tabs,
   }
+}
+function defaultCheckIsPage(path: string) {
+  return /\.page\.(vue|md)$/.test(path)
 }
 
 export function directoryNavGetter(
@@ -91,6 +101,7 @@ function resolveDir(
   const {
     navRoots,
     ignorePatterns,
+    checkIsPage = defaultCheckIsPage,
     getPageInfo = defaultGetPageInfo,
     filterDemos,
     sortDemos,
@@ -108,69 +119,86 @@ function resolveDir(
 
   let records = readdirSync(dir)
     .map(file => {
-      const subdir = resolve(dir, file)
-      if (!statSync(subdir).isDirectory()) {
-        return
-      }
-
-      let demos = demoDirnameMap.get(subdir)
-      if (filterDemos) {
-        demos = demos?.filter(filterDemos)
-      }
-      if (sortDemos) {
-        demos = demos?.sort(sortDemos)
-      }
-
-      const _demoIds = demos?.map(demo => demo.id)
-      const {
-        id: pageId = file,
-        name: pageName = file,
-        title: pageTitle = file,
-        description = '',
-        tabs = [],
-      } = getPageInfo(subdir) ?? {}
-
-      if (!_demoIds && !tabs.length) {
-        const subItem = {
-          type: 'sub',
-          id: pageId,
-          name: pageName,
-          children: [] as NavRecord[],
+      const path = resolve(dir, file)
+      if (statSync(path).isDirectory()) {
+        let demos = demoDirnameMap.get(path)
+        if (filterDemos) {
+          demos = demos?.filter(filterDemos)
         }
-        const subResult = resolveDir(subdir, demoDirnameMap, options)
-
-        subItem.children = subResult.records
-        subResult.rootRecords && result.rootRecords.push(...subResult.rootRecords)
-
-        return subItem
-      }
-
-      let pageData: PageData
-      if (tabs.length > 0) {
-        const demoTab = tabs.find(tab => tab.id === 'demos')
-
-        if (demoTab) {
-          demoTab.demoIds = _demoIds
+        if (sortDemos) {
+          demos = demos?.sort(sortDemos)
         }
-        pageData = {
+
+        const _demoIds = demos?.map(demo => demo.id)
+        const {
+          id: pageId = file,
+          name: pageName = file,
           title: pageTitle,
-          description,
-          tabs,
+          description = '',
+          tabs = [],
+        } = getPageInfo(path, true) ?? {}
+
+        if (!_demoIds?.length && !tabs.length) {
+          const subItem = {
+            type: 'sub',
+            id: pageId,
+            name: pageName,
+            children: [] as NavRecord[],
+          }
+          const subResult = resolveDir(path, demoDirnameMap, options)
+
+          subItem.children = subResult.records
+          subResult.rootRecords && result.rootRecords.push(...subResult.rootRecords)
+
+          return subItem
         }
-      } else {
-        pageData = {
-          title: pageTitle,
-          description,
-          demoIds: _demoIds,
+
+        let pageData: PageData | undefined
+        if (tabs.length > 0) {
+          const demoTab = tabs.find(tab => tab.id === 'demos')
+
+          if (demoTab) {
+            demoTab.demoIds = _demoIds
+          }
+          pageData = {
+            title: pageTitle,
+            description,
+            tabs,
+          }
+        } else if (_demoIds?.length) {
+          pageData = {
+            title: pageTitle,
+            description,
+            demoIds: _demoIds,
+          }
+        }
+
+        return pageData
+          ? {
+              type: 'item',
+              id: pageId,
+              name: pageName,
+              pageData,
+            }
+          : undefined
+      }
+
+      if (checkIsPage(path)) {
+        const { id = file, name = file, title, description } = getPageInfo(path, false) ?? {}
+
+        return {
+          type: 'item',
+          id,
+          name,
+          pageData: {
+            title,
+            description,
+            src: path,
+          },
         }
       }
 
-      return {
-        type: 'item',
-        id: pageId,
-        name: pageName,
-        pageData,
-      }
+      return
     })
     .filter(Boolean) as NavRecord[]
 

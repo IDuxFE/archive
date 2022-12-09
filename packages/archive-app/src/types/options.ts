@@ -1,5 +1,5 @@
 import type { ResolvedDemo } from '@idux/archive-plugin';
-import type { ResolvedPageData } from './page'
+import type { ResolvedPageData, ServerResolvedPageData } from './page'
 import type { DemoTool } from './tools'
 import type { ResolvedNavRecord } from './records'
 import type { PageHeaderRenderer, PageContentRenderer } from './renderers'
@@ -10,6 +10,12 @@ export interface RouteRecord {
   path: string
   pageData: ResolvedPageData
 }
+
+export interface ServerRouteRecord {
+  path: string
+  pageData: ServerResolvedPageData
+}
+
 export interface PageAnchorOptions {
   maxLevel: number
 }

@@ -17,7 +17,7 @@ export default defineComponent({
     headerAffix: { type: Boolean, required: true },
     anchorOptions: { type: [Object, Boolean] as PropType<PageAnchorOptions | boolean>, required: true },
     options: Object as PropType<AppSetupOptions>,
-    renderers: Object as PropType<Renderers>
+    renderers: Object as PropType<Renderers>,
   },
   setup(props) {
     const wrapperRef = ref<HTMLElement>()
@@ -46,6 +46,7 @@ export default defineComponent({
     const title = computed(() => props.pageData.title)
     const description = computed(() => props.pageData.description)
     const pageDemoIds = computed(() => props.pageData.demoIds)
+    const pageComponent = computed(() => props.pageData.component)
 
     const tabs = computed(() => props.pageData.tabs?.filter(tab => tab.component || tab.demoIds) ?? [])
     const tabsRadioData = computed(() =>
@@ -73,6 +74,10 @@ export default defineComponent({
     ])
 
     const renderHeader = () => {
+      if (!title.value && !description.value && !tabs.value.length) {
+        return
+      }
+      
       const children = [
         <h1 class="archive-app__page__title">{title.value}</h1>,
         <p class="archive-app__page__description">{description.value}</p>,
@@ -122,8 +127,11 @@ export default defineComponent({
 
     const renderContent = () => {
       let children: VNodeChild
+
       if (pageDemoIds.value) {
         children = <DemosContent visible={true} demoIds={pageDemoIds.value} />
+      } else if (pageComponent.value) {
+        children = <AsyncContent visible={true} component={pageComponent.value} />
       } else {
         children = tabs.value.map(tab => {
           const visible = activeTabId.value === tab.id

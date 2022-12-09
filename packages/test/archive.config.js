@@ -15,19 +15,24 @@ export default defineConfig({
     }
   },
   navConfig: (demos, root) => directoryNavGetter(demos, root, {
-    getPageInfo: (dir) => {
+    getPageInfo: (dir, isDir) => {
+      const filename = basename(dir)
+      if (!isDir) {
+        const id = filename.replace(/\.page\.(vue|md)$/, '')
+        return {
+          id,
+          name: id,
+        }
+      }
+
       return {
-        id: basename(dir),
-        name: basename(dir).replace('demoPage', '示例')
+        id: filename,
+        name: filename.replace('demoPage', '示例')
       }
     },
     sortDemos: (demo1, demo2) => {
       const getIdx = (demo) => Number(demo.filename.split('.')[1])
       return getIdx(demo1) - getIdx(demo2)
-    },
-    getDemoTools: (demo) => [
-      { type: 'copyCode' },
-      { type: 'expandCode' }
-    ]
+    }
   })
 })

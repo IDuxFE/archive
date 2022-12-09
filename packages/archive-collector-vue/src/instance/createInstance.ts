@@ -56,7 +56,7 @@ function mountApp(setup?: VueCollectorSetup) {
   __demo_mount_app__ = createApp({
     render: setup?.renderApp
       ? () => setup?.renderApp!(renderDemos(setup))
-      : () => createVNode('div', { default: () => renderDemos(setup) }),
+      : () => renderDemos(setup),
   })
   setup?.setupApp?.(__demo_mount_app__)
   __demo_mount_app__.mount(document.createDocumentFragment())

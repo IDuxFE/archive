@@ -2,7 +2,14 @@ import type { App } from 'vue'
 import type { Collector, CollectedDemo } from '@idux/archive-plugin'
 import type { VueCollectorOptions } from '@idux/archive-collector-vue'
 import type { MarkdownOptions } from '@idux/archive-markdown-plugin'
-import type { NavRecord, ResolvedNavRecord, RouteRecord, ThemeOptions, Renderers, AppSetupOptions } from '@idux/archive-app'
+import type {
+  NavRecord,
+  ServerResolvedNavRecord,
+  ServerRouteRecord,
+  ThemeOptions,
+  Renderers,
+  AppSetupOptions,
+} from '@idux/archive-app'
 import type { SetRequired } from 'type-fest'
 
 export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
@@ -31,8 +38,8 @@ export interface ArchiveConfig {
 }
 
 export interface RecordsContext {
-  resolvedNavRecords: ResolvedNavRecord[]
-  routeRecords: RouteRecord[]
+  resolvedNavRecords: ServerResolvedNavRecord[]
+  routeRecords: ServerRouteRecord[]
 }
 
 export interface ResolvedArchiveConfig {
