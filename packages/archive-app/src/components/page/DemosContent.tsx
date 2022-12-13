@@ -16,6 +16,7 @@ export default defineComponent({
     const {
       options: { getInitVisibleDemoIds, getDemoTools },
       renderers: { pageContent: pageContentRenderer },
+      render,
     } = inject(pageContextToken)!
     const baseContentRef = ref()
 
@@ -46,29 +47,27 @@ export default defineComponent({
     })
 
     return () => {
-      let children = props.demoIds.map(id => (
-        <DemoComp
-          v-show={visibleDemoIds.value.includes(id)}
-          demoData={allDemoDatas[id]}
-          demoInstance={allDemoInstance[id]}
-          tools={getDemoTools?.(allDemoDatas[id])}
-          prefixCls="archive-app"
-          lang="zh"
-        />
-      ))
-
       return (
         <BaseContentComp ref={baseContentRef} visible={props.visible}>
-          {pageContentRenderer
-            ? pageContentRenderer(
-                {
-                  demos: demoDatas.value,
-                  visibleDemoIds: visibleDemoIds.value,
-                  setVisibleDemoIds,
-                },
-                children,
-              )
-            : children}
+          {render(
+            {
+              demos: demoDatas.value,
+              visibleDemoIds: visibleDemoIds.value,
+              setVisibleDemoIds,
+            },
+            pageContentRenderer,
+            () =>
+              props.demoIds.map(id => (
+                <DemoComp
+                  v-show={visibleDemoIds.value.includes(id)}
+                  demoData={allDemoDatas[id]}
+                  demoInstance={allDemoInstance[id]}
+                  tools={getDemoTools?.(allDemoDatas[id])}
+                  prefixCls="archive-app"
+                  lang="zh"
+                />
+              )),
+          )}
         </BaseContentComp>
       )
     }

@@ -1,12 +1,12 @@
-import type { ResolvedThemeOptions, RouteRecord, Renderers, AppSetupOptions } from '../types'
+import type { ResolvedAppThemeOptions, RouteRecord, AppRenderers, AppSetupOptions } from '../types'
 import { type App, createVNode, defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
 
 import { createPageInstance } from './createPageInstance'
 
 export function createPageComponent(
   routeRecord: RouteRecord,
-  theme: ResolvedThemeOptions,
-  renderers: Renderers | undefined,
+  theme: ResolvedAppThemeOptions,
+  renderers: AppRenderers | undefined,
   options: AppSetupOptions | undefined,
   setupApp?: (app: App) => void,
 ) {

@@ -6,8 +6,8 @@ import type {
   NavRecord,
   ServerResolvedNavRecord,
   ServerRouteRecord,
-  ThemeOptions,
-  Renderers,
+  AppThemeOptions,
+  AppRenderers,
   AppSetupOptions,
 } from '@idux/archive-app'
 import type { SetRequired } from 'type-fest'
@@ -17,13 +17,13 @@ export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
 }
 
 export type ArchiveThemeStyle = 'default' | 'seer'
-export interface ArchiveThemeOptions extends ThemeOptions {
+export interface ArchiveThemeOptions extends AppThemeOptions {
   themeStyle?: ArchiveThemeStyle
 }
 
 export interface SetupContext {
   setupApp?: (app: App) => void
-  renderers?: Renderers
+  renderers?: AppRenderers
   options?: AppSetupOptions
 }
 

@@ -1,12 +1,12 @@
-import type { RouteRecord, ResolvedThemeOptions, Renderers, AppSetupOptions } from './types'
+import type { RouteRecord, ResolvedAppThemeOptions, AppRenderers, AppSetupOptions } from './types'
 import type { RouteRecordRaw } from 'vue-router'
 
 import { resolvePageProps } from './resolvePageProps'
 
 export function resolveRoutes(
   routesRecords: RouteRecord[],
-  theme: ResolvedThemeOptions,
-  renderers: Renderers | undefined,
+  theme: ResolvedAppThemeOptions,
+  renderers: AppRenderers | undefined,
   options: AppSetupOptions | undefined,
 ): RouteRecordRaw[] {
   return [

@@ -1,18 +1,24 @@
-import type { PageInstance, ResolvedThemeOptions, RouteRecord, Renderers, AppSetupOptions } from '../types'
+import type { PageInstance, ResolvedAppThemeOptions, RouteRecord, AppRenderers, AppSetupOptions } from '../types'
+import { breakpointsToken, themeToken } from '../token'
 import { type App, createApp, createVNode, render, VNode } from 'vue'
+
+import { useBreakpoints } from '@idux/cdk/breakpoint'
 
 import Page from '../components/page/Page'
 
 import { resolvePageProps } from '../resolvePageProps'
-
 import iduxInstall from './iduxInstall'
 
 let __archive_app_vue_instance__: App | undefined
 
-function _createApp(setupApp?: (app: App) => void) {
+function _createApp(setupApp: ((app: App) => void) | undefined, theme: ResolvedAppThemeOptions) {
   if (!__archive_app_vue_instance__) {
-    __archive_app_vue_instance__ = createApp({ render: () => null })
+    __archive_app_vue_instance__ = createApp({
+      render: () => null,
+    })
     __archive_app_vue_instance__.use(iduxInstall)
+    __archive_app_vue_instance__.provide(breakpointsToken, useBreakpoints(theme.breakpoints))
+    __archive_app_vue_instance__.provide(themeToken, theme)
 
     setupApp?.(__archive_app_vue_instance__)
   }
@@ -20,9 +26,9 @@ function _createApp(setupApp?: (app: App) => void) {
 
 export function createPageInstance(
   routeRecord: RouteRecord,
-  theme: ResolvedThemeOptions,
-  renderers: Renderers | undefined,
-  options: AppSetupOptions | undefined,
+  theme: ResolvedAppThemeOptions,
+  renderers: AppRenderers | undefined,
+  setupOptions: AppSetupOptions | undefined,
   setupApp?: (app: App) => void,
 ): PageInstance {
   let _vm: VNode
@@ -30,10 +36,10 @@ export function createPageInstance(
 
   const mount = (el: HTMLElement) => {
     unmount()
-    _createApp(setupApp)
+    _createApp(setupApp, theme)
 
     _el = el
-    _vm = createVNode(Page, { ...resolvePageProps(routeRecord.pageData, theme, renderers, options) })
+    _vm = createVNode(Page, { ...resolvePageProps(routeRecord.pageData, theme, renderers, setupOptions) })
     _vm.appContext = __archive_app_vue_instance__!._context
 
     render(_vm, el)

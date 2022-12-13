@@ -1,6 +1,18 @@
-import type { ResolvedPageData, PageAnchorOptions, AppSetupOptions, Renderers } from '../../types'
-import { pageContextToken } from '../../token'
-import { type PropType, type VNodeChild, defineComponent, computed, provide, ref, watch, onMounted, VNode } from 'vue'
+import type { ResolvedPageData, ResolvedAppThemeOptions, AppSetupOptions, AppRenderers } from '../../types'
+import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
+import {
+  type PropType,
+  type VNodeChild,
+  defineComponent,
+  computed,
+  provide,
+  ref,
+  watch,
+  onMounted,
+  VNode,
+  inject,
+  normalizeClass,
+} from 'vue'
 
 import { findOverflowParent } from '../../utils'
 
@@ -8,16 +20,17 @@ import { IxMessageProvider } from '@idux/components/message'
 import { IxRadioGroup } from '@idux/components/radio'
 import { IxAffix } from '@idux/components/affix'
 
+import { usePageRender } from '../../composables/usePageRender'
+
 import DemosContent from './DemosContent'
 import AsyncContent from './AsyncContent'
 
 export default defineComponent({
   props: {
     pageData: { type: Object as PropType<ResolvedPageData>, required: true },
-    headerAffix: { type: Boolean, required: true },
-    anchorOptions: { type: [Object, Boolean] as PropType<PageAnchorOptions | boolean>, required: true },
+    theme: { type: Object as PropType<ResolvedAppThemeOptions>, required: true },
     options: Object as PropType<AppSetupOptions>,
-    renderers: Object as PropType<Renderers>,
+    renderers: Object as PropType<AppRenderers>,
   },
   setup(props) {
     const wrapperRef = ref<HTMLElement>()
@@ -28,8 +41,38 @@ export default defineComponent({
     const handleAffixChange = (value: boolean) => {
       headerFixed.value = value
     }
+
+    const appContext = inject(appContextToken, null)
+    const theme = inject(themeToken)!
+    const breakpoints = inject(breakpointsToken)!
+
+    const render = usePageRender({
+      theme,
+      breakpoints,
+      route: appContext?.route,
+      activeRecords: appContext?.activeRecords,
+    })
+
+    const anchorOptions = computed(() => ({
+      enabled: props.theme.page.enableAnchor,
+      maxLevel: props.theme.page.anchorMaxLevel,
+    }))
+
+    const pageCls = computed(() => {
+      const prefixCls = 'archive-app__page'
+
+      return normalizeClass({
+        [prefixCls]: true,
+        [`${prefixCls}-xs`]: breakpoints.xs,
+        [`${prefixCls}-sm`]: breakpoints.sm,
+        [`${prefixCls}-md`]: breakpoints.md,
+        [`${prefixCls}-lg`]: breakpoints.lg,
+        [`${prefixCls}-xl`]: breakpoints.xl,
+      })
+    })
+
     onMounted(() => {
-      if (props.headerAffix) {
+      if (props.theme.page.headerAffix) {
         headerAffixTarget.value = findOverflowParent(wrapperRef.value!)
       }
       headerHeight.value = headerRef.value?.getBoundingClientRect().height ?? 0
@@ -38,9 +81,10 @@ export default defineComponent({
     provide(pageContextToken, {
       headerFixed,
       headerHeight,
-      anchorOptions: props.anchorOptions,
+      anchorOptions,
       options: props.options ?? {},
       renderers: props.renderers ?? {},
+      render,
     })
 
     const title = computed(() => props.pageData.title)
@@ -77,40 +121,39 @@ export default defineComponent({
       if (!title.value && !description.value && !tabs.value.length) {
         return
       }
-      
-      const children = [
-        <h1 class="archive-app__page__title">{title.value}</h1>,
-        <p class="archive-app__page__description">{description.value}</p>,
-        showTabs.value && (
-          <IxRadioGroup
-            value={activeTabId.value}
-            dataSource={tabsRadioData.value}
-            size="lg"
-            mode="primary"
-            gap={4}
-            buttoned
-            onUpdate:value={setActiveTabId}
-          />
-        ),
-      ].filter(Boolean) as VNode[]
+
       const contentNode = (
         <section ref={headerRef} class={headerCls.value}>
-          {props.renderers?.pageHeader
-            ? props.renderers.pageHeader(
-                {
-                  title: title.value,
-                  description: description.value,
-                  tabs: tabs.value,
-                  activeTabId: activeTabId.value,
-                  setActiveTabId,
-                },
-                children,
-              )
-            : children}
+          {render(
+            {
+              title: title.value,
+              description: description.value,
+              tabs: tabs.value,
+              activeTabId: activeTabId.value,
+              setActiveTabId,
+            },
+            props.renderers?.pageHeader,
+            () =>
+              [
+                <h1 class="archive-app__page__title">{title.value}</h1>,
+                <p class="archive-app__page__description">{description.value}</p>,
+                showTabs.value && (
+                  <IxRadioGroup
+                    value={activeTabId.value}
+                    dataSource={tabsRadioData.value}
+                    size="lg"
+                    mode="primary"
+                    gap={4}
+                    buttoned
+                    onUpdate:value={setActiveTabId}
+                  />
+                ),
+              ].filter(Boolean) as VNode[],
+          )}
         </section>
       )
 
-      if (props.headerAffix) {
+      if (props.theme.page.headerAffix) {
         return (
           <IxAffix
             class="archive-app__page__header-affix"
@@ -148,7 +191,7 @@ export default defineComponent({
 
     return () => (
       <IxMessageProvider>
-        <article ref={wrapperRef} class="archive-app__page">
+        <article ref={wrapperRef} class={pageCls.value}>
           {renderHeader()}
           {renderContent()}
         </article>

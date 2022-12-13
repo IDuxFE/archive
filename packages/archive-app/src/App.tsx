@@ -1,16 +1,31 @@
 import type { ResolvedMenuData } from './types'
-import { computed, defineComponent, inject } from 'vue'
-import { appContextToken } from './token'
+import type { MenuProps } from '@idux/components/menu'
+import { computed, defineComponent, inject, normalizeClass } from 'vue'
+import { appContextToken, breakpointsToken } from './token'
 
 import { RouterLink, RouterView } from 'vue-router'
 import { IxLayoutSiderTrigger } from '@idux/components/layout'
 import { IxProLayout } from '@idux/pro/layout'
 
 export default defineComponent(() => {
-  const { route, breakpoints, menuData, theme } = inject(appContextToken)!
+  const { menuData, theme, render, renderers, activeRecords } = inject(appContextToken)!
+  const breakpoints = inject(breakpointsToken)!
+
+  const rootWrapperCls = computed(() => {
+    const prefixCls = 'archive-app__root-wrapper'
+
+    return normalizeClass({
+      [prefixCls]: true,
+      [`${prefixCls}-xs`]: breakpoints.xs,
+      [`${prefixCls}-sm`]: breakpoints.sm,
+      [`${prefixCls}-md`]: breakpoints.md,
+      [`${prefixCls}-lg`]: breakpoints.lg,
+      [`${prefixCls}-xl`]: breakpoints.xl,
+    })
+  })
 
   const layoutType = computed(() => {
-    if (breakpoints.xs) {
+    if (breakpoints.sm || breakpoints.xs) {
       return 'header'
     }
 
@@ -37,17 +52,59 @@ export default defineComponent(() => {
     return <span>{item.name}</span>
   }
 
+  const renderLogo = renderers.logo ? () => render(theme.logo, renderers.logo) : undefined
+
+  const renderHeaderContent = renderers.layoutHeaderContent
+    ? (menuProps: MenuProps) => render(menuProps, renderers.layoutHeaderContent)
+    : undefined
+  const renderHeaderExtra = renderers.layoutHeaderExtra ? () => render({}, renderers.layoutHeaderExtra) : undefined
+
+  const renderSiderHeaderLabel = () =>
+    render({}, renderers.layoutSiderHeaderLabel, () => (
+      <span class="archive-app__sider-header-label">
+        {activeRecords.value[activeRecords.value.length - 1]?.name ?? ''}
+      </span>
+    ))
+  const renderSiderHeader = () =>
+    render({}, renderers.layoutSiderHeader, () => {
+      const label = renderSiderHeaderLabel()
+      return theme.layout.siderCollapsable === 'top' ? <IxLayoutSiderTrigger>{label}</IxLayoutSiderTrigger> : label
+    })
+  const renderSiderContent = renderers.layoutSiderContent
+    ? (menuProps: MenuProps) => render(menuProps, renderers.layoutSiderContent)
+    : undefined
+
+  const renderSiderFooterLabel = () => render({}, renderers.layoutSiderFooterLabel)
+  const renderSiderFooter =
+    theme.layout.siderCollapsable === 'bottom' || renderers.layoutSiderFooter
+      ? () =>
+          render({}, renderers.layoutSiderFooter, () => {
+            const label = renderSiderFooterLabel()
+            return theme.layout.siderCollapsable === 'bottom' ? (
+              <IxLayoutSiderTrigger>{label}</IxLayoutSiderTrigger>
+            ) : (
+              label
+            )
+          })
+      : undefined
+
   const proLayoutSlots = {
     itemLabel: renderItemLabel,
-    siderHeader: () => <IxLayoutSiderTrigger></IxLayoutSiderTrigger>
+    logo: renderLogo,
+    headerContent: renderHeaderContent,
+    headerExtra: renderHeaderExtra,
+    siderHeader: renderSiderHeader,
+    siderContent: renderSiderContent,
+    siderFooter: renderSiderFooter,
   }
 
   return () => (
     <IxProLayout
-      class="archive-app__root-wrapper"
-      activeKey={route.path}
+      class={rootWrapperCls.value}
+      activeKey={activeRecords.value[0]?.id}
       menus={menuData}
       type={layoutType.value}
+      logo={theme.logo}
       v-slots={proLayoutSlots}
     >
       <div class="archive-app__main-content">

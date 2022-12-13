@@ -14,8 +14,8 @@ export default defineComponent({
   setup(props, { slots, expose }) {
     const { anchorOptions } = inject(pageContextToken)!
 
-    const enableAnchor = computed(() => !!anchorOptions)
-    const anchorMaxLevel = computed(() => (isObject(anchorOptions) ? anchorOptions.maxLevel : 3))
+    const enableAnchor = computed(() => !!anchorOptions.value.enabled)
+    const anchorMaxLevel = computed(() => (isObject(anchorOptions) ? anchorOptions.value.maxLevel : 3))
     const rootEl = ref<HTMLElement>()
     const anchorEl = ref<ComponentPublicInstance>()
     const anchorDatas = ref<AnchorData[]>()

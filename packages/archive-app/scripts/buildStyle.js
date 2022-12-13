@@ -1,6 +1,6 @@
 const { build } = require('vite')
 const { resolve } = require('path')
-const { unlinkSync, existsSync } = require('fs')
+const { unlinkSync, existsSync, writeFileSync, readFileSync } = require('fs')
 
 const getConfig = (theme) => ({
   configFile: false,
@@ -53,6 +53,9 @@ const themes = [
     if (existsSync(styleTempFile)) {
       unlinkSync(styleTempFile)
     }
+
+    const styleFile = resolve(__dirname, `../dist/themes/${theme.name}/${theme.chunk}.css`)
+    writeFileSync(styleFile, readFileSync(styleFile, 'utf-8').replace(/--ix-/g, '--archive-ix-'))
     // await appendFile(resolve(__dirname, `../dist/themes/${theme.name}/${theme.chunk}.js`), `\n import "./${theme.chunk}.css"`)
   }))
 })()
