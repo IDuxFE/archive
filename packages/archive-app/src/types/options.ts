@@ -1,43 +1,33 @@
-import type { ResolvedPageData } from './page'
+import type { ResolvedDemo } from '@idux/archive-plugin';
+import type { ResolvedPageData, ServerResolvedPageData } from './page'
+import type { DemoTool } from './tools'
 import type { ResolvedNavRecord } from './records'
-import type { ProLayoutType, ProLayoutTheme } from '@idux/pro/layout'
-import type { RequireAtLeastOne  } from 'type-fest'
+import type { AppRenderers } from './renderers'
+import type { AppThemeOptions } from './theme'
+import type { App } from 'vue'
 
 export interface RouteRecord {
   path: string
   pageData: ResolvedPageData
 }
-export interface PageAnchorOptions {
-  maxLevel: number
+
+export interface ServerRouteRecord {
+  path: string
+  pageData: ServerResolvedPageData
 }
 
-export interface ThemeOptions {
-  layout?: {
-    theme?: ProLayoutTheme,
-    type?: ProLayoutType
-  },
-  page?: {
-    headerAffix?: boolean
-    enableAnchor?: boolean
-    anchorMaxLevel?: number
-  }
-}
-
-
-export interface  ResolvedThemeOptions {
-  layout: Exclude<Required<ThemeOptions['layout']>, undefined>
-  page: Exclude<Required<ThemeOptions['page']>, undefined>
+export interface AppSetupOptions {
+  getInitVisibleDemoIds?: (demos?: ResolvedDemo[]) => string[]
+  getDemoTools?: (demos: ResolvedDemo) => DemoTool[]
+  
 }
 
 export interface AppMountOptions {
   el: string
-  theme?: ThemeOptions
-  pageAnchor?: PageAnchorOptions | boolean
+  theme?: AppThemeOptions
+  setupApp?: (app: App) => void
+  setupOptions?: AppSetupOptions
+  renderers?: AppRenderers
   navRecords: ResolvedNavRecord[]
   routeRecords: RouteRecord[]
-}
-
-export interface PageInstance {
-  mount: (el: HTMLElement) => void
-  unmount: () => void
 }

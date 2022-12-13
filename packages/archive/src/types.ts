@@ -1,7 +1,15 @@
+import type { App } from 'vue'
 import type { Collector, CollectedDemo } from '@idux/archive-plugin'
 import type { VueCollectorOptions } from '@idux/archive-collector-vue'
 import type { MarkdownOptions } from '@idux/archive-markdown-plugin'
-import type { NavRecord, ResolvedNavRecord, RouteRecord, ThemeOptions } from '@idux/archive-app'
+import type {
+  NavRecord,
+  ServerResolvedNavRecord,
+  ServerRouteRecord,
+  AppThemeOptions,
+  AppRenderers,
+  AppSetupOptions,
+} from '@idux/archive-app'
 import type { SetRequired } from 'type-fest'
 
 export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
@@ -9,10 +17,18 @@ export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
 }
 
 export type ArchiveThemeStyle = 'default' | 'seer'
-export interface ArchiveThemeOptions extends ThemeOptions {
+export interface ArchiveThemeOptions extends AppThemeOptions {
   themeStyle?: ArchiveThemeStyle
 }
+
+export interface SetupContext {
+  setupApp?: (app: App) => void
+  renderers?: AppRenderers
+  options?: AppSetupOptions
+}
+
 export interface ArchiveConfig {
+  setupFile?: string
   navConfig?: (demos: CollectedDemo[], root: string) => NavRecord[]
   collectors?: (Collector | ArchiveVueCollector)[]
   markdownOptions?: MarkdownOptions
@@ -22,11 +38,12 @@ export interface ArchiveConfig {
 }
 
 export interface RecordsContext {
-  resolvedNavRecords: ResolvedNavRecord[]
-  routeRecords: RouteRecord[]
+  resolvedNavRecords: ServerResolvedNavRecord[]
+  routeRecords: ServerRouteRecord[]
 }
 
-export interface ResolvedarchiveConfig {
+export interface ResolvedArchiveConfig {
+  setupFile?: string
   collectors: Collector[]
   onDemosCollected: (demos: CollectedDemo[]) => void
   getResolvedRecords: () => RecordsContext

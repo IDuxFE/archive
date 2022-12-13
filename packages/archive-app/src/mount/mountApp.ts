@@ -1,40 +1,51 @@
 import type { AppMountOptions } from '../types'
 
-import { h, createApp, provide } from 'vue'
+import { h, createApp, provide, defineComponent } from 'vue'
 import { useRoute, createRouter, createWebHistory } from 'vue-router'
 import AppComp from '../App'
 
-import { appContextToken } from '../token'
+import { appContextToken, breakpointsToken, themeToken } from '../token'
 
 import iduxInstall from './iduxInstall'
 import { useNavRecords } from '../composables/useNavRecords'
-import { useSharedBreakpoints } from '@idux/cdk/breakpoint'
+import { useAppRender } from '../composables/useAppRender'
+import { useBreakpoints } from '@idux/cdk/breakpoint'
 
 import { resolveRoutes } from '../resolveRoutes'
 import { resolveThemeOptions } from '../resolveThemeOptions'
 
 export function mountApp(options: AppMountOptions) {
-  const { navRecords, routeRecords, el } = options
+  const { navRecords, routeRecords, el, renderers, setupOptions, setupApp } = options
   const theme = resolveThemeOptions(options.theme)
-  const routes = resolveRoutes(routeRecords, theme)
+  const routes = resolveRoutes(routeRecords, theme, renderers, setupOptions)
 
-  const app = createApp({
+  const app = createApp(defineComponent({
     setup() {
       const route = useRoute()
       const navContext = useNavRecords(navRecords, route)
-      const breakpoints = useSharedBreakpoints()
+      const breakpoints = useBreakpoints(theme.breakpoints)
+
+      const render = useAppRender({
+        route,
+        activeRecords: navContext.activeRecords,
+        theme,
+        breakpoints,
+      })
 
       provide(appContextToken, {
         ...navContext,
         route,
         theme,
         navRecords,
-        breakpoints,
+        renderers,
+        render,
       })
+      provide(themeToken, theme)
+      provide(breakpointsToken, breakpoints)
 
       return () => h(AppComp)
     },
-  })
+  }))
 
   app
     .use(
@@ -53,6 +64,8 @@ export function mountApp(options: AppMountOptions) {
       }),
     )
     .use(iduxInstall)
+
+  setupApp?.(app)
 
   app.mount(el)
 }

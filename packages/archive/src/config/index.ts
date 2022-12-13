@@ -1,6 +1,6 @@
-import type { ArchiveConfig, ResolvedarchiveConfig } from '../types'
+import type { ArchiveConfig, ResolvedArchiveConfig } from '../types'
 import type { CollectedDemo } from '@idux/archive-plugin'
-import type { SetRequired } from 'type-fest'
+import type { SetRequired, SetOptional } from 'type-fest'
 
 import { parse, join, dirname } from 'pathe'
 import { existsSync } from 'fs'
@@ -46,8 +46,8 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<{
   }
 }
 
-export function resolveConfig(config?: ArchiveConfig): ResolvedarchiveConfig {
-  const { navConfig, theme, collectors, markdownOptions, dist, root } = mergeConfig(config)
+export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
+  const { setupFile, navConfig, theme, collectors, markdownOptions, dist, root } = mergeConfig(config)
 
   let running = false
   let resolvedRecords: ReturnType<typeof resolveRecords>
@@ -66,6 +66,7 @@ export function resolveConfig(config?: ArchiveConfig): ResolvedarchiveConfig {
   const getResolvedRecords = () => resolvedRecords
 
   return {
+    setupFile,
     collectors: resolveCollectors(collectors),
     onDemosCollected,
     getResolvedRecords,
@@ -78,11 +79,12 @@ export function resolveConfig(config?: ArchiveConfig): ResolvedarchiveConfig {
 
 function mergeConfig(
   config?: ArchiveConfig,
-): Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }> {
-  const { navConfig, theme, collectors, markdownOptions, dist, root } = config ?? {}
+): SetOptional<Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }>, 'setupFile'> {
+  const { setupFile, navConfig, theme, collectors, markdownOptions, dist, root } = config ?? {}
   const resolvedRoot = root ?? process.cwd()
 
   return {
+    setupFile,
     navConfig: navConfig ?? ((demos, root) => directoryNavGetter(demos, root)),
     collectors: collectors ?? [],
     theme: {

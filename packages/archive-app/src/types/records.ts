@@ -1,5 +1,5 @@
 import type { Except } from 'type-fest'
-import type { PageData, ResolvedPageData } from './page'
+import type { PageData, ServerResolvedPageData, ResolvedPageData } from './page'
 import type { MenuItemProps, MenuSubProps, MenuItemGroupProps } from '@idux/components/menu'
 
 interface NavRecordBase {
@@ -38,7 +38,21 @@ interface ResolvedSubNavRecord extends Except<SubNavRecord, 'children'> {
   path: string
   children: ResolvedNavRecord[]
 }
+
+interface ServerResolvedItemNavRecord extends Except<ItemNavRecord, 'pageData'> {
+  path: string
+  pageData: ServerResolvedPageData
+}
+interface ServerResolvedGroupNavRecord extends Except<GroupNavRecord, 'children'> {
+  children: ServerResolvedItemNavRecord[]
+}
+interface ServerResolvedSubNavRecord extends Except<SubNavRecord, 'children'> {
+  path: string
+  children: ServerResolvedItemNavRecord[]
+}
+
 export type NavRecord = ItemNavRecord | LinkNavRecord | GroupNavRecord | SubNavRecord
+export type ServerResolvedNavRecord = ServerResolvedItemNavRecord | LinkNavRecord | ServerResolvedGroupNavRecord | ServerResolvedSubNavRecord
 export type ResolvedNavRecord = ResolvedItemNavRecord | LinkNavRecord | ResolvedGroupNavRecord | ResolvedSubNavRecord
 
 export type ResolvedMenuData =

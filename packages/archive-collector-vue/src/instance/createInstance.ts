@@ -1,38 +1,76 @@
 import type { DemoInstance } from '@idux/archive-plugin'
 import type { ResolvedVue3Demo, VueCollectorSetup } from '../types'
-import { type App, createApp, render, createVNode, defineAsyncComponent, VNode } from 'vue'
+import {
+  type App,
+  type DefineComponent,
+  createApp,
+  createVNode,
+  ref,
+  defineAsyncComponent,
+  Teleport,
+  markRaw,
+} from 'vue'
+
+interface Instance {
+  demo: ResolvedVue3Demo
+  el: HTMLElement
+  component: DefineComponent
+}
 
 let __demo_mount_app__: App | null = null
+let demoRefs = ref<Set<Instance>>(new Set())
 
 export function createInstance(demo: ResolvedVue3Demo, setup?: VueCollectorSetup): DemoInstance {
-  let _el: HTMLElement
+  let instance: Instance
   return {
     async mount(el: HTMLElement) {
-      _el = el
-      mountDemo(el, demo, setup)
+      instance = mountDemo(el, demo, setup)
     },
     async unmount() {
-      unmountDemo(_el)
-    }
+      unmountDemo(instance)
+    },
   }
 }
 
-function mountDemo(el: HTMLElement, demo: ResolvedVue3Demo, setup?: VueCollectorSetup): VNode {
-  if (!__demo_mount_app__) {
-    __demo_mount_app__ = createApp({ render: () => createVNode('div') })
-    setup?.setupApp?.(__demo_mount_app__)
-    __demo_mount_app__.mount(document.createDocumentFragment())
-  }
-
-  let vm = createVNode(defineAsyncComponent(demo.component))
-  vm = setup?.render?.(vm) ?? vm
-  vm.appContext = __demo_mount_app__._context
-  
-  render(vm, el)
-
-  return vm
+function renderDemos(setup?: VueCollectorSetup) {
+  return [...demoRefs.value.values()].map(({ demo, el, component }) =>
+    createVNode(
+      Teleport,
+      { to: el, key: demo.id },
+      {
+        default: () => {
+          let vm = createVNode(component)
+          vm = setup?.render?.(vm, demo) ?? vm
+          return [vm]
+        },
+      },
+    ),
+  )
 }
 
-function unmountDemo(el?: HTMLElement) {
-  el && render(null, el)
+function mountApp(setup?: VueCollectorSetup) {
+  if (__demo_mount_app__) {
+    return
+  }
+
+  __demo_mount_app__ = createApp({
+    render: setup?.renderApp
+      ? () => setup?.renderApp!(renderDemos(setup))
+      : () => renderDemos(setup),
+  })
+  setup?.setupApp?.(__demo_mount_app__)
+  __demo_mount_app__.mount(document.createDocumentFragment())
+}
+
+function mountDemo(el: HTMLElement, demo: ResolvedVue3Demo, setup?: VueCollectorSetup): Instance {
+  mountApp(setup)
+
+  const instance = { demo, el, component: markRaw(defineAsyncComponent(demo.component)) }
+  demoRefs.value.add(instance)
+
+  return instance
+}
+
+function unmountDemo(instance?: Instance) {
+  instance && demoRefs.value.delete(instance)
 }

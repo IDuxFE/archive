@@ -1,8 +1,15 @@
-import { ResolvedPageData, ResolvedThemeOptions } from './types'
+import { ResolvedPageData, ResolvedAppThemeOptions, AppRenderers, AppSetupOptions } from './types'
 
-export function resolvePageProps(pageData: ResolvedPageData, theme: ResolvedThemeOptions) {
-  const {
-    page: { headerAffix, enableAnchor, anchorMaxLevel },
-  } = theme
-  return { pageData: pageData, headerAffix, anchorOptions: enableAnchor ? { maxLevel: anchorMaxLevel } : false }
+export function resolvePageProps(
+  pageData: ResolvedPageData,
+  theme: ResolvedAppThemeOptions,
+  renderers: AppRenderers | undefined,
+  options: AppSetupOptions | undefined,
+) {
+  return {
+    pageData: pageData,
+    theme,
+    options,
+    renderers,
+  }
 }

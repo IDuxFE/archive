@@ -1,54 +1,70 @@
 import type { RecordsContext } from '../types'
 import type {
-  ResolvedNavRecord,
+  ServerResolvedNavRecord,
   NavRecord,
-  RouteRecord,
+  ServerRouteRecord,
   PageData,
-  ResolvedPageData,
-  ResolvedPageTab,
+  ServerResolvedPageData,
+  ServerResolvedPageTab,
 } from '@idux/archive-app'
 
 import { mapTree, normalizePath } from '../utils'
 
 export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
-  const routeRecords: RouteRecord[] = []
+  const routeRecords: ServerRouteRecord[] = []
 
-  let resolvedNavRecords: ResolvedNavRecord[]
-  let recordsMap = new Map<NavRecord, ResolvedNavRecord & { type: 'sub' }>()
+  let resolvedNavRecords: ServerResolvedNavRecord[]
+  let recordsMap = new Map<NavRecord, ServerResolvedNavRecord & { type: 'sub' }>()
 
   const resolveSidebarRecords = (records: NavRecord[]) => {
     return mapTree(records, 'children', (record, parents) => {
-      const resolvedRecord = { ...record } as ResolvedNavRecord
-      if (resolvedRecord.type === 'item') {
-        resolvedRecord.path = normalizePath(
+      const basicRecord = {
+        id: record.id,
+        name: record.name
+      }
+      let resolvedRecord: ServerResolvedNavRecord
+      if (record.type === 'item') {
+        const resolvedPageData = resolvePageData(record.pageData)
+        if (!resolvedPageData) {
+          return
+        }
+
+        const path = normalizePath(
           '/' +
             [...parents]
               .reverse()
               .map(p => p.id)
               .join('/') +
             '/' +
-            resolvedRecord.id,
+            record.id,
         )
 
-        const resolvedData = resolvePageData(resolvedRecord.pageData)
-        resolvedRecord.pageData = resolvedData
+        resolvedRecord = {
+          ...basicRecord,
+          id: record.id,
+          type: 'item',
+          path,
+          pageData: resolvedPageData,
+        }
 
         routeRecords.push({
-          path: resolvedRecord.path,
-          pageData: resolvedRecord.pageData,
+          path: path,
+          pageData: resolvedPageData,
         })
 
         parents.forEach(parent => {
           if (parent.type === 'sub' && recordsMap.has(parent)) {
             const parentRecord = recordsMap.get(parent)!
-            parentRecord.path = resolvedRecord.path
+            parentRecord.path = path
             recordsMap.delete(parent)
           }
         })
+        return resolvedRecord
       }
 
-      if (resolvedRecord.type === 'sub') {
-        recordsMap.set(record, resolvedRecord)
+      resolvedRecord = {...record} as ServerResolvedNavRecord
+      if (record.type === 'sub') {
+        recordsMap.set(record, resolvedRecord as ServerResolvedNavRecord & { type: 'sub' })
       }
 
       return resolvedRecord
@@ -63,26 +79,40 @@ export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
   }
 }
 
-function resolvePageData(pageData: PageData): ResolvedPageData {
-  const resolvedData: ResolvedPageData = {
+function resolvePageData(pageData: PageData): ServerResolvedPageData | undefined {
+  const basicData = {
     title: pageData.title,
     description: pageData.description,
-    demos: pageData.demos,
+  }
+
+  if (pageData.demoIds) {
+    return {
+      ...basicData,
+      demoIds: pageData.demoIds,
+    }
+  }
+
+  if (pageData.src) {
+    return {
+      ...basicData,
+      component: `() => import(${JSON.stringify(pageData.src)})`,
+    }
   }
 
   if (pageData.tabs) {
-    resolvedData.tabs = pageData.tabs.map<ResolvedPageTab>(tab => {
-      if (tab.src) {
-        return {
-          name: tab.name,
-          id: tab.id,
-          component: `() => import(${JSON.stringify(tab.src)})`,
-        } as unknown as ResolvedPageTab
-      }
-
-      return tab
-    })
+    return {
+      ...basicData,
+      tabs: pageData.tabs.map<ServerResolvedPageTab>(tab => {
+        if (tab.src) {
+          return {
+            name: tab.name,
+            id: tab.id,
+            component: `() => import(${JSON.stringify(tab.src)})`,
+          }
+        }
+  
+        return tab as ServerResolvedPageTab
+      })
+    }
   }
-
-  return resolvedData
 }

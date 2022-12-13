@@ -1,7 +1,14 @@
-import type { RouteRecord, ResolvedThemeOptions, ResolvedPageData } from './types'
+import type { RouteRecord, ResolvedAppThemeOptions, AppRenderers, AppSetupOptions } from './types'
 import type { RouteRecordRaw } from 'vue-router'
 
-export function resolveRoutes(routesRecords: RouteRecord[], theme: ResolvedThemeOptions): RouteRecordRaw[] {
+import { resolvePageProps } from './resolvePageProps'
+
+export function resolveRoutes(
+  routesRecords: RouteRecord[],
+  theme: ResolvedAppThemeOptions,
+  renderers: AppRenderers | undefined,
+  options: AppSetupOptions | undefined,
+): RouteRecordRaw[] {
   return [
     {
       path: '/',
@@ -11,15 +18,8 @@ export function resolveRoutes(routesRecords: RouteRecord[], theme: ResolvedTheme
       return {
         path: record.path,
         component: () => import('./components/page/Page'),
-        props: resolvePageProps(record.pageData, theme),
+        props: resolvePageProps(record.pageData, theme, renderers, options),
       }
     }),
   ]
-}
-
-export function resolvePageProps(pageData: ResolvedPageData, theme: ResolvedThemeOptions) {
-  const {
-    page: { headerAffix, enableAnchor, anchorMaxLevel },
-  } = theme
-  return { pageData: pageData, headerAffix, anchorOptions: enableAnchor ? { maxLevel: anchorMaxLevel } : false }
 }

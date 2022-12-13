@@ -51,7 +51,7 @@ export function useNavRecords(
 
       const menu = {
         ...record,
-        key: (record as any).path ?? record.id,
+        key: record.id,
         type: getMenuDataType(record.type),
         label: record.name,
         recordType: record.type,

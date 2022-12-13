@@ -1,8 +1,9 @@
 @import '../../../variables.less';
 
 .@{prefix}__page {
+  min-width: 960px;
   &__header {
-    padding-left: calc(50% - 960px / 2 - @toc-width / 2);
+    padding-left: calc(50% - 960px / 2 - var(--archive-app-page-toc-width) / 2);
   }
 
   &__content {
@@ -11,8 +12,35 @@
     justify-content: space-between;
     &__inner {
       width: 960px;
-      margin-left: calc(50% - 960px / 2 - @toc-width / 2);
+      margin-left: calc(50% - 960px / 2 - var(--archive-app-page-toc-width) / 2);
       flex-shrink: 0;
+    }
+  }
+
+  &&-sm {
+    .@{prefix}__page__header {
+      padding-left: 0;
+    }
+    .@{prefix}__page__content {
+      &__inner {
+        margin-left: 0;
+      }
+
+      --archive-app-page-toc-width: 120px;
+    }
+  }
+  &&-xs {
+    .@{prefix}__page__header {
+      padding-left: 0;
+    }
+    .@{prefix}__page__content {
+      justify-content: center;
+      &__inner {
+        margin-left: 0;
+      }
+      &__anchor {
+        display: none;
+      }
     }
   }
 }

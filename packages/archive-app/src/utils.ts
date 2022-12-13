@@ -5,10 +5,10 @@ type TreeTypeData<V extends Record<string, any> = Record<string, any>, C extends
 export function traverseTree<V extends TreeTypeData<Record<string, any>, C>, C extends string>(
   data: ArrayLike<V>,
   childrenKey: C,
-  fn: (item: V, parents: ArrayLike<V>) => void,
+  fn: (item: V, parents: V[]) => void,
   traverseStrategy: 'pre' | 'post' = 'pre',
 ): void {
-  const traverse = (_data: ArrayLike<V>, parents: ArrayLike<V>) => {
+  const traverse = (_data: ArrayLike<V>, parents: V[]) => {
     for (let idx = 0; idx < _data.length; idx ++) {
       const item = _data[idx]
       traverseStrategy === 'pre' && fn(item, parents)

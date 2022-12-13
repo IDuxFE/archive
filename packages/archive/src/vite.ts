@@ -1,9 +1,16 @@
 import type { SetOptional } from 'type-fest'
-import type { ResolvedarchiveConfig } from './types'
-import type { ResolvedNavRecord, ResolvedPageTab, ResolvedPageData } from '@idux/archive-app'
+import type { ResolvedArchiveConfig } from './types'
+import type {
+  ResolvedNavRecord,
+  ServerResolvedNavRecord,
+  ServerResolvedPageData,
+  ServerResolvedPageTab,
+} from '@idux/archive-app'
 import { type InlineConfig, type Plugin, loadConfigFromFile, searchForWorkspaceRoot, mergeConfig } from 'vite'
 import { createArchiveMdPlugin } from '@idux/archive-markdown-plugin'
 import { createArchivePlugin } from '@idux/archive-plugin'
+
+import { genObjectScript } from './utils'
 
 import { dirname, join } from 'pathe'
 import { createRequire } from 'node:module'
@@ -14,52 +21,57 @@ const BUNDLE_PATH = join(dirname(_require.resolve('@idux/archive-app/package.jso
 const APP_MOUNT_OPTIONS_ID = 'virtual:archive-app-mount-options'
 const RESOLVED_APP_MOUNT_OPTIONS_ID = `/__resolved__${APP_MOUNT_OPTIONS_ID}`
 
-function genPageTabScript(tab: ResolvedPageTab): string {
-  if (!tab.component) {
-    return JSON.stringify(tab)
-  }
-
-  const tempTab = { ...tab }
-  delete tempTab.component
-  return `{${JSON.stringify(tempTab).slice(1, -1)}, component: ${tab.component}}`
+function genPageTabScript(tab: ServerResolvedPageTab): string {
+  return genObjectScript(tab, tab.component ? {
+    component: tab.component
+  } : undefined)
 }
-function genPageDataScript(pageData: ResolvedPageData) {
-  if (!pageData.tabs) {
+function genPageDataScript(pageData: ServerResolvedPageData) {
+  if (pageData.demoIds) {
     return JSON.stringify(pageData)
   }
 
   const tempPageData = { ...pageData }
-  delete tempPageData.tabs
+  if (pageData.component) {
+    return genObjectScript(pageData, { component: pageData.component })
+  }
 
-  return `{${JSON.stringify(tempPageData).slice(1, -1)}, tabs: [${pageData.tabs
-    .map(tab => genPageTabScript(tab))
-    .join(',')}]}`
+  if (pageData.tabs) {
+    return genObjectScript(pageData, { tabs: `[${pageData.tabs
+      .map(tab => genPageTabScript(tab))
+      .join(',')}]` })
+  }
+
+  return 'undefined'
 }
-function genNavRecordsScript(records: ResolvedNavRecord[]): string {
+function genNavRecordsScript(records: ServerResolvedNavRecord[]): string {
   return `[${records.map(record => {
     if (record.type === 'link') {
       return JSON.stringify(record)
     }
 
     if (record.type === 'item') {
-      if (!record.pageData.tabs?.length) {
-        return JSON.stringify(record)
-      }
+      return genObjectScript(record, record.pageData.tabs?.length ? { pageData: genPageDataScript(record.pageData) } : undefined)
+      // if (!record.pageData.tabs?.length) {
+      //   return JSON.stringify(record)
+      // }
 
-      const tempRecord = { ...record } as SetOptional<ResolvedNavRecord & { type: 'item' }, 'pageData'>
-      delete tempRecord.pageData
-      return `{${JSON.stringify(tempRecord).slice(1, -1)}, pageData: ${genPageDataScript(record.pageData)}}`
+      // const tempRecord = { ...record } as SetOptional<ResolvedNavRecord & { type: 'item' }, 'pageData'>
+      // delete tempRecord.pageData
+      // return `{${JSON.stringify(tempRecord).slice(1, -1)}, pageData: ${genPageDataScript(record.pageData)}}`
     }
 
-    const tempRecord = { ...record } as SetOptional<ResolvedNavRecord & { type: 'sub' }, 'children'>
-    delete tempRecord.children
+    return genObjectScript(record, { children: genNavRecordsScript(record.children) })
 
-    return `{${JSON.stringify(tempRecord).slice(1, -1)}, children: ${genNavRecordsScript(record.children)}}`
+    // const tempRecord = { ...record } as SetOptional<ResolvedNavRecord & { type: 'sub' }, 'children'>
+    // delete tempRecord.children
+
+    // return `{${JSON.stringify(tempRecord).slice(1, -1)}, children: ${genNavRecordsScript(record.children)}}`
   })}]`
 }
 
 async function createCommonViteConfig(
-  archiveConfig: ResolvedarchiveConfig,
+  archiveConfig: ResolvedArchiveConfig,
   mode: 'build' | 'dev',
 ): Promise<InlineConfig> {
   const userViteConfigFile = await loadConfigFromFile({ command: mode === 'dev' ? 'serve' : 'build', mode })
@@ -90,13 +102,26 @@ async function createCommonViteConfig(
       if (id.startsWith(RESOLVED_APP_MOUNT_OPTIONS_ID)) {
         const { resolvedNavRecords, routeRecords } = archiveConfig.getResolvedRecords()
         const navRecordsScript = genNavRecordsScript(resolvedNavRecords)
-        return `export default {
+        const { setupFile } = archiveConfig
+
+        return `${setupFile ? `import setupContext from '${setupFile}'` : ''}
+        
+        export default {
           el: '#app',
           theme: ${JSON.stringify(archiveConfig.theme)},
           navRecords: ${navRecordsScript},
           routeRecords: [${routeRecords
             .map(record => `{path: ${JSON.stringify(record.path)}, pageData: ${genPageDataScript(record.pageData)}}`)
             .join(',')}],
+          ${
+            setupFile
+              ? [
+                  'setupApp: setupContext.setupApp',
+                  'setupOptions: setupContext.options',
+                  'renderers: setupContext.renderers',
+                ].join(',')
+              : ''
+          }
         }`
       }
     },
@@ -109,7 +134,7 @@ async function createCommonViteConfig(
 }
 
 export async function createBuildViteConfig(
-  archiveConfig: ResolvedarchiveConfig,
+  archiveConfig: ResolvedArchiveConfig,
   target: 'page' | 'app',
 ): Promise<InlineConfig> {
   const commonViteConfig = await createCommonViteConfig(archiveConfig, 'build')
@@ -158,7 +183,7 @@ export async function createBuildViteConfig(
   return buildViteConfig
 }
 
-export async function createDevViteConfig(archiveConfig: ResolvedarchiveConfig): Promise<InlineConfig> {
+export async function createDevViteConfig(archiveConfig: ResolvedArchiveConfig): Promise<InlineConfig> {
   const devViteConfig = await createCommonViteConfig(archiveConfig, 'dev')
 
   devViteConfig.plugins!.push({
