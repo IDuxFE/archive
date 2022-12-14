@@ -1,10 +1,16 @@
-import type { PropType } from 'vue'
-import type { ResolvedPageData } from './page'
-import type { ResolvedAppThemeOptions } from './theme'
-import type { AppSetupOptions } from './options'
-import type { AppRenderers } from './renderers'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
 
+import type { AppSetupOptions } from './options'
+import type { ResolvedPageData } from './page'
+import type { AppRenderers } from './renderers'
+import type { ResolvedAppThemeOptions } from './theme'
 import type { ExtractInnerPropTypes } from '@idux/cdk/utils'
+import type { PropType } from 'vue'
 
 export const innerPageProps = {
   pageData: { type: Object as PropType<ResolvedPageData>, required: true },

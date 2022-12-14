@@ -1,0 +1,8 @@
+node_modules
+coverage
+temp
+dist
+
+CHANGELOG.md
+Changelog.zh.md
+Changelog.en.md

@@ -1,10 +1,20 @@
-import type { CollectedDemo, Collector, SourceCode } from '@idux/archive-plugin'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { VueCollectorOptions } from './types'
+import type { CollectedDemo, Collector, SourceCode } from '@idux-archive/vite-plugin'
+
+import { readFileSync } from 'fs'
 
 import { parse } from '@vue/compiler-sfc'
-import { type MarkdownRenderer, createMarkdownRenderer } from '@idux/archive-markdown-plugin'
-import { readFileSync } from 'fs'
-import { basename, dirname, resolve, isAbsolute } from 'pathe'
+
+import { basename, dirname, isAbsolute, resolve } from 'pathe'
+
+import { type MarkdownRenderer, createMarkdownRenderer } from '@idux-archive/vite-markdown-plugin'
 
 const META_BLOCK_TYPE = 'archive-meta'
 
@@ -62,7 +72,7 @@ async function resolveDemo(absolutePath: string, getMarkdownRenderer: () => Prom
     },
     ...(dependencies
       .map(depPath => {
-        let depFile: string = ''
+        let depFile = ''
         try {
           const resolvedFilePath = isAbsolute(depPath) ? depPath : resolve(demoDirPath, depPath)
           depFile = readFileSync(resolvedFilePath, 'utf-8')
@@ -94,7 +104,7 @@ async function resolveDemo(absolutePath: string, getMarkdownRenderer: () => Prom
 }
 
 function createDemoRenderer(setup?: string): (demo: CollectedDemo) => string {
-  return demo => `import { createInstance } from '@idux/archive-collector-vue/client'
+  return demo => `import { createInstance } from '@idux-archive/collector-vue/client.js'
 import demo from 'virtual:archive-demo-data:${demo.id}'
 ${setup && `import setup from ${JSON.stringify(setup)}`}
 

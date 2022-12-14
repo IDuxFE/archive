@@ -1,26 +1,32 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { RecordsContext } from '../types'
 import type {
-  ServerResolvedNavRecord,
   NavRecord,
-  ServerRouteRecord,
   PageData,
+  ServerResolvedNavRecord,
   ServerResolvedPageData,
   ServerResolvedPageTab,
-} from '@idux/archive-app'
+  ServerRouteRecord,
+} from '@idux-archive/app'
 
 import { mapTree, normalizePath } from '../utils'
 
 export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
   const routeRecords: ServerRouteRecord[] = []
 
-  let resolvedNavRecords: ServerResolvedNavRecord[]
-  let recordsMap = new Map<NavRecord, ServerResolvedNavRecord & { type: 'sub' }>()
+  const recordsMap = new Map<NavRecord, ServerResolvedNavRecord & { type: 'sub' }>()
 
   const resolveSidebarRecords = (records: NavRecord[]) => {
     return mapTree(records, 'children', (record, parents) => {
       const basicRecord = {
         id: record.id,
-        name: record.name
+        name: record.name,
       }
       let resolvedRecord: ServerResolvedNavRecord
       if (record.type === 'item') {
@@ -62,7 +68,7 @@ export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
         return resolvedRecord
       }
 
-      resolvedRecord = {...record} as ServerResolvedNavRecord
+      resolvedRecord = { ...record } as ServerResolvedNavRecord
       if (record.type === 'sub') {
         recordsMap.set(record, resolvedRecord as ServerResolvedNavRecord & { type: 'sub' })
       }
@@ -71,7 +77,7 @@ export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
     })
   }
 
-  resolvedNavRecords = resolveSidebarRecords(navRecords)
+  const resolvedNavRecords = resolveSidebarRecords(navRecords)
 
   return {
     resolvedNavRecords,
@@ -110,9 +116,9 @@ function resolvePageData(pageData: PageData): ServerResolvedPageData | undefined
             component: `() => import(${JSON.stringify(tab.src)})`,
           }
         }
-  
+
         return tab as ServerResolvedPageTab
-      })
+      }),
     }
   }
 }

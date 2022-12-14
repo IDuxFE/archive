@@ -1,6 +1,13 @@
-import type { App, DefineComponent, VNode } from 'vue'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import type { Collector, ResolvedDemo } from '@idux-archive/vite-plugin'
 import type { Except } from 'type-fest'
-import type { Collector, ResolvedDemo } from '@idux/archive-plugin'
+import type { App, DefineComponent, VNode } from 'vue'
 
 export type Lang = 'zh' | 'en'
 export type Theme = 'default' | 'seer'

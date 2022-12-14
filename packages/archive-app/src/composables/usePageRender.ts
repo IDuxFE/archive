@@ -1,7 +1,15 @@
-import type { PageRenderer, PageRendererDataBase } from '../types'
-import type { ComputedRef, VNode, VNodeChild } from 'vue'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import type { PageRenderer, PageRendererDataBase } from '../types'
 import type { Except } from 'type-fest'
+import type { ComputedRef, VNode, VNodeChild } from 'vue'
 
 type DataBase = Except<PageRendererDataBase, 'activeRecords'> & {
   activeRecords: ComputedRef<Exclude<PageRendererDataBase['activeRecords'], undefined>> | undefined

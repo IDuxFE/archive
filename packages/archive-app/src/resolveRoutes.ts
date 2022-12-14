@@ -1,4 +1,11 @@
-import type { RouteRecord, ResolvedAppThemeOptions, AppRenderers, AppSetupOptions } from './types'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, RouteRecord } from './types'
 import type { RouteRecordRaw } from 'vue-router'
 
 import { resolvePageProps } from './resolvePageProps'

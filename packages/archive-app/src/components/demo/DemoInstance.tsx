@@ -1,5 +1,13 @@
-import type { DemoInstance } from '@idux/archive-plugin'
-import { type PropType, defineComponent, ref, onMounted, onBeforeUnmount, watch } from 'vue'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import type { DemoInstance } from '@idux-archive/vite-plugin'
+
+import { type PropType, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 export default defineComponent({
   props: {

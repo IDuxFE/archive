@@ -1,7 +1,15 @@
-import type { CollectedDemo } from '@idux/archive-plugin'
-import type { NavRecord, PageTab, DemoTool, PageData } from '@idux/archive-app'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
 
-import { statSync, readdirSync } from 'fs'
+import type { DemoTool, NavRecord, PageData, PageTab } from '@idux-archive/app'
+import type { CollectedDemo } from '@idux-archive/vite-plugin'
+
+import { readdirSync, statSync } from 'fs'
+
 import { basename, dirname, resolve } from 'pathe'
 
 interface PageInfo {
@@ -47,7 +55,7 @@ const defaultGetPageInfo = (path: string, isDir: boolean): PageInfo => {
     name: id,
     title: id,
     description: '',
-    tabs,
+    tabs: tabs.length ? [...tabs, { id: 'demos', name: 'Demos', demoIds: [] }] : undefined,
   }
 }
 function defaultCheckIsPage(path: string) {

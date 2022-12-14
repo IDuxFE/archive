@@ -1,14 +1,24 @@
-import type { DemoInstance } from '@idux/archive-plugin'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+/* eslint-disable camelcase */
+
 import type { ResolvedVue3Demo, VueCollectorSetup } from '../types'
+import type { DemoInstance } from '@idux-archive/vite-plugin'
+
 import {
   type App,
   type DefineComponent,
+  Teleport,
   createApp,
   createVNode,
-  ref,
   defineAsyncComponent,
-  Teleport,
   markRaw,
+  ref,
 } from 'vue'
 
 interface Instance {
@@ -18,7 +28,7 @@ interface Instance {
 }
 
 let __demo_mount_app__: App | null = null
-let demoRefs = ref<Set<Instance>>(new Set())
+const demoRefs = ref<Set<Instance>>(new Set())
 
 export function createInstance(demo: ResolvedVue3Demo, setup?: VueCollectorSetup): DemoInstance {
   let instance: Instance
@@ -54,9 +64,7 @@ function mountApp(setup?: VueCollectorSetup) {
   }
 
   __demo_mount_app__ = createApp({
-    render: setup?.renderApp
-      ? () => setup?.renderApp!(renderDemos(setup))
-      : () => renderDemos(setup),
+    render: setup?.renderApp ? () => setup?.renderApp!(renderDemos(setup)) : () => renderDemos(setup),
   })
   setup?.setupApp?.(__demo_mount_app__)
   __demo_mount_app__.mount(document.createDocumentFragment())

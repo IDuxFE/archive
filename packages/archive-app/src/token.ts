@@ -1,10 +1,23 @@
-import type { ComputedRef, Ref, InjectionKey } from 'vue'
-import type { RouteLocationNormalizedLoaded } from 'vue-router'
-import type { BreakpointKey } from '@idux/cdk/breakpoint'
-import type { NavRecordsContext } from './composables/useNavRecords'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { ResolvedAppRender } from './composables/useAppRender'
+import type { NavRecordsContext } from './composables/useNavRecords'
 import type { ResolvedPageRender } from './composables/usePageRender'
-import type { ResolvedNavRecord, ResolvedAppThemeOptions, PageAnchorOptions, AppSetupOptions, AppRenderers } from './types'
+import type {
+  AppRenderers,
+  AppSetupOptions,
+  PageAnchorOptions,
+  ResolvedAppThemeOptions,
+  ResolvedNavRecord,
+} from './types'
+import type { BreakpointKey } from '@idux/cdk/breakpoint'
+import type { ComputedRef, InjectionKey, Ref } from 'vue'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 export interface AppContext extends NavRecordsContext {
   route: RouteLocationNormalizedLoaded

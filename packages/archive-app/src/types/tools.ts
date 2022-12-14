@@ -1,6 +1,13 @@
-import type { PropType, VNode } from 'vue'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import type { LoadedSourceCode, ResolvedDemo } from '@idux-archive/vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
-import type { ResolvedDemo, LoadedSourceCode } from '@idux/archive-plugin'
+import type { PropType, VNode } from 'vue'
 
 export const demoToolProps = {
   tooltip: String,

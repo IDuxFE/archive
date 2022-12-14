@@ -1,6 +1,13 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import type { PageData, ResolvedPageData, ServerResolvedPageData } from './page'
+import type { MenuItemGroupProps, MenuItemProps, MenuSubProps } from '@idux/components/menu'
 import type { Except } from 'type-fest'
-import type { PageData, ServerResolvedPageData, ResolvedPageData } from './page'
-import type { MenuItemProps, MenuSubProps, MenuItemGroupProps } from '@idux/components/menu'
 
 interface NavRecordBase {
   id: string
@@ -52,7 +59,11 @@ interface ServerResolvedSubNavRecord extends Except<SubNavRecord, 'children'> {
 }
 
 export type NavRecord = ItemNavRecord | LinkNavRecord | GroupNavRecord | SubNavRecord
-export type ServerResolvedNavRecord = ServerResolvedItemNavRecord | LinkNavRecord | ServerResolvedGroupNavRecord | ServerResolvedSubNavRecord
+export type ServerResolvedNavRecord =
+  | ServerResolvedItemNavRecord
+  | LinkNavRecord
+  | ServerResolvedGroupNavRecord
+  | ServerResolvedSubNavRecord
 export type ResolvedNavRecord = ResolvedItemNavRecord | LinkNavRecord | ResolvedGroupNavRecord | ResolvedSubNavRecord
 
 export type ResolvedMenuData =

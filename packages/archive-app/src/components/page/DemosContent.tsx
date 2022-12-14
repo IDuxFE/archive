@@ -1,11 +1,20 @@
-import { type PropType, computed, defineComponent, ref, inject, watch, nextTick } from 'vue'
-import allDemoDatas from 'virtual:archive-demo-all-data'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import { type PropType, computed, defineComponent, inject, nextTick, ref, watch } from 'vue'
+
+// eslint-disable-next-line import/no-unresolved
 import allDemoInstance from 'virtual:archive-demo-all'
+// eslint-disable-next-line import/no-unresolved
+import allDemoDatas from 'virtual:archive-demo-all-data'
 
 import { pageContextToken } from '../../token'
-
-import BaseContentComp from './BaseContent'
 import DemoComp from '../demo/Demo'
+import BaseContentComp from './BaseContent'
 
 export default defineComponent({
   props: {

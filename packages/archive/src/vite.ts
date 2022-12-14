@@ -1,45 +1,50 @@
-import type { SetOptional } from 'type-fest'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { ResolvedArchiveConfig } from './types'
-import type {
-  ResolvedNavRecord,
-  ServerResolvedNavRecord,
-  ServerResolvedPageData,
-  ServerResolvedPageTab,
-} from '@idux/archive-app'
-import { type InlineConfig, type Plugin, loadConfigFromFile, searchForWorkspaceRoot, mergeConfig } from 'vite'
-import { createArchiveMdPlugin } from '@idux/archive-markdown-plugin'
-import { createArchivePlugin } from '@idux/archive-plugin'
+import type { ServerResolvedNavRecord, ServerResolvedPageData, ServerResolvedPageTab } from '@idux-archive/app'
+
+import { createRequire } from 'node:module'
+
+import { dirname, join } from 'pathe'
+import { type InlineConfig, type Plugin, loadConfigFromFile, mergeConfig, searchForWorkspaceRoot } from 'vite'
+
+import { createArchiveMdPlugin } from '@idux-archive/vite-markdown-plugin'
+import { createArchivePlugin } from '@idux-archive/vite-plugin'
 
 import { genObjectScript } from './utils'
 
-import { dirname, join } from 'pathe'
-import { createRequire } from 'node:module'
-
 const _require = createRequire(import.meta.url)
-const BUNDLE_PATH = join(dirname(_require.resolve('@idux/archive-app/package.json')), 'bundle')
+const BUNDLE_PATH = join(dirname(_require.resolve('@idux-archive/app/package.json')), 'bundle')
 
 const APP_MOUNT_OPTIONS_ID = 'virtual:archive-app-mount-options'
 const RESOLVED_APP_MOUNT_OPTIONS_ID = `/__resolved__${APP_MOUNT_OPTIONS_ID}`
 
 function genPageTabScript(tab: ServerResolvedPageTab): string {
-  return genObjectScript(tab, tab.component ? {
-    component: tab.component
-  } : undefined)
+  return genObjectScript(
+    tab,
+    tab.component
+      ? {
+          component: tab.component,
+        }
+      : undefined,
+  )
 }
-function genPageDataScript(pageData: ServerResolvedPageData) {
+function genPageDataScript(pageData: ServerResolvedPageData): string {
   if (pageData.demoIds) {
     return JSON.stringify(pageData)
   }
 
-  const tempPageData = { ...pageData }
   if (pageData.component) {
     return genObjectScript(pageData, { component: pageData.component })
   }
 
   if (pageData.tabs) {
-    return genObjectScript(pageData, { tabs: `[${pageData.tabs
-      .map(tab => genPageTabScript(tab))
-      .join(',')}]` })
+    return genObjectScript(pageData, { tabs: `[${pageData.tabs.map(tab => genPageTabScript(tab)).join(',')}]` })
   }
 
   return 'undefined'
@@ -51,22 +56,13 @@ function genNavRecordsScript(records: ServerResolvedNavRecord[]): string {
     }
 
     if (record.type === 'item') {
-      return genObjectScript(record, record.pageData.tabs?.length ? { pageData: genPageDataScript(record.pageData) } : undefined)
-      // if (!record.pageData.tabs?.length) {
-      //   return JSON.stringify(record)
-      // }
-
-      // const tempRecord = { ...record } as SetOptional<ResolvedNavRecord & { type: 'item' }, 'pageData'>
-      // delete tempRecord.pageData
-      // return `{${JSON.stringify(tempRecord).slice(1, -1)}, pageData: ${genPageDataScript(record.pageData)}}`
+      return genObjectScript(
+        record,
+        record.pageData.tabs?.length ? { pageData: genPageDataScript(record.pageData) } : undefined,
+      )
     }
 
     return genObjectScript(record, { children: genNavRecordsScript(record.children) })
-
-    // const tempRecord = { ...record } as SetOptional<ResolvedNavRecord & { type: 'sub' }, 'children'>
-    // delete tempRecord.children
-
-    // return `{${JSON.stringify(tempRecord).slice(1, -1)}, children: ${genNavRecordsScript(record.children)}}`
   })}]`
 }
 
@@ -155,6 +151,8 @@ export async function createBuildViteConfig(
           {
             name: 'archive-build-rollup-options-override',
             enforce: 'post',
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             options(options: any) {
               if (isAppBuild) {
                 options.external = []

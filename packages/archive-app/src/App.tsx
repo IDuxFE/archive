@@ -1,11 +1,20 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { ResolvedMenuData } from './types'
 import type { MenuProps } from '@idux/components/menu'
-import { computed, defineComponent, inject, normalizeClass } from 'vue'
-import { appContextToken, breakpointsToken } from './token'
 
-import { RouterLink, RouterView } from 'vue-router'
+import { computed, defineComponent, inject, normalizeClass } from 'vue'
+
 import { IxLayoutSiderTrigger } from '@idux/components/layout'
 import { IxProLayout } from '@idux/pro/layout'
+import { RouterLink, RouterView } from 'vue-router'
+
+import { appContextToken, breakpointsToken } from './token'
 
 export default defineComponent(() => {
   const { menuData, theme, render, renderers, activeRecords } = inject(appContextToken)!

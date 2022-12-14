@@ -1,29 +1,35 @@
-import type { ResolvedPageData, ResolvedAppThemeOptions, AppSetupOptions, AppRenderers } from '../../types'
-import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, ResolvedPageData } from '../../types'
+
 import {
   type PropType,
+  VNode,
   type VNodeChild,
-  defineComponent,
   computed,
+  defineComponent,
+  inject,
+  normalizeClass,
+  onMounted,
   provide,
   ref,
   watch,
-  onMounted,
-  VNode,
-  inject,
-  normalizeClass,
 } from 'vue'
 
-import { findOverflowParent } from '../../utils'
-
+import { IxAffix } from '@idux/components/affix'
 import { IxMessageProvider } from '@idux/components/message'
 import { IxRadioGroup } from '@idux/components/radio'
-import { IxAffix } from '@idux/components/affix'
 
 import { usePageRender } from '../../composables/usePageRender'
-
-import DemosContent from './DemosContent'
+import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
+import { findOverflowParent } from '../../utils'
 import AsyncContent from './AsyncContent'
+import DemosContent from './DemosContent'
 
 export default defineComponent({
   props: {

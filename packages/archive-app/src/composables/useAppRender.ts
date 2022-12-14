@@ -1,14 +1,22 @@
-import type { AppRenderer, AppRendererDataBase } from '../types'
-import type { ComputedRef, VNodeChild } from 'vue'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import type { AppRenderer, AppRendererDataBase } from '../types'
 import type { Except } from 'type-fest'
+import type { ComputedRef, VNodeChild } from 'vue'
 
 type DataBase = Except<AppRendererDataBase, 'activeRecords'> & {
   activeRecords: ComputedRef<AppRendererDataBase['activeRecords']>
 }
 
 export interface ResolvedAppRender {
-   <D extends Record<string, any>, EnsureNodes extends false>(
+  <D extends Record<string, any>, EnsureNodes extends false>(
     data: D,
     customRenderer: AppRenderer<D, EnsureNodes> | undefined,
   ): VNodeChild

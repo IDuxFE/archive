@@ -1,9 +1,15 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { App } from 'vue'
 
 import { createGlobalConfig } from '@idux/components/config'
+import { Copy, Expand, IDUX_ICON_DEPENDENCIES, Link, Unexpand, addIconDefinitions } from '@idux/components/icon'
 import { createGlobalConfig as createProGlobalConfig } from '@idux/pro/config'
-
-import { IDUX_ICON_DEPENDENCIES, addIconDefinitions, Expand, Unexpand, Copy, Link } from '@idux/components/icon'
 
 addIconDefinitions(IDUX_ICON_DEPENDENCIES)
 addIconDefinitions([Expand, Unexpand, Copy, Link])

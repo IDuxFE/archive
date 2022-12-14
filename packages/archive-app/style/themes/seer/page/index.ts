@@ -10,7 +10,7 @@ import '@idux/components/tabs/style/themes/seer.less'
 import '@idux/components/icon/style/themes/seer.less'
 import '@idux/components/anchor/style/themes/seer.less'
 import '@idux/components/affix/style/themes/seer.less'
-import '@idux/archive-markdown-plugin/style/themes/seer.css'
+import '@idux-archive/vite-markdown-plugin/style/themes/seer.css'
 
 import './variables.less'
 import '../../../page.less'

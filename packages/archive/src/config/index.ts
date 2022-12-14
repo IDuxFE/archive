@@ -1,14 +1,22 @@
-import type { ArchiveConfig, ResolvedArchiveConfig } from '../types'
-import type { CollectedDemo } from '@idux/archive-plugin'
-import type { SetRequired, SetOptional } from 'type-fest'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
 
-import { parse, join, dirname } from 'pathe'
+import type { ArchiveConfig, ResolvedArchiveConfig } from '../types'
+import type { CollectedDemo } from '@idux-archive/vite-plugin'
+import type { SetOptional, SetRequired } from 'type-fest'
+
 import { existsSync } from 'fs'
 import { pathToFileURL } from 'node:url'
 
-import { resolveRecords } from './resolveRecords'
-import { resolveCollectors } from './resolveCollectors'
+import { dirname, join, parse } from 'pathe'
+
 import { directoryNavGetter } from './directoryNavGetter'
+import { resolveCollectors } from './resolveCollectors'
+import { resolveRecords } from './resolveRecords'
 
 export const configFileNames = ['archive.config.js']
 
@@ -79,7 +87,10 @@ export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
 
 function mergeConfig(
   config?: ArchiveConfig,
-): SetOptional<Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }>, 'setupFile'> {
+): SetOptional<
+  Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }>,
+  'setupFile'
+> {
   const { setupFile, navConfig, theme, collectors, markdownOptions, dist, root } = config ?? {}
   const resolvedRoot = root ?? process.cwd()
 

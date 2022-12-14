@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 type TreeTypeData<V extends Record<string, any> = Record<string, any>, C extends string = 'children'> = {
   [key in C]?: TreeTypeData<V, C>[]
 } & V
@@ -46,11 +55,11 @@ export function mapTree<
   return map(data, [])
 }
 
-export function normalizePath(path: string) {
+export function normalizePath(path: string): string {
   return path.replace(/\/(\/)+/g, '/')
 }
 
-export function genObjectScript(obj: Record<string, any>, modifiers?: Record<string, string>) {
+export function genObjectScript(obj: Record<string, any>, modifiers?: Record<string, string>): string {
   const temp = { ...obj }
   const modifierKeys = Object.keys(modifiers ?? {})
 

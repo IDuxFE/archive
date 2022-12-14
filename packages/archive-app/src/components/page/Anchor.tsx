@@ -1,9 +1,17 @@
-import { type PropType, computed, defineComponent, onMounted, ref, inject } from 'vue'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { AnchorData } from '../../types'
-import { pageContextToken } from '../../token'
+
+import { type PropType, computed, defineComponent, inject, onMounted, ref } from 'vue'
 
 import { type AnchorInstance, IxAnchor, IxAnchorLink } from '@idux/components/anchor'
 
+import { pageContextToken } from '../../token'
 import { findOverflowParent } from '../../utils'
 
 export default defineComponent({
