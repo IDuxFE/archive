@@ -1,15 +1,23 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import chokidar from 'chokidar'
 import pc from 'picocolors'
-import { serve } from '../server.js'
+
+import { serve } from '../server'
 
 export interface DevOptions {
   port: number
 }
 
-export async function devCommand (options: DevOptions) {
+export async function devCommand(options: DevOptions): Promise<void> {
   let stop: (() => Promise<void>) | null
 
-  async function start () {
+  async function start() {
     const { server, configFilePath, close } = await serve(options.port)
     server.printUrls()
 
@@ -29,7 +37,7 @@ export async function devCommand (options: DevOptions) {
     }
   }
 
-  async function restart (source: string) {
+  async function restart(source: string) {
     if (stop) {
       console.log(pc.blue(`${source} config changed, restarting...`))
       await stop()

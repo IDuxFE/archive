@@ -1,10 +1,18 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { AnchorData } from '../../types'
-import { type ComponentPublicInstance, defineComponent, computed, ref, inject, nextTick, onMounted, watch } from 'vue'
-import { traverseTree } from '../../utils'
-import { pageContextToken } from '../../token'
+
+import { type ComponentPublicInstance, computed, defineComponent, inject, nextTick, onMounted, ref, watch } from 'vue'
 
 import { isObject } from 'lodash-es'
 
+import { pageContextToken } from '../../token'
+import { traverseTree } from '../../utils'
 import Anchor from './Anchor'
 
 export default defineComponent({

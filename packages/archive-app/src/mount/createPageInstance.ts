@@ -1,13 +1,22 @@
-import type { PageInstance, ResolvedAppThemeOptions, RouteRecord, AppRenderers, AppSetupOptions } from '../types'
-import { breakpointsToken, themeToken } from '../token'
-import { type App, createApp, createVNode, render, VNode } from 'vue'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import type { AppRenderers, AppSetupOptions, PageInstance, ResolvedAppThemeOptions, RouteRecord } from '../types'
+
+import { type App, VNode, createApp, createVNode, render } from 'vue'
 
 import { useBreakpoints } from '@idux/cdk/breakpoint'
 
 import Page from '../components/page/Page'
-
 import { resolvePageProps } from '../resolvePageProps'
+import { breakpointsToken, themeToken } from '../token'
 import iduxInstall from './iduxInstall'
+
+/* eslint-disable camelcase */
 
 let __archive_app_vue_instance__: App | undefined
 
@@ -39,7 +48,7 @@ export function createPageInstance(
     _createApp(setupApp, theme)
 
     _el = el
-    _vm = createVNode(Page, { ...resolvePageProps(routeRecord.pageData, theme, renderers, setupOptions) })
+    _vm = createVNode(Page, { ...resolvePageProps(routeRecord.pageData, theme, renderers ?? {}, setupOptions) })
     _vm.appContext = __archive_app_vue_instance__!._context
 
     render(_vm, el)

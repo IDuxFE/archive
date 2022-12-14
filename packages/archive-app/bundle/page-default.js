@@ -1,5 +1,6 @@
-import { createAllPageComponents } from '../dist/index.js'
 import mountOptions from 'virtual:archive-app-mount-options'
+
+import { createAllPageComponents } from '../dist/index.js'
 
 import '../dist/themes/default/page.css'
 

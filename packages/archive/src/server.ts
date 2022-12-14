@@ -1,8 +1,20 @@
-import { createServer } from 'vite'
-import { createDevViteConfig } from './vite'
-import { loadConfig, resolveConfig } from './config'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
 
-export async function serve(port?: number) {
+import { type ViteDevServer, createServer } from 'vite'
+
+import { loadConfig, resolveConfig } from './config'
+import { createDevViteConfig } from './vite'
+
+export async function serve(port?: number): Promise<{
+  server: ViteDevServer
+  configFilePath: string | undefined
+  close: () => Promise<void>
+}> {
   const { config, configFilePath } = await loadConfig()
 
   console.log('config loaded', configFilePath)

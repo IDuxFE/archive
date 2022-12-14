@@ -1,6 +1,8 @@
-const { build } = require('vite')
 const { builtinModules } = require('module')
 const { resolve } = require('path')
+
+const { build } = require('vite')
+
 const pkg = require('../package.json')
 
 const external = [

@@ -1,4 +1,9 @@
-@import './variables.less';
+@import url('./variables.less');
+
+body, html {
+  padding: 0;
+  margin: 0;
+}
 
 .size-style(@size) {
   @padding-left: ~'var(--archive-app-content-padding-left-@{size})';
@@ -21,6 +26,7 @@
 .@{prefix}__root-wrapper {
   height: 100vh;
   background-color: #fff;
+  font-size: var(--archive-app-font-size);
 
   .archive-app-pro-layout-content {
     padding-left: 0;
@@ -56,6 +62,5 @@
   font-size: var(--archive-app-sider-header-label-font-size);
   font-weight: var(--archive-app-sider-header-label-font-weight);
   color: var(--archive-app-sider-header-label-color);
-
   white-space: nowrap;
 }

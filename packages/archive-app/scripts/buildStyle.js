@@ -1,8 +1,9 @@
-const { build } = require('vite')
-const { resolve } = require('path')
 const { unlinkSync, existsSync, writeFileSync, readFileSync } = require('fs')
+const { resolve } = require('path')
 
-const getConfig = (theme) => ({
+const { build } = require('vite')
+
+const getConfig = theme => ({
   configFile: false,
   build: {
     emptyOutDir: false,
@@ -22,7 +23,7 @@ const getConfig = (theme) => ({
         entryFileNames: `__temp__.js`,
         assetFileNames: `themes/${theme.name}/${theme.chunk}.css`,
       },
-      external: []
+      external: [],
     },
   },
   css: {
@@ -31,7 +32,7 @@ const getConfig = (theme) => ({
         javascriptEnabled: true,
         modifyVars: {
           '@idux-prefix': 'archive-app',
-          '@idux-pro-prefix': 'archive-app-pro'
+          '@idux-pro-prefix': 'archive-app-pro',
         },
       },
     },
@@ -42,20 +43,22 @@ const themes = [
   { name: 'default', chunk: 'app', input: resolve(__dirname, '../style/themes/default/app/index.ts') },
   { name: 'seer', chunk: 'app', input: resolve(__dirname, '../style/themes/seer/app/index.ts') },
   { name: 'default', chunk: 'page', input: resolve(__dirname, '../style/themes/default/page/index.ts') },
-  { name: 'seer', chunk: 'page', input: resolve(__dirname, '../style/themes/seer/page/index.ts') }
+  { name: 'seer', chunk: 'page', input: resolve(__dirname, '../style/themes/seer/page/index.ts') },
 ]
 
 ;(async () => {
-  await Promise.all(themes.map(async theme => {
-    await build(getConfig(theme))
+  await Promise.all(
+    themes.map(async theme => {
+      await build(getConfig(theme))
 
-    const styleTempFile = resolve(__dirname, '../dist/__temp__.js')
-    if (existsSync(styleTempFile)) {
-      unlinkSync(styleTempFile)
-    }
+      const styleTempFile = resolve(__dirname, '../dist/__temp__.js')
+      if (existsSync(styleTempFile)) {
+        unlinkSync(styleTempFile)
+      }
 
-    const styleFile = resolve(__dirname, `../dist/themes/${theme.name}/${theme.chunk}.css`)
-    writeFileSync(styleFile, readFileSync(styleFile, 'utf-8').replace(/--ix-/g, '--archive-ix-'))
-    // await appendFile(resolve(__dirname, `../dist/themes/${theme.name}/${theme.chunk}.js`), `\n import "./${theme.chunk}.css"`)
-  }))
+      const styleFile = resolve(__dirname, `../dist/themes/${theme.name}/${theme.chunk}.css`)
+      writeFileSync(styleFile, readFileSync(styleFile, 'utf-8').replace(/--ix-/g, '--archive-ix-'))
+      // await appendFile(resolve(__dirname, `../dist/themes/${theme.name}/${theme.chunk}.js`), `\n import "./${theme.chunk}.css"`)
+    }),
+  )
 })()

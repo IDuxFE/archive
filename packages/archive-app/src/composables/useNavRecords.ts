@@ -1,5 +1,14 @@
-import type { NavRecordType, ResolvedNavRecord, ResolvedMenuData } from '../types'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
+import type { NavRecordType, ResolvedMenuData, ResolvedNavRecord } from '../types'
+
 import { type ComputedRef, computed } from 'vue'
+
 import { type RouteLocationNormalizedLoaded } from 'vue-router'
 
 import { mapTree } from '../utils'

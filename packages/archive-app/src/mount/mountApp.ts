@@ -1,51 +1,59 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { AppMountOptions } from '../types'
 
-import { h, createApp, provide, defineComponent } from 'vue'
-import { useRoute, createRouter, createWebHistory } from 'vue-router'
-import AppComp from '../App'
+import { createApp, defineComponent, h, provide } from 'vue'
 
-import { appContextToken, breakpointsToken, themeToken } from '../token'
-
-import iduxInstall from './iduxInstall'
-import { useNavRecords } from '../composables/useNavRecords'
-import { useAppRender } from '../composables/useAppRender'
 import { useBreakpoints } from '@idux/cdk/breakpoint'
+import { createRouter, createWebHistory, useRoute } from 'vue-router'
 
+import AppComp from '../App'
+import { useAppRender } from '../composables/useAppRender'
+import { useNavRecords } from '../composables/useNavRecords'
 import { resolveRoutes } from '../resolveRoutes'
 import { resolveThemeOptions } from '../resolveThemeOptions'
+import { appContextToken, breakpointsToken, themeToken } from '../token'
+import iduxInstall from './iduxInstall'
 
-export function mountApp(options: AppMountOptions) {
-  const { navRecords, routeRecords, el, renderers, setupOptions, setupApp } = options
+export function mountApp(options: AppMountOptions): void {
+  const { navRecords, routeRecords, el, renderers = {}, setupOptions, setupApp } = options
   const theme = resolveThemeOptions(options.theme)
   const routes = resolveRoutes(routeRecords, theme, renderers, setupOptions)
 
-  const app = createApp(defineComponent({
-    setup() {
-      const route = useRoute()
-      const navContext = useNavRecords(navRecords, route)
-      const breakpoints = useBreakpoints(theme.breakpoints)
+  const app = createApp(
+    defineComponent({
+      setup() {
+        const route = useRoute()
+        const navContext = useNavRecords(navRecords, route)
+        const breakpoints = useBreakpoints(theme.breakpoints)
 
-      const render = useAppRender({
-        route,
-        activeRecords: navContext.activeRecords,
-        theme,
-        breakpoints,
-      })
+        const render = useAppRender({
+          route,
+          activeRecords: navContext.activeRecords,
+          theme,
+          breakpoints,
+        })
 
-      provide(appContextToken, {
-        ...navContext,
-        route,
-        theme,
-        navRecords,
-        renderers,
-        render,
-      })
-      provide(themeToken, theme)
-      provide(breakpointsToken, breakpoints)
+        provide(appContextToken, {
+          ...navContext,
+          route,
+          theme,
+          navRecords,
+          renderers,
+          render,
+        })
+        provide(themeToken, theme)
+        provide(breakpointsToken, breakpoints)
 
-      return () => h(AppComp)
-    },
-  }))
+        return () => h(AppComp)
+      },
+    }),
+  )
 
   app
     .use(

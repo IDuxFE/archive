@@ -1,5 +1,5 @@
 {
-  "name": "@idux/archive-collector-vue",
+  "name": "@idux-archive/collector-vue",
   "version": "0.0.1",
   "description": "",
   "main": "./dist/index.mjs",
@@ -10,17 +10,21 @@
     "build": "rimraf dist && vite build && pnpm run build:types",
     "build:types": "tsc --declaration --emitDeclarationOnly --outDir ./dist"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "IDuxFE<idux.feteam@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IDuxFE/archive",
+    "directory": "packages/archive-collector-vue"
+  },
   "dependencies": {
-    "@idux/archive-markdown-plugin": "^0.0.1",
+    "@idux-archive/vite-markdown-plugin": "^0.0.1",
     "@vue/compiler-sfc": "^3.2.45",
     "pathe": "^1.0.0"
   },
   "devDependencies": {
-    "@idux/archive-plugin": "^0.0.1",
+    "@idux-archive/vite-plugin": "^0.0.1",
     "lodash-es": "^4.17.21",
-    "less": "^4.1.3",
     "vue": "^3.2.41"
   }
 }

@@ -1,16 +1,23 @@
-import type { App } from 'vue'
-import type { Collector, CollectedDemo } from '@idux/archive-plugin'
-import type { VueCollectorOptions } from '@idux/archive-collector-vue'
-import type { MarkdownOptions } from '@idux/archive-markdown-plugin'
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type {
+  AppRenderers,
+  AppSetupOptions,
+  AppThemeOptions,
   NavRecord,
   ServerResolvedNavRecord,
   ServerRouteRecord,
-  AppThemeOptions,
-  AppRenderers,
-  AppSetupOptions,
-} from '@idux/archive-app'
+} from '@idux-archive/app'
+import type { VueCollectorOptions } from '@idux-archive/collector-vue'
+import type { MarkdownOptions } from '@idux-archive/vite-markdown-plugin'
+import type { CollectedDemo, Collector } from '@idux-archive/vite-plugin'
 import type { SetRequired } from 'type-fest'
+import type { App } from 'vue'
 
 export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
   name: 'vue'

@@ -1,13 +1,21 @@
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+
 import type { DemoTool } from '../../types'
-import type { ResolvedDemo, LoadedSourceCode, DemoInstance } from '@idux/archive-plugin'
+import type { DemoInstance, LoadedSourceCode, ResolvedDemo } from '@idux-archive/vite-plugin'
+
 import {
-  type PropType,
   type ComputedRef,
   type ExtractPropTypes,
-  defineComponent,
-  computed,
-  ref,
+  type PropType,
   Transition,
+  computed,
+  defineComponent,
+  ref,
   watch,
 } from 'vue'
 
@@ -15,9 +23,9 @@ import { throttle } from 'lodash-es'
 
 import { useClipboard } from '@idux/cdk/clipboard'
 import { useState } from '@idux/cdk/utils'
-import { useMessage } from '@idux/components/message'
 import { IxIcon } from '@idux/components/icon'
-import { IxTabs, IxTab } from '@idux/components/tabs'
+import { useMessage } from '@idux/components/message'
+import { IxTab, IxTabs } from '@idux/components/tabs'
 
 import DemoInstanceComp from './DemoInstance'
 import DemoToolComp from './DemoTool'
@@ -132,7 +140,9 @@ export default defineComponent({
           {demoData.title && (
             <h3 id={demoData.id} class={`${mergedPrefixCls}__title`}>
               <span>{demoData.title}</span>
-              <a class="anchor" href={'#' + demoData.id}>#</a>
+              <a class="anchor" href={'#' + demoData.id}>
+                #
+              </a>
             </h3>
           )}
           {demoData.description && <p class={`${mergedPrefixCls}__description`}>{demoData.description}</p>}
