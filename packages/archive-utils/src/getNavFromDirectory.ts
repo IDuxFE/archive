@@ -62,7 +62,7 @@ function defaultCheckIsPage(path: string) {
   return /\.page\.(vue|md)$/.test(path)
 }
 
-export function directoryNavGetter(
+export function getNavFromDirectory(
   demos: CollectedDemo[],
   root: string,
   options?: DirectoryNavGetterOptions,

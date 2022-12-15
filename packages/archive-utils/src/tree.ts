@@ -22,7 +22,7 @@ export function traverseTree<V extends TreeTypeData<Record<string, any>, C>, C e
       const item = _data[idx]
       traverseStrategy === 'pre' && fn(item, parents)
       if (item[childrenKey]) {
-        traverse(item[childrenKey]!, [item, ...[].slice.call(parents)])
+        traverse(item[childrenKey]!, [item, ...parents])
       }
       traverseStrategy === 'post' && fn(item, parents)
     }
@@ -35,29 +35,21 @@ export function mapTree<
   V extends TreeTypeData<Record<string, any>, C>,
   R extends TreeTypeData<Record<string, any>, C>,
   C extends string,
->(data: V[], childrenKey: C, fn: (item: V, parents: V[]) => R): R[] {
-  const map = (_data: V[], parents: V[]) => {
-    return _data.map(item => {
+>(data: ArrayLike<V>, childrenKey: C, fn: (item: V, parents: V[]) => R): R[] {
+  const map = (_data: ArrayLike<V>, parents: V[]) => {
+    const res: R[] = []
+    for (let idx = 0; idx < _data.length; idx++) {
+      const item = _data[idx]
       const mappedItem = fn(item, parents)
       if (item[childrenKey]) {
         const mappedChildren = map(item[childrenKey]!, [item, ...parents])
         mappedItem[childrenKey] = mappedChildren as R[C]
       }
 
-      return mappedItem
-    })
-  }
-  return map(data, [])
-}
-
-export function findOverflowParent(el: HTMLElement): HTMLElement | undefined {
-  let parent = el.parentElement
-  while (parent) {
-    const { overflowY, display } = getComputedStyle(parent)
-    if ((overflowY === 'auto' || overflowY === 'hidden' || overflowY === 'scroll') && !/inline/.test(display)) {
-      return parent
+      res.push(mappedItem)
     }
 
-    parent = parent.parentElement
+    return res
   }
+  return map(data, [])
 }
