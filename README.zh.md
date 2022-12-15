@@ -1,6 +1,6 @@
 # @idux-archive
 
-`@idux-archive` is a documentation builder for components library and any need to create interactive documentation site.
+`@idux-archive` 是一个文档构建工具，可用于组件库文档以及任何其他交互式文档的维护。
 
 <div align="center">
 
@@ -16,51 +16,51 @@
 
 </div>
 
-English | [简体中文](README.zh.md)
+[English](README.md) | 简体中文
 
-## ✨ Features
+## ✨ 特性
 
-- Based on Idux Design and components
-- Written in TypeScript with complete defined types
-- Monorepo: `archive`, `archive-app`, `archive-collector-collector`...
-- Create interactive documentation site for your project
-- Document demos of vue and other
-- Highly extensiable
-- Deeply customizable
-- Powerful theme customization
-<!-- - Internationalization support for various languages -->
+- 基于 Idux Design 以及组件
+- 完全使用 TypeScript 开发，提供完整的类型定义
+- Monorepo 管理模式：`archive`, `archive-app`, `archive-collector-collector`...
+- 为你的项目创建交互式文档
+- 维护基于 vue 的 demo 以及任何其他类型的 demo
+- 高可扩展性
+- 深度自定义
+- 强大的主题自定义
 
-## 📦 Installation
+## 📦 安装
 
 ```bash
 npm install --save @idux-archive/archive
 ```
 
-## ⌨️ Development
+## ⌨️ 开发
 
 ```bash
 pnpm install
 ```
 
-Enter any example then run
+进入任意一个示例（examples下）
 
 ```bash
 npm run dev
 ```
 
-## 🤝 Contributing
+## 🤝 如何贡献
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/IDuxFE/idux/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/IDuxFE/archive/pulls)
 
-We welcome all contributions. Please read our [CONTRIBUTING.md](https://github.com/IDuxFE/archive/blob/main/Contributing.en.md) first. You can submit any ideas as [Pull Request](https://github.com/IDuxFE/archive/pulls) or as [GitHub issues](https://github.com/IDuxFE/archive/issues).
+在任何形式的参与前，请先阅读 [贡献者文档](https://github.com/IDuxFE/idux/blob/main/Contributing.en.md)。如果你希望参与贡献，欢迎 [Pull Request](https://github.com/IDuxFE/archive/pulls)，或给我们 [报告 Bug](https://github.com/IDuxFE/archive/issues)。
 
-## 💖 Thanks
 
-Many of the features are inspired by the following awesome projects.
+## 💖 特别感谢
+
+许多功能的灵感来自于以下优秀的开源项目。  
 
 - [Histoire](https://github.com/histoire-dev/histoire)
 - [VitePress](https://github.com/vuejs/vitepress)
 
-## ☀️ License
+## ☀️ 授权协议
 
 [MIT](https://github.com/IDuxFE/archive/blob/main/LICENSE) © 2022-present IDuxFE
