@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { LoadedSourceCode, ResolvedDemo } from '@idux-archive/vite-plugin'
+import type { LoadedSourceCode, ResolvedDemo } from '@idux/archive-vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
 import type { PropType, VNode } from 'vue'
 

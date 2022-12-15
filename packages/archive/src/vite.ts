@@ -6,20 +6,20 @@
  */
 
 import type { BuildTargets, ResolvedArchiveConfig } from './types'
-import type { ServerResolvedNavRecord, ServerResolvedPageData, ServerResolvedPageTab } from '@idux-archive/app'
+import type { ServerResolvedNavRecord, ServerResolvedPageData, ServerResolvedPageTab } from '@idux/archive-app'
 
 import { createRequire } from 'node:module'
 
 import { dirname, join } from 'pathe'
 import { type InlineConfig, type Plugin, loadConfigFromFile, mergeConfig, searchForWorkspaceRoot } from 'vite'
 
-import { createArchiveMdPlugin } from '@idux-archive/vite-markdown-plugin'
-import { createArchivePlugin } from '@idux-archive/vite-plugin'
+import { createArchiveMdPlugin } from '@idux/archive-vite-markdown-plugin'
+import { createArchivePlugin } from '@idux/archive-vite-plugin'
 
-import { genObjectScript } from '@idux-archive/utils'
+import { genObjectScript } from '@idux/archive-utils'
 
 const _require = createRequire(import.meta.url)
-const BUNDLE_PATH = join(dirname(_require.resolve('@idux-archive/app/package.json')), 'bundle')
+const BUNDLE_PATH = join(dirname(_require.resolve('@idux/archive-app/package.json')), 'bundle')
 
 const APP_MOUNT_OPTIONS_ID = 'virtual:archive-app-mount-options'
 const RESOLVED_APP_MOUNT_OPTIONS_ID = `/__resolved__${APP_MOUNT_OPTIONS_ID}`

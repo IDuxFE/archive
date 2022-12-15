@@ -17,7 +17,7 @@ import LRUCache from 'lru-cache'
 import { type MarkdownEnv, type MarkdownOptions, type MarkdownRenderer, createMarkdownRenderer } from './markdown'
 import { CleanUrlsMode, HeadConfig, PageData } from './types'
 
-const debug = _debug('@idux-archive/vite-markdown-plugin')
+const debug = _debug('@idux/archive-vite-markdown-plugin')
 const cache = new LRUCache<string, MarkdownCompileResult>({ max: 1024 })
 const includesRE = /<!--\s*@include:\s*(.*?)\s*-->/g
 

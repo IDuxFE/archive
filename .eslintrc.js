@@ -29,7 +29,7 @@ module.exports = {
     'import/resolver': {
       'eslint-import-resolver-custom-alias': {
         alias: {
-          '@idux-archive': resolve(__dirname, './packages'),
+          '@idux/archive': resolve(__dirname, './packages'),
         },
         extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.vue', '.md'],
         packages: ['packages/*'],
@@ -171,7 +171,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@idux-archive/**',
+            pattern: '@idux/archive-**',
             group: 'internal',
             position: 'before',
           },

@@ -13,10 +13,10 @@ import type {
   ServerResolvedPageData,
   ServerResolvedPageTab,
   ServerRouteRecord,
-} from '@idux-archive/app'
+} from '@idux/archive-app'
 
 import { normalizePath } from '../utils'
-import { mapTree } from '@idux-archive/utils'
+import { mapTree } from '@idux/archive-utils'
 
 export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
   const routeRecords: ServerRouteRecord[] = []

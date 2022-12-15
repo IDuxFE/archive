@@ -5,8 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { DemoTool, NavRecord, PageData, PageTab } from '@idux-archive/app'
-import type { CollectedDemo } from '@idux-archive/vite-plugin'
+import type { DemoTool, NavRecord, PageData, PageTab } from '@idux/archive-app'
+import type { CollectedDemo } from '@idux/archive-vite-plugin'
 
 import { readdirSync, statSync } from 'fs'
 

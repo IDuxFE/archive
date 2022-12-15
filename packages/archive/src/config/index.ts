@@ -6,7 +6,7 @@
  */
 
 import type { ArchiveConfig, ResolvedArchiveConfig } from '../types'
-import type { CollectedDemo } from '@idux-archive/vite-plugin'
+import type { CollectedDemo } from '@idux/archive-vite-plugin'
 import type { SetOptional, SetRequired } from 'type-fest'
 
 import { existsSync } from 'fs'
@@ -14,7 +14,7 @@ import { pathToFileURL } from 'node:url'
 
 import { dirname, join, parse } from 'pathe'
 
-import { getNavFromDirectory } from '@idux-archive/utils'
+import { getNavFromDirectory } from '@idux/archive-utils'
 import { resolveCollectors } from './resolveCollectors'
 import { resolveRecords } from './resolveRecords'
 

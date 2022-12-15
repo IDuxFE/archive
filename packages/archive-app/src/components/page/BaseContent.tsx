@@ -12,7 +12,7 @@ import { type ComponentPublicInstance, computed, defineComponent, inject, nextTi
 import { isObject } from 'lodash-es'
 
 import { pageContextToken } from '../../token'
-import { traverseTree } from '@idux-archive/utils/client'
+import { traverseTree } from '@idux/archive-utils/client'
 import Anchor from './Anchor'
 
 export default defineComponent({

@@ -27,7 +27,7 @@ import { IxRadioGroup } from '@idux/components/radio'
 
 import { usePageRender } from '../../composables/usePageRender'
 import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
-import { findOverflowParent } from '@idux-archive/utils/client'
+import { findOverflowParent } from '@idux/archive-utils/client'
 import AsyncContent from './AsyncContent'
 import DemosContent from './DemosContent'
 

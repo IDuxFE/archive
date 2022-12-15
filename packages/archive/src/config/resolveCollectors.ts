@@ -6,9 +6,9 @@
  */
 
 import type { ArchiveVueCollector } from '../types'
-import type { Collector } from '@idux-archive/vite-plugin'
+import type { Collector } from '@idux/archive-vite-plugin'
 
-import { type VueCollectorOptions, createVueCollector } from '@idux-archive/collector-vue'
+import { type VueCollectorOptions, createVueCollector } from '@idux/archive-collector-vue'
 
 export function resolveCollectors(collectors?: (ArchiveVueCollector | Collector)[]): Collector[] {
   if (!collectors?.length) {

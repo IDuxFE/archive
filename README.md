@@ -1,12 +1,12 @@
-# @idux-archive
+# @idux/archive
 
-`@idux-archive` is a documentation builder for components library and any need to create interactive documentation site.
+`@idux/archive` is a documentation builder for components library and any need to create interactive documentation site.
 
 <div align="center">
 
 <!-- [![Build Status](https://dev.azure.com/iduxfeteam/IduxFE/_apis/build/status/IduxFE.idux?branchName=main)](https://dev.azure.com/iduxfeteam/IduxFE/_build/latest?definitionId=2&branchName=main)
 [![Codecov](https://codecov.io/gh/IDuxFE/idux/branch/main/graph/badge.svg?token=PGAUXP06V3)](https://codecov.io/gh/IDuxFE/idux) -->
-[![Npm version](https://img.shields.io/npm/v/@idux/components)](https://www.npmjs.com/package/@idux-archive/archive)
+[![Npm version](https://img.shields.io/npm/v/@idux/components)](https://www.npmjs.com/package/@idux/archive)
 [![Release Date](https://img.shields.io/github/release-date/IDuxFE/idux)](https://github.com/IDuxFE/archive/releases)
 
 <!-- [![CodeFactor](https://www.codefactor.io/repository/github/iduxfe/idux/badge)](https://www.codefactor.io/repository/github/iduxfe/idux) -->
@@ -33,7 +33,7 @@ English | [简体中文](README.zh.md)
 ## 📦 Installation
 
 ```bash
-npm install --save @idux-archive/archive
+npm install --save @idux/archive
 ```
 
 ## ⌨️ Development

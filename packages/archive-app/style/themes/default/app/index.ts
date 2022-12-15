@@ -10,7 +10,7 @@ import '@idux/components/tabs/style/themes/default.less'
 import '@idux/components/icon/style/themes/default.less'
 import '@idux/components/anchor/style/themes/default.less'
 import '@idux/components/affix/style/themes/default.less'
-import '@idux-archive/vite-markdown-plugin/style/themes/default.css'
+import '@idux/archive-vite-markdown-plugin/style/themes/default.css'
 
 import '@idux/components/style/core/reset-scroll.default.css'
 import '@idux/components/menu/style/themes/default.less'

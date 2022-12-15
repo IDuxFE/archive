@@ -8,7 +8,7 @@
 /* eslint-disable camelcase */
 
 import type { ResolvedVue3Demo, VueCollectorSetup } from '../types'
-import type { DemoInstance } from '@idux-archive/vite-plugin'
+import type { DemoInstance } from '@idux/archive-vite-plugin'
 
 import {
   type App,

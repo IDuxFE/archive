@@ -12,10 +12,10 @@ import type {
   NavRecord,
   ServerResolvedNavRecord,
   ServerRouteRecord,
-} from '@idux-archive/app'
-import type { VueCollectorOptions } from '@idux-archive/collector-vue'
-import type { MarkdownOptions } from '@idux-archive/vite-markdown-plugin'
-import type { CollectedDemo, Collector } from '@idux-archive/vite-plugin'
+} from '@idux/archive-app'
+import type { VueCollectorOptions } from '@idux/archive-collector-vue'
+import type { MarkdownOptions } from '@idux/archive-vite-markdown-plugin'
+import type { CollectedDemo, Collector } from '@idux/archive-vite-plugin'
 import type { SetRequired } from 'type-fest'
 import type { App } from 'vue'
 

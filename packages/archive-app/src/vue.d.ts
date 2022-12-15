@@ -19,13 +19,13 @@ declare module '*.svg' {
 }
 
 declare module 'virtual:archive-demo-all' {
-  import type { DemoInstance } from '@idux-archive/vite-plugin'
+  import type { DemoInstance } from '@idux/archive-vite-plugin'
   const demos: Record<string, DemoInstance>
   export default demos
 }
 
 declare module 'virtual:archive-demo-all-data' {
-  import type { ResolvedDemo } from '@idux-archive/vite-plugin'
+  import type { ResolvedDemo } from '@idux/archive-vite-plugin'
   const demos: Record<string, ResolvedDemo>
   export default demos
 }

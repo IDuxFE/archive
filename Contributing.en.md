@@ -4,7 +4,7 @@ title: Contribution
 order: 11
 ---
 
-This guide will guild you how to contribute to `@idux-archive`. Please take a fill minutes to read this guide before you open an issue or pull request.
+This guide will guild you how to contribute to `@idux/archive`. Please take a fill minutes to read this guide before you open an issue or pull request.
 
 ## Code of conduct
 

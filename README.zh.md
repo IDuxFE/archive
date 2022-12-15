@@ -1,12 +1,12 @@
-# @idux-archive
+# @idux/archive
 
-`@idux-archive` 是一个文档构建工具，可用于组件库文档以及任何其他交互式文档的维护。
+`@idux/archive` 是一个文档构建工具，可用于组件库文档以及任何其他交互式文档的维护。
 
 <div align="center">
 
 <!-- [![Build Status](https://dev.azure.com/iduxfeteam/IduxFE/_apis/build/status/IduxFE.idux?branchName=main)](https://dev.azure.com/iduxfeteam/IduxFE/_build/latest?definitionId=2&branchName=main)
 [![Codecov](https://codecov.io/gh/IDuxFE/idux/branch/main/graph/badge.svg?token=PGAUXP06V3)](https://codecov.io/gh/IDuxFE/idux) -->
-[![Npm version](https://img.shields.io/npm/v/@idux/components)](https://www.npmjs.com/package/@idux-archive/archive)
+[![Npm version](https://img.shields.io/npm/v/@idux/components)](https://www.npmjs.com/package/@idux/archive)
 [![Release Date](https://img.shields.io/github/release-date/IDuxFE/idux)](https://github.com/IDuxFE/archive/releases)
 
 <!-- [![CodeFactor](https://www.codefactor.io/repository/github/iduxfe/idux/badge)](https://www.codefactor.io/repository/github/iduxfe/idux) -->
@@ -32,7 +32,7 @@
 ## 📦 安装
 
 ```bash
-npm install --save @idux-archive/archive
+npm install --save @idux/archive
 ```
 
 ## ⌨️ 开发

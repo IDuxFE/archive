@@ -6,7 +6,7 @@
  */
 
 import type { DemoTool } from '../../types'
-import type { DemoInstance, LoadedSourceCode, ResolvedDemo } from '@idux-archive/vite-plugin'
+import type { DemoInstance, LoadedSourceCode, ResolvedDemo } from '@idux/archive-vite-plugin'
 
 import {
   type ComputedRef,

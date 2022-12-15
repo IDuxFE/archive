@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { DemoInstance } from '@idux-archive/vite-plugin'
+import type { DemoInstance } from '@idux/archive-vite-plugin'
 
 import { type PropType, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 

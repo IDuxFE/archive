@@ -11,7 +11,7 @@ import { type ComputedRef, computed } from 'vue'
 
 import { type RouteLocationNormalizedLoaded } from 'vue-router'
 
-import { mapTree } from '@idux-archive/utils/client'
+import { mapTree } from '@idux/archive-utils/client'
 
 export interface NavRecordsContext {
   activeRecords: ComputedRef<ResolvedNavRecord[]>

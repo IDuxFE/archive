@@ -1,6 +1,6 @@
 {
-  "name": "@idux-archive/utils",
-  "version": "0.0.1",
+  "name": "@idux/archive-utils",
+  "version": "0.1.0",
   "description": "",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -32,8 +32,8 @@
     "directory": "packages/archive-utils"
   },
   "devDependencies": {
-    "@idux-archive/app": "^0.0.1",
-    "@idux-archive/vite-plugin": "^0.0.1",
+    "@idux/archive-app": "^0.1.0",
+    "@idux/archive-vite-plugin": "^0.1.0",
     "@types/lodash-es": "^4.17.6",
     "lodash-es": "^4.17.21"
   },
