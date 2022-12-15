@@ -31,19 +31,13 @@ export default defineConfig({
     cssCodeSplit: true,
 
     lib: {
-      entry: '',
-      formats: ['es'],
+      entry: ['./index.ts', './client.ts'],
+      formats: ['es', 'cjs'],
+      fileName: (format, entry) => (format === 'cjs' ? `${entry}.cjs` : `${entry}.js`),
     },
 
     rollupOptions: {
       external,
-      input: {
-        index: './index.ts',
-        client: './client.ts',
-      },
-      output: {
-        entryFileNames: '[name].mjs',
-      },
     },
   },
   define: {

@@ -8,17 +8,13 @@
 import chokidar from 'chokidar'
 import pc from 'picocolors'
 
-import { serve } from '../server'
+import { type ServeOptions, serve } from '../serve'
 
-export interface DevOptions {
-  port: number
-}
-
-export async function devCommand(options: DevOptions): Promise<void> {
+export async function devCommand(options: ServeOptions): Promise<void> {
   let stop: (() => Promise<void>) | null
 
   async function start() {
-    const { server, configFilePath, close } = await serve(options.port)
+    const { server, configFilePath, close } = await serve(options)
     server.printUrls()
 
     let watcher: chokidar.FSWatcher

@@ -6,6 +6,7 @@
  */
 
 import type { RollupOutput } from 'rollup'
+import type { BuildTargets, ResolvedArchiveConfig } from './types'
 
 import { writeFileSync } from 'node:fs'
 
@@ -15,25 +16,39 @@ import { build as viteBuild } from 'vite'
 import { loadConfig, resolveConfig } from './config'
 import { createBuildViteConfig } from './vite'
 
-export async function buildApp(): Promise<void> {
-  const { config } = await loadConfig()
+export interface BuildOptions {
+  root?: string
+  target?: BuildTargets
+}
+
+export async function build(options: BuildOptions) {
+  const { root, target } = options
+
+  const { config } = await loadConfig(root)
   const resolvedConfig = resolveConfig(config)
-  const viteConfig = await createBuildViteConfig(resolvedConfig, 'app')
+
+  if (!target || target === 'app') {
+    await buildApp(resolvedConfig)
+  } else {
+    await buildPages(resolvedConfig, target)
+  }
+}
+
+async function buildApp(config: ResolvedArchiveConfig): Promise<void> {
+  const viteConfig = await createBuildViteConfig(config, 'app')
 
   const buildResults = await viteBuild(viteConfig)
   const buildResult = (Array.isArray(buildResults) ? buildResults[0] : buildResults) as RollupOutput
 
-  const indexOutput = buildResult.output.find(o => o.name === `app-${resolvedConfig.theme}` && o.type === 'chunk')!
+  const indexOutput = buildResult.output.find(o => o.name === `app-${config.theme}` && o.type === 'chunk')!
   const styleOutput = buildResult.output.find(o => o.name === 'style.css' && o.type === 'asset')!
   const indexHtml = generateEntryHtml(indexOutput.fileName, styleOutput.fileName, viteConfig.base ?? '/')
 
-  writeFileSync(join(resolvedConfig.dist, 'index.html'), indexHtml, 'utf-8')
+  writeFileSync(join(config.dist, 'index.html'), indexHtml, 'utf-8')
 }
 
-export async function buildPages(): Promise<void> {
-  const { config } = await loadConfig()
-  const resolvedConfig = resolveConfig(config)
-  const viteConfig = await createBuildViteConfig(resolvedConfig, 'page')
+async function buildPages(config: ResolvedArchiveConfig, target: 'page' | 'instance'): Promise<void> {
+  const viteConfig = await createBuildViteConfig(config, target)
 
   await viteBuild(viteConfig)
 }

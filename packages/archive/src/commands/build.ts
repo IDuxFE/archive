@@ -5,10 +5,10 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import { buildApp } from '../build'
+import { type BuildOptions, build } from '../build'
 
-export async function buildCommand(): Promise<void> {
-  await buildApp()
+export async function buildCommand(options: BuildOptions): Promise<void> {
+  await build(options)
 
   // @TODO remove when https://github.com/vitejs/vite/issues/6815 is fixed
   process.exit(0)

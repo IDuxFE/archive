@@ -1,4 +1,4 @@
-import { dirname, resolve, basename } from 'path'
+import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'node:url'
 
 import { defineConfig } from '@idux-archive/archive'

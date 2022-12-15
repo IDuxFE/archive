@@ -35,12 +35,16 @@ export function mapTree<
   V extends TreeTypeData<Record<string, any>, C>,
   R extends TreeTypeData<Record<string, any>, C>,
   C extends string,
->(data: ArrayLike<V>, childrenKey: C, fn: (item: V, parents: V[]) => R): R[] {
+>(data: ArrayLike<V>, childrenKey: C, fn: (item: V, parents: V[]) => R | undefined): R[] {
   const map = (_data: ArrayLike<V>, parents: V[]) => {
     const res: R[] = []
     for (let idx = 0; idx < _data.length; idx++) {
       const item = _data[idx]
       const mappedItem = fn(item, parents)
+      if (!mappedItem) {
+        continue
+      }
+
       if (item[childrenKey]) {
         const mappedChildren = map(item[childrenKey]!, [item, ...parents])
         mappedItem[childrenKey] = mappedChildren as R[C]

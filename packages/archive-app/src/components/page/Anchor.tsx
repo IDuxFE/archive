@@ -12,7 +12,7 @@ import { type PropType, computed, defineComponent, inject, onMounted, ref } from
 import { type AnchorInstance, IxAnchor, IxAnchorLink } from '@idux/components/anchor'
 
 import { pageContextToken } from '../../token'
-import { findOverflowParent } from '@idux-archive/utils'
+import { findOverflowParent } from '@idux-archive/utils/client'
 
 export default defineComponent({
   name: 'Anchor',
