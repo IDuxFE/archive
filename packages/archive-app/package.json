@@ -1,6 +1,6 @@
 {
   "name": "@idux-archive/app",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
@@ -25,8 +25,8 @@
     "directory": "packages/archive-app"
   },
   "dependencies": {
-    "@idux-archive/utils": "^0.0.1",
-    "@idux-archive/vite-markdown-plugin": "^0.0.1",
+    "@idux-archive/utils": "^0.1.0",
+    "@idux-archive/vite-markdown-plugin": "^0.1.0",
     "@idux/cdk": "^1.2.4",
     "@idux/components": "^1.2.4",
     "@idux/pro": "^1.2.4",
@@ -34,7 +34,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@idux-archive/vite-plugin": "^0.0.1",
+    "@idux-archive/vite-plugin": "^0.1.0",
     "@types/lodash-es": "^4.17.6",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vitejs/plugin-vue-jsx": "^2.1.1",

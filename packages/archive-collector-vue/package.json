@@ -1,6 +1,6 @@
 {
   "name": "@idux-archive/collector-vue",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
@@ -34,12 +34,12 @@
     "directory": "packages/archive-collector-vue"
   },
   "dependencies": {
-    "@idux-archive/vite-markdown-plugin": "^0.0.1",
+    "@idux-archive/vite-markdown-plugin": "^0.1.0",
     "@vue/compiler-sfc": "^3.2.45",
     "pathe": "^1.0.0"
   },
   "devDependencies": {
-    "@idux-archive/vite-plugin": "^0.0.1",
+    "@idux-archive/vite-plugin": "^0.1.0",
     "lodash-es": "^4.17.21",
     "vue": "^3.2.41"
   }
