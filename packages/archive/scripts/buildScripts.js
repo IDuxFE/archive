@@ -20,8 +20,8 @@ const getConfig = buildOption => ({
 
     lib: {
       entry: buildOption.input,
-      formats: ['es'],
-      fileName: () => buildOption.filename,
+      formats: ['es', 'cjs'],
+      fileName: format => (format === 'cjs' ? `${buildOption.filename}.cjs` : `${buildOption.filename}.mjs`),
     },
 
     rollupOptions: {
@@ -36,11 +36,11 @@ const getConfig = buildOption => ({
 const buildOptions = [
   {
     input: resolve(__dirname, '../src/index.ts'),
-    filename: 'index.mjs',
+    filename: 'index',
   },
   {
     input: resolve(__dirname, '../src/bin.ts'),
-    filename: 'bin.mjs',
+    filename: 'bin',
   },
 ]
 

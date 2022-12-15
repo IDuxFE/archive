@@ -10,12 +10,18 @@ import { type ViteDevServer, createServer } from 'vite'
 import { loadConfig, resolveConfig } from './config'
 import { createDevViteConfig } from './vite'
 
-export async function serve(port?: number): Promise<{
+export interface ServeOptions {
+  port?: number
+  root?: string
+}
+
+export async function serve(options: ServeOptions): Promise<{
   server: ViteDevServer
   configFilePath: string | undefined
   close: () => Promise<void>
 }> {
-  const { config, configFilePath } = await loadConfig()
+  const { port, root } = options
+  const { config, configFilePath } = await loadConfig(root)
 
   console.log('config loaded', configFilePath)
   const resolvedConfig = resolveConfig(config)

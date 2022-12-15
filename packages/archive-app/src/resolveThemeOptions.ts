@@ -9,6 +9,7 @@ import type { AppThemeOptions, ResolvedAppThemeOptions } from './types'
 
 import { isString } from 'lodash-es'
 
+// @ts-ignore
 import defaultLogoImg from './assets/logo.svg'
 
 const defaultBreakpoints = {

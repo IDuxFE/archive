@@ -8,6 +8,9 @@
   "bin": {
     "idux-archive": "./dist/bin.mjs"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && pnpm run build:scripts && pnpm run build:types",

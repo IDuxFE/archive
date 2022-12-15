@@ -15,7 +15,8 @@ import type {
   ServerRouteRecord,
 } from '@idux-archive/app'
 
-import { mapTree, normalizePath } from '../utils'
+import { normalizePath } from '../utils'
+import { mapTree } from '@idux-archive/utils'
 
 export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
   const routeRecords: ServerRouteRecord[] = []

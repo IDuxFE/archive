@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { ResolvedArchiveConfig } from './types'
+import type { BuildTargets, ResolvedArchiveConfig } from './types'
 import type { ServerResolvedNavRecord, ServerResolvedPageData, ServerResolvedPageTab } from '@idux-archive/app'
 
 import { createRequire } from 'node:module'
@@ -16,7 +16,7 @@ import { type InlineConfig, type Plugin, loadConfigFromFile, mergeConfig, search
 import { createArchiveMdPlugin } from '@idux-archive/vite-markdown-plugin'
 import { createArchivePlugin } from '@idux-archive/vite-plugin'
 
-import { genObjectScript } from './utils'
+import { genObjectScript } from '@idux-archive/utils'
 
 const _require = createRequire(import.meta.url)
 const BUNDLE_PATH = join(dirname(_require.resolve('@idux-archive/app/package.json')), 'bundle')
@@ -131,7 +131,7 @@ async function createCommonViteConfig(
 
 export async function createBuildViteConfig(
   archiveConfig: ResolvedArchiveConfig,
-  target: 'page' | 'app',
+  target: BuildTargets,
 ): Promise<InlineConfig> {
   const commonViteConfig = await createCommonViteConfig(archiveConfig, 'build')
   const isAppBuild = target === 'app'

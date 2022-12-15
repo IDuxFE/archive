@@ -19,6 +19,8 @@ import type { CollectedDemo, Collector } from '@idux-archive/vite-plugin'
 import type { SetRequired } from 'type-fest'
 import type { App } from 'vue'
 
+export type BuildTargets = 'app' | 'page' | 'instance'
+
 export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
   name: 'vue'
 }

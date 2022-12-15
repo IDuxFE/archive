@@ -7,7 +7,6 @@
 
 export * from './types'
 
-export { buildApp } from './build'
-export { serve } from './server'
+export { build } from './build'
+export { serve } from './serve'
 export { defineConfig } from './config'
-export { directoryNavGetter } from './config/directoryNavGetter'

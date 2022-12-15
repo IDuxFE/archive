@@ -7,10 +7,14 @@
 
 import { type PropType, computed, defineComponent, inject, nextTick, ref, watch } from 'vue'
 
-// eslint-disable-next-line import/no-unresolved
+/* eslint-disable import/no-unresolved */
+
+// @ts-ignore virtual module
 import allDemoInstance from 'virtual:archive-demo-all'
-// eslint-disable-next-line import/no-unresolved
+// @ts-ignore virtual module
 import allDemoDatas from 'virtual:archive-demo-all-data'
+
+/* eslint-enable import/no-unresolved */
 
 import { pageContextToken } from '../../token'
 import DemoComp from '../demo/Demo'
