@@ -14,7 +14,7 @@
     "markdownlint": "markdownlint -c ./.markdownlintrc \"./packages/archive*/**/*.md\"",
     "markdownlint:fix": "markdownlint ./.markdownlintrc --fix \"./packages/archive*/**/*.md\"",
     "ls-lint": "ls-lint",
-    "version": "lerna version --conventional-commits --no-push --no-private"
+    "version": "lerna version --conventional-commits --no-push"
   },
   "author": "IDuxFE<idux.feteam@gmail.com>",
   "license": "MIT",
