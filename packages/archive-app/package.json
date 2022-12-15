@@ -20,6 +20,7 @@
     "directory": "packages/archive-app"
   },
   "dependencies": {
+    "@idux-archive/utils": "^0.0.1",
     "@idux-archive/vite-markdown-plugin": "^0.0.1",
     "@idux/cdk": "^1.2.4",
     "@idux/components": "^1.2.4",

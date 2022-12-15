@@ -14,7 +14,7 @@ import { pathToFileURL } from 'node:url'
 
 import { dirname, join, parse } from 'pathe'
 
-import { directoryNavGetter } from './directoryNavGetter'
+import { getNavFromDirectory } from '@idux-archive/utils'
 import { resolveCollectors } from './resolveCollectors'
 import { resolveRecords } from './resolveRecords'
 
@@ -96,7 +96,7 @@ function mergeConfig(
 
   return {
     setupFile,
-    navConfig: navConfig ?? ((demos, root) => directoryNavGetter(demos, root)),
+    navConfig: navConfig ?? getNavFromDirectory,
     collectors: collectors ?? [],
     theme: {
       themeStyle: theme?.themeStyle ?? 'default',

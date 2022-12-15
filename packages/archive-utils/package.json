@@ -1,0 +1,29 @@
+{
+  "name": "@idux-archive/utils",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && vite build && pnpm run build:types",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir ./dist"
+  },
+  "author": "IDuxFE<idux.feteam@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IDuxFE/archive",
+    "directory": "packages/archive-utils"
+  },
+  "devDependencies": {
+    "@idux-archive/app": "^0.0.1",
+    "@idux-archive/vite-plugin": "^0.0.1",
+    "@types/lodash-es": "^4.17.6",
+    "lodash-es": "^4.17.21"
+  },
+  "dependencies": {
+    "pathe": "^1.0.0"
+  }
+}
