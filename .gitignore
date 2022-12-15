@@ -4,6 +4,5 @@
 dist
 node_modules
 pnpm-global
-pnpm-lock.yaml
 
 packages/seer
