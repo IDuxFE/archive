@@ -8,13 +8,15 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./vue": {
       "import": "./dist/venderVue.js",
-      "require": "./dist/venderVue.js",
       "types": "./dist/venderVue.d.ts"
+    },
+    "./components": {
+      "import": "./dist/components.js",
+      "types": "./dist/components.d.ts"
     },
     "./bundle": {
       "import": "./bundle"

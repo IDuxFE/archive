@@ -7,7 +7,3 @@
 
 export * from './src/types'
 export * from './src/index'
-
-export * from '@idux/components/tooltip'
-export * from '@idux/components/button'
-export * from '@idux/components/icon'

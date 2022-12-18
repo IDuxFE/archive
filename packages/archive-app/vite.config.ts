@@ -32,7 +32,7 @@ export default defineConfig({
     rollupOptions: {
       external,
 
-      input: ['./index.ts', './venderVue.ts'],
+      input: ['./index.ts', './venderVue.ts', './components.ts'],
 
       output: {
         entryFileNames: '[name].js',
