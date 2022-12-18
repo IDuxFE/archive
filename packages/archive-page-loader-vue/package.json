@@ -1,6 +1,6 @@
 {
   "name": "@idux/archive-page-loader-vue",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
@@ -34,9 +34,9 @@
     "directory": "packages/archive-vite-plugin"
   },
   "dependencies": {
-    "@idux/archive": "0.1.0",
-    "@idux/archive-utils": "workspace:^0.1.0",
-    "@idux/archive-vite-markdown-plugin": "^0.1.0"
+    "@idux/archive": "^0.2.0",
+    "@idux/archive-utils": "workspace:^0.2.0",
+    "@idux/archive-vite-markdown-plugin": "^0.2.0"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.6",

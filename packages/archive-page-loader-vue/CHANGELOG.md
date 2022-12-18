@@ -8,16 +8,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* add @idux-archive/utils repo ([956e5a1](https://github.com/IDuxFE/archive/commit/956e5a118a03609edc1b3e6447407903c8e61e1d))
 * add page loader to resolve vue pages ([3c83dbb](https://github.com/IDuxFE/archive/commit/3c83dbbbc3c11527fd1edc19bd4c7a1b2c4c546a))
-
-
-
-
-
-
-# 0.1.0 (2022-12-15)
-
-### Features
-
-- add @idux/archive-utils repo ([956e5a1](https://github.com/IDuxFE/archive/commit/956e5a118a03609edc1b3e6447407903c8e61e1d))

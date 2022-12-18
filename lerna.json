@@ -1,11 +1,16 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "useWorkspaces": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "npmClient": "pnpm",
   "command": {
     "publish": {
-      "allowBranch": ["main", "release", "next", "hotfix"],
+      "allowBranch": [
+        "main",
+        "release",
+        "next",
+        "hotfix"
+      ],
       "ignoreChanges": [],
       "message": "docs(release): publish %s",
       "registry": "https://registry.npmjs.org"
