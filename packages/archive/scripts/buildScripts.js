@@ -1,9 +1,12 @@
-const { builtinModules } = require('module')
-const { resolve } = require('path')
+import { builtinModules } from 'module'
+import { dirname, resolve } from 'path'
+import { readFileSync } from 'fs'
+import { fileURLToPath } from 'url'
 
-const { build } = require('vite')
+import { build } from 'vite'
 
-const pkg = require('../package.json')
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf-8'))
 
 const external = [
   ...Object.keys(pkg.dependencies),

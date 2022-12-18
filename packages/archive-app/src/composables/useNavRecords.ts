@@ -14,7 +14,8 @@ import { type ComputedRef, computed } from '@idux/archive-app/vue'
 
 export interface NavRecordsContext {
   activeRecords: ComputedRef<ResolvedNavRecord[]>
-  menuData: ResolvedMenuData[]
+  menuData: ResolvedMenuData[],
+  getRecordNavKey: (record: ResolvedNavRecord) => string
 }
 
 export function useNavRecords(
@@ -32,6 +33,26 @@ export function useNavRecords(
 
     fn(parent)
     traverseParents(parent, fn)
+  }
+
+  const recordNavKeyMap = new Map<ResolvedNavRecord, string>()
+  const getRecordNavKey = (record: ResolvedNavRecord): string => {
+    if (!record) {
+      return ''
+    }
+    
+    if (recordNavKeyMap.has(record)) {
+      return recordNavKeyMap.get(record)!
+    }
+
+    let key = record.id
+
+    traverseParents(record, parent => {
+      key += `-${parent.id}`
+    })
+
+    recordNavKeyMap.set(record, key)
+    return key
   }
 
   const getMenuDataType = (type: NavRecordType): ResolvedMenuData['type'] => {
@@ -59,7 +80,7 @@ export function useNavRecords(
 
       const menu = {
         ...record,
-        key: record.id,
+        key: getRecordNavKey(record),
         type: getMenuDataType(record.type),
         label: record.name,
         recordType: record.type,
@@ -84,5 +105,6 @@ export function useNavRecords(
   return {
     menuData,
     activeRecords,
+    getRecordNavKey,
   }
 }
