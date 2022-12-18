@@ -1,6 +1,6 @@
 {
   "name": "@idux/archive-types",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "",
   "type": "module",
   "main": "./types/index.ts",
@@ -16,8 +16,8 @@
     "directory": "packages/archive-types"
   },
   "devDependencies": {
-    "@idux/archive-vite-markdown-plugin": "^0.2.2",
-    "@idux/archive-vite-plugin": "^0.2.2",
+    "@idux/archive-vite-markdown-plugin": "^0.2.3",
+    "@idux/archive-vite-plugin": "^0.2.3",
     "@idux/cdk": "^1.3.0",
     "@idux/components": "^1.3.0",
     "@idux/pro": "^1.3.0",

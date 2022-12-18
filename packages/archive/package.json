@@ -1,6 +1,6 @@
 {
   "name": "@idux/archive",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
@@ -25,9 +25,9 @@
     "directory": "packages/archive"
   },
   "dependencies": {
-    "@idux/archive-utils": "^0.2.2",
-    "@idux/archive-vite-markdown-plugin": "^0.2.2",
-    "@idux/archive-vite-plugin": "^0.2.2",
+    "@idux/archive-utils": "^0.2.3",
+    "@idux/archive-vite-markdown-plugin": "^0.2.3",
+    "@idux/archive-vite-plugin": "^0.2.3",
     "change-case": "^4.1.2",
     "chokidar": "^3.5.3",
     "jiti": "^1.16.0",
@@ -36,8 +36,8 @@
     "sade": "^1.8.1"
   },
   "devDependencies": {
-    "@idux/archive-app": "^0.2.2",
-    "@idux/archive-types": "^0.2.2",
+    "@idux/archive-app": "^0.2.3",
+    "@idux/archive-types": "^0.2.3",
     "@types/lodash-es": "^4.17.6",
     "lodash-es": "^4.17.21",
     "rollup": "^3.4.0",
