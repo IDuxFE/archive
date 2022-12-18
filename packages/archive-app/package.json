@@ -21,10 +21,7 @@
     "./bundle": {
       "import": "./bundle"
     },
-    "./package.json": {
-      "import": "./package.json",
-      "require": "./package.json"
-    }
+    "./*": "./*"
   },
   "files": [
     "bundle",

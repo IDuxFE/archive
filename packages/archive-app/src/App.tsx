@@ -17,9 +17,10 @@ import { computed, defineComponent, inject, normalizeClass } from '@idux/archive
 import { appContextToken, breakpointsToken } from './token'
 
 export default defineComponent(() => {
-  const { menuData, theme, render, renderers, activeRecords } = inject(appContextToken)!
+  const { menuData, theme, render, renderers, activeRecords, getRecordNavKey } = inject(appContextToken)!
   const breakpoints = inject(breakpointsToken)!
 
+  const activeKey = computed(() => getRecordNavKey(activeRecords.value[0]))
   const rootWrapperCls = computed(() => {
     const prefixCls = 'archive-app__root-wrapper'
 
@@ -110,7 +111,7 @@ export default defineComponent(() => {
   return () => (
     <IxProLayout
       class={rootWrapperCls.value}
-      activeKey={activeRecords.value[0]?.id}
+      activeKey={getRecordNavKey(activeRecords.value[0])}
       menus={menuData}
       type={layoutType.value}
       logo={theme.logo}
