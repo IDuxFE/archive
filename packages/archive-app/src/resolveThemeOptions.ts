@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AppThemeOptions, ResolvedAppThemeOptions } from './types'
+import type { AppThemeOptions, ResolvedAppThemeOptions } from '@idux/archive-types'
 
 import { isString } from 'lodash-es'
 

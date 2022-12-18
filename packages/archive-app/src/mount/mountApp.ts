@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AppMountOptions } from '../types'
+import type { AppMountOptions } from '@idux/archive-types'
 
 import { useBreakpoints } from '@idux/cdk/breakpoint'
 import { createRouter, createWebHistory, useRoute } from 'vue-router'

@@ -5,5 +5,4 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-export * from './src/types'
 export * from './src/index'

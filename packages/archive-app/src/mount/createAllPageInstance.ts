@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AppMountOptions, PageInstance } from '../types'
+import type { AppMountOptions, PageInstance } from '@idux/archive-types'
 
 import { resolveThemeOptions } from '../resolveThemeOptions'
 import { createPageInstance } from './createPageInstance'

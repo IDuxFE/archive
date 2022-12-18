@@ -5,15 +5,16 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { ArchivePageLoader, RecordsContext } from '../types'
 import type {
+  ArchivePageLoader,
   NavRecord,
   PageData,
+  RecordsContext,
   ServerResolvedNavRecord,
   ServerResolvedPageData,
   ServerResolvedPageTab,
   ServerRouteRecord,
-} from '@idux/archive-app'
+} from '@idux/archive-types'
 
 import { mapTree } from '@idux/archive-utils'
 

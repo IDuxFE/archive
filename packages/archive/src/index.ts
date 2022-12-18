@@ -5,8 +5,6 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-export * from './types'
-
 export { build } from './build'
 export { serve } from './serve'
 export { defineConfig } from './config'

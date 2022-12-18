@@ -7,7 +7,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { ArchivePageLoader } from './types'
+import type { ArchivePageLoader } from '@idux/archive-types'
 
 import { normalize } from 'pathe'
 

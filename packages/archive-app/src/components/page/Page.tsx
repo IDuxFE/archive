@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, ResolvedPageData } from '../../types'
+import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, ResolvedPageData } from '@idux/archive-types'
 
 import { findOverflowParent } from '@idux/archive-utils/client'
 import { IxAffix } from '@idux/components/affix'

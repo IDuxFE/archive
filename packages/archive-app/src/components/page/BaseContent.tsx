@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AnchorData } from '../../types'
+import type { AnchorData } from '@idux/archive-types'
 
 import { isObject } from 'lodash-es'
 

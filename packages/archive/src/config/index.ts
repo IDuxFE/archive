@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { ArchiveConfig, ResolvedArchiveConfig } from '../types'
+import type { ArchiveConfig, ResolvedArchiveConfig } from '@idux/archive-types'
 import type { CollectedDemo } from '@idux/archive-vite-plugin'
 import type { SetOptional, SetRequired } from 'type-fest'
 

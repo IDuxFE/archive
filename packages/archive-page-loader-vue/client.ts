@@ -12,24 +12,7 @@ import type { DefineComponent } from 'vue'
 
 import { type VueInstanceFactory, createVueInstanceFactory } from '@idux/archive-utils/client'
 
-// import {
-//   type App,
-//   type DefineComponent,
-//   Teleport,
-//   createApp,
-//   createVNode,
-//   defineAsyncComponent,
-//   markRaw,
-//   ref,
-// } from 'vue'
-
 let __demoInstanceFactory__: VueInstanceFactory | null = null
-
-// interface Instance {
-//   demo: ResolvedVue3Demo
-//   el: HTMLElement
-//   component: DefineComponent
-// }
 
 export function createInstance(pageComp: () => Promise<DefineComponent>, id: string, setup?: VueAppSetup): Instance {
   if (!__demoInstanceFactory__) {

@@ -5,7 +5,13 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AppRenderers, AppSetupOptions, PageInstance, ResolvedAppThemeOptions, RouteRecord } from '../types'
+import type {
+  AppRenderers,
+  AppSetupOptions,
+  PageInstance,
+  ResolvedAppThemeOptions,
+  RouteRecord,
+} from '@idux/archive-types'
 
 import { useBreakpoints } from '@idux/cdk/breakpoint'
 

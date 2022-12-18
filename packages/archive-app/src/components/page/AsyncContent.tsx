@@ -5,10 +5,11 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
+import { PageContentInstance } from '@idux/archive-types'
+
 import { type PropType, defineComponent, inject, onMounted, ref, watch } from '@idux/archive-app/vue'
 
 import { pageContextToken } from '../../token'
-import { PageContentInstance } from '../../types'
 import BaseContentComp from './BaseContent'
 
 export default defineComponent({

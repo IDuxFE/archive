@@ -8,7 +8,7 @@
     "idux-archive:build": "idux-archive build"
   },
   "dependencies": {
-    "@idux/archive-app": "workspace:^0.2.2",
+    "@idux/archive-app": "^0.2.2",
     "vue": "^3.2.41"
   },
   "devDependencies": {

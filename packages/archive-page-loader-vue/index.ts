@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { ArchivePageLoader } from '@idux/archive'
+import type { ArchivePageLoader } from '@idux/archive-types'
 
 export interface VuePageLoaderOptions {
   matched?: (src: string) => boolean

@@ -5,25 +5,16 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type {
-  AppRenderers,
-  AppSetupOptions,
-  AppThemeOptions,
-  NavRecord,
-  ServerResolvedNavRecord,
-  ServerRouteRecord,
-} from '@idux/archive-app'
-// import type { VueCollectorOptions } from '@idux/archive-collector-vue'
+import type { AppSetupOptions, ServerRouteRecord } from './options'
+import type { NavRecord, ServerResolvedNavRecord } from './records'
+import type { AppRenderers } from './renderers'
+import type { AppThemeOptions } from './theme'
 import type { MarkdownOptions } from '@idux/archive-vite-markdown-plugin'
 import type { CollectedDemo, Collector } from '@idux/archive-vite-plugin'
 import type { SetRequired } from 'type-fest'
 import type { App } from 'vue'
 
 export type BuildTargets = 'app' | 'page' | 'instance'
-
-// export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
-//   name: 'vue'
-// }
 
 export interface ArchivePageLoader {
   matched: (src: string) => boolean
