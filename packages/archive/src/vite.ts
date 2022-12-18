@@ -228,7 +228,7 @@ export async function createDevViteConfig(archiveConfig: ResolvedArchiveConfig):
         },
         optimizeDeps: {
           entries: [join(BUNDLE_PATH, `app-${archiveConfig.theme.themeStyle}.js`)],
-          exclude: ['archive'],
+          exclude: ['@idux/archive', '@idux/archive/app', '@idux/archive/vue', '@idux/archive/components'],
         },
       }
     },
