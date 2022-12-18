@@ -180,7 +180,7 @@ importers:
   packages/archive-page-loader-vue:
     specifiers:
       '@idux/archive': ^0.2.0
-      '@idux/archive-utils': workspace:^0.2.0
+      '@idux/archive-utils': ^0.2.0
       '@idux/archive-vite-markdown-plugin': ^0.2.0
       '@types/lodash-es': ^4.17.6
       lodash-es: ^4.17.21
