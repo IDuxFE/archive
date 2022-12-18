@@ -1,6 +1,6 @@
 {
   "name": "@idux/archive-vite-markdown-plugin",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
