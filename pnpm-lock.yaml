@@ -71,10 +71,10 @@ importers:
 
   examples/vue3-simple:
     specifiers:
-      '@idux/archive': ^0.2.0
-      '@idux/archive-app': workspace:^0.2.0
-      '@idux/archive-collector-vue': ^0.2.0
-      '@idux/archive-page-loader-vue': ^0.2.0
+      '@idux/archive': ^0.2.1
+      '@idux/archive-app': workspace:^0.2.1
+      '@idux/archive-collector-vue': ^0.2.1
+      '@idux/archive-page-loader-vue': ^0.2.1
       '@vitejs/plugin-vue': ^3.2.0
       vite: ^3.2.3
       vue: ^3.2.41
@@ -92,11 +92,11 @@ importers:
 
   packages/archive:
     specifiers:
-      '@idux/archive-app': ^0.2.0
-      '@idux/archive-collector-vue': ^0.2.0
-      '@idux/archive-utils': ^0.2.0
-      '@idux/archive-vite-markdown-plugin': ^0.2.0
-      '@idux/archive-vite-plugin': ^0.2.0
+      '@idux/archive-app': ^0.2.1
+      '@idux/archive-collector-vue': ^0.2.1
+      '@idux/archive-utils': ^0.2.1
+      '@idux/archive-vite-markdown-plugin': ^0.2.1
+      '@idux/archive-vite-plugin': ^0.2.1
       '@types/lodash-es': ^4.17.6
       change-case: ^4.1.2
       chokidar: ^3.5.3
@@ -127,9 +127,9 @@ importers:
 
   packages/archive-app:
     specifiers:
-      '@idux/archive-utils': ^0.2.0
-      '@idux/archive-vite-markdown-plugin': ^0.2.0
-      '@idux/archive-vite-plugin': ^0.2.0
+      '@idux/archive-utils': ^0.2.1
+      '@idux/archive-vite-markdown-plugin': ^0.2.1
+      '@idux/archive-vite-plugin': ^0.2.1
       '@idux/cdk': ^1.3.0
       '@idux/components': ^1.3.0
       '@idux/pro': ^1.3.0
@@ -160,9 +160,9 @@ importers:
 
   packages/archive-collector-vue:
     specifiers:
-      '@idux/archive-utils': ^0.2.0
-      '@idux/archive-vite-markdown-plugin': ^0.2.0
-      '@idux/archive-vite-plugin': ^0.2.0
+      '@idux/archive-utils': ^0.2.1
+      '@idux/archive-vite-markdown-plugin': ^0.2.1
+      '@idux/archive-vite-plugin': ^0.2.1
       '@vue/compiler-sfc': ^3.2.45
       lodash-es: ^4.17.21
       pathe: ^1.0.0
@@ -179,9 +179,9 @@ importers:
 
   packages/archive-page-loader-vue:
     specifiers:
-      '@idux/archive': ^0.2.0
-      '@idux/archive-utils': ^0.2.0
-      '@idux/archive-vite-markdown-plugin': ^0.2.0
+      '@idux/archive': ^0.2.1
+      '@idux/archive-utils': ^0.2.1
+      '@idux/archive-vite-markdown-plugin': ^0.2.1
       '@types/lodash-es': ^4.17.6
       lodash-es: ^4.17.21
     dependencies:
@@ -194,8 +194,8 @@ importers:
 
   packages/archive-utils:
     specifiers:
-      '@idux/archive-app': ^0.2.0
-      '@idux/archive-vite-plugin': ^0.2.0
+      '@idux/archive-app': ^0.2.1
+      '@idux/archive-vite-plugin': ^0.2.1
       '@types/lodash-es': ^4.17.6
       lodash-es: ^4.17.21
       pathe: ^1.0.0
