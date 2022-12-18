@@ -15,8 +15,8 @@ import type {
   ResolvedAppThemeOptions,
   ResolvedNavRecord,
 } from './types'
+import type { ComputedRef, InjectionKey, Ref } from '@idux/archive-app/vue'
 import type { BreakpointKey } from '@idux/cdk/breakpoint'
-import type { ComputedRef, InjectionKey, Ref } from 'vue'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 export interface AppContext extends NavRecordsContext {

@@ -13,10 +13,11 @@ import { createRequire } from 'node:module'
 import { dirname, join } from 'pathe'
 import { type InlineConfig, type Plugin, loadConfigFromFile, mergeConfig, searchForWorkspaceRoot } from 'vite'
 
+import { genObjectScript } from '@idux/archive-utils'
 import { createArchiveMdPlugin } from '@idux/archive-vite-markdown-plugin'
 import { createArchivePlugin } from '@idux/archive-vite-plugin'
 
-import { genObjectScript } from '@idux/archive-utils'
+import { findMatchedPageLoader, getPageSrcByArchivePageId, isArchivePageId } from './utils'
 
 const _require = createRequire(import.meta.url)
 const BUNDLE_PATH = join(dirname(_require.resolve('@idux/archive-app/package.json')), 'bundle')
@@ -81,6 +82,7 @@ async function createCommonViteConfig(
   plugins.push(createArchiveMdPlugin(archiveConfig.markdownOptions))
   plugins.push(
     createArchivePlugin({
+      root: archiveConfig.root,
       onDemosCollected: archiveConfig.onDemosCollected,
       collectors: archiveConfig.collectors,
     }),
@@ -120,6 +122,28 @@ async function createCommonViteConfig(
           }
         }`
       }
+    },
+  })
+  plugins.push({
+    name: 'archive-page-loaders',
+    resolveId(id) {
+      if (isArchivePageId(id)) {
+        return id
+      }
+    },
+    async load(id) {
+      if (!isArchivePageId(id)) {
+        return
+      }
+
+      const src = getPageSrcByArchivePageId(id)
+      const loader = findMatchedPageLoader(src, archiveConfig.pageLoaders)
+
+      if (!loader) {
+        return ''
+      }
+
+      return await loader.resolver(src)
     },
   })
 

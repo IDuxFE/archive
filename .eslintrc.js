@@ -29,6 +29,7 @@ module.exports = {
     'import/resolver': {
       'eslint-import-resolver-custom-alias': {
         alias: {
+          '@idux/archive-app/vue': resolve(__dirname, './packages/archive-app/venderVue.ts'),
           '@idux/archive': resolve(__dirname, './packages'),
         },
         extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.vue', '.md'],

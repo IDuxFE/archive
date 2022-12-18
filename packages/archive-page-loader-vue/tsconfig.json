@@ -5,7 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "CommonJS",
+    "module": "ESNext",
     "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",
@@ -14,9 +14,6 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "paths": {
-      "@idux/archive-app/vue": ["./venderVue.ts"],
-    },
   },
   "exclude": ["node_modules", "coverage", "dist", "vite.config.ts"],
 }

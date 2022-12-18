@@ -10,8 +10,8 @@ import type { ResolvedNavRecord } from './records'
 import type { AppRenderers } from './renderers'
 import type { AppThemeOptions } from './theme'
 import type { DemoTool } from './tools'
+import type { App } from '@idux/archive-app/vue'
 import type { ResolvedDemo } from '@idux/archive-vite-plugin'
-import type { App } from 'vue'
 
 export interface RouteRecord {
   path: string

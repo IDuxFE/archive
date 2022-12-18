@@ -8,11 +8,11 @@
 import type { ResolvedMenuData } from './types'
 import type { MenuProps } from '@idux/components/menu'
 
-import { computed, defineComponent, inject, normalizeClass } from 'vue'
-
 import { IxLayoutSiderTrigger } from '@idux/components/layout'
 import { IxProLayout } from '@idux/pro/layout'
 import { RouterLink, RouterView } from 'vue-router'
+
+import { computed, defineComponent, inject, normalizeClass } from '@idux/archive-app/vue'
 
 import { appContextToken, breakpointsToken } from './token'
 

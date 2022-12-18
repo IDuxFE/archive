@@ -33,6 +33,8 @@ export function createVueCollector(options: VueCollectorOptions): Collector {
     resolver: absolutePath => resolveDemo(absolutePath, getMarkdownRenderer),
     demoRenderer: createDemoRenderer(options?.setup),
     ...options,
+
+    matchPattern: options.matchPattern ?? '**/*.demo.vue',
   }
 }
 

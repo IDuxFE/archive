@@ -13,7 +13,14 @@
       padding: var(--archive-app-page-header-tabs-padding);
       height: var(--archive-app-page-header-tabs-height);
 
+      .archive-app-space-space-item {
+        height: 100%;
+      }
+
       .archive-app-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: transparent;
         min-width: var(--archive-app-page-header-tabs-item-min-width);
         height: 100%;
@@ -23,6 +30,10 @@
         &.archive-app-radio-checked {
           background: var(--archive-app-page-header-tabs-item-active-background-color);
           box-shadow: var(--archive-app-page-header-tabs-item-checked-box-shadow);
+        }
+
+        .archive-app-wave {
+          display: none;
         }
       }
     }

@@ -37,7 +37,12 @@ function dedent(text: string): string {
   return text
 }
 
-function testLine(line: string, regexp: RegExp, regionName: string, end = false): false | '' | RegExpMatchArray | null | undefined {
+function testLine(
+  line: string,
+  regexp: RegExp,
+  regionName: string,
+  end = false,
+): false | '' | RegExpMatchArray | null | undefined {
   const [full, tag, name] = regexp.exec(line.trim()) || []
 
   return full && tag && name === regionName && tag.match(end ? /^[Ee]nd ?[rR]egion$/ : /^[rR]egion$/)

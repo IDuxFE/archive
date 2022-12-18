@@ -8,6 +8,14 @@
 import type { DemoTool } from '../../types'
 import type { DemoInstance, LoadedSourceCode, ResolvedDemo } from '@idux/archive-vite-plugin'
 
+import { throttle } from 'lodash-es'
+
+import { useClipboard } from '@idux/cdk/clipboard'
+import { useState } from '@idux/cdk/utils'
+import { IxIcon } from '@idux/components/icon'
+import { useMessage } from '@idux/components/message'
+import { IxTab, IxTabs } from '@idux/components/tabs'
+
 import {
   type ComputedRef,
   type ExtractPropTypes,
@@ -17,15 +25,7 @@ import {
   defineComponent,
   ref,
   watch,
-} from 'vue'
-
-import { throttle } from 'lodash-es'
-
-import { useClipboard } from '@idux/cdk/clipboard'
-import { useState } from '@idux/cdk/utils'
-import { IxIcon } from '@idux/components/icon'
-import { useMessage } from '@idux/components/message'
-import { IxTab, IxTabs } from '@idux/components/tabs'
+} from '@idux/archive-app/vue'
 
 import DemoInstanceComp from './DemoInstance'
 import DemoToolComp from './DemoTool'

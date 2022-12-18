@@ -7,7 +7,15 @@
 
 import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, RouteRecord } from '../types'
 
-import { type App, type DefineComponent, createVNode, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
+import {
+  type App,
+  type DefineComponent,
+  createVNode,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+} from '@idux/archive-app/vue'
 
 import { createPageInstance } from './createPageInstance'
 

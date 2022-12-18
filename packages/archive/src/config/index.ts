@@ -15,7 +15,8 @@ import { pathToFileURL } from 'node:url'
 import { dirname, join, parse } from 'pathe'
 
 import { getNavFromDirectory } from '@idux/archive-utils'
-import { resolveCollectors } from './resolveCollectors'
+
+// import { resolveCollectors } from './resolveCollectors'
 import { resolveRecords } from './resolveRecords'
 
 export const configFileNames = ['archive.config.js']
@@ -55,7 +56,7 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<{
 }
 
 export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
-  const { setupFile, navConfig, theme, collectors, markdownOptions, dist, root } = mergeConfig(config)
+  const { setupFile, navConfig, theme, pageLoaders, collectors, markdownOptions, dist, root } = mergeConfig(config)
 
   let running = false
   let resolvedRecords: ReturnType<typeof resolveRecords>
@@ -67,7 +68,7 @@ export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
 
     running = true
     const navRecords = navConfig(demos, root)
-    resolvedRecords = resolveRecords(navRecords)
+    resolvedRecords = resolveRecords(navRecords, pageLoaders)
     running = false
   }
 
@@ -75,7 +76,8 @@ export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
 
   return {
     setupFile,
-    collectors: resolveCollectors(collectors),
+    pageLoaders,
+    collectors,
     onDemosCollected,
     getResolvedRecords,
     theme,
@@ -91,12 +93,13 @@ function mergeConfig(
   Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }>,
   'setupFile'
 > {
-  const { setupFile, navConfig, theme, collectors, markdownOptions, dist, root } = config ?? {}
+  const { setupFile, navConfig, theme, pageLoaders, collectors, markdownOptions, dist, root } = config ?? {}
   const resolvedRoot = root ?? process.cwd()
 
   return {
     setupFile,
     navConfig: navConfig ?? getNavFromDirectory,
+    pageLoaders: pageLoaders ?? [],
     collectors: collectors ?? [],
     theme: {
       themeStyle: theme?.themeStyle ?? 'default',

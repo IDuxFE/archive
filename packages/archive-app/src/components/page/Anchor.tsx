@@ -7,12 +7,12 @@
 
 import type { AnchorData } from '../../types'
 
-import { type PropType, computed, defineComponent, inject, onMounted, ref } from 'vue'
-
+import { findOverflowParent } from '@idux/archive-utils/client'
 import { type AnchorInstance, IxAnchor, IxAnchorLink } from '@idux/components/anchor'
 
+import { type PropType, computed, defineComponent, inject, onMounted, ref } from '@idux/archive-app/vue'
+
 import { pageContextToken } from '../../token'
-import { findOverflowParent } from '@idux/archive-utils/client'
 
 export default defineComponent({
   name: 'Anchor',

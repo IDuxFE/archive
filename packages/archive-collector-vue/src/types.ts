@@ -6,13 +6,13 @@
  */
 
 import type { Collector, ResolvedDemo } from '@idux/archive-vite-plugin'
-import type { Except } from 'type-fest'
+import type { Except, SetOptional } from 'type-fest'
 import type { App, DefineComponent, VNode } from 'vue'
 
 export type Lang = 'zh' | 'en'
 export type Theme = 'default' | 'seer'
 
-export interface VueCollectorOptions extends Except<Collector, 'name'> {
+export interface VueCollectorOptions extends SetOptional<Except<Collector, 'name'>, 'matchPattern'> {
   setup?: string
   srcDir?: string
 }
@@ -20,7 +20,6 @@ export interface VueCollectorOptions extends Except<Collector, 'name'> {
 export interface VueCollectorSetup {
   setupApp?: (app: App) => void
   renderApp?: (children: VNode[]) => VNode
-  render?: (vm: VNode, demo: ResolvedVue3Demo) => VNode
 }
 
 export interface ResolvedVue3Demo extends Except<ResolvedDemo, 'component'> {
