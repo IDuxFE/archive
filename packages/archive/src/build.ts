@@ -5,8 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { RollupOutput } from 'rollup'
 import type { BuildTargets, ResolvedArchiveConfig } from './types'
+import type { RollupOutput } from 'rollup'
 
 import { writeFileSync } from 'node:fs'
 
@@ -21,7 +21,7 @@ export interface BuildOptions {
   target?: BuildTargets
 }
 
-export async function build(options: BuildOptions) {
+export async function build(options: BuildOptions): Promise<void> {
   const { root, target } = options
 
   const { config } = await loadConfig(root)

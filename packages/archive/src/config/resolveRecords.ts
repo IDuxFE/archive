@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { RecordsContext } from '../types'
+import type { ArchivePageLoader, RecordsContext } from '../types'
 import type {
   NavRecord,
   PageData,
@@ -15,10 +15,11 @@ import type {
   ServerRouteRecord,
 } from '@idux/archive-app'
 
-import { normalizePath } from '../utils'
 import { mapTree } from '@idux/archive-utils'
 
-export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
+import { getArchivePageId, normalizePath } from '../utils'
+
+export function resolveRecords(navRecords: NavRecord[], pageLoaders: ArchivePageLoader[]): RecordsContext {
   const routeRecords: ServerRouteRecord[] = []
 
   const recordsMap = new Map<NavRecord, ServerResolvedNavRecord & { type: 'sub' }>()
@@ -31,7 +32,7 @@ export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
       }
       let resolvedRecord: ServerResolvedNavRecord
       if (record.type === 'item') {
-        const resolvedPageData = resolvePageData(record.pageData)
+        const resolvedPageData = resolvePageData(record.pageData, pageLoaders)
         if (!resolvedPageData) {
           return
         }
@@ -86,7 +87,7 @@ export function resolveRecords(navRecords: NavRecord[]): RecordsContext {
   }
 }
 
-function resolvePageData(pageData: PageData): ServerResolvedPageData | undefined {
+function resolvePageData(pageData: PageData, pageLoaders: ArchivePageLoader[]): ServerResolvedPageData | undefined {
   const basicData = {
     title: pageData.title,
     description: pageData.description,
@@ -102,7 +103,7 @@ function resolvePageData(pageData: PageData): ServerResolvedPageData | undefined
   if (pageData.src) {
     return {
       ...basicData,
-      component: `() => import(${JSON.stringify(pageData.src)})`,
+      component: getPageComponent(pageData.src, pageLoaders),
     }
   }
 
@@ -114,7 +115,7 @@ function resolvePageData(pageData: PageData): ServerResolvedPageData | undefined
           return {
             name: tab.name,
             id: tab.id,
-            component: `() => import(${JSON.stringify(tab.src)})`,
+            component: getPageComponent(tab.src, pageLoaders),
           }
         }
 
@@ -122,4 +123,10 @@ function resolvePageData(pageData: PageData): ServerResolvedPageData | undefined
       }),
     }
   }
+}
+
+function getPageComponent(src: string, pageLoaders: ArchivePageLoader[]): string | undefined {
+  const id = getArchivePageId(src, pageLoaders)
+
+  return id ? `() => import("${id}")` : undefined
 }

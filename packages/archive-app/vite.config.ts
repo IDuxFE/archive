@@ -5,17 +5,23 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
+import { resolve } from 'path'
+
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
 
-import pkg from './package.json'
+// import pkg from './package.json'
 
-const external = [...Object.keys(pkg.dependencies), 'vue', 'vue-router', /^@idux/, /^virtual:archive/]
+// const external = [...Object.keys(pkg.dependencies), 'vue', 'vue-router', /^@idux/, /^virtual:archive/]
+
+const external = [/^@idux\/archive-utils/, /^virtual:archive/]
 
 export default defineConfig({
   plugins: [vue(), vueJsx({ enableObjectSlots: false })],
-
+  resolve: {
+    alias: [{ find: '@idux/archive-app/vue', replacement: resolve(__dirname, './venderVue') }],
+  },
   build: {
     emptyOutDir: false,
     outDir: 'dist',
@@ -26,13 +32,12 @@ export default defineConfig({
     rollupOptions: {
       external,
 
-      input: ['./index.ts'],
+      input: ['./index.ts', './venderVue.ts'],
 
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
         assetFileNames: '[name][extname]',
-        // preserveModules: true,
         // preserveModulesRoot: 'src/app',
       },
       treeshake: true,

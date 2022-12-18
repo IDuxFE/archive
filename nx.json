@@ -3,7 +3,8 @@
     "build": {
       "outputs": [
         "{projectRoot}/dist"
-      ]
+      ],
+      "dependsOn": ["^build"]
     }
   },
   "tasksRunnerOptions": {

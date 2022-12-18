@@ -5,9 +5,9 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import { type PropType, defineComponent } from 'vue'
-
 import { IxTooltip } from '@idux/components/tooltip'
+
+import { type PropType, defineComponent } from '@idux/archive-app/vue'
 
 export default defineComponent({
   props: {

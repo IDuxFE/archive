@@ -7,6 +7,11 @@
 
 import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, ResolvedPageData } from '../../types'
 
+import { findOverflowParent } from '@idux/archive-utils/client'
+import { IxAffix } from '@idux/components/affix'
+import { IxMessageProvider } from '@idux/components/message'
+import { IxRadioGroup } from '@idux/components/radio'
+
 import {
   type PropType,
   VNode,
@@ -19,15 +24,10 @@ import {
   provide,
   ref,
   watch,
-} from 'vue'
-
-import { IxAffix } from '@idux/components/affix'
-import { IxMessageProvider } from '@idux/components/message'
-import { IxRadioGroup } from '@idux/components/radio'
+} from '@idux/archive-app/vue'
 
 import { usePageRender } from '../../composables/usePageRender'
 import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
-import { findOverflowParent } from '@idux/archive-utils/client'
 import AsyncContent from './AsyncContent'
 import DemosContent from './DemosContent'
 

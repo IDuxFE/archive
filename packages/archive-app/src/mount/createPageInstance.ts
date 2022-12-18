@@ -7,9 +7,9 @@
 
 import type { AppRenderers, AppSetupOptions, PageInstance, ResolvedAppThemeOptions, RouteRecord } from '../types'
 
-import { type App, VNode, createApp, createVNode, render } from 'vue'
-
 import { useBreakpoints } from '@idux/cdk/breakpoint'
+
+import { type App, VNode, createApp, createVNode, render } from '@idux/archive-app/vue'
 
 import Page from '../components/page/Page'
 import { resolvePageProps } from '../resolvePageProps'

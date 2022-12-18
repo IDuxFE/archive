@@ -8,8 +8,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { AppRenderer, AppRendererDataBase } from '../types'
+import type { ComputedRef, VNodeChild } from '@idux/archive-app/vue'
 import type { Except } from 'type-fest'
-import type { ComputedRef, VNodeChild } from 'vue'
 
 type DataBase = Except<AppRendererDataBase, 'activeRecords'> & {
   activeRecords: ComputedRef<AppRendererDataBase['activeRecords']>

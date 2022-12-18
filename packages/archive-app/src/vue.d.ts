@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 declare module '*.vue' {
-  import type { DefineComponent } from 'vue'
+  import type { DefineComponent } from '@idux/archive-app/vue'
   const component: DefineComponent<Record<string, never>, Record<string, never>, any>
   export default component
 }

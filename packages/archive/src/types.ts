@@ -13,7 +13,7 @@ import type {
   ServerResolvedNavRecord,
   ServerRouteRecord,
 } from '@idux/archive-app'
-import type { VueCollectorOptions } from '@idux/archive-collector-vue'
+// import type { VueCollectorOptions } from '@idux/archive-collector-vue'
 import type { MarkdownOptions } from '@idux/archive-vite-markdown-plugin'
 import type { CollectedDemo, Collector } from '@idux/archive-vite-plugin'
 import type { SetRequired } from 'type-fest'
@@ -21,8 +21,13 @@ import type { App } from 'vue'
 
 export type BuildTargets = 'app' | 'page' | 'instance'
 
-export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
-  name: 'vue'
+// export interface ArchiveVueCollector extends Partial<VueCollectorOptions> {
+//   name: 'vue'
+// }
+
+export interface ArchivePageLoader {
+  matched: (src: string) => boolean
+  resolver: (absolutePath: string) => string | Promise<string>
 }
 
 export type ArchiveThemeStyle = 'default' | 'seer'
@@ -39,7 +44,8 @@ export interface SetupContext {
 export interface ArchiveConfig {
   setupFile?: string
   navConfig?: (demos: CollectedDemo[], root: string) => NavRecord[]
-  collectors?: (Collector | ArchiveVueCollector)[]
+  pageLoaders?: ArchivePageLoader[]
+  collectors?: Collector[]
   markdownOptions?: MarkdownOptions
   theme?: ArchiveThemeOptions
   dist?: string
@@ -53,6 +59,7 @@ export interface RecordsContext {
 
 export interface ResolvedArchiveConfig {
   setupFile?: string
+  pageLoaders: ArchivePageLoader[]
   collectors: Collector[]
   onDemosCollected: (demos: CollectedDemo[]) => void
   getResolvedRecords: () => RecordsContext

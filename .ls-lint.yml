@@ -1,16 +1,8 @@
 ls:
   packages/archive*:
-    .d.ts: camelCase
+    .d.ts: camelCase | PascalCase
     .ts: camelCase
     .tsx: PascalCase
     .spec.ts: camelCase
     .config.ts: camelCase
     .vue: PascalCase
-    .md: PascalCase
-    .zh.md: PascalCase
-    .en.md: PascalCase
-
-  scripts:
-    .ts: camelCase
-    .config.ts: camelCase
-    .svg: kebab-case

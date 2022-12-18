@@ -7,12 +7,22 @@
 
 import type { AnchorData } from '../../types'
 
-import { type ComponentPublicInstance, computed, defineComponent, inject, nextTick, onMounted, ref, watch } from 'vue'
-
 import { isObject } from 'lodash-es'
 
-import { pageContextToken } from '../../token'
 import { traverseTree } from '@idux/archive-utils/client'
+
+import {
+  type ComponentPublicInstance,
+  computed,
+  defineComponent,
+  inject,
+  nextTick,
+  onMounted,
+  ref,
+  watch,
+} from '@idux/archive-app/vue'
+
+import { pageContextToken } from '../../token'
 import Anchor from './Anchor'
 
 export default defineComponent({

@@ -6,7 +6,6 @@
  */
 
 import type { Except, RequireExactlyOne } from 'type-fest'
-import type { DefineComponent } from 'vue'
 
 interface BasePageData {
   title?: string
@@ -28,7 +27,7 @@ export type PageTab = RequireExactlyOne<BasePageTab, 'src' | 'demoIds'>
 
 export type ServerResolvedPageTab = RequireExactlyOne<
   Except<BasePageTab, 'src'> & {
-    component: string
+    component: string | undefined
   },
   'demoIds' | 'component'
 >
@@ -36,14 +35,14 @@ export type ServerResolvedPageTab = RequireExactlyOne<
 export type ServerResolvedPageData = RequireExactlyOne<
   Except<BasePageData, 'tabs' | 'src'> & {
     tabs: ServerResolvedPageTab[]
-    component: string
+    component: string | undefined
   },
   'tabs' | 'demoIds' | 'component'
 >
 
 export type ResolvedPageTab = RequireExactlyOne<
   Except<BasePageTab, 'src'> & {
-    component: () => Promise<DefineComponent>
+    component: () => Promise<{ default: PageContentInstance }>
   },
   'demoIds' | 'component'
 >
@@ -51,7 +50,7 @@ export type ResolvedPageTab = RequireExactlyOne<
 export type ResolvedPageData = RequireExactlyOne<
   Except<BasePageData, 'tabs' | 'src'> & {
     tabs: ResolvedPageTab[]
-    component: () => Promise<DefineComponent>
+    component: () => Promise<{ default: PageContentInstance }>
   },
   'tabs' | 'demoIds' | 'component'
 >
@@ -61,4 +60,9 @@ export interface AnchorData {
   title: string
   href: string
   children: AnchorData[]
+}
+
+export interface PageContentInstance {
+  mount: (el: HTMLElement) => void
+  unmount: () => void
 }

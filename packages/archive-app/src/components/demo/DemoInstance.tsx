@@ -7,7 +7,7 @@
 
 import type { DemoInstance } from '@idux/archive-vite-plugin'
 
-import { type PropType, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { type PropType, defineComponent, onBeforeUnmount, onMounted, ref, watch } from '@idux/archive-app/vue'
 
 export default defineComponent({
   props: {

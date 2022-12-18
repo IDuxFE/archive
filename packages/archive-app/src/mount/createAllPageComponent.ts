@@ -6,7 +6,7 @@
  */
 
 import type { AppMountOptions } from '../types'
-import type { DefineComponent } from 'vue'
+import type { DefineComponent } from '@idux/archive-app/vue'
 
 import { resolveThemeOptions } from '../resolveThemeOptions'
 import { createPageComponent } from './createPageComponent'
