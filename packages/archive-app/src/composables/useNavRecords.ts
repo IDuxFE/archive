@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { NavRecordType, ResolvedMenuData, ResolvedNavRecord } from '../types'
+import type { NavRecordType, ResolvedMenuData, ResolvedNavRecord } from '@idux/archive-types'
 
 import { mapTree } from '@idux/archive-utils/client'
 import { type RouteLocationNormalizedLoaded } from 'vue-router'

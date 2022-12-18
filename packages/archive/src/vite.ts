@@ -5,8 +5,13 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { BuildTargets, ResolvedArchiveConfig } from './types'
-import type { ServerResolvedNavRecord, ServerResolvedPageData, ServerResolvedPageTab } from '@idux/archive-app'
+import type {
+  BuildTargets,
+  ResolvedArchiveConfig,
+  ServerResolvedNavRecord,
+  ServerResolvedPageData,
+  ServerResolvedPageTab,
+} from '@idux/archive-types'
 
 import { createRequire } from 'node:module'
 

@@ -5,7 +5,13 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import { AppRenderers, AppSetupOptions, InnerPageProps, ResolvedAppThemeOptions, ResolvedPageData } from './types'
+import {
+  AppRenderers,
+  AppSetupOptions,
+  InnerPageProps,
+  ResolvedAppThemeOptions,
+  ResolvedPageData,
+} from '@idux/archive-types'
 
 export function resolvePageProps(
   pageData: ResolvedPageData,

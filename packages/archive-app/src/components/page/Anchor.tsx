@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AnchorData } from '../../types'
+import type { AnchorData } from '@idux/archive-types'
 
 import { findOverflowParent } from '@idux/archive-utils/client'
 import { type AnchorInstance, IxAnchor, IxAnchorLink } from '@idux/components/anchor'

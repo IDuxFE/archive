@@ -32,7 +32,7 @@
     "directory": "packages/archive-utils"
   },
   "devDependencies": {
-    "@idux/archive-app": "^0.2.2",
+    "@idux/archive-types": "^0.2.2",
     "@idux/archive-vite-plugin": "^0.2.2",
     "@types/lodash-es": "^4.17.6",
     "lodash-es": "^4.17.21"

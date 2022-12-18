@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, RouteRecord } from '../types'
+import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, RouteRecord } from '@idux/archive-types'
 
 import {
   type App,

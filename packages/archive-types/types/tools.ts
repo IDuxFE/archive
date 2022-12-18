@@ -5,9 +5,9 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { PropType, VNode } from '@idux/archive-app/vue'
 import type { LoadedSourceCode, ResolvedDemo } from '@idux/archive-vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
+import type { PropType, VNode } from 'vue'
 
 export const demoToolProps = {
   tooltip: String,

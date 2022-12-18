@@ -10,12 +10,12 @@
 import type { ResolvedPageTab } from './page'
 import type { ResolvedNavRecord } from './records'
 import type { ResolvedAppThemeOptions } from './theme'
-import type { VNodeChild } from '@idux/archive-app/vue'
 import type { ResolvedDemo } from '@idux/archive-vite-plugin'
 import type { BreakpointKey } from '@idux/cdk/breakpoint'
 import type { MenuProps } from '@idux/components/menu'
 import type { ProLayoutLogo } from '@idux/pro/layout'
 import type { SetOptional } from 'type-fest'
+import type { VNodeChild } from 'vue'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 export interface AppRendererDataBase {

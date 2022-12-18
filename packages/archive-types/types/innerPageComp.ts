@@ -9,8 +9,7 @@ import type { AppSetupOptions } from './options'
 import type { ResolvedPageData } from './page'
 import type { AppRenderers } from './renderers'
 import type { ResolvedAppThemeOptions } from './theme'
-import type { PropType } from '@idux/archive-app/vue'
-import type { ExtractInnerPropTypes } from '@idux/cdk/utils'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 export const innerPageProps = {
   pageData: { type: Object as PropType<ResolvedPageData>, required: true },
@@ -18,7 +17,7 @@ export const innerPageProps = {
   options: Object as PropType<AppSetupOptions>,
   renderers: Object as PropType<AppRenderers>,
 } as const
-export type InnerPageProps = ExtractInnerPropTypes<typeof innerPageProps>
+export type InnerPageProps = ExtractPropTypes<typeof innerPageProps>
 
 export interface PageAnchorOptions {
   enabled: boolean

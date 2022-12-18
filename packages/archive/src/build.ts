@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { BuildTargets, ResolvedArchiveConfig } from './types'
+import type { BuildTargets, ResolvedArchiveConfig } from '@idux/archive-types'
 import type { RollupOutput } from 'rollup'
 
 import { writeFileSync } from 'node:fs'

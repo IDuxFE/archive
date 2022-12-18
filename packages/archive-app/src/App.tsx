@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { ResolvedMenuData } from './types'
+import type { ResolvedMenuData } from '@idux/archive-types'
 import type { MenuProps } from '@idux/components/menu'
 
 import { IxLayoutSiderTrigger } from '@idux/components/layout'

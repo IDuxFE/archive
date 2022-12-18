@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { DemoTool } from '../../types'
+import type { DemoTool } from '@idux/archive-types'
 import type { DemoInstance, LoadedSourceCode, ResolvedDemo } from '@idux/archive-vite-plugin'
 
 import { throttle } from 'lodash-es'
