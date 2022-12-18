@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@idux/archive": "^0.2.0",
-    "@idux/archive-utils": "workspace:^0.2.0",
+    "@idux/archive-utils": "^0.2.0",
     "@idux/archive-vite-markdown-plugin": "^0.2.0"
   },
   "devDependencies": {
