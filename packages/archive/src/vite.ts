@@ -72,6 +72,13 @@ function genNavRecordsScript(records: ServerResolvedNavRecord[]): string {
   })}]`
 }
 
+function getOptimizeDep(entry: string) {
+  return {
+    entry: [entry],
+    exclude: ['@idux/archive', '@idux/archive-app', '@idux/archive-app/vue', '@idux/archive-app/components'],
+  }
+}
+
 async function createCommonViteConfig(
   archiveConfig: ResolvedArchiveConfig,
   mode: 'build' | 'dev',
@@ -164,6 +171,8 @@ export async function createBuildViteConfig(
 ): Promise<InlineConfig> {
   const commonViteConfig = await createCommonViteConfig(archiveConfig, 'build')
   const isAppBuild = target === 'app'
+  const entry = join(BUNDLE_PATH, `${target}-${archiveConfig.theme.themeStyle}.js`)
+
   const buildViteConfig = mergeConfig(commonViteConfig, {
     mode: 'development',
     build: {
@@ -175,7 +184,7 @@ export async function createBuildViteConfig(
             fileName: 'index',
           },
       rollupOptions: {
-        input: join(BUNDLE_PATH, `${target}-${archiveConfig.theme.themeStyle}.js`),
+        input: entry,
         plugins: [
           {
             name: 'archive-build-rollup-options-override',
@@ -204,6 +213,10 @@ export async function createBuildViteConfig(
       if (isAppBuild) {
         config.build!.rollupOptions!.external = []
       }
+
+      return {
+        optimizeDeps: getOptimizeDep(entry)
+      }
     },
   } as Plugin)
 
@@ -226,10 +239,7 @@ export async function createDevViteConfig(archiveConfig: ResolvedArchiveConfig):
           },
           hmr: true,
         },
-        optimizeDeps: {
-          entries: [join(BUNDLE_PATH, `app-${archiveConfig.theme.themeStyle}.js`)],
-          exclude: ['@idux/archive', '@idux/archive/app', '@idux/archive/vue', '@idux/archive/components'],
-        },
+        optimizeDeps: getOptimizeDep(join(BUNDLE_PATH, `app-${archiveConfig.theme.themeStyle}.js`))
       }
     },
     configureServer(server) {
