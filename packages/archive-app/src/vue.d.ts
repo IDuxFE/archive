@@ -18,6 +18,10 @@ declare module '*.svg' {
   export default svg
 }
 
+declare module '__External_Vue__' {
+  export * from 'vue'
+}
+
 declare module 'virtual:archive-demo-all' {
   import type { DemoInstance } from '@idux/archive-vite-plugin'
   const demos: Record<string, DemoInstance>

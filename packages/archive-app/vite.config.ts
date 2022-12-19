@@ -6,19 +6,42 @@
  */
 
 import { resolve } from 'path'
+import { readdirSync, readFileSync, writeFileSync } from 'fs'
 
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
 
-// import pkg from './package.json'
-
-// const external = [...Object.keys(pkg.dependencies), 'vue', 'vue-router', /^@idux/, /^virtual:archive/]
-
-const external = [/^@idux\/archive-utils/, /^virtual:archive/]
+const external = [/^@idux\/archive-utils/, /^virtual:archive/, '__External_Vue__']
 
 export default defineConfig({
-  plugins: [vue(), vueJsx({ enableObjectSlots: false })],
+  plugins: [
+    vue(),
+    vueJsx({ enableObjectSlots: false }),
+    {
+      name: 'transform-external-vue',
+      enforce: 'post',
+      closeBundle() {
+        const distDir = resolve(__dirname, './dist')
+        try {
+          readdirSync(distDir).forEach(file => {
+            try {
+              const filePath = resolve(distDir, file)
+              const content = readFileSync(filePath, 'utf-8')
+
+              if (content.includes('__External_Vue__')) {
+                writeFileSync(filePath, content.replace(/__External_Vue__/, 'vue'), 'utf-8')
+              }
+            } catch (err) {
+              void 0
+            }
+          })
+        } catch (err) {
+          void 0
+        }
+      },
+    },
+  ],
   resolve: {
     alias: [{ find: '@idux/archive-app/vue', replacement: resolve(__dirname, './venderVue') }],
   },

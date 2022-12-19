@@ -15,7 +15,7 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
-} from '@idux/archive-app/vue'
+} from '__External_Vue__'
 
 import { createPageInstance } from './createPageInstance'
 
