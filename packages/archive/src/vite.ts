@@ -215,7 +215,7 @@ export async function createBuildViteConfig(
       }
 
       return {
-        optimizeDeps: getOptimizeDep(entry)
+        optimizeDeps: getOptimizeDep(entry),
       }
     },
   } as Plugin)
@@ -239,7 +239,7 @@ export async function createDevViteConfig(archiveConfig: ResolvedArchiveConfig):
           },
           hmr: true,
         },
-        optimizeDeps: getOptimizeDep(join(BUNDLE_PATH, `app-${archiveConfig.theme.themeStyle}.js`))
+        optimizeDeps: getOptimizeDep(join(BUNDLE_PATH, `app-${archiveConfig.theme.themeStyle}.js`)),
       }
     },
     configureServer(server) {

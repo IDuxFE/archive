@@ -14,7 +14,7 @@ import { type ComputedRef, computed } from '@idux/archive-app/vue'
 
 export interface NavRecordsContext {
   activeRecords: ComputedRef<ResolvedNavRecord[]>
-  menuData: ResolvedMenuData[],
+  menuData: ResolvedMenuData[]
   getRecordNavKey: (record: ResolvedNavRecord) => string
 }
 
@@ -40,7 +40,7 @@ export function useNavRecords(
     if (!record) {
       return ''
     }
-    
+
     if (recordNavKeyMap.has(record)) {
       return recordNavKeyMap.get(record)!
     }

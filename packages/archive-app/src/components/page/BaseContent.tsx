@@ -58,11 +58,15 @@ export default defineComponent({
         return
       }
 
-      watch(() => props.visible, visible => {
-        visible && nextTick(updateAnchor)
-      }, {
-        immediate: true
-      })
+      watch(
+        () => props.visible,
+        visible => {
+          visible && nextTick(updateAnchor)
+        },
+        {
+          immediate: true,
+        },
+      )
     })
 
     expose({ updateAnchor })

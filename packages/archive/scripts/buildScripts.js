@@ -1,6 +1,6 @@
+import { readFileSync } from 'fs'
 import { builtinModules } from 'module'
 import { dirname, resolve } from 'path'
-import { readFileSync } from 'fs'
 import { fileURLToPath } from 'url'
 
 import { build } from 'vite'
