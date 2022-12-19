@@ -7,7 +7,7 @@
 
 import { PageContentInstance } from '@idux/archive-types'
 
-import { type PropType, defineComponent, inject, onMounted, ref, watch, nextTick } from '@idux/archive-app/vue'
+import { type PropType, defineComponent, inject, onMounted, ref, watch } from '@idux/archive-app/vue'
 
 import { pageContextToken } from '../../token'
 import BaseContentComp from './BaseContent'

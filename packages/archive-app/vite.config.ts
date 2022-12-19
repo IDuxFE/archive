@@ -5,8 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
+import { readFileSync, readdirSync, writeFileSync } from 'fs'
 import { resolve } from 'path'
-import { readdirSync, readFileSync, writeFileSync } from 'fs'
 
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'

@@ -15,7 +15,7 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
-} from '__External_Vue__'
+} from '__External_Vue__' // eslint-disable-line import/no-unresolved
 
 import { createPageInstance } from './createPageInstance'
 

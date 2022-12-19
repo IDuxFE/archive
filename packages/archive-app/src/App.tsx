@@ -111,7 +111,7 @@ export default defineComponent(() => {
   return () => (
     <IxProLayout
       class={rootWrapperCls.value}
-      activeKey={getRecordNavKey(activeRecords.value[0])}
+      activeKey={activeKey.value}
       menus={menuData}
       type={layoutType.value}
       logo={theme.logo}
