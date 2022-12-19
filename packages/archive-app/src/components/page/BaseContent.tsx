@@ -58,18 +58,11 @@ export default defineComponent({
         return
       }
 
-      const observer = new MutationObserver(mutations => {
-        if (mutations.findIndex(m => m.type === 'childList') > -1) {
-          updateAnchor()
-        }
+      watch(() => props.visible, visible => {
+        visible && nextTick(updateAnchor)
+      }, {
+        immediate: true
       })
-      observer.observe(rootEl.value!, {
-        childList: true,
-        subtree: false,
-        attributes: false,
-      })
-
-      updateAnchor()
     })
 
     expose({ updateAnchor })
