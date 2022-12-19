@@ -74,7 +74,7 @@ function genNavRecordsScript(records: ServerResolvedNavRecord[]): string {
 
 function getOptimizeDep(entry: string) {
   return {
-    entry: [entry],
+    entries: [entry],
     exclude: ['@idux/archive', '@idux/archive-app', '@idux/archive-app/vue', '@idux/archive-app/components'],
   }
 }
