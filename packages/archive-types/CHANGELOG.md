@@ -5,10 +5,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.2.5](https://github.com/IDuxFE/archive/compare/v0.2.4...v0.2.5) (2022-12-19)
 
-**Note:** Version bump only for package @idux/archive-page-loader-vue
-
-# 0.2.0 (2022-12-18)
-
-### Features
-
-- add page loader to resolve vue pages ([3c83dbb](https://github.com/IDuxFE/archive/commit/3c83dbbbc3c11527fd1edc19bd4c7a1b2c4c546a))
+**Note:** Version bump only for package @idux/archive-types
