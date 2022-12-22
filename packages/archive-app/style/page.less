@@ -3,7 +3,7 @@
 .@{prefix}__page {
   min-height: var(--archive-app-page-min-height);
   font-size: var(--archive-app-page-font-size);
-  &__header {
+  & &__header {
     margin-bottom: var(--archive-app-page-header-margin-bottom);
     background-color: var(--archive-app-page-header-background);
 
@@ -58,20 +58,23 @@
     }
   }
 
-  &__title {
+  & &__title {
     display: inline-block;
     width: 100%;
     margin-top: 8px;
     margin-bottom: 16px;
     font-size: var(--archive-app-page-title-font-size);
+    color: var(--archive-app-page-title-color);
     transition: all 0.2s cubic-bezier(0.37, 0, 0.63, 1);
   }
 
-  &__description {
+  & &__description {
     margin-bottom: 16px;
+    font-size: var(--archive-app-page-description-font-size);
+    color: var(--archive-app-page-description-color);
   }
 
-  &__content {
+  & &__content {
     width: 100%;
     display: flex;
     &__inner {
