@@ -121,13 +121,22 @@ function resolveDir(
     rootRecords: [],
   }
 
-  if (ignorePatterns?.some(reg => reg.test(dir))) {
+  const checkIgnored = (path: string) => {
+    return ignorePatterns?.some(reg => reg.test(path))
+  }
+
+  if (checkIgnored(dir)) {
     return result
   }
 
   let records = readdirSync(dir)
     .map(file => {
       const path = resolve(dir, file)
+
+      if (checkIgnored(path)) {
+        return
+      }
+
       if (statSync(path).isDirectory()) {
         let demos = demoDirnameMap.get(path)
         if (filterDemos) {
