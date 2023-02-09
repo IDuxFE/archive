@@ -61,6 +61,18 @@ Many of the features are inspired by the following awesome projects.
 - [Histoire](https://github.com/histoire-dev/histoire)
 - [VitePress](https://github.com/vuejs/vitepress)
 
+## 🚩 Roadmap
+
+- Add Vue2.x Demo Loaders
+- Add component API doc auto generation support
+- Better HMR support
+- Better log support
+- Add plugin system to encapsulate customizations
+- Add controls to modify demo data or paramaters on web UI
+- Add doc meta data extraction and searching support
+- Typescript format configuration
+- Add homepage support
+
 ## ☀️ License
 
 [MIT](https://github.com/IDuxFE/archive/blob/main/LICENSE) © 2022-present IDuxFE
