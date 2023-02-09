@@ -11,6 +11,8 @@
 }
 .archive-md * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 .archive-md h1,
 .archive-md h2,
@@ -27,6 +29,8 @@
   letter-spacing: -0.02em;
   line-height: 40px;
   font-size: 28px;
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
 }
 
 .archive-md h2 {

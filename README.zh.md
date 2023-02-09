@@ -61,6 +61,18 @@ npm run dev
 - [Histoire](https://github.com/histoire-dev/histoire)
 - [VitePress](https://github.com/vuejs/vitepress)
 
+## 🚩 开发计划
+
+- 添加 Vue2 demo 的加载器
+- API 文档自动生成
+- 更好的热更新支持
+- 更好的日志
+- 引入插件体系用来封装常用的自定义内容
+- 引入控件方便在 Web UI 上交互式得修改 demo 参数
+- 支持文档元信息提取以及搜索
+- Typescript 格式配置文件支持
+- 支持编写文档首页
+
 ## ☀️ 授权协议
 
 [MIT](https://github.com/IDuxFE/archive/blob/main/LICENSE) © 2022-present IDuxFE

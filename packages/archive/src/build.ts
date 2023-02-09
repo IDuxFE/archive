@@ -40,7 +40,7 @@ async function buildApp(config: ResolvedArchiveConfig): Promise<void> {
   const buildResults = await viteBuild(viteConfig)
   const buildResult = (Array.isArray(buildResults) ? buildResults[0] : buildResults) as RollupOutput
 
-  const indexOutput = buildResult.output.find(o => o.name === `app-${config.theme}` && o.type === 'chunk')!
+  const indexOutput = buildResult.output.find(o => o.name === `app-${config.theme.themeStyle}` && o.type === 'chunk')!
   const styleOutput = buildResult.output.find(o => o.name === 'style.css' && o.type === 'asset')!
   const indexHtml = generateEntryHtml(indexOutput.fileName, styleOutput.fileName, viteConfig.base ?? '/')
 
@@ -73,6 +73,6 @@ function generateEntryHtml(jsEntryFile: string, cssEntryFile: string, base: stri
   return generateBaseHtml(
     `<link rel="stylesheet" href="${base}${cssEntryFile}">`,
     `<div id="app"></div>
-    <script type="module" src="${base}${jsEntryFile}"></script>`,
+<script type="module" src="${base}${jsEntryFile}"></script>`,
   )
 }
