@@ -4,8 +4,8 @@
   "version": "0.2.5",
   "type": "module",
   "scripts": {
-    "docs:dev": "idux-archive dev",
-    "docs:build": "idux-archive build"
+    "docs:dev": "npx idux-archive dev",
+    "docs:build": "npx idux-archive build"
   },
   "dependencies": {
     "@idux/archive-app": "^0.2.5",
