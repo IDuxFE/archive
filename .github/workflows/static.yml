@@ -38,6 +38,9 @@ jobs:
           node-version: 16
           cache: pnpm
       - run: pnpm install
+      
+      - name: Build archive
+        run: npm run build
 
       - name: Build
         run: cd docs && npm run docs:build
