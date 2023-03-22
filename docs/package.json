@@ -13,8 +13,7 @@
   },
   "devDependencies": {
     "@idux/archive": "^0.2.5",
-    "@idux/archive-collector-vue": "^0.2.5",
-    "@idux/archive-page-loader-vue": "^0.2.5",
+    "@idux/archive-loader-vue": "^0.2.5",
     "@idux/archive-utils": "^0.2.5",
     "@vitejs/plugin-vue": "^3.2.0",
     "vite": "^3.2.3",
