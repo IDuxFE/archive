@@ -8,3 +8,4 @@
 export * from './genNavRecordsScript'
 export * from './loaders'
 export * from './normalize'
+export * from './watchDir'
