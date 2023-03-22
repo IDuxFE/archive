@@ -2,7 +2,7 @@ import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'node:url'
 
 import { defineConfig } from '@idux/archive'
-import { createArchiveVuePageLoader, createArchiveVueDemoLoader } from '@idux/archive-loader-vue'
+import { createArchiveVue2PageLoader, createArchiveVue2DemoLoader } from '@idux/archive-loader-vue2'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -14,6 +14,6 @@ export default defineConfig({
       type: 'sider',
     },
   },
-  pageLoaders: [createArchiveVuePageLoader()],
-  demoLoaders: [createArchiveVueDemoLoader()],
+  pageLoaders: [createArchiveVue2PageLoader()],
+  demoLoaders: [createArchiveVue2DemoLoader()],
 })
