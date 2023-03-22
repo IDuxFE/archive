@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { Instance, Loader } from '@idux/archive-vite-plugin'
+import type { Instance, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
 import type { ComponentOptions, VNode, VueConstructor } from 'vue'
 
@@ -38,4 +38,8 @@ export interface Vue2ItemMeta {
   dependencies?: string[]
   title?: string
   description?: string
+}
+
+export interface ArchiveLoaderVue2ResolvedItem extends ResolvedItem, Vue2ItemMeta {
+  instance: ArchiveLoaderVue2Instance
 }
