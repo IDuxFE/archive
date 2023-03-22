@@ -3,8 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { readFileSync } from 'node:fs'
 
 import { defineConfig } from '@idux/archive'
-import { createVuePageLoader } from '@idux/archive-page-loader-vue'
-// import { createVueCollector } from '@idux/archive-collector-vue'
+import { createArchiveVuePageLoader } from '@idux/archive-loader-vue'
 import { getNavFromDirectory } from '@idux/archive-utils'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -21,7 +20,7 @@ export default defineConfig({
       anchorMaxLevel: 6
     }
   },
-  navConfig(demos, root) {
+  navConfig(root) {
     const pathPageMetaMap = new Map()
     const idPageMetaMap = new Map()
 
@@ -84,7 +83,7 @@ export default defineConfig({
       return meta
     }
 
-    const navRecords = getNavFromDirectory(demos, root, {
+    const navRecords = getNavFromDirectory(root, {
       getPageInfo(file, isDir) {
         const { id, name, title, description } = getMetaInfo(file, isDir)
 
@@ -95,21 +94,11 @@ export default defineConfig({
           description,
         }
       },
-      // mapRecords: (_, records) =>
-      //   records
-      //     .sort((rec1, rec2) => idPageMetaMap.get(rec1.id).idx - idPageMetaMap.get(rec2.id).idx)
-      //     .map(record => (record.type === 'sub' ? { ...record, type: 'group' } : record)),
     })
-
-    // navRecords.forEach(record => {
-    //   if (record.type === 'group') {
-    //     record.type = 'sub'
-    //   }
-    // })
 
     return navRecords
   },
-  pageLoaders: [createVuePageLoader()],
+  pageLoaders: [createArchiveVuePageLoader()],
   // collectors: [createVueCollector({ matchPattern: '**/*.demo.vue' })],
 })
 
