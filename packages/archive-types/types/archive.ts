@@ -29,6 +29,7 @@ export interface SetupContext {
 export interface ArchiveConfig {
   setupFile?: string
   navConfig?: (root: string) => NavRecord[]
+  watchNavConfig?: (update: () => void) => void
   pageLoaders?: Loader[]
   demoLoaders?: Loader[]
   markdownOptions?: MarkdownOptions
@@ -47,6 +48,7 @@ export interface ResolvedArchiveConfig {
   pageLoaders: Loader[]
   demoLoaders: Loader[]
   getResolvedRecords: () => RecordsContext
+  watchNavConfig: (update: () => void) => void
   theme: SetRequired<ArchiveThemeOptions, 'themeStyle'>
   markdownOptions: MarkdownOptions
   dist: string

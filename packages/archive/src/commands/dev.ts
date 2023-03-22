@@ -23,7 +23,7 @@ export async function devCommand(options: ServeOptions): Promise<void> {
         ignoreInitial: true,
       })
       watcher.on('change', () => {
-        restart('Vite')
+        restart('archive')
       })
     }
 

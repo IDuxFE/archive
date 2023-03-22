@@ -17,6 +17,8 @@ import { getNavFromDirectory } from '@idux/archive-utils'
 
 import { resolveRecords } from './resolveRecords'
 
+import { watchDir } from '../utils'
+
 export const configFileNames = ['archive.config.js']
 
 export function defineConfig(config: ArchiveConfig): ArchiveConfig {
@@ -54,17 +56,12 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<{
 }
 
 export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
-  const { setupFile, navConfig, theme, pageLoaders, demoLoaders, markdownOptions, dist, root } = mergeConfig(config)
-
-  let resolvedRecords: ReturnType<typeof resolveRecords>
+  const { setupFile, navConfig, watchNavConfig, theme, pageLoaders, demoLoaders, markdownOptions, dist, root } =
+    mergeConfig(config)
 
   const getResolvedRecords = () => {
-    if (!resolvedRecords) {
-      const navRecords = navConfig(root)
-      resolvedRecords = resolveRecords(navRecords, pageLoaders, demoLoaders)
-    }
-
-    return resolvedRecords
+    const navRecords = navConfig(root)
+    return resolveRecords(navRecords, pageLoaders, demoLoaders)
   }
 
   return {
@@ -72,6 +69,7 @@ export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
     pageLoaders,
     demoLoaders,
     getResolvedRecords,
+    watchNavConfig,
     theme,
     markdownOptions,
     dist,
@@ -85,12 +83,20 @@ function mergeConfig(
   Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }>,
   'setupFile'
 > {
-  const { setupFile, navConfig, theme, pageLoaders, demoLoaders, markdownOptions, dist, root } = config ?? {}
+  const { setupFile, navConfig, watchNavConfig, theme, pageLoaders, demoLoaders, markdownOptions, dist, root } =
+    config ?? {}
   const resolvedRoot = root ?? process.cwd()
+
+  const defaultWatcher = navConfig
+    ? () => {}
+    : (update: () => void) => {
+        watchDir(resolvedRoot, update)
+      }
 
   return {
     setupFile,
     navConfig: navConfig ?? getNavFromDirectory,
+    watchNavConfig: watchNavConfig ?? defaultWatcher,
     pageLoaders: pageLoaders ?? [],
     demoLoaders: demoLoaders ?? [],
     theme: {

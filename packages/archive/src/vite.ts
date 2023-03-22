@@ -10,7 +10,14 @@ import type { BuildTargets, ResolvedArchiveConfig } from '@idux/archive-types'
 import { createRequire } from 'node:module'
 
 import { dirname, join } from 'pathe'
-import { type InlineConfig, type Plugin, loadConfigFromFile, mergeConfig, searchForWorkspaceRoot } from 'vite'
+import {
+  type ViteDevServer,
+  type InlineConfig,
+  type Plugin,
+  loadConfigFromFile,
+  mergeConfig,
+  searchForWorkspaceRoot,
+} from 'vite'
 
 import { createArchiveMdPlugin } from '@idux/archive-vite-markdown-plugin'
 import { createArchivePlugin } from '@idux/archive-vite-plugin'
@@ -28,6 +35,30 @@ function getOptimizeDep(entry: string) {
     entries: [entry],
     exclude: ['@idux/archive', '@idux/archive-app', '@idux/archive-app/vue', '@idux/archive-app/components'],
   }
+}
+
+const HMR_SCRIPT = `;if(__import_meta_hot__){__import_meta_hot__.accept(() => {__import_meta_hot__.invalidate()})}`
+function updateModule(server: ViteDevServer, id: string) {
+  const mod = server.moduleGraph.getModuleById(id)
+  if (!mod) {
+    return
+  }
+  server.moduleGraph.invalidateModule(mod)
+
+  // Send HMR update
+  const timestamp = Date.now()
+  mod.lastHMRTimestamp = timestamp
+  server.ws.send({
+    type: 'update',
+    updates: [
+      {
+        type: 'js-update',
+        acceptedPath: mod.url,
+        path: mod.url,
+        timestamp: timestamp,
+      },
+    ],
+  })
 }
 
 async function createCommonViteConfig(
@@ -57,6 +88,12 @@ async function createCommonViteConfig(
       }
     },
 
+    configureServer(server) {
+      const update = () => updateModule(server, RESOLVED_APP_MOUNT_OPTIONS_ID)
+
+      archiveConfig.watchNavConfig(update)
+    },
+
     // TODO: hmr
     load(id) {
       if (id.startsWith(RESOLVED_APP_MOUNT_OPTIONS_ID)) {
@@ -82,7 +119,7 @@ async function createCommonViteConfig(
                 ].join(',')
               : ''
           }
-        }`
+        }${HMR_SCRIPT}`
       }
     },
   })
