@@ -10,17 +10,11 @@ import type { NavRecord, ServerResolvedNavRecord } from './records'
 import type { AppRenderers } from './renderers'
 import type { AppThemeOptions } from './theme'
 import type { MarkdownOptions } from '@idux/archive-vite-markdown-plugin'
-import type { CollectedDemo, Collector } from '@idux/archive-vite-plugin'
+import type { Loader } from '@idux/archive-vite-plugin'
 import type { SetRequired } from 'type-fest'
 import type { App } from 'vue'
 
 export type BuildTargets = 'app' | 'page' | 'instance'
-
-export interface ArchivePageLoader {
-  matched: (src: string) => boolean
-  resolver: (absolutePath: string) => string | Promise<string>
-}
-
 export type ArchiveThemeStyle = 'default' | 'seer'
 export interface ArchiveThemeOptions extends AppThemeOptions {
   themeStyle?: ArchiveThemeStyle
@@ -34,9 +28,9 @@ export interface SetupContext {
 
 export interface ArchiveConfig {
   setupFile?: string
-  navConfig?: (demos: CollectedDemo[], root: string) => NavRecord[]
-  pageLoaders?: ArchivePageLoader[]
-  collectors?: Collector[]
+  navConfig?: (root: string) => NavRecord[]
+  pageLoaders?: Loader[]
+  demoLoaders?: Loader[]
   markdownOptions?: MarkdownOptions
   theme?: ArchiveThemeOptions
   dist?: string
@@ -50,9 +44,8 @@ export interface RecordsContext {
 
 export interface ResolvedArchiveConfig {
   setupFile?: string
-  pageLoaders: ArchivePageLoader[]
-  collectors: Collector[]
-  onDemosCollected: (demos: CollectedDemo[]) => void
+  pageLoaders: Loader[]
+  demoLoaders: Loader[]
   getResolvedRecords: () => RecordsContext
   theme: SetRequired<ArchiveThemeOptions, 'themeStyle'>
   markdownOptions: MarkdownOptions

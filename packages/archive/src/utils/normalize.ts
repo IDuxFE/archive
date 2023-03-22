@@ -5,5 +5,6 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-export * from './src/overflow'
-export * from './src/tree'
+export function normalizePath(path: string): string {
+  return path.replace(/\/(\/)+/g, '/')
+}

@@ -11,11 +11,11 @@ const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf-
 const external = [
   ...Object.keys(pkg.dependencies),
   ...builtinModules.flatMap(m => (m.includes('punycode') ? [] : [m, `node:${m}`])),
-  /^@idux/,
   'vite',
 ]
 
 const getConfig = buildOption => ({
+  root: resolve(__dirname, '../'),
   configFile: false,
   build: {
     emptyOutDir: false,

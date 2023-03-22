@@ -6,7 +6,6 @@
  */
 
 import type {
-  ArchivePageLoader,
   NavRecord,
   PageData,
   RecordsContext,
@@ -15,12 +14,13 @@ import type {
   ServerResolvedPageTab,
   ServerRouteRecord,
 } from '@idux/archive-types'
+import type { Loader } from '@idux/archive-vite-plugin'
 
 import { mapTree } from '@idux/archive-utils'
 
-import { getArchivePageId, normalizePath } from '../utils'
+import { getImportScript, normalizePath } from '../utils'
 
-export function resolveRecords(navRecords: NavRecord[], pageLoaders: ArchivePageLoader[]): RecordsContext {
+export function resolveRecords(navRecords: NavRecord[], pageLoaders: Loader[], demoLoaders: Loader[]): RecordsContext {
   const routeRecords: ServerRouteRecord[] = []
 
   const recordsMap = new Map<NavRecord, ServerResolvedNavRecord & { type: 'sub' }>()
@@ -33,7 +33,7 @@ export function resolveRecords(navRecords: NavRecord[], pageLoaders: ArchivePage
       }
       let resolvedRecord: ServerResolvedNavRecord
       if (record.type === 'item') {
-        const resolvedPageData = resolvePageData(record.pageData, pageLoaders)
+        const resolvedPageData = resolvePageData(record.pageData, pageLoaders, demoLoaders)
         if (!resolvedPageData) {
           return
         }
@@ -88,46 +88,54 @@ export function resolveRecords(navRecords: NavRecord[], pageLoaders: ArchivePage
   }
 }
 
-function resolvePageData(pageData: PageData, pageLoaders: ArchivePageLoader[]): ServerResolvedPageData | undefined {
+function resolvePageData(
+  pageData: PageData,
+  pageLoaders: Loader[],
+  demoLoaders: Loader[],
+): ServerResolvedPageData | undefined {
   const basicData = {
     title: pageData.title,
     description: pageData.description,
   }
 
-  if (pageData.demoIds) {
+  if (pageData.demos) {
     return {
       ...basicData,
-      demoIds: pageData.demoIds,
+      demoImportScripts: pageData.demos.map(demo => getImportScript(demo, demoLoaders)).filter(Boolean) as string[],
     }
   }
 
   if (pageData.src) {
     return {
       ...basicData,
-      component: getPageComponent(pageData.src, pageLoaders),
+      importScript: getImportScript(pageData.src, pageLoaders),
     }
   }
 
   if (pageData.tabs) {
     return {
       ...basicData,
-      tabs: pageData.tabs.map<ServerResolvedPageTab>(tab => {
-        if (tab.src) {
-          return {
-            name: tab.name,
-            id: tab.id,
-            component: getPageComponent(tab.src, pageLoaders),
+      tabs: pageData.tabs
+        .map<ServerResolvedPageTab | undefined>(tab => {
+          if (tab.demos) {
+            return {
+              name: tab.name,
+              id: tab.id,
+              demoImportScripts: tab.demos.map(demo => getImportScript(demo, demoLoaders)).filter(Boolean) as string[],
+            }
           }
-        }
 
-        return tab as ServerResolvedPageTab
-      }),
+          if (tab.src) {
+            return {
+              name: tab.name,
+              id: tab.id,
+              importScript: getImportScript(tab.src, pageLoaders),
+            }
+          }
+
+          return
+        })
+        .filter(Boolean) as ServerResolvedPageTab[],
     }
   }
-}
-
-function getPageComponent(src: string, pageLoaders: ArchivePageLoader[]): string | undefined {
-  const id = getArchivePageId(src, pageLoaders)
-
-  return id ? `() => import("${id}")` : undefined
 }
