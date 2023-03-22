@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>Demo111</h1>ss
+    <h1>Demo3</h1>
   </div>
 </template>
 
 <archive-meta lang="json">
-{
-  "title": "demo1",
-  "description": "description"
-}
+  {
+    "title": "demo3",
+    "description": "description"
+  }
 </archive-meta>
