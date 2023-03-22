@@ -29,7 +29,7 @@ module.exports = {
     'import/resolver': {
       'eslint-import-resolver-custom-alias': {
         alias: {
-          '@idux/archive-app/vue': resolve(__dirname, './packages/archive-app/venderVue.ts'),
+          '@idux/archive-app/vue': resolve(__dirname, './packages/archive-app/vue.ts'),
           '@idux/archive': resolve(__dirname, './packages'),
         },
         extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.vue', '.md'],
@@ -183,6 +183,7 @@ module.exports = {
   },
   ignorePatterns: [
     'dist',
+    'packages/archive/types',
     'packages/archive-app/bundle/**/*',
     'packages/archive-collector-vue/client.js'
   ],

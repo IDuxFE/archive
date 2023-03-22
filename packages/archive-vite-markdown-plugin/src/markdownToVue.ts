@@ -154,11 +154,13 @@ function injectPageDataCode(tags: string[], data: PageData, replaceRegex: RegExp
     const hasDefaultExport = defaultExportRE.test(tagSrc) || namedDefaultExportRE.test(tagSrc)
     tags[existingScriptIndex] = tagSrc.replace(
       scriptRE,
-      code + (hasDefaultExport ? `` : `\nexport default {name:'${data.relativePath}'}`) + `</script>`,
+      code + (hasDefaultExport ? `` : `\nexport default {name:'${path.basename(data.relativePath)}'}`) + `</script>`,
     )
   } else {
     tags.unshift(
-      `<script ${isUsingTS ? 'lang="ts"' : ''}>${code}\nexport default {name:'${data.relativePath}'}</script>`,
+      `<script ${isUsingTS ? 'lang="ts"' : ''}>${code}\nexport default {name:'${path.basename(
+        data.relativePath,
+      )}'}</script>`,
     )
   }
 
