@@ -63,7 +63,6 @@ Many of the features are inspired by the following awesome projects.
 
 ## 🚩 Roadmap
 
-- Add Vue2.x Demo Loaders
 - Add component API doc auto generation support
 - Better HMR support
 - Better log support
