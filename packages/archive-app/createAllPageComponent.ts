@@ -5,4 +5,4 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-export * from './src/index'
+export { createAllPageComponent } from './src/mount/createAllPageComponent'

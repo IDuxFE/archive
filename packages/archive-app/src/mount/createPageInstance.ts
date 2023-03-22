@@ -17,10 +17,10 @@ import { useBreakpoints } from '@idux/cdk/breakpoint'
 
 import { type App, VNode, createApp, createVNode, render } from '@idux/archive-app/vue'
 
+import iduxInstall from './iduxInstall'
 import Page from '../components/page/Page'
 import { resolvePageProps } from '../resolvePageProps'
 import { breakpointsToken, themeToken } from '../token'
-import iduxInstall from './iduxInstall'
 
 /* eslint-disable camelcase */
 

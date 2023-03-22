@@ -1,8 +1,8 @@
 import mountOptions from 'virtual:archive-app-mount-options'
 
-import { createAllPageComponents } from '../dist/index.js'
+import { createAllPageComponent } from '../dist/createPageComponent.js'
 
 import '../dist/themes/default/page.css'
 
-export const pages = createAllPageComponents(mountOptions)
+export const pages = createAllPageComponent(mountOptions)
 export const navRecords = mountOptions.navRecords

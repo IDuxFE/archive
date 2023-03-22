@@ -12,13 +12,13 @@ import { createRouter, createWebHistory, useRoute } from 'vue-router'
 
 import { createApp, defineComponent, h, provide } from '@idux/archive-app/vue'
 
+import iduxInstall from './iduxInstall'
 import AppComp from '../App'
 import { useAppRender } from '../composables/useAppRender'
 import { useNavRecords } from '../composables/useNavRecords'
 import { resolveRoutes } from '../resolveRoutes'
 import { resolveThemeOptions } from '../resolveThemeOptions'
 import { appContextToken, breakpointsToken, themeToken } from '../token'
-import iduxInstall from './iduxInstall'
 
 export function mountApp(options: AppMountOptions): void {
   const { navRecords, routeRecords, el, renderers = {}, setupOptions, setupApp } = options

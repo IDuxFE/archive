@@ -5,12 +5,12 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
+import type { ResolvedDemoItem } from './demo'
 import type { ResolvedPageData, ServerResolvedPageData } from './page'
 import type { ResolvedNavRecord } from './records'
 import type { AppRenderers } from './renderers'
 import type { AppThemeOptions } from './theme'
 import type { DemoTool } from './tools'
-import type { ResolvedDemo } from '@idux/archive-vite-plugin'
 import type { App } from 'vue'
 
 export interface RouteRecord {
@@ -24,8 +24,8 @@ export interface ServerRouteRecord {
 }
 
 export interface AppSetupOptions {
-  getInitVisibleDemoIds?: (demos?: ResolvedDemo[]) => string[]
-  getDemoTools?: (demos: ResolvedDemo) => DemoTool[]
+  getInitVisibleDemoIds?: (demos?: ResolvedDemoItem[]) => string[]
+  getDemoTools?: (demos: ResolvedDemoItem) => DemoTool[]
 }
 
 export interface AppMountOptions {

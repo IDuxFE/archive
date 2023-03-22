@@ -5,24 +5,18 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-/* eslint-disable import/no-unresolved */
-
-// @ts-ignore virtual module
-import allDemoInstance from 'virtual:archive-demo-all'
-// @ts-ignore virtual module
-import allDemoDatas from 'virtual:archive-demo-all-data'
+import type { ResolvedDemoItem } from '@idux/archive-types'
 
 import { type PropType, computed, defineComponent, inject, nextTick, ref, watch } from '@idux/archive-app/vue'
 
-/* eslint-enable import/no-unresolved */
-
+import BaseContentComp from './BaseContent'
+import { useArrayAsyncProp } from '../../composables/useAsyncProp'
 import { pageContextToken } from '../../token'
 import DemoComp from '../demo/Demo'
-import BaseContentComp from './BaseContent'
 
 export default defineComponent({
   props: {
-    demoIds: { type: Array as PropType<string[]>, required: true },
+    demoImports: { type: Array as PropType<(() => Promise<{ default: ResolvedDemoItem }>)[]>, required: true },
     visible: { type: Boolean, required: true },
   },
   setup(props) {
@@ -33,17 +27,20 @@ export default defineComponent({
     } = inject(pageContextToken)!
     const baseContentRef = ref()
 
-    const _getInitVisibleDemoIds = () =>
-      getInitVisibleDemoIds ? getInitVisibleDemoIds(demoDatas.value) : props.demoIds
+    const demosRef = useArrayAsyncProp(props, 'demoImports')
+    const demoItems = computed(() => demosRef.value?.map(demo => demo.default) ?? [])
+    const demoIds = computed(() => demoItems.value.map(demoItem => demoItem.id))
 
-    const demoDatas = computed(() => props.demoIds.map(id => allDemoDatas[id]))
+    const _getInitVisibleDemoIds = () =>
+      getInitVisibleDemoIds ? getInitVisibleDemoIds(demoItems.value) : demoIds.value
+
     const visibleDemoIds = ref(_getInitVisibleDemoIds())
     const setVisibleDemoIds = (demoIds: string[]) => {
       visibleDemoIds.value = demoIds
     }
 
     watch(
-      () => props.demoIds,
+      demoIds,
       () => {
         visibleDemoIds.value = _getInitVisibleDemoIds()
       },
@@ -64,18 +61,17 @@ export default defineComponent({
         <BaseContentComp ref={baseContentRef} visible={props.visible}>
           {render(
             {
-              demos: demoDatas.value,
+              demos: demoItems.value,
               visibleDemoIds: visibleDemoIds.value,
               setVisibleDemoIds,
             },
             pageContentRenderer,
             () =>
-              props.demoIds.map(id => (
+              demoItems.value.map(demoItem => (
                 <DemoComp
-                  v-show={visibleDemoIds.value.includes(id)}
-                  demoData={allDemoDatas[id]}
-                  demoInstance={allDemoInstance[id]}
-                  tools={getDemoTools?.(allDemoDatas[id])}
+                  v-show={visibleDemoIds.value.includes(demoItem.id)}
+                  resolvedDemoItem={demoItem}
+                  tools={getDemoTools?.(demoItem)}
                   prefixCls="archive-app"
                   lang="zh"
                 />

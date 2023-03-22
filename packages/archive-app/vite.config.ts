@@ -12,7 +12,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
 
-const external = [/^@idux\/archive-utils/, /^virtual:archive/, '__External_Vue__']
+const external = [/^@idux\/archive-utils/, '__External_Vue__']
 
 export default defineConfig({
   plugins: [
@@ -43,7 +43,7 @@ export default defineConfig({
     },
   ],
   resolve: {
-    alias: [{ find: '@idux/archive-app/vue', replacement: resolve(__dirname, './venderVue') }],
+    alias: [{ find: '@idux/archive-app/vue', replacement: resolve(__dirname, './vendor/vue.ts') }],
   },
   build: {
     emptyOutDir: false,
@@ -55,7 +55,13 @@ export default defineConfig({
     rollupOptions: {
       external,
 
-      input: ['./index.ts', './venderVue.ts', './components.ts'],
+      input: [
+        './mountApp.ts',
+        './createAllPageComponent.ts',
+        './createAllPageInstance.ts',
+        './vendor/vue.ts',
+        './vendor/components.ts',
+      ],
 
       output: {
         entryFileNames: '[name].js',

@@ -6,6 +6,7 @@
  */
 
 export * from './tools'
+export * from './demo'
 export * from './page'
 export * from './records'
 export * from './options'

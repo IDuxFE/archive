@@ -26,10 +26,10 @@ import {
   watch,
 } from '@idux/archive-app/vue'
 
+import DemosContent from './DemosContent'
+import PageContent from './PageContent'
 import { usePageRender } from '../../composables/usePageRender'
 import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
-import AsyncContent from './AsyncContent'
-import DemosContent from './DemosContent'
 
 export default defineComponent({
   props: {
@@ -95,17 +95,17 @@ export default defineComponent({
 
     const title = computed(() => props.pageData.title)
     const description = computed(() => props.pageData.description)
-    const pageDemoIds = computed(() => props.pageData.demoIds)
-    const pageComponent = computed(() => props.pageData.component)
+    const demoImports = computed(() => props.pageData.demoImports)
+    const pageImport = computed(() => props.pageData.import)
 
-    const tabs = computed(() => props.pageData.tabs?.filter(tab => tab.component || tab.demoIds) ?? [])
+    const tabs = computed(() => props.pageData.tabs?.filter(tab => tab.import || tab.demoImports) ?? [])
     const tabsRadioData = computed(() =>
       tabs.value.map(tab => ({
         label: tab.name,
         value: tab.id,
       })),
     )
-    const showTabs = computed(() => !pageDemoIds.value?.length && tabs.value.length > 0)
+    const showTabs = computed(() => !demoImports.value?.length && tabs.value.length > 0)
 
     const activeTabId = ref(tabs.value[0]?.id)
     const setActiveTabId = (tab: string) => {
@@ -177,18 +177,18 @@ export default defineComponent({
     const renderContent = () => {
       let children: VNodeChild
 
-      if (pageDemoIds.value) {
-        children = <DemosContent visible={true} demoIds={pageDemoIds.value} />
-      } else if (pageComponent.value) {
-        children = <AsyncContent visible={true} component={pageComponent.value} />
+      if (demoImports.value) {
+        children = <DemosContent visible={true} demoImports={demoImports.value} />
+      } else if (pageImport.value) {
+        children = <PageContent visible={true} pageImport={pageImport.value} />
       } else {
         children = tabs.value.map(tab => {
           const visible = activeTabId.value === tab.id
-          if (tab.demoIds) {
-            return <DemosContent v-show={visible} visible={visible} demoIds={tab.demoIds} />
+          if (tab.demoImports) {
+            return <DemosContent v-show={visible} visible={visible} demoImports={tab.demoImports} />
           }
 
-          return <AsyncContent v-show={visible} visible={visible} component={tab.component!} />
+          return <PageContent v-show={visible} visible={visible} pageImport={tab.import!} />
         })
       }
 

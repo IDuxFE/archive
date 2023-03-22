@@ -15,7 +15,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "paths": {
-      "@idux/archive-app/vue": ["./venderVue.ts"],
+      "@idux/archive-app/vue": ["./vendor/vue.ts"],
     },
   },
   "exclude": ["node_modules", "coverage", "dist", "vite.config.ts"],
