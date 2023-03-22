@@ -34,7 +34,7 @@ module.exports = {
     useEmoji: false,
     emojiAlign: 'center',
     themeColorCode: '',
-    scopes: ['archive', 'app', 'collector-vue', 'page-loader-vue', 'vite-md-plugin', 'vite-plugin', 'utils'],
+    scopes: ['archive', 'app', 'loader-vue', 'loader-vue2', 'vite-md-plugin', 'vite-plugin', 'utils', 'types'],
     allowCustomScopes: true,
     allowEmptyScopes: true,
     customScopesAlign: 'bottom',
