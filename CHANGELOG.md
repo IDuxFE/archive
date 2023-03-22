@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/IDuxFE/archive/compare/v0.3.0...v0.3.1) (2023-03-22)
+
+### Bug Fixes
+
+- archive app options hmr support ([1c2edb7](https://github.com/IDuxFE/archive/commit/1c2edb7b5dc5791e13de43d68e2bf97680f5e59a))
+- **loader-vue,loader-vue2:** export item types ([5357cd7](https://github.com/IDuxFE/archive/commit/5357cd7b8a95c3a8e8eeb098aa89162395f8667f))
+- update roadmap ([ab02211](https://github.com/IDuxFE/archive/commit/ab02211ca1805685775c5d041b372fdd5c74c612))
+
 # 0.3.0 (2023-03-22)
 
 ### Bug Fixes
