@@ -5,88 +5,72 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { CollectedDemo, Collector, DemoStorage, Options, ResolvedCollector, ResolvedOptions } from './types'
+import type { Loader, Options, ResolvedLoader, ResolvedOptions, Storage } from './types'
+import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 
-import { readFileSync } from 'fs'
+import { parseRequest } from './query'
+import { genAllDataScript, genDataScript } from './scriptGen'
+import { createStorage } from './storage'
 
-import { basename } from 'pathe'
-import { type Plugin, type ResolvedConfig, type ViteDevServer, createFilter } from 'vite'
+const DEFAULT_PREFIX = 'archive:'
 
-import { collectAllDemos, createDemoStorage, watchDemos } from './demoStorage'
-import { BASIC_HMR_SCRIPT, defaultDemoScriptGenerator, genAllDemoDataScript, genDemoDataScript } from './scriptGen'
+const ALL_ITEMS_ID = 'all-items'
 
-const ALL_DEMO_ID = 'virtual:archive-demo-all'
-const RESOLVED_ALL_DEMO_ID = `/__resolved__${ALL_DEMO_ID}`
+const RESOLVED_PREFIX = '/archive__resolved'
+const RESOLVED_AFFIX = `__resolved`
 
-const ALL_DEMO_DATA_ID = `${ALL_DEMO_ID}-data`
-const RESOLVED_ALL_DEMO_DATA_ID = `/__resolved__${ALL_DEMO_DATA_ID}`
-
-const DEMO_ID_PREFIX = 'virtual:archive-demo:'
-const RESOLVED_DEMO_ID_PREFIX = `/__resolved__${DEMO_ID_PREFIX}`
-
-const DEMO_DATA_ID_PREFIX = 'virtual:archive-demo-data:'
-const RESOLVED_DEMO_DATA_ID_PREFIX = `/__resolved__${DEMO_DATA_ID_PREFIX}`
-
-const defaultResolver = (absolutePath: string) => {
-  const code = readFileSync(absolutePath, 'utf-8')
+const defaultResolve = (absolutePath: string) => {
   return Promise.resolve({
-    component: `() => import(${JSON.stringify(absolutePath)})`,
-    sourceCodes: [
-      {
-        filename: basename(absolutePath),
-        code: `() => ${JSON.stringify(code).trim()}`,
-        parsedCode: `() => ${JSON.stringify(code).trim()}`,
-      },
-    ],
+    instanceScript: `() => import(${JSON.stringify(absolutePath)})`,
   })
 }
 
 function resolveOptions(config: ResolvedConfig, options?: Options): ResolvedOptions {
-  const { root, demoScriptGenerator, collectors } = options ?? {}
+  const { root, loaders } = options ?? {}
 
-  const resolvedDemoScriptGenerator = demoScriptGenerator ?? defaultDemoScriptGenerator
-
-  const resolvedCollectors = collectors?.length
-    ? collectors.map(collector => resolveCollector(collector, resolvedDemoScriptGenerator))
-    : [resolveCollector({ name: 'default', matchPattern: '**/*.vue' }, resolvedDemoScriptGenerator)]
-
-  const findCollector = (path: string) => resolvedCollectors.find(collector => collector.filter(path))
+  const resolvedLoaders = loaders?.length
+    ? loaders.map(loader => resolveLoader(loader))
+    : [resolveLoader({ name: 'default', matched: (path: string) => path.endsWith('.vue') })]
 
   return {
     root: root ?? config.root,
-    onDemosCollected: options?.onDemosCollected ?? (() => {}),
-    demoScriptGenerator: resolvedDemoScriptGenerator,
-    collectors: resolvedCollectors,
-    findCollector,
+    loaders: resolvedLoaders,
   }
 }
-function resolveCollector(
-  collector: Collector,
-  demoScriptGenerator: (demo: CollectedDemo) => string,
-): ResolvedCollector {
-  const { name, matchPattern, ignorePattern, resolver, demoRenderer } = collector
-  const resolvedIgnorePattern = ignorePattern ?? ''
+function resolveLoader(loader: Loader): ResolvedLoader {
+  const { name, matched, resolve, prefix } = loader
 
   return {
     name,
-    matchPattern,
-    ignorePattern: ignorePattern ?? '',
-    resolver: resolver ?? defaultResolver,
-    demoRenderer: demoRenderer ?? demoScriptGenerator,
-    filter: createFilter(matchPattern, resolvedIgnorePattern),
+    prefix: prefix ?? DEFAULT_PREFIX,
+    resolve: resolve ?? defaultResolve,
+    matched,
   }
 }
 
 export function createArchivePlugin(options?: Options): Plugin {
   let config: ResolvedConfig
-  let demoStorage: DemoStorage
+  let storage: Storage
   let resolvedOptions: ResolvedOptions
 
-  const findDemoByResolvedId = (resolvedId: string, prefix: string): CollectedDemo | undefined => {
-    const demoId = resolvedId.slice(prefix.length)
+  const parseId = (resolvedId: string): string => {
+    const id = resolvedId.slice(RESOLVED_PREFIX.length, resolvedId.length - RESOLVED_AFFIX.length)
 
-    if (demoStorage.exists(demoId)) {
-      return demoStorage.get(demoId)
+    return id
+  }
+  const resolveIdByLoaders = (id: string) => {
+    for (const _loader of resolvedOptions.loaders) {
+      if (!id.startsWith(_loader.prefix)) {
+        continue
+      }
+
+      const _path = id.replace(_loader.prefix, '')
+      if (_path === ALL_ITEMS_ID || _loader.matched(_path)) {
+        return {
+          loader: _loader,
+          path: _path,
+        }
+      }
     }
   }
 
@@ -96,79 +80,74 @@ export function createArchivePlugin(options?: Options): Plugin {
     async configResolved(resolvedConfig) {
       config = resolvedConfig
       resolvedOptions = resolveOptions(config, options)
-      demoStorage = createDemoStorage(resolvedOptions)
+      storage = createStorage(resolvedOptions)
+    },
 
-      await collectAllDemos(resolvedOptions, demoStorage)
-      resolvedOptions.onDemosCollected(demoStorage.getAll())
+    async resolveId(id, importer) {
+      const resolvedRes = resolveIdByLoaders(id)
 
-      if (config.command !== 'build') {
-        watchDemos(resolvedOptions, demoStorage)
-      } else {
-        await collectAllDemos(resolvedOptions, demoStorage)
-        resolvedOptions.onDemosCollected(demoStorage.getAll())
+      if (!resolvedRes) {
+        return
       }
+
+      const resolvedModule = await this.resolve(resolvedRes.path, importer)
+
+      if (!resolvedModule) {
+        return null
+      }
+
+      return RESOLVED_PREFIX + resolvedRes.loader.prefix + resolvedModule.id + RESOLVED_AFFIX
     },
 
     configureServer(server) {
-      demoStorage.onListChange(() => updateModule(server, RESOLVED_ALL_DEMO_DATA_ID))
-      demoStorage.onListChange(() => updateModule(server, RESOLVED_ALL_DEMO_ID))
-      demoStorage.onListChange(() => resolvedOptions.onDemosCollected(demoStorage.getAll()))
-      demoStorage.onDemoChange(demo => updateModule(server, `${RESOLVED_DEMO_DATA_ID_PREFIX}${demo.id}`))
-      demoStorage.onDemoChange(demo => updateModule(server, `${RESOLVED_DEMO_ID_PREFIX}${demo.id}`))
+      storage.onListChange(() => {
+        updateModule(server, ALL_ITEMS_ID)
+      })
+      storage.onItemChange(item => {
+        updateModule(server, RESOLVED_PREFIX + item.loader.prefix + item.absolutePath + RESOLVED_AFFIX)
+      })
     },
 
-    async resolveId(id) {
-      if (id === ALL_DEMO_ID) {
-        return RESOLVED_ALL_DEMO_ID
+    async load(resolvedId) {
+      if (!resolvedId.startsWith(RESOLVED_PREFIX)) {
+        return
       }
 
-      if (id === ALL_DEMO_DATA_ID) {
-        return RESOLVED_ALL_DEMO_DATA_ID
+      const id = parseId(resolvedId)
+      const resolveRes = resolveIdByLoaders(id)
+
+      if (!resolveRes) {
+        return
       }
 
-      if (id.startsWith(DEMO_ID_PREFIX) || id.startsWith(DEMO_DATA_ID_PREFIX)) {
-        return `/__resolved__${id}`
+      const { loader, path } = resolveRes
+
+      if (path === ALL_ITEMS_ID) {
+        return genAllDataScript(
+          storage.getAll().filter(item => item.loader === loader),
+          item => loader.prefix + item.absolutePath,
+        )
       }
+
+      const { path: requestPath, query } = parseRequest(path)
+      const item = storage.exists(requestPath)
+        ? await storage.get(requestPath)!
+        : await storage.set(requestPath, query, loader)
+      return genDataScript(item)
     },
 
-    async load(id) {
-      if (id === RESOLVED_ALL_DEMO_DATA_ID) {
-        return genAllDemoDataScript(demoStorage.getAll(), resolvedOptions.demoScriptGenerator)
-      }
+    async transform(code, id) {
+      if (storage.exists(id)) {
+        const loader = storage.get(id)!.loader
 
-      if (id.startsWith(RESOLVED_DEMO_DATA_ID_PREFIX)) {
-        const demo = findDemoByResolvedId(id, RESOLVED_DEMO_DATA_ID_PREFIX)
-        if (demo) {
-          return genDemoDataScript(demo, resolvedOptions.demoScriptGenerator)
-        }
-      }
-
-      if (id.startsWith(RESOLVED_DEMO_ID_PREFIX)) {
-        const demo = findDemoByResolvedId(id, RESOLVED_DEMO_ID_PREFIX)
-        const collector = demo && resolvedOptions.findCollector(demo.path)
-        if (!collector) {
-          return
-        }
-
-        return `${collector.demoRenderer(demo)}${BASIC_HMR_SCRIPT}`
-      }
-
-      if (id === RESOLVED_ALL_DEMO_ID) {
-        const demos = demoStorage.getAll()
-
-        return `${demos.map((demo, idx) => `import DemoComp${idx} from 'virtual:archive-demo:${demo.id}'\n`).join('')}
-        export default {
-          ${demos.map((demo, idx) => `${JSON.stringify(demo.id)}: DemoComp${idx}`).join(',')}
-        }
-        ${BASIC_HMR_SCRIPT}
-        `
+        return loader.transform?.(code)
       }
     },
 
     handleHotUpdate(updateContext) {
-      const demo = demoStorage.get(updateContext.file)
-      if (demo) {
-        demoStorage.notifyDemoChange(demo)
+      if (storage.exists(updateContext.file)) {
+        const item = storage.get(updateContext.file)!
+        storage.set(item.absolutePath, item.query, item.loader)
       }
     },
   }

@@ -5,47 +5,37 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { CollectedDemo, SourceCode } from './types'
+import type { LoadedItem } from './types'
 import type { SetOptional } from 'type-fest'
 
-// export const BASIC_HMR_SCRIPT = `;if(__import_meta_hot__){__import_meta_hot__.accept(() => {__import_meta_hot__.invalidate()})}`
-export const BASIC_HMR_SCRIPT = ''
+export const BASIC_HMR_SCRIPT = `;if(__import_meta_hot__){__import_meta_hot__.accept(() => {__import_meta_hot__.invalidate()})}`
+// export const BASIC_HMR_SCRIPT = ''
 
-export function defaultDemoScriptGenerator(demo: CollectedDemo): string {
-  const _demo = { ...demo } as SetOptional<CollectedDemo, 'component' | 'sourceCodes'>
-  delete _demo.component
-  delete _demo.sourceCodes
+function itemScriptGenerator(item: LoadedItem): string {
+  const _item = { ...item } as SetOptional<LoadedItem, 'prependScript' | 'instanceScript' | 'loader' | 'absolutePath'>
+  delete _item.prependScript
+  delete _item.instanceScript
+  delete _item.loader
+  delete _item.absolutePath
 
-  const sourceCodes = demo.sourceCodes.map(
-    sourceCode => `{
-    ${JSON.stringify(
-      (() => {
-        const _sourceCode = { ...sourceCode } as SetOptional<SourceCode, 'code' | 'parsedCode'>
-        delete _sourceCode.code
-        delete _sourceCode.parsedCode
-        return _sourceCode
-      })(),
-    ).slice(1, -1)},
-    code: ${sourceCode.code},
-    parsedCode: ${sourceCode.parsedCode}
-  }`,
-  )
   return `{
-    ${JSON.stringify(_demo).slice(1, -1)},
-    component: ${demo.component},
-    sourceCodes: [${sourceCodes.join(',')}]
+    ${JSON.stringify(_item).slice(1, -1)},
+    instance: ${item.instanceScript},
   }`
 }
 
-export function genDemoDataScript(demo: CollectedDemo, genDemoScript: (demo: CollectedDemo) => string): string {
-  return `export default ${genDemoScript(demo)}${BASIC_HMR_SCRIPT}`
+export function genDataScript(item: LoadedItem): string {
+  return `${item.prependScript ?? ''}
+
+export default ${itemScriptGenerator(item)}${BASIC_HMR_SCRIPT}`
 }
 
-export function genAllDemoDataScript(
-  allDemos: CollectedDemo[],
-  genDemoScript: (demo: CollectedDemo) => string,
-): string {
-  return `export default {${allDemos
-    .map(demo => `${JSON.stringify(demo.id)}: ${genDemoScript(demo)}`)
+export function genAllDataScript(allItems: LoadedItem[], getModule: (item: LoadedItem) => string): string {
+  const imports = allItems.reduce(
+    (script, item, idx) => script + `import Item${idx} from '${getModule(item)}'` + '\n',
+    '',
+  )
+  return `${imports}export default {${allItems
+    .map((item, idx) => `${JSON.stringify(item.relativePath)}: Item${idx}`)
     .join(',')}}${BASIC_HMR_SCRIPT}`
 }

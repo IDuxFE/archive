@@ -7,78 +7,59 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { Except } from 'type-fest'
+import type { Except, SetOptional } from 'type-fest'
 
 export interface Options {
   root?: string
-  onDemosCollected?: (demos: CollectedDemo[]) => void
-  demoScriptGenerator?: (demo: CollectedDemo) => string
-  collectors?: Collector[]
+  loaders?: Loader[]
 }
 
-export interface Collector {
+export type QueryObj = Record<string, string | true>
+
+export interface Loader<V = object> {
   name: string
-  matchPattern: string | string[]
-  ignorePattern?: string | string[]
-  resolver?: (absolutePath: string) => Promise<
-    {
-      component: string
-      sourceCodes: SourceCode[]
-    } & Record<string, any>
-  >
-  demoRenderer?: (demos: CollectedDemo) => string
+  matched: (path: string) => boolean
+  prefix?: string
+  resolve?: (absolutePath: string, query: QueryObj) => Promise<Pick<LoadedItem, 'instanceScript' | 'prependScript'> & V>
+  transform?: (code: string) => Promise<string> | string
 }
 
-export type ResolvedCollector = Required<Collector> & { filter: (path: string) => boolean }
-export type ResolvedOptions = Required<Options> & {
-  collectors: ResolvedCollector[]
-  findCollector: (path: string) => ResolvedCollector | undefined
+export type ResolvedLoader<V = object> = SetOptional<Required<Loader<V>>, 'transform'>
+
+export type ResolvedOptions = Except<Required<Options>, 'loaders'> & {
+  loaders: ResolvedLoader[]
 }
 
-export interface SourceCode {
-  filename: string
-  code: string
-  parsedCode: string
-}
-export interface ResolvedSourceCode {
-  filename: string
-  code: () => Promise<string>
-  parsedCode: () => Promise<string>
-}
-export interface LoadedSourceCode {
-  filename: string
-  code: string
-  parsedCode: string
-}
-
-export interface CollectedDemo extends Record<string, any> {
+export interface LoadedItem {
   id: string
   filename: string
-  path: string
-  sourceCodes: SourceCode[]
-  component: string
+  relativePath: string
+  absolutePath: string
+  query: QueryObj
+  loader: ResolvedLoader
+  prependScript?: string
+  instanceScript: string
 }
 
-export interface ResolvedDemo extends Except<CollectedDemo, 'sourceCodes' | 'component'> {
-  sourceCodes: ResolvedSourceCode[]
-  component: () => Promise<unknown>
+export interface ResolvedItem<V = Instance>
+  extends Except<LoadedItem, 'prependScript' | 'instanceScript' | 'loader' | 'absolutePath'> {
+  instance: V
 }
 
-export interface DemoStorage {
-  get: (id: string) => CollectedDemo | undefined
-  getAll: () => CollectedDemo[]
-  exists: (id: string) => boolean
-  add: (relativePath: string) => Promise<void>
-  remove: (id: string) => void
+export interface Storage {
+  get: (absolutePath: string) => LoadedItem | undefined
+  getAll: () => LoadedItem[]
+  exists: (absolutePath: string) => boolean
+  set: (absolutePath: string, query: QueryObj, loader: ResolvedLoader) => Promise<LoadedItem>
+  remove: (absolutePath: string) => void
 
   onListChange: (callback: () => void) => void
+  onItemChange: (callback: (item: LoadedItem) => void) => void
   notifyListChange: () => void
-
-  onDemoChange: (callback: (demo: CollectedDemo) => void) => void
-  notifyDemoChange: (demo: CollectedDemo) => void
+  notifyItemChange: (item: LoadedItem) => void
 }
 
-export interface DemoInstance {
+export interface Instance {
   mount: (el: HTMLElement) => Promise<void>
   unmount: () => Promise<void>
 }
