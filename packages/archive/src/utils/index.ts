@@ -5,5 +5,6 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-export * from './src/overflow'
-export * from './src/tree'
+export * from './genNavRecordsScript'
+export * from './loaders'
+export * from './normalize'

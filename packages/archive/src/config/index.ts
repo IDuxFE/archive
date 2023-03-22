@@ -6,7 +6,6 @@
  */
 
 import type { ArchiveConfig, ResolvedArchiveConfig } from '@idux/archive-types'
-import type { CollectedDemo } from '@idux/archive-vite-plugin'
 import type { SetOptional, SetRequired } from 'type-fest'
 
 import { existsSync } from 'fs'
@@ -16,7 +15,6 @@ import { dirname, join, parse } from 'pathe'
 
 import { getNavFromDirectory } from '@idux/archive-utils'
 
-// import { resolveCollectors } from './resolveCollectors'
 import { resolveRecords } from './resolveRecords'
 
 export const configFileNames = ['archive.config.js']
@@ -56,29 +54,23 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<{
 }
 
 export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
-  const { setupFile, navConfig, theme, pageLoaders, collectors, markdownOptions, dist, root } = mergeConfig(config)
+  const { setupFile, navConfig, theme, pageLoaders, demoLoaders, markdownOptions, dist, root } = mergeConfig(config)
 
-  let running = false
   let resolvedRecords: ReturnType<typeof resolveRecords>
 
-  const onDemosCollected = (demos: CollectedDemo[]) => {
-    if (running) {
-      return
+  const getResolvedRecords = () => {
+    if (!resolvedRecords) {
+      const navRecords = navConfig(root)
+      resolvedRecords = resolveRecords(navRecords, pageLoaders, demoLoaders)
     }
 
-    running = true
-    const navRecords = navConfig(demos, root)
-    resolvedRecords = resolveRecords(navRecords, pageLoaders)
-    running = false
+    return resolvedRecords
   }
-
-  const getResolvedRecords = () => resolvedRecords
 
   return {
     setupFile,
     pageLoaders,
-    collectors,
-    onDemosCollected,
+    demoLoaders,
     getResolvedRecords,
     theme,
     markdownOptions,
@@ -93,14 +85,14 @@ function mergeConfig(
   Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }>,
   'setupFile'
 > {
-  const { setupFile, navConfig, theme, pageLoaders, collectors, markdownOptions, dist, root } = config ?? {}
+  const { setupFile, navConfig, theme, pageLoaders, demoLoaders, markdownOptions, dist, root } = config ?? {}
   const resolvedRoot = root ?? process.cwd()
 
   return {
     setupFile,
     navConfig: navConfig ?? getNavFromDirectory,
     pageLoaders: pageLoaders ?? [],
-    collectors: collectors ?? [],
+    demoLoaders: demoLoaders ?? [],
     theme: {
       themeStyle: theme?.themeStyle ?? 'default',
       ...(theme ?? {}),

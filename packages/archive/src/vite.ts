@@ -5,72 +5,23 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type {
-  BuildTargets,
-  ResolvedArchiveConfig,
-  ServerResolvedNavRecord,
-  ServerResolvedPageData,
-  ServerResolvedPageTab,
-} from '@idux/archive-types'
+import type { BuildTargets, ResolvedArchiveConfig } from '@idux/archive-types'
 
 import { createRequire } from 'node:module'
 
 import { dirname, join } from 'pathe'
 import { type InlineConfig, type Plugin, loadConfigFromFile, mergeConfig, searchForWorkspaceRoot } from 'vite'
 
-import { genObjectScript } from '@idux/archive-utils'
 import { createArchiveMdPlugin } from '@idux/archive-vite-markdown-plugin'
 import { createArchivePlugin } from '@idux/archive-vite-plugin'
 
-import { findMatchedPageLoader, getPageSrcByArchivePageId, isArchivePageId } from './utils'
+import { genNavRecordsScript, genPageDataScript, getPluginLoaders } from './utils'
 
 const _require = createRequire(import.meta.url)
 const BUNDLE_PATH = join(dirname(_require.resolve('@idux/archive-app/package.json')), 'bundle')
 
 const APP_MOUNT_OPTIONS_ID = 'virtual:archive-app-mount-options'
 const RESOLVED_APP_MOUNT_OPTIONS_ID = `/__resolved__${APP_MOUNT_OPTIONS_ID}`
-
-function genPageTabScript(tab: ServerResolvedPageTab): string {
-  return genObjectScript(
-    tab,
-    tab.component
-      ? {
-          component: tab.component,
-        }
-      : undefined,
-  )
-}
-function genPageDataScript(pageData: ServerResolvedPageData): string {
-  if (pageData.demoIds) {
-    return JSON.stringify(pageData)
-  }
-
-  if (pageData.component) {
-    return genObjectScript(pageData, { component: pageData.component })
-  }
-
-  if (pageData.tabs) {
-    return genObjectScript(pageData, { tabs: `[${pageData.tabs.map(tab => genPageTabScript(tab)).join(',')}]` })
-  }
-
-  return 'undefined'
-}
-function genNavRecordsScript(records: ServerResolvedNavRecord[]): string {
-  return `[${records.map(record => {
-    if (record.type === 'link') {
-      return JSON.stringify(record)
-    }
-
-    if (record.type === 'item') {
-      return genObjectScript(
-        record,
-        record.pageData.tabs?.length ? { pageData: genPageDataScript(record.pageData) } : undefined,
-      )
-    }
-
-    return genObjectScript(record, { children: genNavRecordsScript(record.children) })
-  })}]`
-}
 
 function getOptimizeDep(entry: string) {
   return {
@@ -95,8 +46,7 @@ async function createCommonViteConfig(
   plugins.push(
     createArchivePlugin({
       root: archiveConfig.root,
-      onDemosCollected: archiveConfig.onDemosCollected,
-      collectors: archiveConfig.collectors,
+      loaders: getPluginLoaders(archiveConfig.pageLoaders, archiveConfig.demoLoaders),
     }),
   )
   plugins.push({
@@ -126,36 +76,14 @@ async function createCommonViteConfig(
           ${
             setupFile
               ? [
-                  'setupApp: setupContext.setupApp',
-                  'setupOptions: setupContext.options',
-                  'renderers: setupContext.renderers',
+                  'setupApp: setupContext?.setupApp',
+                  'setupOptions: setupContext?.options',
+                  'renderers: setupContext?.renderers',
                 ].join(',')
               : ''
           }
         }`
       }
-    },
-  })
-  plugins.push({
-    name: 'archive-page-loaders',
-    resolveId(id) {
-      if (isArchivePageId(id)) {
-        return id
-      }
-    },
-    async load(id) {
-      if (!isArchivePageId(id)) {
-        return
-      }
-
-      const src = getPageSrcByArchivePageId(id)
-      const loader = findMatchedPageLoader(src, archiveConfig.pageLoaders)
-
-      if (!loader) {
-        return ''
-      }
-
-      return await loader.resolver(src)
     },
   })
 

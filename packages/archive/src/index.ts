@@ -8,3 +8,5 @@
 export { build } from './build'
 export { serve } from './serve'
 export { defineConfig } from './config'
+
+export type { SetupContext, BuildTargets } from '@idux/archive-types'
