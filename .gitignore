@@ -5,4 +5,5 @@ dist
 node_modules
 pnpm-global
 
-packages/seer
+packages/archive/types
+packages/archive/app/types

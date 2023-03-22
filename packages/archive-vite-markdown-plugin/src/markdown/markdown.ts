@@ -18,7 +18,6 @@ import attrsPlugin from 'markdown-it-attrs'
 import emojiPlugin from 'markdown-it-emoji'
 import { IThemeRegistration } from 'shiki'
 
-import { Header } from '../types'
 import { containerPlugin } from './plugins/containers'
 import { highlight } from './plugins/highlight'
 import { highlightLinePlugin } from './plugins/highlightLines'
@@ -27,6 +26,7 @@ import { lineNumberPlugin } from './plugins/lineNumbers'
 import { linkPlugin } from './plugins/link'
 import { preWrapperPlugin } from './plugins/preWrapper'
 import { snippetPlugin } from './plugins/snippet'
+import { Header } from '../types'
 
 export type ThemeOptions = IThemeRegistration | { light: IThemeRegistration; dark: IThemeRegistration }
 
