@@ -22,8 +22,8 @@ import {
   watch,
 } from '@idux/archive-app/vue'
 
-import { pageContextToken } from '../../token'
 import Anchor from './Anchor'
+import { pageContextToken } from '../../token'
 
 export default defineComponent({
   props: {

@@ -8,10 +8,10 @@
 import type { DefineComponent } from '@idux/archive-app/vue'
 import type { AppMountOptions } from '@idux/archive-types'
 
-import { resolveThemeOptions } from '../resolveThemeOptions'
 import { createPageComponent } from './createPageComponent'
+import { resolveThemeOptions } from '../resolveThemeOptions'
 
-export function createAllPageComponents(options: AppMountOptions): Record<string, DefineComponent> {
+export function createAllPageComponent(options: AppMountOptions): Record<string, DefineComponent> {
   const { routeRecords, theme, renderers, setupOptions, setupApp } = options
   const reseolvedTheme = resolveThemeOptions(theme)
 

@@ -1,6 +1,6 @@
 import mountOptions from 'virtual:archive-app-mount-options'
 
-import { createAllPageInstance } from '../dist/index.js'
+import { createAllPageInstance } from '../dist/createPageInstance.js'
 
 import '../dist/themes/default/page.css'
 

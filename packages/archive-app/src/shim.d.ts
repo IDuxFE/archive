@@ -22,14 +22,14 @@ declare module '__External_Vue__' {
   export * from 'vue'
 }
 
-declare module 'virtual:archive-demo-all' {
-  import type { DemoInstance } from '@idux/archive-vite-plugin'
-  const demos: Record<string, DemoInstance>
+declare module 'archive-demo:all-data' {
+  import type { ResolvedDemoItem } from '@idux/archive-types'
+  const demos: Record<string, ResolvedDemoItem>
   export default demos
 }
 
-declare module 'virtual:archive-demo-all-data' {
-  import type { ResolvedDemo } from '@idux/archive-vite-plugin'
-  const demos: Record<string, ResolvedDemo>
-  export default demos
+declare module 'archive-demo:*' {
+  import type { ResolvedDemoItem } from '@idux/archive-types'
+  const demo: ResolvedDemoItem
+  export default demo
 }

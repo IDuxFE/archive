@@ -5,39 +5,26 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { DemoTool } from '@idux/archive-types'
-import type { DemoInstance, LoadedSourceCode, ResolvedDemo } from '@idux/archive-vite-plugin'
+import type { DemoTool, ResolvedDemoItem } from '@idux/archive-types'
 
 import { throttle } from 'lodash-es'
 
 import { useClipboard } from '@idux/cdk/clipboard'
-import { useState } from '@idux/cdk/utils'
 import { IxIcon } from '@idux/components/icon'
 import { useMessage } from '@idux/components/message'
 import { IxTab, IxTabs } from '@idux/components/tabs'
 
-import {
-  type ComputedRef,
-  type ExtractPropTypes,
-  type PropType,
-  Transition,
-  computed,
-  defineComponent,
-  ref,
-  watch,
-} from '@idux/archive-app/vue'
+import { type PropType, Transition, computed, defineComponent, ref } from '@idux/archive-app/vue'
 
-import DemoInstanceComp from './DemoInstance'
 import DemoToolComp from './DemoTool'
+import Instance from '../Instance'
 
 const demoProps = {
   lang: { type: String as PropType<'zh' | 'en'>, required: true },
   prefixCls: { type: String, required: true },
-  demoData: { type: Object as PropType<ResolvedDemo>, required: true },
-  demoInstance: { type: Object as PropType<DemoInstance>, required: true },
+  resolvedDemoItem: { type: Object as PropType<ResolvedDemoItem>, required: true },
   tools: Array as PropType<DemoTool[]>,
 }
-type DemoProps = ExtractPropTypes<typeof demoProps>
 export default defineComponent({
   props: demoProps,
   setup(props) {
@@ -49,7 +36,7 @@ export default defineComponent({
 
       return [...(props.tools ?? []), { type: 'expandCode' } as DemoTool]
     })
-    const sourceCodes = useSourceCodes(props)
+    // const sourceCodes = useSourceCodes(props)
 
     const selectedSourceTab = ref(0)
     const handleSelectedSourceTabChange = (tab: number) => {
@@ -73,10 +60,11 @@ export default defineComponent({
     const { success } = useMessage()
 
     const onCopy = throttle(async () => {
-      const code = sourceCodes.value[selectedSourceTab.value ?? 0].code
-      copy(decodeURIComponent(code)).then(() => {
-        success(props.lang === 'zh' ? '复制成功' : 'copy succeeded')
-      })
+      const code = props.resolvedDemoItem?.sourceCodes[selectedSourceTab.value ?? 0].code
+      code &&
+        copy(decodeURIComponent(code)).then(() => {
+          success(props.lang === 'zh' ? '复制成功' : 'copy succeeded')
+        })
     }, 300)
 
     const renderTool = (tool: DemoTool) => {
@@ -108,18 +96,19 @@ export default defineComponent({
     }
 
     const renderSourceCode = () => {
-      if (!expanded.value) {
+      const sourceCodes = props.resolvedDemoItem?.sourceCodes
+      if (!expanded.value || !sourceCodes) {
         return
       }
 
       const contentCls = `${mergedPrefixCls}__source-code__content`
       let children
-      if (sourceCodes.value.length === 1) {
-        children = <div class={contentCls} v-html={sourceCodes.value[0].parsedCode}></div>
+      if (sourceCodes.length === 1) {
+        children = <div class={contentCls} v-html={sourceCodes[0].parsedCode}></div>
       } else {
         children = (
           <IxTabs selectedKey={selectedSourceTab.value} onUpdate:selectedKey={handleSelectedSourceTabChange}>
-            {sourceCodes.value.map((sourceCode, idx) => (
+            {sourceCodes.map((sourceCode, idx) => (
               <IxTab key={idx} title={sourceCode.filename}>
                 <div class={contentCls} v-html={sourceCode.parsedCode}></div>
               </IxTab>
@@ -132,24 +121,23 @@ export default defineComponent({
     }
 
     return () => {
-      const demoData = props.demoData!
-      const demoInstance = props.demoInstance!
+      const demoItem = props.resolvedDemoItem!
 
       return (
         <div class={mergedPrefixCls}>
-          {demoData.title && (
-            <h3 id={demoData.id} class={`${mergedPrefixCls}__title`}>
-              <span>{demoData.title}</span>
-              <a class="anchor" href={'#' + demoData.id}>
+          {demoItem.title && (
+            <h3 id={demoItem.id} class={`${mergedPrefixCls}__title`}>
+              <span>{demoItem.title}</span>
+              <a class="anchor" href={'#' + demoItem.id}>
                 #
               </a>
             </h3>
           )}
-          {demoData.description && <p class={`${mergedPrefixCls}__description`}>{demoData.description}</p>}
+          {demoItem.description && <p class={`${mergedPrefixCls}__description`}>{demoItem.description}</p>}
           <div class={`${mergedPrefixCls}__content`}>
             <div class={`${mergedPrefixCls}__content-inner`}>
               <div class={`${mergedPrefixCls}__stage`}>
-                <DemoInstanceComp demoInstance={demoInstance} />
+                <Instance instance={demoItem.instance} />
               </div>
               <div class={`${mergedPrefixCls}__tools`}>{mergedTools.value.map(tool => renderTool(tool))}</div>
             </div>
@@ -161,27 +149,27 @@ export default defineComponent({
   },
 })
 
-function useSourceCodes(props: DemoProps): ComputedRef<LoadedSourceCode[]> {
-  const [sourceCodes, setSourceCodes] = useState<LoadedSourceCode[]>([])
-  watch(
-    () => props.demoData,
-    async demoData => {
-      const loadedSourceCodes = await Promise.all(
-        demoData!.sourceCodes.map(sourceCode =>
-          (async () => {
-            return {
-              filename: sourceCode.filename,
-              code: await sourceCode.code(),
-              parsedCode: await sourceCode.parsedCode(),
-            }
-          })(),
-        ),
-      )
+// function useSourceCodes(props: DemoProps): ComputedRef<LoadedSourceCode[]> {
+//   const [sourceCodes, setSourceCodes] = useState<LoadedSourceCode[]>([])
+//   watch(
+//     () => props.demoData,
+//     async demoData => {
+//       const loadedSourceCodes = await Promise.all(
+//         demoData!.sourceCodes.map(sourceCode =>
+//           (async () => {
+//             return {
+//               filename: sourceCode.filename,
+//               code: await sourceCode.code(),
+//               parsedCode: await sourceCode.parsedCode(),
+//             }
+//           })(),
+//         ),
+//       )
 
-      setSourceCodes(loadedSourceCodes)
-    },
-    { immediate: true },
-  )
+//       setSourceCodes(loadedSourceCodes)
+//     },
+//     { immediate: true },
+//   )
 
-  return sourceCodes
-}
+//   return sourceCodes
+// }

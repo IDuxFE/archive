@@ -5,6 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
+import type { ResolvedDemoItem } from './demo'
+import type { ResolvedItem } from '@idux/archive-vite-plugin'
 import type { Except, RequireExactlyOne } from 'type-fest'
 
 interface BasePageData {
@@ -12,47 +14,51 @@ interface BasePageData {
   description?: string
   src: string
   tabs: PageTab[]
-  demoIds: string[]
+  demos: string[]
 }
 
 interface BasePageTab {
   id: string
   name: string
   src: string
-  demoIds: string[]
+  demos: string[]
 }
 
-export type PageData = RequireExactlyOne<BasePageData, 'tabs' | 'demoIds' | 'src'>
-export type PageTab = RequireExactlyOne<BasePageTab, 'src' | 'demoIds'>
+export type PageData = RequireExactlyOne<BasePageData, 'tabs' | 'demos' | 'src'>
+export type PageTab = RequireExactlyOne<BasePageTab, 'src' | 'demos'>
 
 export type ServerResolvedPageTab = RequireExactlyOne<
-  Except<BasePageTab, 'src'> & {
-    component: string | undefined
+  Except<BasePageTab, 'src' | 'demos'> & {
+    importScript: string | undefined
+    demoImportScripts: string[]
   },
-  'demoIds' | 'component'
+  'importScript' | 'demoImportScripts'
 >
 
 export type ServerResolvedPageData = RequireExactlyOne<
-  Except<BasePageData, 'tabs' | 'src'> & {
+  Except<BasePageData, 'tabs' | 'src' | 'demos'> & {
     tabs: ServerResolvedPageTab[]
-    component: string | undefined
+    demoImportScripts: string[]
+    importScript: string | undefined
   },
-  'tabs' | 'demoIds' | 'component'
+  'tabs' | 'demoImportScripts' | 'importScript'
 >
 
 export type ResolvedPageTab = RequireExactlyOne<
-  Except<BasePageTab, 'src'> & {
-    component: () => Promise<{ default: PageContentInstance }>
+  Except<BasePageTab, 'src' | 'demos'> & {
+    import: () => Promise<{ default: ResolvedItem }>
+    demoImports: (() => Promise<{ default: ResolvedDemoItem }>)[]
   },
-  'demoIds' | 'component'
+  'import' | 'demoImports'
 >
 
 export type ResolvedPageData = RequireExactlyOne<
-  Except<BasePageData, 'tabs' | 'src'> & {
+  Except<BasePageData, 'tabs' | 'src' | 'demos'> & {
     tabs: ResolvedPageTab[]
-    component: () => Promise<{ default: PageContentInstance }>
+    import: () => Promise<{ default: ResolvedItem }>
+    demoImports: (() => Promise<{ default: ResolvedDemoItem }>)[]
   },
-  'tabs' | 'demoIds' | 'component'
+  'tabs' | 'import' | 'demoImports'
 >
 
 export interface AnchorData {
@@ -60,9 +66,4 @@ export interface AnchorData {
   title: string
   href: string
   children: AnchorData[]
-}
-
-export interface PageContentInstance {
-  mount: (el: HTMLElement) => void
-  unmount: () => void
 }
