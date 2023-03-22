@@ -1,6 +1,6 @@
 {
   "name": "@idux/archive-app",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -54,12 +54,12 @@
     "directory": "packages/archive-app"
   },
   "dependencies": {
-    "@idux/archive-utils": "^0.2.5"
+    "@idux/archive-utils": "^0.3.0"
   },
   "devDependencies": {
-    "@idux/archive-types": "^0.2.5",
-    "@idux/archive-vite-markdown-plugin": "^0.2.5",
-    "@idux/archive-vite-plugin": "^0.2.5",
+    "@idux/archive-types": "^0.3.0",
+    "@idux/archive-vite-markdown-plugin": "^0.3.0",
+    "@idux/archive-vite-plugin": "^0.3.0",
     "@idux/cdk": "1.5.0",
     "@idux/components": "1.5.1",
     "@idux/pro": "1.5.1",
