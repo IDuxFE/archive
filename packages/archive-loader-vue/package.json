@@ -1,5 +1,5 @@
 {
-  "name": "@idux/archive-collector-vue",
+  "name": "@idux/archive-loader-vue",
   "version": "0.2.5",
   "description": "",
   "type": "module",
@@ -31,17 +31,21 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/IDuxFE/archive",
-    "directory": "packages/archive-collector-vue"
+    "directory": "packages/archive-vite-plugin"
   },
   "dependencies": {
-    "@idux/archive-utils": "^0.2.5",
     "@idux/archive-vite-markdown-plugin": "^0.2.5",
     "@vue/compiler-sfc": "^3.2.45",
     "pathe": "^1.0.0"
   },
   "devDependencies": {
+    "@idux/archive-types": "^0.2.5",
     "@idux/archive-vite-plugin": "^0.2.5",
+    "@types/lodash-es": "^4.17.6",
     "lodash-es": "^4.17.21",
+    "vue": "^3.2.41"
+  },
+  "peerDependencies": {
     "vue": "^3.2.41"
   }
 }
