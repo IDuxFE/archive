@@ -2,6 +2,8 @@ import './reset.less'
 
 import '@idux/components/_private/overlay/style/themes/seer.less'
 import '@idux/components/button/style/themes/seer.less'
+import '@idux/components/input/style/themes/seer.less'
+import '@idux/components/input-number/style/themes/seer.less'
 import '@idux/components/space/style/themes/seer.less'
 import '@idux/components/radio/style/themes/seer.less'
 import '@idux/components/tooltip/style/themes/seer.less'

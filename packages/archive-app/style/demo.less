@@ -67,6 +67,33 @@
     background: var(--archive-app-demo-tools-background);
   }
 
+  &__control{
+    &__list{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-direction: column;
+      &__row{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+      }
+      &__col{
+        flex: 0 0 auto;
+        width: calc(33.33% - 4px);
+        min-width: 100px;
+        max-width: 200px;
+        padding: 4px;
+      }
+      &__grow{
+        flex-grow: 1;
+        min-width: 0;
+        width: auto;
+      }
+    }
+  }
+
   &__tool {
     font-size: var(--archive-app-demo-tool-font-size);
     cursor: pointer;

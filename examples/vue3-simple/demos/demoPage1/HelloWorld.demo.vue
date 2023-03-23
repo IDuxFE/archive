@@ -2,13 +2,14 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from './HelloWorld.vue'
+defineProps<{ msg: string }>()
 </script>
 
 <template>
   <div>
     <h1>Demo111</h1>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld :msg="msg" />
 </template>
 
 <style scoped>
@@ -29,8 +30,12 @@ import HelloWorld from './HelloWorld.vue'
 {
   "title": "demo1",
   "description": "description",
-  "dependencies": [
-    "./HelloWorld.vue"
+  "dependencies": ["./HelloWorld.vue"],
+  "controls": [
+    {
+      "prop": "msg",
+      "type": "string"
+    }
   ]
 }
 </archive-meta>

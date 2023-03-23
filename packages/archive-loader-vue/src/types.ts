@@ -33,8 +33,14 @@ export interface SourceCode {
   parsedCode: string
 }
 
+export interface VueItemControls {
+  prop: string
+  type: 'string' | 'number' | 'boolean' | 'object'
+}
+
 export interface VueItemMeta {
   dependencies?: string[]
+  controls?: VueItemControls[]
   title?: string
   description?: string
 }
