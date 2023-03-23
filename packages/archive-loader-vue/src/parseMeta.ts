@@ -18,9 +18,7 @@ export function parseMeta(code: string): VueItemMeta {
   } catch (err) {
     //
   }
-
   const metaBlock = descriptor?.customBlocks.find(block => block.type === META_BLOCK_TYPE)
-
   if (metaBlock) {
     let parsedMeta: VueItemMeta = {}
     try {
@@ -29,9 +27,7 @@ export function parseMeta(code: string): VueItemMeta {
       console.error(err)
       // TODO: error log
     }
-
     return parsedMeta
   }
-
   return {}
 }

@@ -25,6 +25,10 @@ interface DemoToolExpandCode extends SetOptional<Except<DemoToolBase, 'render'>,
   type: 'expandCode'
   render: (expanded: boolean) => VNode
 }
+interface DemoToolExpandControls extends SetOptional<Except<DemoToolBase, 'render'>, 'tooltip'> {
+  type: 'expandControls'
+  render: (expanded: boolean) => VNode
+}
 interface DemoToolCopyCode extends SetOptional<DemoToolBase, 'tooltip' | 'render'> {
   type: 'copyCode'
 }
@@ -33,4 +37,9 @@ interface DemoToolLink extends DemoToolBase {
   link: string
 }
 
-export type DemoTool = (DemoToolBase & { type: undefined }) | DemoToolExpandCode | DemoToolCopyCode | DemoToolLink
+export type DemoTool =
+  | (DemoToolBase & { type: undefined })
+  | DemoToolExpandCode
+  | DemoToolCopyCode
+  | DemoToolLink
+  | DemoToolExpandControls
