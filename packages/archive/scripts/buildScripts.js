@@ -24,7 +24,7 @@ const getConfig = buildOption => ({
     lib: {
       entry: buildOption.input,
       formats: ['es', 'cjs'],
-      fileName: format => (format === 'cjs' ? `${buildOption.filename}.cjs` : `${buildOption.filename}.mjs`),
+      fileName: format => (format === 'cjs' ? `${buildOption.filename}.cjs` : `${buildOption.filename}.js`),
     },
 
     rollupOptions: {

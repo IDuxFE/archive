@@ -2,10 +2,9 @@
   "name": "idux-archive-example-vue3-simple",
   "private": true,
   "version": "0.3.1",
-  "type": "module",
   "scripts": {
-    "idux-archive:dev": "idux-archive dev",
-    "idux-archive:build": "idux-archive build"
+    "archive:dev": "archive dev",
+    "archive:build": "archive build"
   },
   "dependencies": {
     "@idux/archive-app": "^0.3.1",

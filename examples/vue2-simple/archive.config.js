@@ -1,12 +1,8 @@
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
+const { resolve } = require('path')
+const { defineConfig } = require('@idux/archive')
+const { createArchiveVue2PageLoader, createArchiveVue2DemoLoader } = require('@idux/archive-loader-vue2')
 
-import { defineConfig } from '@idux/archive'
-import { createArchiveVue2PageLoader, createArchiveVue2DemoLoader } from '@idux/archive-loader-vue2'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-export default defineConfig({
+module.exports = defineConfig({
   root: resolve(__dirname, './demos'),
   theme: {
     themeStyle: 'seer',
