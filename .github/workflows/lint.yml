@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: ci lint
 
 on:
   push:
@@ -7,13 +7,8 @@ on:
   pull_request:
     branches: [ main ]
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  id-token: read
-
 jobs:
-  publish:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,8 +24,7 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-          cache: pnpm
-      - run: pnpm install
+      - run: pnpm install --no-frozen-lockfile
       
       - name: Run lint
         run: npm run lint
