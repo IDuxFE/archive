@@ -5,6 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
+/* eslint-disable vue/no-deprecated-destroyed-lifecycle */
+
 import Vue, { type Component } from 'vue'
 
 const props = {
@@ -35,7 +37,7 @@ export default Vue.extend({
       subtree: true,
     })
   },
-  beforeUnmount() {
+  beforeDestroy() {
     this.removeComponent()
   },
   methods: {

@@ -2,10 +2,9 @@
   "name": "idux-archive-example-vue2-simple",
   "private": true,
   "version": "0.3.1",
-  "type": "module",
   "scripts": {
-    "idux-archive:dev": "node ./patch.js && idux-archive dev",
-    "idux-archive:build": "node ./patch.js && idux-archive build"
+    "archive:dev": "node ./patch.js && archive dev",
+    "archive:build": "node ./patch.js && archive build"
   },
   "dependencies": {
     "@idux/archive-app": "^0.3.1",
