@@ -42,15 +42,14 @@ export function resolveRecords(navRecords: NavRecord[], pageLoaders: Loader[], d
           '/' +
             [...parents]
               .reverse()
-              .map(p => p.id)
+              .map(p => encodeURIComponent(p.id))
               .join('/') +
             '/' +
-            record.id,
+            encodeURIComponent(record.id),
         )
 
         resolvedRecord = {
           ...basicRecord,
-          id: record.id,
           type: 'item',
           path,
           pageData: resolvedPageData,
