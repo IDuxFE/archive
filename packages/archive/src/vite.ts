@@ -11,9 +11,9 @@ import { createRequire } from 'node:module'
 
 import { dirname, join } from 'pathe'
 import {
-  type ViteDevServer,
   type InlineConfig,
   type Plugin,
+  type ViteDevServer,
   loadConfigFromFile,
   mergeConfig,
   searchForWorkspaceRoot,
@@ -101,7 +101,7 @@ async function createCommonViteConfig(
         const navRecordsScript = genNavRecordsScript(resolvedNavRecords)
         const { setupFile } = archiveConfig
 
-        return `${setupFile ? `import setupContext from '${setupFile}'` : ''}
+        return `${setupFile ? `import setupContext from ${JSON.stringify(setupFile)}` : ''}
         
         export default {
           el: '#app',

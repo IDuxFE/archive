@@ -35,7 +35,7 @@ export default Vue.extend({
       subtree: true,
     })
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.removeComponent()
   },
   methods: {

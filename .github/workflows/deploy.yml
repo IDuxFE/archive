@@ -37,14 +37,13 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-          cache: pnpm
-      - run: pnpm install
+      - run: pnpm install --no-frozen-lockfile
       
       - name: Build archive
         run: npm run build
 
       - name: Build docs
-        run: pnpm install && cd docs && npm run docs:build
+        run: pnpm install --no-frozen-lockfile && cd docs && npm run docs:build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
