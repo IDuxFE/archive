@@ -1,7 +1,6 @@
-import { o as openBlock, c as createElementBlock, a as createStaticVNode } from "./app-default.4adbfa92.js";
-import { _ as _export_sfc } from "./_plugin-vue_export-helper.cdc0426e.js";
-const pageData = JSON.parse('{"title":"Markdown \u683C\u5F0F \u6587\u6863\u9875\u9762","description":"","frontmatter":{},"headers":[],"relativePath":"src/1-guide/2-documents/2-page/3-Markdown.page.md"}');
-const _sfc_main = { name: "src/1-guide/2-documents/2-page/3-Markdown.page.md" };
+import { _ as _export_sfc, o as openBlock, c as createElementBlock, a as createStaticVNode, b as _ } from "./_plugin-vue_export-helper.a80081c4.js";
+JSON.parse('{"title":"Markdown \u683C\u5F0F \u6587\u6863\u9875\u9762","description":"","frontmatter":{},"headers":[],"relativePath":"src/1-guide/2-documents/2-page/3-Markdown.page.md"}');
+const _sfc_main = { name: "3-Markdown.page.md" };
 const _hoisted_1 = { class: "archive-md" };
 const _hoisted_2 = /* @__PURE__ */ createStaticVNode('<h1 id="markdown-\u683C\u5F0F-\u6587\u6863\u9875\u9762" tabindex="-1">Markdown \u683C\u5F0F \u6587\u6863\u9875\u9762 <a class="header-anchor" href="#markdown-\u683C\u5F0F-\u6587\u6863\u9875\u9762" aria-hidden="true">#</a></h1><p>\u7531\u4E8E\u76EE\u524D <code>.md</code> \u6587\u4EF6\u4F1A\u88AB\u5185\u7F6E\u63D2\u4EF6\u8F6C\u6362\u6210 vue SFC\uFF0C\u56E0\u6B64 <code>.md</code> \u6587\u4EF6\u7684\u5904\u7406\u4E0E <code>.vue</code> \u6587\u4EF6\u76F8\u540C\uFF0C\u4EC5\u9700\u8981\u6CE8\u610F\uFF0C\u9700\u8981\u914D\u7F6E <code>@vitejs/plugin-vue</code> \u7684 <code>include</code> \u5141\u8BB8\u63A5\u6536 <code>.md</code> \u6587\u4EF6\u5373\u53EF\u3002</p><p>\u793A\u4F8B\u5982\u4E0B\uFF1A</p><div class="language-ts"><pre class="shiki"><code><span class="line"><span style="color:#89DDFF;">import</span><span style="color:#A6ACCD;"> </span><span style="color:#89DDFF;">{</span><span style="color:#F07178;"> </span><span style="color:#A6ACCD;">defineConfig</span><span style="color:#F07178;"> </span><span style="color:#89DDFF;">}</span><span style="color:#A6ACCD;"> </span><span style="color:#89DDFF;">from</span><span style="color:#A6ACCD;"> </span><span style="color:#89DDFF;">&#39;</span><span style="color:#C3E88D;">vite</span><span style="color:#89DDFF;">&#39;</span></span>\n<span class="line"><span style="color:#89DDFF;">import</span><span style="color:#A6ACCD;"> vue </span><span style="color:#89DDFF;">from</span><span style="color:#A6ACCD;"> </span><span style="color:#89DDFF;">&#39;</span><span style="color:#C3E88D;">@vitejs/plugin-vue</span><span style="color:#89DDFF;">&#39;</span></span>\n<span class="line"></span>\n<span class="line"><span style="color:#676E95;">// https://vitejs.dev/config/</span></span>\n<span class="line"><span style="color:#89DDFF;">export</span><span style="color:#A6ACCD;"> </span><span style="color:#89DDFF;">default</span><span style="color:#A6ACCD;"> </span><span style="color:#82AAFF;">defineConfig</span><span style="color:#A6ACCD;">(</span><span style="color:#89DDFF;">{</span></span>\n<span class="line"><span style="color:#A6ACCD;">  </span><span style="color:#F07178;">plugins</span><span style="color:#89DDFF;">:</span><span style="color:#A6ACCD;"> [</span></span>\n<span class="line"><span style="color:#A6ACCD;">    </span><span style="color:#82AAFF;">vue</span><span style="color:#A6ACCD;">(</span><span style="color:#89DDFF;">{</span><span style="color:#A6ACCD;"> </span><span style="color:#F07178;">include</span><span style="color:#89DDFF;">:</span><span style="color:#A6ACCD;"> [</span><span style="color:#89DDFF;">/</span><span style="color:#A6ACCD;">\\.</span><span style="color:#89DDFF;">(</span><span style="color:#C3E88D;">vue</span><span style="color:#89DDFF;">|</span><span style="color:#C3E88D;">md</span><span style="color:#89DDFF;">)</span><span style="color:#89DDFF;">$</span><span style="color:#89DDFF;">/</span><span style="color:#A6ACCD;">] </span><span style="color:#89DDFF;">}</span><span style="color:#A6ACCD;">)</span><span style="color:#89DDFF;">,</span></span>\n<span class="line"><span style="color:#A6ACCD;">  ]</span></span>\n<span class="line"><span style="color:#89DDFF;">}</span><span style="color:#A6ACCD;">)</span></span>\n<span class="line"></span>\n<span class="line"></span></code></pre></div>', 4);
 const _hoisted_6 = [
@@ -10,8 +9,14 @@ const _hoisted_6 = [
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1, _hoisted_6);
 }
-const _3Markdown_page = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/3-Markdown.page.md"]]);
+const Component = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/3-Markdown.page.md"]]);
+const _3Markdown_page = {
+  "id": "archive-item-9",
+  "filename": "3-Markdown.page.md",
+  "relativePath": "1-guide/2-documents/2-page/3-Markdown.page.md",
+  "query": {},
+  instance: _("archive-vue-loader-0", Component)
+};
 export {
-  _3Markdown_page as default,
-  pageData
+  _3Markdown_page as default
 };
