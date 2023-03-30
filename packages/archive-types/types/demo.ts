@@ -16,5 +16,5 @@ export interface SourceCode {
 export interface ResolvedDemoItem extends ResolvedItem {
   title: string
   description: string
-  sourceCodes: SourceCode[]
+  sourceCodes?: SourceCode[]
 }

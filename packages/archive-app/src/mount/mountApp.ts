@@ -7,10 +7,10 @@
 
 import type { AppMountOptions } from '@idux/archive-types'
 
+import { createApp, defineComponent, h, provide } from 'vue'
+
 import { useBreakpoints } from '@idux/cdk/breakpoint'
 import { createRouter, createWebHistory, useRoute } from 'vue-router'
-
-import { createApp, defineComponent, h, provide } from '@idux/archive-app/vue'
 
 import iduxInstall from './iduxInstall'
 import AppComp from '../App'

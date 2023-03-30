@@ -8,6 +8,14 @@ declare module 'archive-page:*.vue' {
   export default item
 }
 
+declare module 'archive-demo:*.vue' {
+  import type { ResolvedDemoItem } from '@idux/archive-types'
+
+  const item: ResolvedDemoItem
+  export default item
+}
+
+
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
   const component: DefineComponent<{}, {}, any>

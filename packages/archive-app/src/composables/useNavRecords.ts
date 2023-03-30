@@ -7,10 +7,10 @@
 
 import type { NavRecordType, ResolvedMenuData, ResolvedNavRecord } from '@idux/archive-types'
 
+import { type ComputedRef, computed } from 'vue'
+
 import { mapTree } from '@idux/archive-utils/client'
 import { type RouteLocationNormalizedLoaded } from 'vue-router'
-
-import { type ComputedRef, computed } from '@idux/archive-app/vue'
 
 export interface NavRecordsContext {
   activeRecords: ComputedRef<ResolvedNavRecord[]>

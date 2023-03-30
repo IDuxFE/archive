@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import item from 'archive-demo:./demoPage1/HelloWorld.demo.vue';
+import { DemoComp } from '@idux/archive-app/components'
+
+</script>
+
 # CustomPage
 
 *.page.{md,vue} file can be parsed as an individual page
@@ -52,3 +58,6 @@ write markdown table
 | th1 | th2 | th3  |
 | --- | --- | --- |
 | td1 | td2 | td3 |
+
+
+<DemoComp :demo-item="item"></DemoComp>

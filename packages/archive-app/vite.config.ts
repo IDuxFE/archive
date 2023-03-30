@@ -12,7 +12,12 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
 
-const external = [/^@idux\/archive-utils/, '__External_Vue__']
+const external = [
+  /^@idux\/(archive-utils)/,
+  'external:@idux/archive-loader-vue/client',
+  '__External_Vue__',
+  '@idux/archive-app/createDemoInstance',
+]
 
 export default defineConfig({
   plugins: [
@@ -29,8 +34,17 @@ export default defineConfig({
               const filePath = resolve(distDir, file)
               const content = readFileSync(filePath, 'utf-8')
 
-              if (content.includes('__External_Vue__')) {
-                writeFileSync(filePath, content.replace(/__External_Vue__/, 'vue'), 'utf-8')
+              if (
+                content.includes('__External_Vue__') ||
+                content.includes('external:@idux/archive-loader-vue/client')
+              ) {
+                writeFileSync(
+                  filePath,
+                  content
+                    .replace(/__External_Vue__/g, 'vue')
+                    .replace(/external:@idux\/archive-loader-vue\/client/g, '@idux/archive-loader-vue/client'),
+                  'utf-8',
+                )
               }
             } catch (err) {
               void 0
@@ -42,9 +56,6 @@ export default defineConfig({
       },
     },
   ],
-  resolve: {
-    alias: [{ find: '@idux/archive-app/vue', replacement: resolve(__dirname, './vendor/vue.ts') }],
-  },
   build: {
     emptyOutDir: false,
     outDir: 'dist',
@@ -59,6 +70,7 @@ export default defineConfig({
         './mountApp.ts',
         './createAllPageComponent.ts',
         './createAllPageInstance.ts',
+        './createDemoInstance.ts',
         './vendor/vue.ts',
         './vendor/components.ts',
       ],

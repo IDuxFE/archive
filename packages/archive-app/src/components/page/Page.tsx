@@ -5,15 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, ResolvedPageData } from '@idux/archive-types'
-
-import { findOverflowParent } from '@idux/archive-utils/client'
-import { IxAffix } from '@idux/components/affix'
-import { IxMessageProvider } from '@idux/components/message'
-import { IxRadioGroup } from '@idux/components/radio'
-
 import {
-  type PropType,
+  type DefineComponent,
   VNode,
   type VNodeChild,
   computed,
@@ -24,7 +17,14 @@ import {
   provide,
   ref,
   watch,
-} from '@idux/archive-app/vue'
+} from 'vue'
+
+import { findOverflowParent } from '@idux/archive-utils/client'
+import { IxAffix } from '@idux/components/affix'
+import { IxMessageProvider } from '@idux/components/message'
+import { IxRadioGroup } from '@idux/components/radio'
+
+import { type InnerPageProps, innerPageProps } from '@idux/archive-types'
 
 import DemosContent from './DemosContent'
 import PageContent from './PageContent'
@@ -32,12 +32,7 @@ import { usePageRender } from '../../composables/usePageRender'
 import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
 
 export default defineComponent({
-  props: {
-    pageData: { type: Object as PropType<ResolvedPageData>, required: true },
-    theme: { type: Object as PropType<ResolvedAppThemeOptions>, required: true },
-    options: Object as PropType<AppSetupOptions>,
-    renderers: Object as PropType<AppRenderers>,
-  },
+  props: innerPageProps,
   setup(props) {
     const wrapperRef = ref<HTMLElement>()
     const headerRef = ref<HTMLElement>()
@@ -204,4 +199,4 @@ export default defineComponent({
       </IxMessageProvider>
     )
   },
-})
+}) as DefineComponent<InnerPageProps>

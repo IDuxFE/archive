@@ -6,25 +6,35 @@
  */
 
 import type { DemoTool, ResolvedDemoItem } from '@idux/archive-types'
+import type { SetOptional } from 'type-fest'
+
+import {
+  type DefineComponent,
+  type ExtractPropTypes,
+  type PropType,
+  Transition,
+  computed,
+  defineComponent,
+  ref,
+} from 'vue'
 
 import { throttle } from 'lodash-es'
 
+import { Instance } from '@idux/archive-loader-vue/client'
 import { useClipboard } from '@idux/cdk/clipboard'
 import { IxIcon } from '@idux/components/icon'
 import { useMessage } from '@idux/components/message'
 import { IxTab, IxTabs } from '@idux/components/tabs'
 
-import { type PropType, Transition, computed, defineComponent, ref } from '@idux/archive-app/vue'
-
 import DemoToolComp from './DemoTool'
-import Instance from '../Instance'
 
-const demoProps = {
-  lang: { type: String as PropType<'zh' | 'en'>, required: true },
-  prefixCls: { type: String, required: true },
+export const demoProps = {
+  lang: { type: String as PropType<'zh' | 'en'>, default: 'zh' },
+  prefixCls: { type: String, default: 'archive-app' },
   resolvedDemoItem: { type: Object as PropType<ResolvedDemoItem>, required: true },
   tools: Array as PropType<DemoTool[]>,
-}
+} as const
+export type DemoProps = SetOptional<ExtractPropTypes<typeof demoProps>, 'lang' | 'prefixCls' | 'tools'>
 export default defineComponent({
   props: demoProps,
   setup(props) {
@@ -36,7 +46,6 @@ export default defineComponent({
 
       return [...(props.tools ?? []), { type: 'expandCode' } as DemoTool]
     })
-    // const sourceCodes = useSourceCodes(props)
 
     const selectedSourceTab = ref(0)
     const handleSelectedSourceTabChange = (tab: number) => {
@@ -60,7 +69,7 @@ export default defineComponent({
     const { success } = useMessage()
 
     const onCopy = throttle(async () => {
-      const code = props.resolvedDemoItem?.sourceCodes[selectedSourceTab.value ?? 0].code
+      const code = props.resolvedDemoItem?.sourceCodes?.[selectedSourceTab.value ?? 0].code
       code &&
         copy(decodeURIComponent(code)).then(() => {
           success(props.lang === 'zh' ? '复制成功' : 'copy succeeded')
@@ -147,29 +156,4 @@ export default defineComponent({
       )
     }
   },
-})
-
-// function useSourceCodes(props: DemoProps): ComputedRef<LoadedSourceCode[]> {
-//   const [sourceCodes, setSourceCodes] = useState<LoadedSourceCode[]>([])
-//   watch(
-//     () => props.demoData,
-//     async demoData => {
-//       const loadedSourceCodes = await Promise.all(
-//         demoData!.sourceCodes.map(sourceCode =>
-//           (async () => {
-//             return {
-//               filename: sourceCode.filename,
-//               code: await sourceCode.code(),
-//               parsedCode: await sourceCode.parsedCode(),
-//             }
-//           })(),
-//         ),
-//       )
-
-//       setSourceCodes(loadedSourceCodes)
-//     },
-//     { immediate: true },
-//   )
-
-//   return sourceCodes
-// }
+}) as DefineComponent<DemoProps>

@@ -1,17 +1,19 @@
 <template>
-  <div ref="el">
-  </div>
+  <demo>
+  </demo>
 </template>
 
 <script lang="ts">
-import item from 'archive-page:./demoPage1/HelloWorld.demo.vue';
+import item from 'archive-demo:./demoPage1/HelloWorld.demo.vue';
+import { createDemoInstance } from '@idux/archive-app/createDemoInstance'
+import { createComponent } from '@idux/archive-loader-vue2/client'
+
+const demoInstance = createDemoInstance(item)
+const Comp = createComponent(demoInstance)
 
 export default {
-  mounted() {
-    item.instance.mount(this.$refs.el)
-  },
-  beforeDestroy() {
-    item.instance.unmount()
+  components: {
+    demo: Comp
   }
 }
 </script>

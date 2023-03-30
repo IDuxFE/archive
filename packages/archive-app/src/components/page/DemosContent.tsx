@@ -7,7 +7,7 @@
 
 import type { ResolvedDemoItem } from '@idux/archive-types'
 
-import { type PropType, computed, defineComponent, inject, nextTick, ref, watch } from '@idux/archive-app/vue'
+import { type PropType, computed, defineComponent, inject, nextTick, ref, watch } from 'vue'
 
 import BaseContentComp from './BaseContent'
 import { useArrayAsyncProp } from '../../composables/useAsyncProp'

@@ -11,7 +11,7 @@
     "eslint:fix": "eslint --fix ./packages/archive*/**/*.{vue,js,ts,tsx}",
     "stylelint": "stylelint \"./packages/archive*/**/*.less\"",
     "stylelint:fix": "stylelint --fix \"./packages/archive*/**/*.less\"",
-    "markdownlint": "markdownlint -c ./.markdownlintrc \"./packages/archive*/**/*.md\"",
+    "markdownlint": "markdownlint ./.markdownlintrc \"./packages/archive*/**/*.md\"",
     "markdownlint:fix": "markdownlint ./.markdownlintrc --fix \"./packages/archive*/**/*.md\"",
     "ls-lint": "ls-lint",
     "version": "lerna version --conventional-commits --no-push"

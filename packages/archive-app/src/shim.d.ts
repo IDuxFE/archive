@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 declare module '*.vue' {
-  import type { DefineComponent } from '@idux/archive-app/vue'
+  import type { DefineComponent } from 'vue'
   const component: DefineComponent<Record<string, never>, Record<string, never>, any>
   export default component
 }
@@ -20,6 +20,10 @@ declare module '*.svg' {
 
 declare module '__External_Vue__' {
   export * from 'vue'
+}
+
+declare module 'external:@idux/archive-loader-vue/client' {
+  export * from '@idux/archive-loader-vue/client'
 }
 
 declare module 'archive-demo:all-data' {

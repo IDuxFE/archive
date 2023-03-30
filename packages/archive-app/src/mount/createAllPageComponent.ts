@@ -5,8 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { DefineComponent } from '@idux/archive-app/vue'
 import type { AppMountOptions } from '@idux/archive-types'
+import type { DefineComponent } from 'vue'
 
 import { createPageComponent } from './createPageComponent'
 import { resolveThemeOptions } from '../resolveThemeOptions'
