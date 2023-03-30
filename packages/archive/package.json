@@ -1,6 +1,6 @@
 {
   "name": "@idux/archive",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
@@ -44,7 +44,7 @@
     "sade": "^1.8.1"
   },
   "devDependencies": {
-    "@idux/archive-app": "^0.3.1",
+    "@idux/archive-app": "^0.3.2",
     "@types/lodash-es": "^4.17.6",
     "fs-extra": "^11.1.1",
     "lodash-es": "^4.17.21",

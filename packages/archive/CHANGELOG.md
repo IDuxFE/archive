@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/IDuxFE/archive/compare/v0.3.1...v0.3.2) (2023-03-30)
+
+### Bug Fixes
+
+- **archive:** nav record id shoud be encoded ([759d37b](https://github.com/IDuxFE/archive/commit/759d37bdfbf477e1354f3f6ebc0cc4d664b07a89))
+- **archive:** setup file import script should be stringified ([52452ae](https://github.com/IDuxFE/archive/commit/52452ae471453d0b78b0a4c87349ab04f46c1f9e))
+- cjs didn't work, now `type: module` isn't necessary anymore ([30c8389](https://github.com/IDuxFE/archive/commit/30c83898e921a44d308692193c1b785688c2c650))
+
 ## [0.3.1](https://github.com/IDuxFE/archive/compare/v0.3.0...v0.3.1) (2023-03-22)
 
 ### Bug Fixes

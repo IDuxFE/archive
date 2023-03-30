@@ -1,19 +1,19 @@
 {
   "name": "idux-archive-example-vue2-simple",
   "private": true,
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "archive:dev": "node ./patch.js && archive dev",
     "archive:build": "node ./patch.js && archive build"
   },
   "dependencies": {
-    "@idux/archive-app": "^0.3.1",
+    "@idux/archive-app": "^0.3.2",
     "vue": "~2.6.0",
     "vue-template-compiler": "~2.6.0"
   },
   "devDependencies": {
-    "@idux/archive": "^0.3.1",
-    "@idux/archive-loader-vue2": "^0.3.1",
+    "@idux/archive": "^0.3.2",
+    "@idux/archive-loader-vue2": "^0.3.2",
     "@idux/archive-types": "^0.3.1",
     "vite": "^3.2.3",
     "vite-plugin-vue2": "^2.0.3",

@@ -1,19 +1,19 @@
 {
   "name": "idux-archive-docs",
   "private": true,
-  "version": "0.3.1",
+  "version": "0.3.2",
   "type": "module",
   "scripts": {
     "docs:dev": "npx idux-archive dev",
     "docs:build": "npx idux-archive build"
   },
   "dependencies": {
-    "@idux/archive-app": "^0.3.1",
+    "@idux/archive-app": "^0.3.2",
     "vue": "^3.2.41"
   },
   "devDependencies": {
-    "@idux/archive": "^0.3.1",
-    "@idux/archive-loader-vue": "^0.3.1",
+    "@idux/archive": "^0.3.2",
+    "@idux/archive-loader-vue": "^0.3.2",
     "@idux/archive-utils": "^0.3.1",
     "@vitejs/plugin-vue": "^3.2.0",
     "vite": "^3.2.3",
