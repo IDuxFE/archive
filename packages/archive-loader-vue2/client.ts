@@ -10,9 +10,10 @@
 import type { ArchiveLoaderVue2Instance, ArchiveLoaderVue2Setup } from './src/types'
 import type { Component } from 'vue'
 
-import { type VueInstanceFactory, createVueInstanceFactory } from './src/vueInstance'
+import { type InstanceFactory, createInstanceFactory } from './src/createInstanceFactory'
+import InstanceComp from './src/instance'
 
-const __demoInstanceFactorys__: Record<string, VueInstanceFactory> = {}
+const __demoInstanceFactorys__: Record<string, InstanceFactory> = {}
 
 export function createInstance(
   factoryId: string | undefined,
@@ -21,8 +22,13 @@ export function createInstance(
 ): ArchiveLoaderVue2Instance {
   const _factoryId = factoryId ?? 'default'
   if (!__demoInstanceFactorys__[_factoryId]) {
-    __demoInstanceFactorys__[_factoryId] = createVueInstanceFactory(setup)
+    __demoInstanceFactorys__[_factoryId] = createInstanceFactory(setup)
   }
 
   return __demoInstanceFactorys__[_factoryId](comp)
 }
+
+export const Instance = InstanceComp
+export { createComponent } from './src/createComponent'
+export { createInstanceFactory } from './src/createInstanceFactory'
+export type { ArchiveLoaderVue2Instance, InstanceCompProps } from './src/types'

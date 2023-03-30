@@ -13,13 +13,14 @@ import { isFunction } from 'lodash-es'
 
 import Teleport from './teleport'
 
-export interface InstanceData {
+export interface InstanceData<P = any> {
   key: string
   el: HTMLElement
+  props: P | undefined
   component: Component
 }
 
-export type VueInstanceFactory = (component: Component) => ArchiveLoaderVue2Instance
+export type InstanceFactory = (component: Component) => ArchiveLoaderVue2Instance
 
 interface FactoryApp {
   instanceDatas: InstanceData[]
@@ -28,7 +29,7 @@ interface FactoryApp {
   removeInstanceData: (instanceData: InstanceData) => void
 }
 
-export function createVueInstanceFactory(setup?: ArchiveLoaderVue2Setup): VueInstanceFactory {
+export function createInstanceFactory(setup?: ArchiveLoaderVue2Setup): InstanceFactory {
   let instanceMountApp: Vue | null = null
   let instanceDataKeySeed = 0
 
@@ -90,10 +91,10 @@ export function createVueInstanceFactory(setup?: ArchiveLoaderVue2Setup): VueIns
     instanceMountApp.$mount(div)
   }
 
-  const mountInstance = (el: HTMLElement, component: Component) => {
+  const mountInstance = <P = any>(el: HTMLElement, component: Component<any, any, any, P>, data?: P) => {
     mountApp()
 
-    const instanceData = { component, key: `instance-${instanceDataKeySeed++}`, el }
+    const instanceData = { component, props: data, key: `instance-${instanceDataKeySeed++}`, el }
     ;(instanceMountApp! as any).addInstanceData(instanceData)
 
     return instanceData
@@ -106,11 +107,14 @@ export function createVueInstanceFactory(setup?: ArchiveLoaderVue2Setup): VueIns
   return (component: Component): ArchiveLoaderVue2Instance => {
     let instanceData: InstanceData
     return {
-      async mount(el: HTMLElement) {
-        instanceData = mountInstance(el, component)
+      mount(el, data) {
+        instanceData = mountInstance(el, component, data) as InstanceData
       },
-      async unmount() {
+      unmount() {
         unmountInstance(instanceData)
+      },
+      setData(data) {
+        instanceData.props = data
       },
     }
   }

@@ -9,27 +9,28 @@ import { type App, type DefineComponent, Teleport, createApp, createVNode, markR
 
 import { ArchiveLoaderVueInstance, ArchiveLoaderVueSetup } from './types'
 
-export interface InstanceData {
+export interface InstanceData<P = any> {
   key: string | number | symbol
   el: HTMLElement
-  component: DefineComponent
+  props: P | undefined
+  component: DefineComponent<P>
 }
 
-export type VueInstanceFactory = (component: DefineComponent) => ArchiveLoaderVueInstance
+export type InstanceFactory = <P extends object>(component: DefineComponent<P>) => ArchiveLoaderVueInstance<P>
 
-export function createVueInstanceFactory(setup?: ArchiveLoaderVueSetup): VueInstanceFactory {
+export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFactory {
   let instanceMountApp: App | null = null
   let instanceDataKeySeed = 0
 
   const instanceDataRefs = ref<Set<InstanceData>>(new Set())
 
   const renderInstances = () => {
-    return [...instanceDataRefs.value.values()].map(({ key, el, component }) =>
+    return [...instanceDataRefs.value.values()].map(({ key, el, component, props }) =>
       createVNode(
         Teleport,
         { to: el, key },
         {
-          default: () => [createVNode(component)],
+          default: () => [createVNode(component, props)],
         },
       ),
     )
@@ -50,11 +51,11 @@ export function createVueInstanceFactory(setup?: ArchiveLoaderVueSetup): VueInst
     instanceMountApp.mount(div)
   }
 
-  const mountInstance = (el: HTMLElement, component: DefineComponent) => {
+  const mountInstance = <P>(el: HTMLElement, component: DefineComponent<P>, data?: P): InstanceData<P> => {
     mountApp()
 
-    const instanceData = { component, key: `instance-${instanceDataKeySeed++}`, el }
-    instanceDataRefs.value.add(instanceData)
+    const instanceData = { component, props: data, key: `instance-${instanceDataKeySeed++}`, el }
+    instanceDataRefs.value.add(instanceData as InstanceData<any>)
 
     return instanceData
   }
@@ -63,14 +64,22 @@ export function createVueInstanceFactory(setup?: ArchiveLoaderVueSetup): VueInst
     instanceData && instanceDataRefs.value.delete(instanceData)
   }
 
-  return (component: DefineComponent): ArchiveLoaderVueInstance => {
-    let instanceData: InstanceData
+  return <P extends object>(component: DefineComponent<P>): ArchiveLoaderVueInstance<P> => {
+    let instanceData: InstanceData<P>
     return {
-      async mount(el: HTMLElement) {
-        instanceData = mountInstance(el, markRaw(component))
+      mount(el, data) {
+        instanceData = mountInstance(el, markRaw(component), data)
       },
-      async unmount() {
+      unmount() {
         unmountInstance(instanceData)
+      },
+      setData(data) {
+        if (!data) {
+          instanceData.props = undefined
+        }
+
+        const _props = { ...(instanceData.props ?? {}), ...data } as P
+        instanceData.props = _props
       },
     }
   }
