@@ -10,7 +10,7 @@ function publish() {
   pkg_version="$(< "$1/package.json" grep '"version"' | sed 's/^.*"version"://g' | sed 's/["|,]//g')"
   if [ "$version" = "$pkg_version" ]; then
     cd "$1" || return
-    # npm publish --access=public
+    npm publish --access=public
   fi
 }
 
