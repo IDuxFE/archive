@@ -6,6 +6,11 @@ export default {
   data: () => ({
     count: 1,
   }),
+  watch: {
+    msg(val) {
+      console.log(val)
+    } 
+  }
 }
 </script>
 

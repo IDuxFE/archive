@@ -6,16 +6,9 @@
  */
 
 import type { AppRenderers, AppSetupOptions, ResolvedAppThemeOptions, RouteRecord } from '@idux/archive-types'
+import type { App, DefineComponent } from '__External_Vue__' // eslint-disable-line import/no-unresolved
 
-import {
-  type App,
-  type DefineComponent,
-  createVNode,
-  defineComponent,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-} from '__External_Vue__' // eslint-disable-line import/no-unresolved
+import { createComponent } from 'external:@idux/archive-loader-vue/client' // eslint-disable-line import/no-unresolved
 
 import { createPageInstance } from './createPageInstance'
 
@@ -26,16 +19,5 @@ export function createPageComponent(
   options: AppSetupOptions | undefined,
   setupApp?: (app: App) => void,
 ): DefineComponent {
-  return defineComponent(() => {
-    const instance = createPageInstance(routeRecord, theme, renderers, options, setupApp)
-    const elRef = ref<HTMLElement>()
-    onMounted(() => {
-      instance.mount(elRef.value!)
-    })
-    onBeforeUnmount(() => {
-      instance.unmount()
-    })
-
-    return () => createVNode('div', { ref: elRef })
-  })
+  return createComponent(createPageInstance(routeRecord, theme, renderers, options, setupApp))
 }

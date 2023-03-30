@@ -9,7 +9,7 @@
 
 import type { AsyncReturnType } from 'type-fest'
 
-import { type Ref, onMounted, ref, watch } from '@idux/archive-app/vue'
+import { type Ref, onMounted, ref, watch } from 'vue'
 
 export function useAsyncProp<P extends { [key in K]: (() => Promise<any>) | undefined }, K extends keyof P>(
   props: P,

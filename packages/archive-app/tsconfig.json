@@ -15,7 +15,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "paths": {
-      "@idux/archive-app/vue": ["./vendor/vue.ts"],
+      "@idux/archive-app/createDemoInstance": ["./createDemoInstance.ts"],
     },
   },
   "exclude": ["node_modules", "coverage", "dist", "vite.config.ts"],

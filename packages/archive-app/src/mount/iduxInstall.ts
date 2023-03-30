@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { App } from '@idux/archive-app/vue'
+import type { App } from 'vue'
 
 import { createGlobalConfig } from '@idux/components/config'
 import { Copy, Expand, IDUX_ICON_DEPENDENCIES, Link, Unexpand, addIconDefinitions } from '@idux/components/icon'

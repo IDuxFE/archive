@@ -7,9 +7,9 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { ComputedRef, VNode, VNodeChild } from '@idux/archive-app/vue'
 import type { PageRenderer, PageRendererDataBase } from '@idux/archive-types'
 import type { Except } from 'type-fest'
+import type { ComputedRef, VNode, VNodeChild } from 'vue'
 
 type DataBase = Except<PageRendererDataBase, 'activeRecords'> & {
   activeRecords: ComputedRef<Exclude<PageRendererDataBase['activeRecords'], undefined>> | undefined

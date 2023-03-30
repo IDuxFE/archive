@@ -18,6 +18,10 @@
       "import": "./dist/components.js",
       "types": "./dist/vendor/components.d.ts"
     },
+    "./createDemoInstance": {
+      "import": "./dist/createDemoInstance.js",
+      "types": "./dist/createDemoInstance.d.ts"
+    },
     "./bundle": {
       "import": "./bundle"
     },
@@ -54,6 +58,7 @@
     "directory": "packages/archive-app"
   },
   "dependencies": {
+    "@idux/archive-loader-vue": "0.3.2",
     "@idux/archive-utils": "^0.3.1"
   },
   "devDependencies": {

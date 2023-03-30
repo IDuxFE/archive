@@ -1,18 +1,13 @@
 <template>
-  <div ref="el">
-  </div>
+  <DemoComp :demo-item="item"></DemoComp>
+  <Comp/>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import item from 'archive-page:./demoPage1/HelloWorld.demo.vue';
+import item from 'archive-demo:./demoPage1/HelloWorld.demo.vue';
+import { DemoComp } from '@idux/archive-app/components'
+import { createComponent } from '@idux/archive-loader-vue/client'
 
-const el = ref()
+const Comp = createComponent(item.instance)
 
-onMounted(() => {
-  item.instance.mount(el.value)
-})
-onUnmounted(() => {
-  item.instance.unmount()
-})
 </script>

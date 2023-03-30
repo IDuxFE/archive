@@ -8,7 +8,6 @@
 import type { ResolvedAppRender } from './composables/useAppRender'
 import type { NavRecordsContext } from './composables/useNavRecords'
 import type { ResolvedPageRender } from './composables/usePageRender'
-import type { ComputedRef, InjectionKey, Ref } from '@idux/archive-app/vue'
 import type {
   AppRenderers,
   AppSetupOptions,
@@ -17,6 +16,7 @@ import type {
   ResolvedNavRecord,
 } from '@idux/archive-types'
 import type { BreakpointKey } from '@idux/cdk/breakpoint'
+import type { ComputedRef, InjectionKey, Ref } from 'vue'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 export interface AppContext extends NavRecordsContext {

@@ -87,11 +87,49 @@ export default defineConfig({
       getPageInfo(file, isDir) {
         const { id, name, title, description } = getMetaInfo(file, isDir)
 
+        let demos = []
+        let tabs = []
+        if (isDir) {
+          const files = readdirSync(file)
+          demos = files
+            .filter(file => /\.demo\.vue$/.test(file))
+            .map(demo => resolve(file, demo))
+            .sort((demo1, demo2) => {
+              const getIdx = demo => Number(demo.split('-')[1])
+              return getIdx(demo1) - getIdx(demo2)
+            })
+
+          tabs = files
+            .filter(file => /\.tab\.md$/.test(file))
+            .map(tab => {
+              const src = resolve(file, tab)
+              const tabMeta = _getMdMeta(src)
+
+              return {
+                ...tabMeta,
+                src,
+              }
+            })
+            .sort((tab1, tab2) => {
+              return tab1.idx - tab2.idx
+            })
+
+          if (demos.length) {
+            tabs.push({
+              id: 'demos',
+              name: '示例',
+              demos,
+            })
+          }
+        }
+
         return {
           id,
           name,
           title,
           description,
+          tabs: tabs.length ? tabs : undefined,
+          demos: !tabs.length ? demos : undefined,
         }
       },
     })

@@ -3,14 +3,24 @@ import HelloWorld from './HelloWorld.vue'
 export default {
   components: {
     HelloWorld
-  }
+  },
+  data: () => ({
+    msg: 'Vite + Vue'
+  }),
+  methods: {
+    change() {
+      this.msg = this.msg + '1'
+      console.log('change')
+    }
+  },
 }
 </script>
 
 <template>
   <div>
     <h1>Demo111</h1>
-    <HelloWorld msg="Vite + Vue" />
+    <HelloWorld :msg="msg" />
+    <button @click="change">change</button>
   </div>
 </template>
 
