@@ -21,6 +21,7 @@ export type {
   ArchiveLoaderVueOptions,
   ArchiveLoaderVueSetup,
   ArchiveLoaderVueInstance,
+  InstanceCompProps,
   ArchiveLoaderVueResolvedItem,
 } from './src/types'
 export { createArchiveVueLoader } from './src/createLoader'

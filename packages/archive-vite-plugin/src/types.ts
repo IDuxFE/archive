@@ -59,7 +59,8 @@ export interface Storage {
   notifyItemChange: (item: LoadedItem) => void
 }
 
-export interface Instance {
-  mount: (el: HTMLElement) => Promise<void>
-  unmount: () => Promise<void>
+export interface Instance<Data extends Record<string, any> = Record<string, any>> {
+  mount: (el: HTMLElement, data?: Data) => Promise<void> | void
+  unmount: () => Promise<void> | void
+  setData: (data: Partial<Data>) => Promise<void> | void
 }
