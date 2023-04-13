@@ -25,7 +25,7 @@ export interface ArchiveLoaderVueSetup {
   renderApp?: (children: VNode[]) => VNode
 }
 
-export type ArchiveLoaderVueInstance<D extends Record<string, any> = Record<string, any>> = Instance<D>
+export type ArchiveLoaderVueInstance<D extends object> = Instance<D>
 
 export interface SourceCode {
   filename: string
@@ -39,12 +39,12 @@ export interface VueItemMeta {
   description?: string
 }
 
-export interface ArchiveLoaderVueResolvedItem extends ResolvedItem, VueItemMeta {
-  instance: ArchiveLoaderVueInstance
+export interface ArchiveLoaderVueResolvedItem<D extends object> extends ResolvedItem<D>, VueItemMeta {
+  instance: ArchiveLoaderVueInstance<D>
 }
 
 export const instanceCompProps = {
-  instance: Object as PropType<ArchiveLoaderVueInstance>,
+  instance: Object as PropType<ArchiveLoaderVueInstance<Record<string, any>>>,
   onInstanceMountedChange: Function as PropType<(mounted: boolean) => void>,
 } as const
 export type InstanceCompProps = ExtractPropTypes<typeof instanceCompProps>

@@ -16,8 +16,9 @@ const props = {
   },
   component: {
     type: Object,
-    retuired: true,
+    required: true,
   },
+  componentProps: Object,
 }
 
 export default Vue.extend({
@@ -68,6 +69,6 @@ export default Vue.extend({
   render(h) {
     const component = this.component as Component
 
-    return h('div', { style: { display: 'none' } }, [h(component, { ref: 'component' })])
+    return h('div', { style: { display: 'none' } }, [h(component, { ref: 'component', props: this.componentProps })])
   },
 })

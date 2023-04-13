@@ -16,8 +16,8 @@ import { debounce, omit } from 'lodash-es'
 import InstanceComp from './instance'
 import { type InstanceCompProps, instanceCompProps } from './types'
 
-export function createComponent<P extends Record<string, any> = Record<string, any>>(
-  instance: Instance<P>,
+export function createComponent<P extends object, I extends Instance<P>>(
+  instance: I,
   props?: ComponentObjectPropsOptions<P>,
 ): DefineComponent<P & Pick<InstanceCompProps, 'onInstanceMountedChange'>> {
   return defineComponent({
@@ -35,7 +35,7 @@ export function createComponent<P extends Record<string, any> = Record<string, a
 
       return () =>
         h(InstanceComp, {
-          instance: instance as Instance,
+          instance: instance as Instance<Record<string, any>>,
           onInstanceMountedChange: props.onInstanceMountedChange,
         })
     },

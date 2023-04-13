@@ -13,7 +13,7 @@ export interface SourceCode {
   parsedCode: string
 }
 
-export interface ResolvedDemoItem extends ResolvedItem {
+export interface ResolvedDemoItem<D extends object = object> extends ResolvedItem<D> {
   title: string
   description: string
   sourceCodes?: SourceCode[]

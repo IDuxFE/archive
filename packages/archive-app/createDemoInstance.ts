@@ -20,7 +20,7 @@ export function createDemoInstance(
   resolvedDemoItem: ResolvedDemoItem,
   tools?: DemoTool[],
   setupApp?: (app: App) => void,
-): Instance {
+): Instance<object> {
   const instance = createInstance('__archive_app_vue_instance__', Demo, {
     setupApp(app) {
       app.use(iduxInstall)

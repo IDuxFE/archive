@@ -72,8 +72,8 @@ export function createInstanceFactory(setup?: ArchiveLoaderVue2Setup): InstanceF
       },
       render(h) {
         const renderInstances = () => {
-          return (this as unknown as FactoryApp).instanceDatas.map(({ key, el, component }) =>
-            h(Teleport, { props: { to: el, component }, key }),
+          return (this as unknown as FactoryApp).instanceDatas.map(({ key, el, component, props }) =>
+            h(Teleport, { props: { to: el, component, componentProps: props }, key }),
           )
         }
 
@@ -114,7 +114,7 @@ export function createInstanceFactory(setup?: ArchiveLoaderVue2Setup): InstanceF
         unmountInstance(instanceData)
       },
       setData(data) {
-        instanceData.props = data
+        instanceMountApp?.$set(instanceData, 'props', data)
       },
     }
   }
