@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import { type App, type DefineComponent, Teleport, createApp, createVNode, markRaw, ref } from 'vue'
+import { type App, type DefineComponent, Teleport, createApp, createVNode, markRaw, reactive, ref } from 'vue'
 
 import { ArchiveLoaderVueInstance, ArchiveLoaderVueSetup } from './types'
 
@@ -54,10 +54,10 @@ export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFa
   const mountInstance = <P>(el: HTMLElement, component: DefineComponent<P>, data?: P): InstanceData<P> => {
     mountApp()
 
-    const instanceData = { component, props: data, key: `instance-${instanceDataKeySeed++}`, el }
+    const instanceData = reactive({ component, props: data, key: `instance-${instanceDataKeySeed++}`, el })
     instanceDataRefs.value.add(instanceData as InstanceData<any>)
 
-    return instanceData
+    return instanceData as InstanceData<P>
   }
 
   const unmountInstance = (instanceData?: InstanceData) => {

@@ -23,7 +23,7 @@ export function createPageInstance(
   renderers: AppRenderers | undefined,
   setupOptions: AppSetupOptions | undefined,
   setupApp?: (app: App) => void,
-): Instance {
+): Instance<object> {
   const instance = createInstance('__archive_app_vue_instance__', Page, {
     setupApp(app) {
       app.use(iduxInstall)

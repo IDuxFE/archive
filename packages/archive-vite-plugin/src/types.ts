@@ -41,9 +41,9 @@ export interface LoadedItem {
   instanceScript: string
 }
 
-export interface ResolvedItem<V = Instance>
+export interface ResolvedItem<D extends object = object>
   extends Except<LoadedItem, 'prependScript' | 'instanceScript' | 'loader' | 'absolutePath'> {
-  instance: V
+  instance: Instance<D>
 }
 
 export interface Storage {
@@ -59,7 +59,7 @@ export interface Storage {
   notifyItemChange: (item: LoadedItem) => void
 }
 
-export interface Instance<Data extends Record<string, any> = Record<string, any>> {
+export interface Instance<Data extends object = object> {
   mount: (el: HTMLElement, data?: Data) => Promise<void> | void
   unmount: () => Promise<void> | void
   setData: (data: Partial<Data>) => Promise<void> | void

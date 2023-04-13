@@ -20,10 +20,10 @@ type Props<P extends Record<string, any>> = {
   [k in keyof P]: PropType<P[k]> | PropOptions<P[k]>
 }
 
-export function createComponent<P extends Record<string, any> = Record<string, any>>(
-  instance: Instance<P>,
+export function createComponent<P extends object, I extends Instance<P>>(
+  instance: I,
   props?: Props<P>,
-): Component {
+): Component<object, object, object, P> {
   return Vue.extend({
     name: 'ArchiveInstanceWrapper',
     props: { ...(props ?? {}), onInstanceMountedChange: instanceCompProps.onInstanceMountedChange },
@@ -44,6 +44,7 @@ export function createComponent<P extends Record<string, any> = Record<string, a
       Object.keys(props).forEach(key => {
         this.$watch(key, setData)
       })
+      setData()
     },
     render(h) {
       return h(InstanceComp, { props: { instance, onInstanceMountedChange: this.onInstanceMountedChange } })

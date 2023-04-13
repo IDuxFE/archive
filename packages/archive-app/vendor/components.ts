@@ -10,7 +10,7 @@ import Demo from '../src/components/demo'
 export * from '@idux/components/tooltip'
 export * from '@idux/components/button'
 export * from '@idux/components/icon'
-export { createDemoInstance } from '@idux/archive-app/createDemoInstance' // eslint-disable-line import/no-unresolved
+export { createDemoInstance } from '../createDemoInstance'
 
 export const DemoComp = Demo
-export type { DemoProps } from '../src//components/demo/Demo'
+export type { DemoProps } from '../src/components/demo/Demo'
