@@ -2,14 +2,22 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from './HelloWorld.vue'
-defineProps<{ msg: string }>()
+
+const props = withDefaults(defineProps<{ msg: string; bool: boolean; obj: object; num: number }>(), {
+  msg: '123',
+  bool: true,
+  obj: () => {
+    return { key: 1, key2: 3 }
+  },
+  num: 2,
+})
 </script>
 
 <template>
   <div>
     <h1>Demo111</h1>
   </div>
-  <HelloWorld :msg="msg" />
+  <HelloWorld v-bind="props" />
 </template>
 
 <style scoped>
@@ -35,6 +43,18 @@ defineProps<{ msg: string }>()
     {
       "prop": "msg",
       "type": "string"
+    },
+    {
+      "prop": "bool",
+      "type": "boolean"
+    },
+    {
+      "prop": "obj",
+      "type": "object"
+    },
+    {
+      "prop": "num",
+      "type": "number"
     }
   ]
 }
