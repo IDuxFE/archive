@@ -5,24 +5,27 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { VueItemControls } from '@idux/archive-types'
+import type { ResolvedDemoItem, VueItemControls } from '@idux/archive-types'
 
 import { type PropType, defineComponent, h } from 'vue'
 
+import BooleanCtrl from './BooleanCtrl'
 import NumberCtrl from './NumberCtrl'
+import ObjectCtrl from './ObjectCtrl'
 import StringCtrl from './StringCtrl'
 
 export default defineComponent({
   props: {
-    controls: Array as PropType<VueItemControls[]>,
+    instance: { type: Object as PropType<ResolvedDemoItem['instance']>, required: true },
+    controls: { type: Array as PropType<VueItemControls[]>, required: true },
     prefixCls: { type: String, required: true },
   },
   setup(props) {
     const ctrlMap = {
       string: StringCtrl,
       number: NumberCtrl,
-      boolean: StringCtrl,
-      object: StringCtrl,
+      boolean: BooleanCtrl,
+      object: ObjectCtrl,
     }
     const prefixCls = `${props.prefixCls}-demo__control`
     return () => (
@@ -38,7 +41,9 @@ export default defineComponent({
               <div class={`${prefixCls}__list__row`}>
                 <div class={`${prefixCls}__list__col`}>{item.prop}</div>
                 <div class={`${prefixCls}__list__col`}>{item.type}</div>
-                <div class={`${prefixCls}__list__grow`}>{h(ctrlMap[item.type], { control: item })}</div>
+                <div class={`${prefixCls}__list__grow`}>
+                  {h(ctrlMap[item.type], { control: item, instance: props.instance })}
+                </div>
               </div>
             )
           })}

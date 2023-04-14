@@ -8,11 +8,20 @@
 import type { App } from 'vue'
 
 import { createGlobalConfig } from '@idux/components/config'
-import { Copy, Expand, IDUX_ICON_DEPENDENCIES, Link, Unexpand, addIconDefinitions } from '@idux/components/icon'
+import {
+  Control,
+  Copy,
+  Expand,
+  IDUX_ICON_DEPENDENCIES,
+  Link,
+  Unexpand,
+  Up,
+  addIconDefinitions,
+} from '@idux/components/icon'
 import { createGlobalConfig as createProGlobalConfig } from '@idux/pro/config'
 
 addIconDefinitions(IDUX_ICON_DEPENDENCIES)
-addIconDefinitions([Expand, Unexpand, Copy, Link])
+addIconDefinitions([Expand, Unexpand, Copy, Link, Control, Up])
 
 const globalConfig = createGlobalConfig({
   common: {

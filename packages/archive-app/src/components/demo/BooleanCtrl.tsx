@@ -5,21 +5,28 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { VueItemControls } from '@idux/archive-types'
+import type { ResolvedDemoItem, VueItemControls } from '@idux/archive-types'
 
 import { type PropType, defineComponent } from 'vue'
 
-import { IxInputNumber } from '@idux/components/input-number'
+import { IxRadioGroup, type RadioData } from '@idux/components/radio'
 
 export default defineComponent({
   props: {
-    control: Object as PropType<VueItemControls>,
+    instance: { type: Object as PropType<ResolvedDemoItem['instance']>, required: true },
+    control: { type: Object as PropType<VueItemControls>, required: true },
   },
   setup(props) {
+    const booleanRadio: RadioData[] = [
+      { key: 'true', label: 'true' },
+      { key: 'false', label: 'false' },
+    ]
+    const setData = (value: 'true' | 'false') => {
+      props.instance.setData({ [props.control.prop]: value === 'true' ? true : false })
+    }
     return () => (
       <div>
-        <IxInputNumber />
-        <div>{`asgasgasg${JSON.stringify(props.control)}`}</div>
+        <IxRadioGroup dataSource={booleanRadio} onChange={setData} />
       </div>
     )
   },
