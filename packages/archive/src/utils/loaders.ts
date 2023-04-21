@@ -19,7 +19,7 @@ export function findMatchedPageLoader(src: string, loaders: Loader[]): Loader | 
 export function getImportScript(src: string, loaders: Loader[]): string | undefined {
   const loader = findMatchedPageLoader(src, loaders)
 
-  return loader ? `() => import("${loader.prefix + src}")` : undefined
+  return loader ? `() => import(${JSON.stringify(loader?.prefix + src)})` : undefined
 }
 
 export function getPluginLoaders(pageLoaders: Loader[], demoLoaders: Loader[]): Loader[] {
