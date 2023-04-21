@@ -1,8 +1,9 @@
-import { basename, dirname, resolve } from 'path'
+import { readFileSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { readFileSync } from 'node:fs'
+import { basename, dirname, resolve } from 'path'
 
 import { defineConfig } from '@idux/archive'
+
 import { createArchiveVuePageLoader } from '@idux/archive-loader-vue'
 import { getNavFromDirectory } from '@idux/archive-utils'
 
@@ -17,8 +18,8 @@ export default defineConfig({
       siderCollapsable: false,
     },
     page: {
-      anchorMaxLevel: 6
-    }
+      anchorMaxLevel: 6,
+    },
   },
   navConfig(root) {
     const pathPageMetaMap = new Map()
