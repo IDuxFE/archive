@@ -26,6 +26,7 @@ import { IxIcon } from '@idux/components/icon'
 import { useMessage } from '@idux/components/message'
 import { IxTab, IxTabs } from '@idux/components/tabs'
 
+import DemoContorlComp from './DemoControl'
 import DemoToolComp from './DemoTool'
 
 export const demoProps = {
@@ -44,7 +45,7 @@ export default defineComponent({
         return props.tools!
       }
 
-      return [...(props.tools ?? []), { type: 'expandCode' } as DemoTool]
+      return [...(props.tools ?? []), { type: 'expandCode' }, { type: 'expandControls' }] as DemoTool[]
     })
 
     const selectedSourceTab = ref(0)
@@ -52,17 +53,24 @@ export default defineComponent({
       selectedSourceTab.value = tab
     }
 
-    const expanded = ref(false)
-    const expandedTitle = computed(() => {
+    const expanded = ref<'code' | 'controls' | ''>('')
+
+    const expandedCodeTitle = computed(() => {
       if (props.lang === 'zh') {
-        return expanded.value ? '收起代码' : '显示代码'
+        return expanded.value === 'code' ? '收起代码' : '显示代码'
       }
-      return expanded.value ? 'Hide Code' : 'Show Code'
+      return expanded.value === 'code' ? 'Hide Code' : 'Show Code'
+    })
+    const expandedControlsTitle = computed(() => {
+      if (props.lang === 'zh') {
+        return expanded.value === 'controls' ? '收起控制' : '显示控制'
+      }
+      return expanded.value === 'controls' ? 'Hide Controls' : 'Show Controls'
     })
     const copyTitle = computed(() => (props.lang === 'zh' ? '复制代码' : 'Copy Code'))
 
-    const onExpanded = () => {
-      expanded.value = !expanded.value
+    const onExpanded = (target: 'code' | 'controls') => {
+      expanded.value = expanded.value === target ? '' : target
     }
 
     const { copy } = useClipboard()
@@ -76,11 +84,28 @@ export default defineComponent({
         })
     }, 300)
 
+    // todo: provide custom rendering
     const renderTool = (tool: DemoTool) => {
       if (tool.type === 'expandCode') {
         return (
-          <DemoToolComp prefixCls={props.prefixCls!} tooltip={tool.tooltip ?? expandedTitle.value} onClick={onExpanded}>
-            {tool.render ? tool.render(expanded.value) : <IxIcon name={expanded.value ? 'unexpand' : 'expand'} />}
+          <DemoToolComp
+            prefixCls={props.prefixCls!}
+            tooltip={tool.tooltip ?? expandedCodeTitle.value}
+            onClick={() => onExpanded('code')}
+          >
+            <IxIcon name={expanded.value === 'code' ? 'unexpand' : 'expand'} />
+          </DemoToolComp>
+        )
+      }
+
+      if (tool.type === 'expandControls') {
+        return (
+          <DemoToolComp
+            prefixCls={props.prefixCls!}
+            tooltip={tool.tooltip ?? expandedControlsTitle.value}
+            onClick={() => onExpanded('controls')}
+          >
+            <IxIcon name={expanded.value === 'controls' ? 'up' : 'control'} />
           </DemoToolComp>
         )
       }
@@ -106,7 +131,7 @@ export default defineComponent({
 
     const renderSourceCode = () => {
       const sourceCodes = props.resolvedDemoItem?.sourceCodes
-      if (!expanded.value || !sourceCodes) {
+      if (expanded.value !== 'code' || !sourceCodes) {
         return
       }
 
@@ -129,9 +154,15 @@ export default defineComponent({
       return <div class={`${mergedPrefixCls}__source-code archive-md`}>{children}</div>
     }
 
+    const renderDemoControl = (demoItem: ResolvedDemoItem) => {
+      if (expanded.value === 'controls' && demoItem.controls && demoItem.instance) {
+        return (
+          <DemoContorlComp prefixCls={props.prefixCls!} controls={demoItem.controls} instance={demoItem.instance} />
+        )
+      }
+    }
     return () => {
       const demoItem = props.resolvedDemoItem!
-
       return (
         <div class={mergedPrefixCls}>
           {demoItem.title && (
@@ -152,6 +183,7 @@ export default defineComponent({
             </div>
           </div>
           <Transition name={`${mergedPrefixCls}-code-fade-down`}>{renderSourceCode()}</Transition>
+          <Transition name={`${mergedPrefixCls}-code-fade-down`}>{renderDemoControl(demoItem)}</Transition>
         </div>
       )
     }
