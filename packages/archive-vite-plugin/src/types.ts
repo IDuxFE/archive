@@ -53,9 +53,7 @@ export interface Storage {
   set: (absolutePath: string, query: QueryObj, loader: ResolvedLoader) => Promise<LoadedItem>
   remove: (absolutePath: string) => void
 
-  onListChange: (callback: () => void) => void
   onItemChange: (callback: (item: LoadedItem) => void) => void
-  notifyListChange: () => void
   notifyItemChange: (item: LoadedItem) => void
 }
 
@@ -63,4 +61,10 @@ export interface Instance<Data extends object = object> {
   mount: (el: HTMLElement, data?: Data) => Promise<void> | void
   unmount: () => Promise<void> | void
   setData: (data: Partial<Data>) => Promise<void> | void
+}
+
+export type ItemChangeCallback = (item: ResolvedItem) => void
+export interface HmrRuntime {
+  onItemChange: (cb: ItemChangeCallback) => () => void
+  _updateItem: (currentItem: ResolvedItem, newItem: ResolvedItem) => void
 }

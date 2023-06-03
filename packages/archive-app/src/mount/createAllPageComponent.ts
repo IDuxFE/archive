@@ -8,8 +8,8 @@
 import type { AppMountOptions } from '@idux/archive-types'
 import type { DefineComponent } from 'vue'
 
-import { createPageComponent } from './createPageComponent'
 import { resolveThemeOptions } from '../resolveThemeOptions'
+import { createPageComponent } from './createPageComponent'
 
 export function createAllPageComponent(options: AppMountOptions): Record<string, DefineComponent> {
   const { routeRecords, theme, renderers, setupOptions, setupApp } = options

@@ -23,9 +23,9 @@ export default defineConfig({
     target: 'esnext',
 
     lib: {
-      entry: './index.ts',
+      entry: ['./index.ts', './hmr.ts'],
       formats: ['es', 'cjs'],
-      fileName: format => (format === 'cjs' ? 'index.cjs' : 'index.mjs'),
+      fileName: (format, name) => (format === 'cjs' ? `${name}.cjs` : `${name}.mjs`),
     },
 
     rollupOptions: {

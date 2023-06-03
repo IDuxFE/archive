@@ -11,9 +11,9 @@ import { type PropType, defineComponent, inject, ref } from 'vue'
 
 import { Instance } from '@idux/archive-loader-vue/client'
 
-import BaseContent from './BaseContent'
-import { useAsyncProp } from '../../composables/useAsyncProp'
+import { useArchiveItemImport } from '../../composables/useArciveItemImport'
 import { pageContextToken } from '../../token'
+import BaseContent from './BaseContent'
 
 export default defineComponent({
   props: {
@@ -21,7 +21,7 @@ export default defineComponent({
     pageImport: { type: Function as PropType<() => Promise<{ default: ResolvedItem }>>, required: true },
   },
   setup(props) {
-    const dataRef = useAsyncProp(props, 'pageImport')
+    const resolvedItem = useArchiveItemImport(props, 'pageImport')
     const {
       render,
       renderers: { pageContent: pageContentRenderer },
@@ -42,7 +42,7 @@ export default defineComponent({
           },
           pageContentRenderer,
           () => [
-            <Instance instance={dataRef.value?.default.instance} onInstanceMountedChange={onInstanceMountedChange} />,
+            <Instance instance={resolvedItem.value?.instance} onInstanceMountedChange={onInstanceMountedChange} />,
           ],
         )}
       </BaseContent>

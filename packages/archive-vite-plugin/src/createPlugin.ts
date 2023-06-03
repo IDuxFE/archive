@@ -5,17 +5,14 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { Loader, Options, ResolvedLoader, ResolvedOptions, Storage } from './types'
+import type { LoadedItem, Loader, Options, ResolvedLoader, ResolvedOptions, Storage } from './types'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 
 import { parseRequest } from './query'
-import { genAllDataScript, genDataScript } from './scriptGen'
+import { genDataScript } from './scriptGen'
 import { createStorage } from './storage'
 
 const DEFAULT_PREFIX = 'archive:'
-
-const ALL_ITEMS_ID = 'all-items'
-
 const RESOLVED_PREFIX = '/archive__resolved'
 const RESOLVED_AFFIX = `__resolved`
 
@@ -65,7 +62,7 @@ export function createArchivePlugin(options?: Options): Plugin {
       }
 
       const _path = id.replace(_loader.prefix, '')
-      if (_path === ALL_ITEMS_ID || _loader.matched(_path)) {
+      if (_loader.matched(_path)) {
         return {
           loader: _loader,
           path: _path,
@@ -99,15 +96,6 @@ export function createArchivePlugin(options?: Options): Plugin {
       return RESOLVED_PREFIX + resolvedRes.loader.prefix + resolvedModule.id + RESOLVED_AFFIX
     },
 
-    configureServer(server) {
-      storage.onListChange(() => {
-        updateModule(server, ALL_ITEMS_ID)
-      })
-      storage.onItemChange(item => {
-        updateModule(server, RESOLVED_PREFIX + item.loader.prefix + item.absolutePath + RESOLVED_AFFIX)
-      })
-    },
-
     async load(resolvedId) {
       if (!resolvedId.startsWith(RESOLVED_PREFIX)) {
         return
@@ -121,14 +109,6 @@ export function createArchivePlugin(options?: Options): Plugin {
       }
 
       const { loader, path } = resolveRes
-
-      if (path === ALL_ITEMS_ID) {
-        return genAllDataScript(
-          storage.getAll().filter(item => item.loader === loader),
-          item => loader.prefix + item.absolutePath,
-        )
-      }
-
       const { path: requestPath, query } = parseRequest(path)
       const item = storage.exists(requestPath)
         ? await storage.get(requestPath)!
@@ -148,30 +128,15 @@ export function createArchivePlugin(options?: Options): Plugin {
       if (storage.exists(updateContext.file)) {
         const item = storage.get(updateContext.file)!
         storage.set(item.absolutePath, item.query, item.loader)
+
+        const itemModule = getItemModule(updateContext.server, item)!
+
+        return [itemModule, ...updateContext.modules]
       }
     },
   }
 }
 
-function updateModule(server: ViteDevServer, id: string) {
-  const mod = server.moduleGraph.getModuleById(id)
-  if (!mod) {
-    return
-  }
-  server.moduleGraph.invalidateModule(mod)
-
-  // Send HMR update
-  const timestamp = Date.now()
-  mod.lastHMRTimestamp = timestamp
-  server.ws.send({
-    type: 'update',
-    updates: [
-      {
-        type: 'js-update',
-        acceptedPath: mod.url,
-        path: mod.url,
-        timestamp: timestamp,
-      },
-    ],
-  })
+function getItemModule(server: ViteDevServer, item: LoadedItem) {
+  return server.moduleGraph.getModuleById(RESOLVED_PREFIX + item.loader.prefix + item.absolutePath + RESOLVED_AFFIX)
 }

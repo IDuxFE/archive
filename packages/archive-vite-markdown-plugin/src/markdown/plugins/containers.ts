@@ -6,9 +6,9 @@
  */
 
 import MarkdownIt from 'markdown-it'
+import container from 'markdown-it-container'
 import { RenderRule } from 'markdown-it/lib/renderer'
 import Token from 'markdown-it/lib/token'
-import container from 'markdown-it-container'
 
 export const containerPlugin = (md: MarkdownIt): void => {
   md.use(...createContainer('info', 'INFO', md))

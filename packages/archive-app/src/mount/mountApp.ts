@@ -12,13 +12,16 @@ import { createApp, defineComponent, h, provide } from 'vue'
 import { useBreakpoints } from '@idux/cdk/breakpoint'
 import { createRouter, createWebHistory, useRoute } from 'vue-router'
 
-import iduxInstall from './iduxInstall'
 import AppComp from '../App'
 import { useAppRender } from '../composables/useAppRender'
 import { useNavRecords } from '../composables/useNavRecords'
 import { resolveRoutes } from '../resolveRoutes'
 import { resolveThemeOptions } from '../resolveThemeOptions'
 import { appContextToken, breakpointsToken, themeToken } from '../token'
+import iduxInstall from './iduxInstall'
+
+// eslint-disable-next-line import/no-unassigned-import
+import '@idux/archive-vite-plugin/hmr'
 
 export function mountApp(options: AppMountOptions): void {
   const { navRecords, routeRecords, el, renderers = {}, setupOptions, setupApp } = options

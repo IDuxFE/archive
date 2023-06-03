@@ -9,6 +9,8 @@ import type { Instance, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
 import type { ComponentOptions, PropType, VNode, VueConstructor } from 'vue'
 
+import Vue from 'vue'
+
 export type Lang = 'zh' | 'en'
 export type Theme = 'default' | 'seer'
 export type ArchiveLoaderVue2 = Loader<Vue2ItemMeta>
@@ -46,7 +48,7 @@ export interface ArchiveLoaderVue2ResolvedItem extends ResolvedItem, Vue2ItemMet
 
 export const instanceCompProps = {
   instance: Object as PropType<ArchiveLoaderVue2Instance>,
-  onInstanceMountedChange: Function as PropType<(mounted: boolean) => void>,
+  onInstanceMountedChange: Function as unknown as PropType<(mounted: boolean) => void>,
 } as const
 export interface InstanceCompProps {
   instance?: ArchiveLoaderVue2Instance

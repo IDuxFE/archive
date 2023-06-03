@@ -15,8 +15,8 @@ import { dirname, join, parse } from 'pathe'
 
 import { getNavFromDirectory } from '@idux/archive-utils'
 
-import { resolveRecords } from './resolveRecords'
 import { watchDir } from '../utils'
+import { resolveRecords } from './resolveRecords'
 
 export const configFileNames = ['archive.config.js']
 

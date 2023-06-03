@@ -13,8 +13,8 @@ import { isObject } from 'lodash-es'
 
 import { traverseTree } from '@idux/archive-utils/client'
 
-import Anchor from './Anchor'
 import { pageContextToken } from '../../token'
+import Anchor from './Anchor'
 
 export default defineComponent({
   props: {

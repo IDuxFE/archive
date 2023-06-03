@@ -12,10 +12,10 @@ import type { App } from 'vue'
 import { createInstance } from '@idux/archive-loader-vue/client'
 import { useBreakpoints } from '@idux/cdk/breakpoint'
 
-import iduxInstall from './iduxInstall'
 import Page from '../components/page/Page'
 import { resolvePageProps } from '../resolvePageProps'
 import { breakpointsToken, themeToken } from '../token'
+import iduxInstall from './iduxInstall'
 
 export function createPageInstance(
   routeRecord: RouteRecord,
