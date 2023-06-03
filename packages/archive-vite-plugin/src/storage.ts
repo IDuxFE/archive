@@ -11,29 +11,8 @@ import { basename, relative } from 'pathe'
 
 let idSeed = 0
 
-// export function watch(options: ResolvedOptions, demoStorage: Storage): FSWatcher {
-//   const { root } = options
-//   const { remove, notifyListChange } = demoStorage
-
-//   const { matchPatterns, ignorePatterns } = getPatterns(options)
-//   const watcher = _watch(matchPatterns, { cwd: root, ignored: ignorePatterns.length > 0 ? ignorePatterns : undefined })
-
-//   watcher
-//     // .on('add', file => {
-//     //   add(file)
-//     //   notifyListChange()
-//     // })
-//     .on('unlink', file => {
-//       remove(file)
-//       notifyListChange()
-//     })
-
-//   return watcher
-// }
-
 export function createStorage(options: ResolvedOptions): Storage {
   const itemMap = new Map<string, LoadedItem>()
-  const listChangeHandlers: (() => void)[] = []
 
   const load = async (absolutePath: string, query: QueryObj, loader: ResolvedLoader) => {
     const id = get(absolutePath)?.id ?? `archive-item-${idSeed++}`
@@ -61,14 +40,6 @@ export function createStorage(options: ResolvedOptions): Storage {
       handler(item)
     }
   }
-  const notifyListChange = () => {
-    // // Delay in case file renaming fired Add event before Unlink event
-    // setTimeout(_notifyListChange, 100)
-
-    for (const handler of listChangeHandlers) {
-      handler()
-    }
-  }
 
   const exists = (absolutePath: string) => itemMap.has(absolutePath)
 
@@ -80,8 +51,6 @@ export function createStorage(options: ResolvedOptions): Storage {
 
     if (itemExisted) {
       notifyItemChange(item)
-    } else {
-      notifyListChange()
     }
 
     return item
@@ -100,9 +69,7 @@ export function createStorage(options: ResolvedOptions): Storage {
     set,
     remove,
 
-    onListChange: callback => listChangeHandlers.push(callback),
     onItemChange: callback => itemChangeHandlers.push(callback),
-    notifyListChange,
     notifyItemChange,
   }
 }

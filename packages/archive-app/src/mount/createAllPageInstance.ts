@@ -7,8 +7,8 @@
 
 import type { AppMountOptions, PageInstance } from '@idux/archive-types'
 
-import { createPageInstance } from './createPageInstance'
 import { resolveThemeOptions } from '../resolveThemeOptions'
+import { createPageInstance } from './createPageInstance'
 
 export function createAllPageInstance(options: AppMountOptions): Record<string, PageInstance> {
   const { routeRecords, theme, renderers, setupOptions, setupApp } = options

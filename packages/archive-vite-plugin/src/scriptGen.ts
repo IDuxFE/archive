@@ -26,8 +26,11 @@ function itemScriptGenerator(item: LoadedItem): string {
 
 export function genDataScript(item: LoadedItem): string {
   return `${item.prependScript ?? ''}
+const __archive_data__ = ${itemScriptGenerator(item)}
 
-export default ${itemScriptGenerator(item)}${BASIC_HMR_SCRIPT}`
+${createItemHmrScript('__archive_data__')}
+
+export default __archive_data__`
 }
 
 export function genAllDataScript(allItems: LoadedItem[], getModule: (item: LoadedItem) => string): string {
@@ -35,7 +38,26 @@ export function genAllDataScript(allItems: LoadedItem[], getModule: (item: Loade
     (script, item, idx) => script + `import Item${idx} from '${getModule(item)}'` + '\n',
     '',
   )
-  return `${imports}export default {${allItems
+
+  return `${imports}
+  
+  const __archive_all_data__ = ${allItems
     .map((item, idx) => `${JSON.stringify(item.relativePath)}: Item${idx}`)
-    .join(',')}}${BASIC_HMR_SCRIPT}`
+    .join(',')}
+
+  export default __archive_all_data__`
+}
+
+function createItemHmrScript(variable: string) {
+  return `;if(__import_meta_hot__){
+    __import_meta_hot__.accept((newModule) => {
+      if (newModule) {
+        const { default: newItem } = newModule;
+
+        if (__ARCHIVE_HMR_RUNTIME__) {
+          __ARCHIVE_HMR_RUNTIME__._updateItem(${variable}, newItem)
+        }
+      }
+    })
+}`
 }

@@ -26,10 +26,10 @@ import { IxRadioGroup } from '@idux/components/radio'
 
 import { type InnerPageProps, innerPageProps } from '@idux/archive-types'
 
-import DemosContent from './DemosContent'
-import PageContent from './PageContent'
 import { usePageRender } from '../../composables/usePageRender'
 import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
+import DemosContent from './DemosContent'
+import PageContent from './PageContent'
 
 export default defineComponent({
   props: innerPageProps,

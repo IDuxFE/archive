@@ -7,12 +7,12 @@
 
 import type { ResolvedDemoItem } from '@idux/archive-types'
 
-import { type PropType, computed, defineComponent, inject, nextTick, ref, watch } from 'vue'
+import { type PropType, type Ref, computed, defineComponent, inject, nextTick, ref, watch } from 'vue'
 
-import BaseContentComp from './BaseContent'
-import { useArrayAsyncProp } from '../../composables/useAsyncProp'
+import { useArchiveItemImports } from '../../composables/useArciveItemImport'
 import { pageContextToken } from '../../token'
 import DemoComp from '../demo/Demo'
+import BaseContentComp from './BaseContent'
 
 export default defineComponent({
   props: {
@@ -27,8 +27,7 @@ export default defineComponent({
     } = inject(pageContextToken)!
     const baseContentRef = ref()
 
-    const demosRef = useArrayAsyncProp(props, 'demoImports')
-    const demoItems = computed(() => demosRef.value?.map(demo => demo.default) ?? [])
+    const demoItems = useArchiveItemImports(props, 'demoImports') as Ref<ResolvedDemoItem[]>
     const demoIds = computed(() => demoItems.value.map(demoItem => demoItem.id))
 
     const _getInitVisibleDemoIds = () =>

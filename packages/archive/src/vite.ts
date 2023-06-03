@@ -44,21 +44,7 @@ function updateModule(server: ViteDevServer, id: string) {
     return
   }
   server.moduleGraph.invalidateModule(mod)
-
-  // Send HMR update
-  const timestamp = Date.now()
-  mod.lastHMRTimestamp = timestamp
-  server.ws.send({
-    type: 'update',
-    updates: [
-      {
-        type: 'js-update',
-        acceptedPath: mod.url,
-        path: mod.url,
-        timestamp: timestamp,
-      },
-    ],
-  })
+  server.reloadModule(mod)
 }
 
 async function createCommonViteConfig(
@@ -68,6 +54,10 @@ async function createCommonViteConfig(
   const userViteConfigFile = await loadConfigFromFile({ command: mode === 'dev' ? 'serve' : 'build', mode })
   const userViteConfig = mergeConfig(userViteConfigFile?.config ?? {}, {
     configFile: false,
+    define: {
+      __DEV__: mode === 'dev',
+      __BASE_URL__: userViteConfigFile?.config.base,
+    },
     server: { port: 8080 },
   })
 

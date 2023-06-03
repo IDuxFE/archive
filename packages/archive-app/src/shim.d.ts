@@ -26,12 +26,6 @@ declare module 'external:@idux/archive-loader-vue/client' {
   export * from '@idux/archive-loader-vue/client'
 }
 
-declare module 'archive-demo:all-data' {
-  import type { ResolvedDemoItem } from '@idux/archive-types'
-  const demos: Record<string, ResolvedDemoItem>
-  export default demos
-}
-
 declare module 'archive-demo:*' {
   import type { ResolvedDemoItem } from '@idux/archive-types'
   const demo: ResolvedDemoItem

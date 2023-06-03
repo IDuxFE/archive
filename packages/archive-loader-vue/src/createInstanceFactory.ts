@@ -5,7 +5,17 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import { type App, type DefineComponent, Teleport, createApp, createVNode, markRaw, reactive, ref } from 'vue'
+import {
+  type App,
+  type DefineComponent,
+  Teleport,
+  type VNodeTypes,
+  createApp,
+  createVNode,
+  markRaw,
+  reactive,
+  ref,
+} from 'vue'
 
 import { ArchiveLoaderVueInstance, ArchiveLoaderVueSetup } from './types'
 
@@ -27,7 +37,7 @@ export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFa
   const renderInstances = () => {
     return [...instanceDataRefs.value.values()].map(({ key, el, component, props }) =>
       createVNode(
-        Teleport,
+        Teleport as unknown as VNodeTypes,
         { to: el, key },
         {
           default: () => [createVNode(component, props)],
