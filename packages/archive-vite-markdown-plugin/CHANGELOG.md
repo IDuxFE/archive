@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/IDuxFE/archive/compare/v0.3.1...v0.4.0) (2023-06-08)
+
+### Features
+
+- **vite-plugin:** add hmr runtime support ([399101c](https://github.com/IDuxFE/archive/commit/399101c02f38b2b6f00074a65dc6dbb7483df698))
+
 # 0.3.0 (2023-03-22)
 
 ### Bug Fixes

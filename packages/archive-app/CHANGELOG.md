@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/IDuxFE/archive/compare/v0.3.1...v0.4.0) (2023-06-08)
+
+### Bug Fixes
+
+- **app:** instance build entry error ([806059a](https://github.com/IDuxFE/archive/commit/806059adcf058ec4f6a6ad941b2fc95a375cdd44))
+- **vue2-loader,vue3-loader:** instance setData not working ([eaea990](https://github.com/IDuxFE/archive/commit/eaea990b3e5db376fb6c6ae3a7de74690925e16e))
+
+### Features
+
+- add component props control ([7fb62bb](https://github.com/IDuxFE/archive/commit/7fb62bb9c882d66a1732c3f24bb241f4f169ba00))
+- add controls for demo, supporting auto type detection ([6a80fb0](https://github.com/IDuxFE/archive/commit/6a80fb096a4c2beceff617f28efaf4575409f3db))
+- add icon for demo control ([f6dd390](https://github.com/IDuxFE/archive/commit/f6dd3906a42866af9286433e3854b95909bd8db8))
+- **app:** add demo instance and component support ([fc0370c](https://github.com/IDuxFE/archive/commit/fc0370cb208159f06badfceb784620109f5698dc))
+- **archive-app:** add 4 control type ([89d52cc](https://github.com/IDuxFE/archive/commit/89d52cc14d648843d9d2ca1cc44fdc0b650ddfa1))
+- **vite-plugin:** add hmr runtime support ([399101c](https://github.com/IDuxFE/archive/commit/399101c02f38b2b6f00074a65dc6dbb7483df698))
+
 ## [0.3.2](https://github.com/IDuxFE/archive/compare/v0.3.1...v0.3.2) (2023-03-30)
 
 ### Bug Fixes

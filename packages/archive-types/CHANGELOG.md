@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/IDuxFE/archive/compare/v0.3.1...v0.4.0) (2023-06-08)
+
+### Bug Fixes
+
+- **vue2-loader,vue3-loader:** instance setData not working ([eaea990](https://github.com/IDuxFE/archive/commit/eaea990b3e5db376fb6c6ae3a7de74690925e16e))
+
+### Features
+
+- add component props control ([7fb62bb](https://github.com/IDuxFE/archive/commit/7fb62bb9c882d66a1732c3f24bb241f4f169ba00))
+- add controls for demo, supporting auto type detection ([6a80fb0](https://github.com/IDuxFE/archive/commit/6a80fb096a4c2beceff617f28efaf4575409f3db))
+- **app:** add demo instance and component support ([fc0370c](https://github.com/IDuxFE/archive/commit/fc0370cb208159f06badfceb784620109f5698dc))
+- **archive-app:** add 4 control type ([89d52cc](https://github.com/IDuxFE/archive/commit/89d52cc14d648843d9d2ca1cc44fdc0b650ddfa1))
+
 ## [0.3.1](https://github.com/IDuxFE/archive/compare/v0.3.0...v0.3.1) (2023-03-22)
 
 ### Bug Fixes
