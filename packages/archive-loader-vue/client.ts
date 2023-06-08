@@ -18,7 +18,7 @@ const __demoInstanceFactorys__: Record<string, InstanceFactory> = {}
 export function createInstance<P extends object = object>(
   factoryId: string | undefined,
   comp: DefineComponent<P>,
-  setup?: ArchiveLoaderVueSetup,
+  setup: ArchiveLoaderVueSetup | undefined,
 ): ArchiveLoaderVueInstance<P> {
   const _factoryId = factoryId ?? 'default'
   if (!__demoInstanceFactorys__[_factoryId]) {

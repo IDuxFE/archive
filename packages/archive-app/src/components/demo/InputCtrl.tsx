@@ -5,15 +5,15 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import { IxInputNumber } from '@idux/components/input-number'
+import { IxInput } from '@idux/components/input'
 
 import { defineCtrComponent } from './defineCtrComponent'
 
-export default defineCtrComponent<'number', number>({
+export default defineCtrComponent<'input', string>({
   setup({ controlValue, setControlValue }) {
     return () => (
-      <div class="archive-app-demo__control-number">
-        <IxInputNumber value={controlValue.value} onChange={setControlValue} />
+      <div class="archive-app-demo__control-input">
+        <IxInput value={controlValue.value} onChange={setControlValue} />
       </div>
     )
   },

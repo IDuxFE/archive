@@ -6,10 +6,11 @@
  */
 
 import type { ArchiveLoaderVue2Instance, ArchiveLoaderVue2Setup } from './types'
+import type { InstanceProp, InstancePropTypes } from '@idux/archive-vite-plugin'
 
-import Vue, { type Component } from 'vue'
+import Vue, { type Component, type PropType } from 'vue'
 
-import { isFunction } from 'lodash-es'
+import { isArray, isFunction, isNil, isPlainObject } from 'lodash-es'
 
 import Teleport from './teleport'
 
@@ -94,7 +95,7 @@ export function createInstanceFactory(setup?: ArchiveLoaderVue2Setup): InstanceF
   const mountInstance = <P = any>(el: HTMLElement, component: Component<any, any, any, P>, data?: P) => {
     mountApp()
 
-    const instanceData = { component, props: data, key: `instance-${instanceDataKeySeed++}`, el }
+    const instanceData = { component, props: data ?? {}, key: `instance-${instanceDataKeySeed++}`, el }
     ;(instanceMountApp! as any).addInstanceData(instanceData)
 
     return instanceData
@@ -104,18 +105,130 @@ export function createInstanceFactory(setup?: ArchiveLoaderVue2Setup): InstanceF
     instanceData && (instanceMountApp! as any).removeInstanceData(instanceData)
   }
 
-  return (component: Component): ArchiveLoaderVue2Instance => {
+  return <P extends object>(component: Component<any, any, any, P>): ArchiveLoaderVue2Instance<P> => {
     let instanceData: InstanceData
+    const watchCallbacks = new Set<() => void>()
+    const runCallbacks = () => {
+      watchCallbacks.forEach(cb => {
+        cb()
+      })
+    }
+
+    function watchData(callback: (data: P | undefined) => void): () => void
+    function watchData<K extends keyof P>(key: K, callback: (value: P[K] | undefined) => void): () => void
+    function watchData<K extends keyof P>(
+      key: K | ((data: P | undefined) => void),
+      callback?: (value: P[K] | undefined) => void,
+    ): () => void {
+      let cb: () => void
+      if (isFunction(key)) {
+        cb = () => {
+          key(instanceData.props)
+        }
+      } else {
+        cb = () => {
+          callback?.(instanceData.props?.[key])
+        }
+      }
+
+      watchCallbacks.add(cb)
+
+      return () => {
+        watchCallbacks.delete(cb)
+      }
+    }
+
+    function parsePropType(type?: PropType<unknown> | true | null): InstancePropTypes | undefined {
+      if (!type || type === true) {
+        return
+      }
+
+      const _type = isArray(type) ? type[0] : type
+
+      switch (_type) {
+        case Boolean:
+          return 'boolean'
+
+        case String:
+          return 'string'
+
+        case Number:
+          return 'number'
+
+        case Object:
+          return 'object'
+
+        case Array:
+          return 'array'
+
+        default:
+          return
+      }
+    }
+
     return {
       mount(el, data) {
-        instanceData = mountInstance(el, component, data) as InstanceData
+        instanceData = mountInstance(el, component, data) as InstanceData<P>
+
+        const instanceProps = this.getProps()
+
+        const defaultData = instanceProps.reduce((res, control) => {
+          if (!isNil(control.default)) {
+            res[control.key] = control.default
+          }
+
+          return res
+        }, {} as P)
+
+        if (Object.keys(defaultData).length > 0) {
+          this.setData(defaultData)
+        }
       },
       unmount() {
         unmountInstance(instanceData)
       },
-      setData(data) {
-        instanceMountApp?.$set(instanceData, 'props', data)
+      getProps() {
+        if (!('props' in component) || !component.props) {
+          return []
+        }
+
+        const props = component.props
+
+        const instanceProps: InstanceProp<P>[] = []
+
+        props &&
+          Object.entries(props).forEach(([key, prop]) => {
+            let propType: InstanceProp<P>['type'] | undefined
+            let defaultValue
+            if (isPlainObject(prop) && 'type' in prop) {
+              propType = parsePropType(prop.type) as InstanceProp<P>['type']
+              defaultValue = isFunction(prop.default) ? prop.default() : prop.default
+            } else {
+              propType = parsePropType(prop as PropType<unknown>) as InstanceProp<P>['type']
+            }
+
+            if (propType) {
+              instanceProps.push({
+                key: key as keyof P,
+                type: propType,
+                default: defaultValue,
+              })
+            }
+          })
+
+        return instanceProps
       },
+      getData() {
+        return instanceData.props
+      },
+      setData(data) {
+        Object.entries(data).forEach(([key, value]) => {
+          instanceMountApp?.$set(instanceData.props, key, value)
+        })
+
+        runCallbacks()
+      },
+      watchData,
     }
   }
 }

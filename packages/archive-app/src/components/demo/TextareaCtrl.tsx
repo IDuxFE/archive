@@ -5,15 +5,15 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import { IxInputNumber } from '@idux/components/input-number'
+import { IxTextarea } from '@idux/components/textarea'
 
 import { defineCtrComponent } from './defineCtrComponent'
 
-export default defineCtrComponent<'number', number>({
+export default defineCtrComponent<'textarea', string>({
   setup({ controlValue, setControlValue }) {
     return () => (
-      <div class="archive-app-demo__control-number">
-        <IxInputNumber value={controlValue.value} onChange={setControlValue} />
+      <div class="archive-app-demo__control-textarea">
+        <IxTextarea value={controlValue.value} onChange={setControlValue} />
       </div>
     )
   },

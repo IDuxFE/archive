@@ -1,17 +1,24 @@
 import './reset.less'
 
 import '@idux/components/_private/overlay/style/themes/seer.less'
+import '@idux/components/_private/selector/style/themes/seer.less'
+import '@idux/components/_private/wave/style/themes/seer.less'
 import '@idux/components/button/style/themes/seer.less'
 import '@idux/components/space/style/themes/seer.less'
 import '@idux/components/radio/style/themes/seer.less'
 import '@idux/components/tooltip/style/themes/seer.less'
 import '@idux/components/message/style/themes/seer.less'
-import '@idux/components/input/style/themes/seer.less'
-import '@idux/components/input-number/style/themes/seer.less'
 import '@idux/components/tabs/style/themes/seer.less'
 import '@idux/components/icon/style/themes/seer.less'
 import '@idux/components/anchor/style/themes/seer.less'
 import '@idux/components/affix/style/themes/seer.less'
+
+import '@idux/components/input/style/themes/seer.less'
+import '@idux/components/input-number/style/themes/seer.less'
+import '@idux/components/select/style/themes/seer.less'
+import '@idux/components/checkbox/style/themes/seer.less'
+import '@idux/components/textarea/style/themes/seer.less'
+
 import '@idux/archive-vite-markdown-plugin/style/themes/seer.css'
 
 import '@idux/components/style/core/reset-scroll.seer.css'

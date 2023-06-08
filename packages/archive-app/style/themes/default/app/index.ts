@@ -1,6 +1,8 @@
 import './reset.less'
 
 import '@idux/components/_private/overlay/style/themes/default.less'
+import '@idux/components/_private/selector/style/themes/default.less'
+import '@idux/components/_private/wave/style/themes/default.less'
 import '@idux/components/button/style/themes/default.less'
 import '@idux/components/space/style/themes/default.less'
 import '@idux/components/radio/style/themes/default.less'
@@ -10,6 +12,13 @@ import '@idux/components/tabs/style/themes/default.less'
 import '@idux/components/icon/style/themes/default.less'
 import '@idux/components/anchor/style/themes/default.less'
 import '@idux/components/affix/style/themes/default.less'
+
+import '@idux/components/input/style/themes/default.less'
+import '@idux/components/input-number/style/themes/default.less'
+import '@idux/components/select/style/themes/default.less'
+import '@idux/components/checkbox/style/themes/default.less'
+import '@idux/components/textarea/style/themes/default.less'
+
 import '@idux/archive-vite-markdown-plugin/style/themes/default.css'
 
 import '@idux/components/style/core/reset-scroll.default.css'

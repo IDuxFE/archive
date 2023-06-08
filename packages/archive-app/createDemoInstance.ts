@@ -37,10 +37,14 @@ export function createDemoInstance(
   }
   const unmount = () => instance.unmount()
   const setData = () => {}
+  const getData = () => undefined
+  const watchData = () => {}
 
   return {
     mount,
     unmount,
     setData,
-  }
+    getData,
+    watchData,
+  } as unknown as Instance<object>
 }

@@ -5,7 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { DemoTool, ResolvedDemoItem } from '@idux/archive-types'
+import type { DemoControl, DemoTool, ResolvedDemoItem } from '@idux/archive-types'
+import type { InstanceProp } from '@idux/archive-vite-plugin'
 import type { SetOptional } from 'type-fest'
 
 import {
@@ -31,21 +32,25 @@ import DemoToolComp from './DemoTool'
 
 export const demoProps = {
   lang: { type: String as PropType<'zh' | 'en'>, default: 'zh' },
-  prefixCls: { type: String, default: 'archive-app' },
   resolvedDemoItem: { type: Object as PropType<ResolvedDemoItem>, required: true },
   tools: Array as PropType<DemoTool[]>,
 } as const
-export type DemoProps = SetOptional<ExtractPropTypes<typeof demoProps>, 'lang' | 'prefixCls' | 'tools'>
+export type DemoProps = SetOptional<ExtractPropTypes<typeof demoProps>, 'lang' | 'tools'>
 export default defineComponent({
   props: demoProps,
   setup(props) {
-    const mergedPrefixCls = `${props.prefixCls}-demo`
+    const prefixCls = `archive-app-demo`
+    const mergedControls = computed(() => mergeDemoControls(props.resolvedDemoItem))
     const mergedTools = computed<DemoTool[]>(() => {
       if ((props.tools?.findIndex(tool => tool.type === 'expandCode') ?? -1) > -1) {
         return props.tools!
       }
 
-      return [...(props.tools ?? []), { type: 'expandCode' }, { type: 'expandControls' }] as DemoTool[]
+      return [
+        ...(props.tools ?? []),
+        { type: 'expandCode' },
+        mergedControls.value.length && { type: 'expandControls' },
+      ].filter(Boolean) as DemoTool[]
     })
 
     const selectedSourceTab = ref(0)
@@ -88,11 +93,7 @@ export default defineComponent({
     const renderTool = (tool: DemoTool) => {
       if (tool.type === 'expandCode') {
         return (
-          <DemoToolComp
-            prefixCls={props.prefixCls!}
-            tooltip={tool.tooltip ?? expandedCodeTitle.value}
-            onClick={() => onExpanded('code')}
-          >
+          <DemoToolComp tooltip={tool.tooltip ?? expandedCodeTitle.value} onClick={() => onExpanded('code')}>
             <IxIcon name={expanded.value === 'code' ? 'unexpand' : 'expand'} />
           </DemoToolComp>
         )
@@ -100,11 +101,7 @@ export default defineComponent({
 
       if (tool.type === 'expandControls') {
         return (
-          <DemoToolComp
-            prefixCls={props.prefixCls!}
-            tooltip={tool.tooltip ?? expandedControlsTitle.value}
-            onClick={() => onExpanded('controls')}
-          >
+          <DemoToolComp tooltip={tool.tooltip ?? expandedControlsTitle.value} onClick={() => onExpanded('controls')}>
             <IxIcon name={expanded.value === 'controls' ? 'up' : 'control'} />
           </DemoToolComp>
         )
@@ -112,7 +109,7 @@ export default defineComponent({
 
       if (tool.type === 'copyCode') {
         return (
-          <DemoToolComp prefixCls={props.prefixCls!} tooltip={tool.tooltip ?? copyTitle.value} onClick={onCopy}>
+          <DemoToolComp tooltip={tool.tooltip ?? copyTitle.value} onClick={onCopy}>
             {tool.render ? tool.render() : <IxIcon name={'copy'}></IxIcon>}
           </DemoToolComp>
         )
@@ -120,8 +117,8 @@ export default defineComponent({
 
       if (tool.type === 'link') {
         return (
-          <DemoToolComp prefixCls={props.prefixCls!} tooltip={tool.tooltip} onClick={onCopy}>
-            <a class={`${mergedPrefixCls}__tool-link`} href={tool.link} target="_blank" rel="noopener noreferrer">
+          <DemoToolComp tooltip={tool.tooltip} onClick={onCopy}>
+            <a class={`${prefixCls}__tool-link`} href={tool.link} target="_blank" rel="noopener noreferrer">
               {tool.render ? tool.render() : <IxIcon name={'link'}></IxIcon>}
             </a>
           </DemoToolComp>
@@ -131,11 +128,11 @@ export default defineComponent({
 
     const renderSourceCode = () => {
       const sourceCodes = props.resolvedDemoItem?.sourceCodes
-      if (expanded.value !== 'code' || !sourceCodes) {
+      if (!sourceCodes) {
         return
       }
 
-      const contentCls = `${mergedPrefixCls}__source-code__content`
+      const contentCls = `${prefixCls}__source-code__content`
       let children
       if (sourceCodes.length === 1) {
         children = <div class={contentCls} v-html={sourceCodes[0].parsedCode}></div>
@@ -151,41 +148,105 @@ export default defineComponent({
         )
       }
 
-      return <div class={`${mergedPrefixCls}__source-code archive-md`}>{children}</div>
+      return <div class={`${prefixCls}__source-code archive-md`}>{children}</div>
     }
 
-    const renderDemoControl = (demoItem: ResolvedDemoItem) => {
-      if (expanded.value === 'controls' && demoItem.controls && demoItem.instance) {
-        return (
-          <DemoContorlComp prefixCls={props.prefixCls!} controls={demoItem.controls} instance={demoItem.instance} />
-        )
+    const renderDemoControl = () => {
+      if (expanded.value === 'controls' && mergedControls.value.length && props.resolvedDemoItem.instance) {
+        return <DemoContorlComp controls={mergedControls.value} instance={props.resolvedDemoItem.instance} />
       }
     }
+
+    const renderDropdownPanelContent = () => {
+      if (expanded.value === 'code') {
+        return renderSourceCode()
+      }
+
+      if (expanded.value === 'controls') {
+        return renderDemoControl()
+      }
+    }
+
     return () => {
       const demoItem = props.resolvedDemoItem!
       return (
-        <div class={mergedPrefixCls}>
+        <div class={prefixCls}>
           {demoItem.title && (
-            <h3 id={demoItem.id} class={`${mergedPrefixCls}__title`}>
+            <h3 id={demoItem.id} class={`${prefixCls}__title`}>
               <span>{demoItem.title}</span>
               <a class="anchor" href={'#' + demoItem.id}>
                 #
               </a>
             </h3>
           )}
-          {demoItem.description && <p class={`${mergedPrefixCls}__description`}>{demoItem.description}</p>}
-          <div class={`${mergedPrefixCls}__content`}>
-            <div class={`${mergedPrefixCls}__content-inner`}>
-              <div class={`${mergedPrefixCls}__stage`}>
+          {demoItem.description && <p class={`${prefixCls}__description`}>{demoItem.description}</p>}
+          <div class={`${prefixCls}__content`}>
+            <div class={`${prefixCls}__content-inner`}>
+              <div class={`${prefixCls}__stage`}>
                 <Instance instance={demoItem.instance} />
               </div>
-              <div class={`${mergedPrefixCls}__tools`}>{mergedTools.value.map(tool => renderTool(tool))}</div>
+              <div class={`${prefixCls}__tools`}>{mergedTools.value.map(tool => renderTool(tool))}</div>
             </div>
           </div>
-          <Transition name={`${mergedPrefixCls}-code-fade-down`}>{renderSourceCode()}</Transition>
-          <Transition name={`${mergedPrefixCls}-code-fade-down`}>{renderDemoControl(demoItem)}</Transition>
+          <Transition name={`${prefixCls}-fade-down`}>
+            <div v-show={!!expanded.value} class={`${prefixCls}__dropdown-panel`}>
+              {renderDropdownPanelContent()}
+            </div>
+          </Transition>
         </div>
       )
     }
   },
 }) as DefineComponent<DemoProps>
+
+function mergeDemoControls<D extends Record<string, any>>(item: ResolvedDemoItem<D>): DemoControl[] {
+  const demoProps = item.instance.getProps()
+
+  if (!demoProps.length) {
+    return []
+  }
+
+  return (demoProps
+    ?.map(prop => {
+      const control = item.controls?.[prop.key as string]
+
+      if (!control) {
+        return createControlFromProp(prop)
+      }
+
+      return {
+        ...control,
+        key: prop.key,
+        propType: prop.type,
+      }
+    })
+    ?.filter(Boolean) ?? []) as DemoControl[]
+}
+
+function createControlFromProp<D extends Record<string, any>>(prop: InstanceProp<D>): DemoControl | undefined {
+  const type = ((): DemoControl['type'] | undefined => {
+    switch (prop.type) {
+      case 'string':
+        return 'input'
+      case 'boolean':
+        return 'boolean'
+      case 'number':
+        return 'number'
+      case 'object':
+        return 'json'
+
+      default:
+        break
+    }
+  })()
+
+  if (!type) {
+    return
+  }
+
+  return {
+    key: prop.key,
+    type,
+    propType: prop.type,
+  } as DemoControl
+}

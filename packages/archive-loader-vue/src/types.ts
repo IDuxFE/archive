@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { Instance, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
+import type { Control, Instance, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
 import type { App, ExtractPropTypes, PropType, VNode } from 'vue'
 
@@ -40,7 +40,7 @@ export interface VueItemControls {
 
 export interface VueItemMeta {
   dependencies?: string[]
-  controls?: VueItemControls[]
+  controls?: Record<string, Control>
   title?: string
   description?: string
 }

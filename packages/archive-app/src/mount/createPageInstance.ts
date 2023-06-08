@@ -43,6 +43,8 @@ export function createPageInstance(
   return {
     mount,
     unmount,
+    getData: () => undefined,
     setData: () => {},
-  }
+    watchData: () => {},
+  } as unknown as Instance<object>
 }
