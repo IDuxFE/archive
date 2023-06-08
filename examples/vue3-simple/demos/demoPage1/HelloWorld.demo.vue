@@ -3,13 +3,8 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from './HelloWorld.vue'
 
-const props = withDefaults(defineProps<{ msg: string; bool: boolean; obj: object; num: number }>(), {
-  msg: '123',
-  bool: true,
-  obj: () => {
-    return { key: 1, key2: 3 }
-  },
-  num: 2,
+const props = withDefaults(defineProps<{ msg: string }>(), {
+  msg: '123'
 })
 </script>
 
@@ -38,24 +33,6 @@ const props = withDefaults(defineProps<{ msg: string; bool: boolean; obj: object
 {
   "title": "demo1",
   "description": "description",
-  "dependencies": ["./HelloWorld.vue"],
-  "controls": [
-    {
-      "prop": "msg",
-      "type": "string"
-    },
-    {
-      "prop": "bool",
-      "type": "boolean"
-    },
-    {
-      "prop": "obj",
-      "type": "object"
-    },
-    {
-      "prop": "num",
-      "type": "number"
-    }
-  ]
+  "dependencies": ["./HelloWorld.vue"]
 }
 </archive-meta>

@@ -71,7 +71,6 @@ export default defineComponent({
                   v-show={visibleDemoIds.value.includes(demoItem.id)}
                   resolvedDemoItem={demoItem}
                   tools={getDemoTools?.(demoItem)}
-                  prefixCls="archive-app"
                   lang="zh"
                 />
               )),

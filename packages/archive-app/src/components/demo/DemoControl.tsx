@@ -5,49 +5,78 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { ResolvedDemoItem, VueItemControls } from '@idux/archive-types'
+import type { DemoControl, ResolvedDemoItem } from '@idux/archive-types'
 
-import { type PropType, defineComponent, h } from 'vue'
+import { type PropType, defineComponent } from 'vue'
 
-import BooleanCtrl from './BooleanCtrl'
+import { IxIcon } from '@idux/components/icon'
+import { IxTooltip } from '@idux/components/tooltip'
+
+import BoolCtrl from './BoolCtrl'
+import CheckboxCtr from './CheckboxCtr'
+import InputCtrl from './InputCtrl'
+import JsonCtrl from './JsonCtrl'
 import NumberCtrl from './NumberCtrl'
-import ObjectCtrl from './ObjectCtrl'
-import StringCtrl from './StringCtrl'
+import RadioCtr from './RadioCtr'
+import SelectCtrl from './SelectCtrl'
+import TextareaCtrl from './TextareaCtrl'
+import { defineCtrComponent } from './defineCtrComponent'
 
 export default defineComponent({
   props: {
-    instance: { type: Object as PropType<ResolvedDemoItem['instance']>, required: true },
-    controls: { type: Array as PropType<VueItemControls[]>, required: true },
-    prefixCls: { type: String, required: true },
+    instance: { type: Object as PropType<ResolvedDemoItem<Record<string, any>>['instance']>, required: true },
+    controls: { type: Array as PropType<DemoControl[]>, required: true },
   },
   setup(props) {
-    const ctrlMap = {
-      string: StringCtrl,
-      number: NumberCtrl,
-      boolean: BooleanCtrl,
-      object: ObjectCtrl,
+    const prefixCls = 'archive-app-demo__control'
+
+    function renderControl(control: DemoControl) {
+      const ControlComponent = (() => {
+        switch (control.type) {
+          case 'boolean':
+            return BoolCtrl
+          case 'input':
+            return InputCtrl
+          case 'number':
+            return NumberCtrl
+          case 'textarea':
+            return TextareaCtrl
+          case 'select':
+            return SelectCtrl
+          case 'radio':
+            return RadioCtr
+          case 'checkbox':
+            return CheckboxCtr
+          case 'json':
+            return JsonCtrl
+          default:
+            break
+        }
+      })() as ReturnType<typeof defineCtrComponent<any, any>>
+
+      return ControlComponent ? <ControlComponent control={control} instance={props.instance} /> : undefined
     }
-    const prefixCls = `${props.prefixCls}-demo__control`
+
     return () => (
       <div class={prefixCls}>
-        <div class={`${prefixCls}__list`}>
-          <div class={`${prefixCls}__list__row`}>
-            <div class={`${prefixCls}__list__col`}>name</div>
-            <div class={`${prefixCls}__list__col`}>type</div>
-            <div class={`${prefixCls}__list__grow`}>control</div>
-          </div>
-          {props.controls?.map(item => {
-            return (
-              <div class={`${prefixCls}__list__row`}>
-                <div class={`${prefixCls}__list__col`}>{item.prop}</div>
-                <div class={`${prefixCls}__list__col`}>{item.type}</div>
-                <div class={`${prefixCls}__list__grow`}>
-                  {h(ctrlMap[item.type], { control: item, instance: props.instance })}
+        {props.controls?.map(item => {
+          const controlNode = renderControl(item)
+          return (
+            controlNode && (
+              <div class={`${prefixCls}__item`}>
+                <div class={`${prefixCls}__item__label`} title={item.label ?? item.key}>
+                  <span>{item.label ?? item.key}: </span>
+                  {item.description && (
+                    <IxTooltip title={item.description} class={`${prefixCls}__item__tooltip`} placement="rightStart">
+                      <IxIcon class={`${prefixCls}__item__tooltip-icon`} name="info-circle" />
+                    </IxTooltip>
+                  )}
                 </div>
+                <div class={`${prefixCls}__item__control`}>{renderControl(item)}</div>
               </div>
             )
-          })}
-        </div>
+          )
+        })}
       </div>
     )
   },

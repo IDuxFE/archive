@@ -15,15 +15,14 @@
 
     .anchor {
       float: left;
-      margin-left: -.87em;
-      padding-right: .23em;
+      margin-left: -0.87em;
+      padding-right: 0.23em;
       font-weight: 500;
       opacity: 0;
-      transition: color .25s,opacity .25s;
+      transition: color 0.25s, opacity 0.25s;
       text-decoration: none;
     }
-    
-    
+
     &:hover .anchor {
       opacity: 1;
     }
@@ -67,36 +66,17 @@
     background: var(--archive-app-demo-tools-background);
   }
 
-  &__control{
-    &__list{
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-direction: column;
-      &__row{
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        width: 100%;
-      }
-      &__col{
-        flex: 0 0 auto;
-        width: calc(33.33% - 4px);
-        min-width: 100px;
-        max-width: 200px;
-        padding: 4px;
-      }
-      &__grow{
-        flex-grow: 1;
-        min-width: 0;
-        width: auto;
-      }
-    }
-  }
-
   &__tool {
     font-size: var(--archive-app-demo-tool-font-size);
     cursor: pointer;
+  }
+
+  &__dropdown-panel {
+    width: 100%;
+    box-shadow: 0 4px 12px 0 rgb(30 35 43 / 10%);
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    overflow: hidden;
   }
 
   &__source-code {
@@ -109,13 +89,52 @@
 
     &__content > div[class*='language-'] {
       margin: 0;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+      border-radius: 0;
+    }
+  }
+
+  &__control {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      &__label {
+        width: var(--archive-app-demo-control-label-width);
+        font-size: var(--archive-app-demo-control-label-font-size);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      &__control {
+        flex: auto;
+        width: 0;
+        font-size: var(--archive-app-demo-control-font-size);
+      }
+      &__tooltip {
+        font-size: 14px;
+        &-icon {
+          font-size: 16px;
+          color: #1c6eff;
+          cursor: pointer;
+        }
+      }
+    }
+
+    & &-json,
+    & &-textarea {
+      .archive-app-textarea-inner {
+        height: 200px;
+      }
     }
   }
 }
 
-.@{demo-prefix}-code-fade-down {
+.@{demo-prefix}-fade-down {
   &-enter-active {
     transition: opacity var(--archive-app-demo-source-code-transition-duration)
         var(--archive-app-demo-source-code-transition-timing-fn),

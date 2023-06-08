@@ -13,6 +13,7 @@ import {
   Copy,
   Expand,
   IDUX_ICON_DEPENDENCIES,
+  InfoCircle,
   Link,
   Unexpand,
   Up,
@@ -21,7 +22,7 @@ import {
 import { createGlobalConfig as createProGlobalConfig } from '@idux/pro/config'
 
 addIconDefinitions(IDUX_ICON_DEPENDENCIES)
-addIconDefinitions([Expand, Unexpand, Copy, Link, Control, Up])
+addIconDefinitions([Expand, Unexpand, Copy, Link, Control, Up, InfoCircle])
 
 const globalConfig = createGlobalConfig({
   common: {
