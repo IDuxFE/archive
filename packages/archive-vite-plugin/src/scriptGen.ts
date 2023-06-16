@@ -54,8 +54,8 @@ function createItemHmrScript(variable: string) {
       if (newModule) {
         const { default: newItem } = newModule;
 
-        if (__ARCHIVE_HMR_RUNTIME__) {
-          __ARCHIVE_HMR_RUNTIME__._updateItem(${variable}, newItem)
+        if (window.__ARCHIVE_HMR_RUNTIME__) {
+          window.__ARCHIVE_HMR_RUNTIME__._updateItem(${variable}, newItem)
         }
       }
     })

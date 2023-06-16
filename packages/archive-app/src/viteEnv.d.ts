@@ -10,7 +10,10 @@ import type { HmrRuntime } from '@idux/archive-vite-plugin'
 declare global {
   const __DEV__: boolean
   const __BASE_URL__: string
-  export const __ARCHIVE_HMR_RUNTIME__: HmrRuntime
+
+  interface Window {
+    __ARCHIVE_HMR_RUNTIME__?: HmrRuntime
+  }
 }
 
 export {}
