@@ -22,8 +22,8 @@ export function useArchiveItemImport<
   const resolvedItem = computed(() => updatedItem.value ?? data.value?.default)
 
   let stop: (() => void) | undefined
-  if (__ARCHIVE_HMR_RUNTIME__) {
-    stop = __ARCHIVE_HMR_RUNTIME__.onItemChange(item => {
+  if (window.__ARCHIVE_HMR_RUNTIME__) {
+    stop = window.__ARCHIVE_HMR_RUNTIME__.onItemChange(item => {
       if (updatedItem.value?.id === item.id || data.value?.default.id === item.id) {
         updatedItem.value = item as I
       }
@@ -59,8 +59,8 @@ export function useArchiveItemImports<
   )
 
   let stop: (() => void) | undefined
-  if (__ARCHIVE_HMR_RUNTIME__) {
-    stop = __ARCHIVE_HMR_RUNTIME__.onItemChange(item => {
+  if (window.__ARCHIVE_HMR_RUNTIME__) {
+    stop = window.__ARCHIVE_HMR_RUNTIME__.onItemChange(item => {
       if (!!updatedItems.value[item.id] || data.value?.findIndex(loadedItem => loadedItem.default.id === item.id)) {
         updatedItems.value[item.id] = item as I
       }

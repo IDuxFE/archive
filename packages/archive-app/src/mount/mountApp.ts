@@ -21,7 +21,10 @@ import { appContextToken, breakpointsToken, themeToken } from '../token'
 import iduxInstall from './iduxInstall'
 
 // eslint-disable-next-line import/no-unassigned-import
-import '@idux/archive-vite-plugin/hmr'
+
+if (__DEV__) {
+  import('@idux/archive-vite-plugin/hmr')
+}
 
 export function mountApp(options: AppMountOptions): void {
   const { navRecords, routeRecords, el, renderers = {}, setupOptions, setupApp } = options
