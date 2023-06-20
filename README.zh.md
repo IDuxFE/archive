@@ -2,6 +2,8 @@
 
 `@idux/archive` 是一个文档构建工具，可用于组件库文档以及任何其他交互式文档的维护。
 
+更多内容请查看： [idux archvie 网站](https://archive.idux.site/)
+
 <div align="center">
 
 <!-- [![Build Status](https://dev.azure.com/iduxfeteam/IduxFE/_apis/build/status/IduxFE.idux?branchName=main)](https://dev.azure.com/iduxfeteam/IduxFE/_build/latest?definitionId=2&branchName=main)
