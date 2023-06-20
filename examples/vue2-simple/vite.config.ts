@@ -6,6 +6,11 @@ export default defineConfig({
   plugins: [
     createVuePlugin({
       include: [/\.vue$/, /\.md$/],
+      vueTemplateOptions: {
+        compilerOptions: {
+          whitespace: 'preserve'
+        }
+      }
     }),
   ],
   build: {
