@@ -19,10 +19,10 @@ Idux Archive 为组件文档静态站点快速搭建而生，可用于搭建组�
 
 - `@idux/archive`: 核心模块
 - `@idux/archive-app`: web UI应用，同时暴露了 app 用到的 vue，用于用户自定义渲染
-- `@idux/archive-vite-plugin`: 负责项目 demo 收集和管理的 vite 插件
+- `@idux/archive-vite-plugin`: 负责将基于不同框架的组件转换成框架无关的 `archive instance` 的vite 插件
 - `@idux/archive-vite-markdown-plugin`: 用于将 `.md` 文件加载为 vue 组件的 vite 插件
-- `@idux/archive-page-loader-vue`: 用于将 vue 组件 加载作为文档页面的模块
-- `@idux/archive-collector-vue`: 用于收集和处理 vue SFC 格式的 demo
+- `@idux/archive-loader-vue`: 基于 `@idux/archive-vite-plugin` 的 vue3 组件 loader
+- `@idux/archive-loader-vue2`: 基于 `@idux/archive-vite-plugin` 的 vue2 组件 loader
 - `@idux/archive-utils`: 工具函数集合
 - `@idux/archive-types`: 公共类型
 
@@ -42,15 +42,15 @@ Idux Archive 为组件文档静态站点快速搭建而生，可用于搭建组�
 
 ## 🚩 开发计划
 
-- 添加 Vue2 demo 的加载器
-- API 文档自动生成
-- 更好的热更新支持
-- 更好的日志
-- 引入插件体系用来封装常用的自定义内容
-- 引入控件方便在 Web UI 上交互式得修改 demo 参数
-- 支持文档元信息提取以及搜索
-- Typescript 格式配置文件支持
-- 支持编写文档首页
+- ☑️ 添加 Vue2 demo 的Loader
+- ⬜ API 文档自动生成
+- ☑️ 更好的热更新支持
+- ⬜ 更好的日志
+- ⬜ 引入插件体系用来封装常用的自定义内容
+- ☑️ 引入控件方便在 Web UI 上交互式得修改 demo 参数
+- ⬜ 支持文档元信息提取以及搜索
+- ⬜ Typescript 格式配置文件支持
+- ⬜ 支持编写文档首页
 
 ## ☀️ 授权协议
 

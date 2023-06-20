@@ -1,69 +1,37 @@
-# Vue SFC 格式 demo
+# Loader参数
 
-Vue SFC 格式的 demo 通过收集器 `@idux/archive-collector-vue` 进行解析以及渲染
+即 `createArchiveVueLoader` 的参数 `ArchiveLoaderVueOptions`
 
-## 使用
-
-需要引入收集器 `@idux/archive-collector-vue` 来解析和渲染 vue SFC 格式的 demo，在配置文件中添加以下代码：
-
-```js
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
-
-import { defineConfig } from '@idux/archive'
-import { createVuePageLoader } from '@idux/archive-page-loader-vue'
-import { createVueCollector } from '@idux/archive-collector-vue'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-export default defineConfig({
-  root: resolve(__dirname, './docs'),
-  theme: {
-    themeStyle: 'seer',
-    layout: {
-      type: 'sider',
-    },
-  },
-  pageLoaders: [createVuePageLoader()],
-  collectors: [createVueCollector({ matchPattern: '**/*.demo.vue' })], // [!code ++]
-})
+```ts
+function createArchiveVueLoader(options?: ArchiveLoaderVueOptions): ArchiveLoaderVue {
+  ...
+}
 ```
 
-## Demo 编写
+```ts
+interface ArchiveLoaderVueOptions extends SetOptional<Except<Loader, 'name'>, 'matched'> {
+  setup?: string
+  srcDir?: string
+  includeMeta?: boolean
+  includeSourceCodes?: boolean
+}
+```
 
-### Demo 主体
+`ArchiveLoaderVueOptions` 继承自 `Loader`，参考 [Loader](/loader/Brief)
 
-与普通 vue SFC 写法一致
-
-### Demo 元信息
-
-通过添加 `<archie-meta>...</archie-meta>` block 来设置元信息，内容为 `json` 格式。
-
-其中包含以下几项：
-
-| 名称 | 类型 | 描述 |
-| - | -- | --- |
-| title | `string` | demo 标题 |
-| description | `string` | demo 描述 |
-| dependencies | `string[]` | demo 依赖文件的路径，相对路径或者绝对路径。<br/>如果提供依赖文件，则在源码展示中会将依赖的代码也显示出来 |
-
-## Collector 配置
-
-<!-- ### 基础配置
-
-继承自 `Collector` 类型，详情请查看 // TODO -->
+## 配置内容
 
 ### setup
 
 - 类型：`string`
 - 是否可选：是
 
-demo 初始化脚本的路径，可以使用该脚本对 demo vue 实例所在的 app 上下文进行初始化，也可以用来执行其他的初始化逻辑。同时可以自定义 demo 所在 app 的渲染。
+组件实例初始化脚本的路径，可以使用该脚本对 vue 实例所在的 app 上下文进行初始化，也可以用来执行其他的初始化逻辑。同时可以自定义组件所在 app 的渲染。
 
 脚本为一个 `.ts` 或者 `.js` 类型文件，使用 `esm` 默认导出以下类型：
 
 ```ts
-interface VueCollectorSetup {
+interface ArchiveLoaderVueSetup {
   setupApp?: (app: App) => void
   renderApp?: (children: VNode[]) => VNode
 }
@@ -71,11 +39,11 @@ interface VueCollectorSetup {
 
 - __setupApp__
 
-demo 所在的 vue app 的初始化执行函数，它会在 app 挂载前执行，可以用在注册组件或者添加全局配置等。
+组件实例所在的 vue app 的初始化执行函数，它会在 app 挂载前执行，可以用在注册组件或者添加全局配置等。
 
 - __renderApp__
 
-demo 所在的 vue app 的自定义渲染函数，通常用来加入一些自定义的包裹容器，例如 `IxMessageProvider`等。
+组件实例所在的 vue app 的自定义渲染函数，通常用来加入一些自定义的包裹容器，例如 `IxMessageProvider`等。
 
 __示例__: 
 
@@ -85,7 +53,7 @@ import '@idux/components/style/core/reset.seer.css'
 import '@idux/components/seer.css'
 import '@idux/pro/seer.css'
 
-import type { VueCollectorSetup } from '@idux/archive-collector-vue'
+import type { ArchiveLoaderVueSetup } from '@idux/archive-loader-vue'
 import type { IconDefinition } from '@idux/components/icon'
 
 import { App, h } from 'vue'
@@ -133,7 +101,7 @@ export default {
       ),
     )
   },
-} as VueCollectorSetup
+} as ArchiveLoaderVueSetup
 
 function changeCase(iconName: string) {
   return iconName
@@ -149,3 +117,22 @@ function changeCase(iconName: string) {
 3. 注册 IDUX 组件图标加载方法
 4. 自定义APP渲染，在最外层包裹全部会用到的 `Provider`
 5. 引入组件样式
+
+### srcDir
+
+- 类型：`string`
+- 是否可选：是
+
+### includeMeta
+
+- 类型：`boolean`
+- 是否可选：是
+
+是否需要解析元信息，如果不解析则仅会解析 `Instance` 内容。
+
+### includeSourceCodes
+
+- 类型：`boolean`
+- 是否可选：是
+
+是否需要解析源码。

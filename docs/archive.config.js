@@ -1,15 +1,12 @@
-import { readFileSync, readdirSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
-import { basename, dirname, resolve } from 'path'
+const { readFileSync, readdirSync } = require('node:fs')
+const { basename, resolve } = require('path')
 
-import { defineConfig } from '@idux/archive'
+const { defineConfig } = require('@idux/archive')
 
-import { createArchiveVuePageLoader } from '@idux/archive-loader-vue'
-import { getNavFromDirectory } from '@idux/archive-utils'
+const { createArchiveVuePageLoader, createArchiveVueDemoLoader } = require('@idux/archive-loader-vue')
+const { getNavFromDirectory } = require('@idux/archive-utils')
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-export default defineConfig({
+module.exports = defineConfig({
   root: resolve(__dirname, './src'),
   theme: {
     themeStyle: 'default',
@@ -133,12 +130,15 @@ export default defineConfig({
           demos: !tabs.length ? demos : undefined,
         }
       },
+      mapRecords(_, records) {
+        return records.map(record => record.type === 'sub' ? {...record, type: 'group'} : record)
+      }
     })
 
     return navRecords
   },
   pageLoaders: [createArchiveVuePageLoader()],
-  // collectors: [createVueCollector({ matchPattern: '**/*.demo.vue' })],
+  demoLoaders: [createArchiveVueDemoLoader()],
 })
 
 function getBaseName(dir) {

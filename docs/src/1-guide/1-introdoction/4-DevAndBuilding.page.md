@@ -11,9 +11,10 @@ Idux Archive 的**本地调试**以及**打包**均基于**vite**实现，因此
 {
   ...
   "scripts": {
-    "dev": "idux-archive dev",
-    "build": "idux-archive build",
-    "build:pages": "idux-archive build -t page"
+    "dev": "archive dev",
+    "build": "archive build",
+    "build:pages": "archive build -t page",
+    "build:instances": "archive build -t instances"
   },
   ...
 }
@@ -22,16 +23,11 @@ Idux Archive 的**本地调试**以及**打包**均基于**vite**实现，因此
 4. 文档项目的 `archive.config.js` 配置文件初始内容如下：
 
 ```js
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
+const { resolve } = require('path')
+const { defineConfig } = require('@idux/archive')
+const { createArchiveVuePageLoader, createArchiveVueDemoLoader } = require('@idux/archive-loader-vue')
 
-import { defineConfig } from '@idux/archive'
-import { createVuePageLoader } from '@idux/archive-page-loader-vue'
-import { createVueCollector } from '@idux/archive-collector-vue'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-export default defineConfig({
+module.exports = defineConfig({
   root: resolve(__dirname, './demos'),
   theme: {
     themeStyle: 'seer',
@@ -39,8 +35,8 @@ export default defineConfig({
       type: 'sider',
     },
   },
-  pageLoaders: [createVuePageLoader()],
-  collectors: [createVueCollector({ matchPattern: '**/*.demo.vue' })],
+  pageLoaders: [createArchiveVuePageLoader()],
+  demoLoaders: [createArchiveVueDemoLoader()],
 })
 ```
 
@@ -82,7 +78,7 @@ $ npm run dev
 {
   ...
   "scripts": {
-    "dev": "idux-archive dev --port 4171"
+    "dev": "archive dev --port 4171"
   },
   ...
 }
@@ -98,7 +94,7 @@ $ npm run dev
 {
   ...
   "scripts": {
-    "dev": "idux-archive dev --root ./docs_root"
+    "dev": "archive dev --root ./docs_root"
   },
   ...
 }
@@ -139,7 +135,7 @@ $ npm run build
 {
   ...
   "scripts": {
-    "build": "idux-archive build --root ./docs_root"
+    "build": "archive build --root ./docs_root"
   },
   ...
 }
@@ -196,7 +192,7 @@ $ npm run build:pages
 | pages | `Record<string, Component>` | 以对象形式提供的页面组件，键对应了页面的在app中的路由路径，值则是 vue 组件 |
 | navRecords | `NavRecord[]` | 应用的完整导航信息，可用于处理导出的页面组件 |
 
-> 关于 `NavRecord` 的描述详情请查看 // TODO
+> 关于 `NavRecord` 的描述详情请查看 [导航配置](/guide/documents/Nav)
 
 通过这样的导出方式，可以将文档的页面以组件的形式添加到已有的 vue 项目当中，可以作为某个页面的子组件，也可以作为单独的页面，方便独立站点框架的完全自定义。
 
@@ -223,7 +219,7 @@ $ npm run build:pages
 
 | 变量 | 类型 | 描述 |
 | - | --- | ----- |
-| pages | `Record<string, PageInstance>` | 以对象形式提供的页面 instance，键对应了页面的在app中的路由路径，值则是 vue 组件 |
+| instances | `Record<string, PageInstance>` | 以对象形式提供的页面 instance，键对应了页面的在app中的路由路径，值则是 vue 组件 |
 | navRecords | `NavRecord[]` | 应用的完整导航信息，可用于处理导出的页面组件 |
 
 ```ts
