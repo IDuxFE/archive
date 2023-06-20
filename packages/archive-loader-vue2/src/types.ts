@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { Control, Instance, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
+import type { Instance, LoadedItem, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
 import type { ComponentOptions, PropType, VNode, VueConstructor } from 'vue'
 
@@ -30,25 +30,16 @@ export interface ArchiveLoaderVue2Setup {
 
 export type ArchiveLoaderVue2Instance<D extends Record<string, any> = Record<string, any>> = Instance<D>
 
-export interface SourceCode {
-  filename: string
-  code: string
-  parsedCode: string
-}
-
-export interface Vue2ItemMeta {
+export interface Vue2ItemMeta extends Pick<LoadedItem, 'description' | 'controls' | 'title'> {
   dependencies?: string[]
-  title?: string
-  controls?: Record<string, Control>
-  description?: string
 }
 
-export interface ArchiveLoaderVue2ResolvedItem extends ResolvedItem, Vue2ItemMeta {
-  instance: ArchiveLoaderVue2Instance
+export interface ArchiveLoaderVue2ResolvedItem<D extends object> extends ResolvedItem<D> {
+  instance: ArchiveLoaderVue2Instance<D>
 }
 
 export const instanceCompProps = {
-  instance: Object as PropType<ArchiveLoaderVue2Instance>,
+  instance: Object as PropType<ArchiveLoaderVue2Instance<Record<string, any>>>,
   onInstanceMountedChange: Function as unknown as PropType<(mounted: boolean) => void>,
 } as const
 export interface InstanceCompProps {

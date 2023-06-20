@@ -39,6 +39,7 @@ interface ResolvedItemNavRecord extends Except<ItemNavRecord, 'pageData'> {
   pageData: ResolvedPageData
 }
 interface ResolvedGroupNavRecord extends Except<GroupNavRecord, 'children'> {
+  path: string
   children: ResolvedNavRecord[]
 }
 interface ResolvedSubNavRecord extends Except<SubNavRecord, 'children'> {

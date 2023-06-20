@@ -10,7 +10,7 @@ import type { ArchiveLoaderVue, ArchiveLoaderVueOptions } from './src/types'
 import { createArchiveVueLoader } from './src/createLoader'
 
 export function createArchiveVuePageLoader(options: ArchiveLoaderVueOptions): ArchiveLoaderVue {
-  return createArchiveVueLoader({ prefix: 'archive-page:', ...options })
+  return createArchiveVueLoader({ prefix: 'archive-page:', includeMeta: false, includeSourceCodes: false, ...options })
 }
 export function createArchiveVueDemoLoader(options: ArchiveLoaderVueOptions): ArchiveLoaderVue {
   return createArchiveVueLoader({ prefix: 'archive-demo:', includeMeta: true, includeSourceCodes: true, ...options })
