@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/IDuxFE/archive/compare/v0.4.0...v0.4.1) (2023-06-20)
+
+### Bug Fixes
+
+- **app,vite-plugin:** hmr runtime in undefined under production ([31f97c3](https://github.com/IDuxFE/archive/commit/31f97c302d8536cf23d6d80161bfd4da5c9be5f9))
+- **app:** components shouldn't export vue3 related component ([30fed20](https://github.com/IDuxFE/archive/commit/30fed20fe6a7bc6085648b086a74d9ef471d78f6))
+- **archive, archive-app:** group type navRecord should have path ([a2988b4](https://github.com/IDuxFE/archive/commit/a2988b417329bf2f2904f5437d49af3823d480ec))
+
 # [0.4.0](https://github.com/IDuxFE/archive/compare/v0.3.1...v0.4.0) (2023-06-08)
 
 ### Bug Fixes

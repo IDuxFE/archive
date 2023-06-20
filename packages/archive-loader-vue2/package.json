@@ -1,6 +1,6 @@
 {
   "name": "@idux/archive-loader-vue2",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
@@ -38,8 +38,8 @@
     "pathe": "^1.0.0"
   },
   "devDependencies": {
-    "@idux/archive-types": "^0.4.0",
-    "@idux/archive-vite-plugin": "^0.4.0",
+    "@idux/archive-types": "^0.4.1",
+    "@idux/archive-vite-plugin": "^0.4.1",
     "@types/lodash-es": "^4.17.6",
     "lodash-es": "^4.17.21",
     "vue": "~2.6.0"
