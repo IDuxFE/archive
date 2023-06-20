@@ -2,6 +2,8 @@
 
 `@idux/archive` is a documentation builder for components library and any need to create interactive documentation site.
 
+more infomation on [idux archvie site](https://archive.idux.site/)
+
 <div align="center">
 
 <!-- [![Build Status](https://dev.azure.com/iduxfeteam/IduxFE/_apis/build/status/IduxFE.idux?branchName=main)](https://dev.azure.com/iduxfeteam/IduxFE/_build/latest?definitionId=2&branchName=main)

@@ -53,7 +53,7 @@ npm run dev
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/IDuxFE/archive/pulls)
 
-在任何形式的参与前，请先阅读 [贡献者文档](https://github.com/IDuxFE/idux/blob/main/Contributing.en.md)。如果你希望参与贡献，欢迎 [Pull Request](https://github.com/IDuxFE/archive/pulls)，或给我们 [报告 Bug](https://github.com/IDuxFE/archive/issues)。
+在任何形式的参与前，请先阅读 [贡献者文档](https://github.com/IDuxFE/archive/blob/main/Contributing.en.md)。如果你希望参与贡献，欢迎 [Pull Request](https://github.com/IDuxFE/archive/pulls)，或给我们 [报告 Bug](https://github.com/IDuxFE/archive/issues)。
 
 
 ## 💖 特别感谢
