@@ -84,7 +84,6 @@ async function createCommonViteConfig(
       archiveConfig.watchNavConfig(update)
     },
 
-    // TODO: hmr
     load(id) {
       if (id.startsWith(RESOLVED_APP_MOUNT_OPTIONS_ID)) {
         const { resolvedNavRecords, routeRecords } = archiveConfig.getResolvedRecords()

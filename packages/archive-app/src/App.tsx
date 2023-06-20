@@ -43,7 +43,7 @@ export default defineComponent(() => {
   })
 
   const renderItemLabel = (item: ResolvedMenuData) => {
-    if (item.recordType === 'item' || item.recordType === 'sub') {
+    if (item.recordType === 'item' || item.recordType === 'sub' || item.recordType === 'group') {
       return (
         <RouterLink to={item.path}>
           <span>{item.name}</span>
@@ -58,8 +58,6 @@ export default defineComponent(() => {
         </a>
       )
     }
-
-    return <span>{item.name}</span>
   }
 
   const renderLogo = renderers.logo ? () => render(theme.logo, renderers.logo) : undefined

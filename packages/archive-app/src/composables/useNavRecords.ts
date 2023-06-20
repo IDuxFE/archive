@@ -92,7 +92,7 @@ export function useNavRecords(
   const menuData = processRecords(navRecords)
   const activeRecords = computed(() => {
     const _activeRecords: ResolvedNavRecord[] = []
-    const currentActiveRecord = pathRecordMap.get(route.path)
+    const currentActiveRecord = pathRecordMap.get(route.path.replace(/\/$/, ''))
 
     if (currentActiveRecord) {
       _activeRecords.push(currentActiveRecord)
