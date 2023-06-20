@@ -1,4 +1,4 @@
-# 文档页面编写
+# 简介
 
 每一个文档页面，均包含多种属性，且具有多种呈现形式，这些属性的最终解析结果会交给 Web UI 来渲染出具体的页面。
 
@@ -15,15 +15,11 @@
 例：
 
 ```js
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
+const { resolve } = require('path')
+const { defineConfig } = require('@idux/archive')
+const { createArchiveVuePageLoader } = require('@idux/archive-loader-vue')
 
-import { defineConfig } from '@idux/archive'
-import { createVuePageLoader } from '@idux/archive-page-loader-vue'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-export default defineConfig({
+module.exports = defineConfig({
   root: resolve(__dirname, './docs'),
   theme: {
     themeStyle: 'seer',
@@ -32,7 +28,7 @@ export default defineConfig({
     },
   },
   pageLoaders: [createVuePageLoader()],
-  navConfig(_, root) {
+  navConfig(root) {
     return [{
       id: 'pageId',
       type: 'item',
@@ -49,20 +45,18 @@ export default defineConfig({
 
 ## Demo 页面
 
-如果 `pageData` 中存在且仅存在 `demoIds` 属性， 则该导航对应的页面是一个 __Demo 页面__。
+如果 `pageData` 中存在且仅存在 `demos` 属性， 则该导航对应的页面是一个 __Demo 页面__。
+
+`demos` 为 demo 文件的路径列表
 
 例：
 
 ```js
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
+const { resolve } = require('path')
+const { defineConfig } = require('@idux/archive')
+const { createArchiveVuePageLoader, createArchiveVueDemoLoader } = require('@idux/archive-loader-vue')
 
-import { defineConfig } from '@idux/archive'
-import { createVuePageLoader } from '@idux/archive-page-loader-vue'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-export default defineConfig({
+module.exports = defineConfig({
   root: resolve(__dirname, './docs'),
   theme: {
     themeStyle: 'seer',
@@ -71,14 +65,15 @@ export default defineConfig({
     },
   },
   pageLoaders: [createVuePageLoader()],
-  navConfig(demos, root) {
+  demoLoaders: [createArchiveVueDemoLoader()],
+  navConfig(root) {
     return [{
       id: 'pageId',
       type: 'item',
       pageData: {
         title: 'Demo 页面',
         description: '描述。。。',
-        demoIds: [demos.map(demo => demo.id)],
+        demos: [resolve(root, 'path/to/demo1.vue'), resolve(root, 'path/to/demo2.vue')],
       }
     },
     ...]
@@ -99,9 +94,9 @@ interface BasePageTab {
   id: string
   name: string
   src: string
-  demoIds: string[]
+  demos: string[]
 }
-export type PageTab = RequireExactlyOne<BasePageTab, 'src' | 'demoIds'>
+export type PageTab = RequireExactlyOne<BasePageTab, 'src' | 'demos'>
 ```
 
 ### 单文件标签页
@@ -112,20 +107,16 @@ export type PageTab = RequireExactlyOne<BasePageTab, 'src' | 'demoIds'>
 
 ### Demo 标签页
 
-如果 `pageData` 中存在且仅存在 `demoIds` 属性， 则该导航对应的页面是一个 __Demo 标签页__。
+如果 `pageData` 中存在且仅存在 `demos` 属性， 则该导航对应的页面是一个 __Demo 标签页__。
 
 ### 示例
 
 ```js
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
+const { resolve } = require('path')
+const { defineConfig } = require('@idux/archive')
+const { createArchiveVuePageLoader, createArchiveVueDemoLoader } = require('@idux/archive-loader-vue')
 
-import { defineConfig } from '@idux/archive'
-import { createVuePageLoader } from '@idux/archive-page-loader-vue'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-export default defineConfig({
+module.exports = defineConfig({
   root: resolve(__dirname, './docs'),
   theme: {
     themeStyle: 'seer',
@@ -134,7 +125,7 @@ export default defineConfig({
     },
   },
   pageLoaders: [createVuePageLoader()],
-  navConfig(demos, root) {
+  navConfig(root) {
     return [{
       id: 'pageId',
       type: 'item',
@@ -148,7 +139,7 @@ export default defineConfig({
         }, { // Demo 标签页
           id: 'tab2',
           name: 'Demos',
-          demoIds: [demos.map(demo => demo.id)],
+          demos: [resolve(root, 'path/to/demo.vue')],
         }],
       }
     },
@@ -156,7 +147,3 @@ export default defineConfig({
   }
 })
 ```
-
-## 页面加载器
-
-请查看[页面加载器](/guide/customization/PageLoader/)

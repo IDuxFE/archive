@@ -2,10 +2,9 @@
   "name": "idux-archive-docs",
   "private": true,
   "version": "0.4.0",
-  "type": "module",
   "scripts": {
     "docs:dev": "npx archive dev",
-    "docs:build": "npx archive build"
+    "docs:build": "npx archive build && node ./scripts/transformIndex.js"
   },
   "dependencies": {
     "@idux/archive-app": "^0.4.0",
@@ -13,6 +12,7 @@
   },
   "devDependencies": {
     "@idux/archive": "^0.4.0",
+    "@idux/archive-app": "^0.4.0",
     "@idux/archive-loader-vue": "^0.4.0",
     "@idux/archive-utils": "^0.4.0",
     "@vitejs/plugin-vue": "^3.2.0",

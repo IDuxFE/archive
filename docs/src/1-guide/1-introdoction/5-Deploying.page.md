@@ -1,6 +1,6 @@
 # 部署
 
-基于上一章[本地调试与打包](/guide/introdoction/DevAndBuilding)，生成的文件可以使用诸如 `nginx` 之类的 web 服务器部署，也可以部署到 **GitHub Pages** 等，这一章将会解决如何部署文档应用到服务端的问题。
+基于上一章[本地调试与打包](/guide/introdoction/DevAndBuilding/)，生成的文件可以使用诸如 `nginx` 之类的 web 服务器部署，也可以部署到 **GitHub Pages** 等，这一章将会解决如何部署文档应用到服务端的问题。
 
 部署目标的根路径通常不一定是 `/`, 可以通过修改 `vite.config.ts` 中的 `base` 来修改
 

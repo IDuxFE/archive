@@ -8,9 +8,9 @@
 
 ### 页面元信息
 
-- 导航名称：文件名在 `.page.{vue,md}` 的部分
-- ID：文件名在 `.page.{vue,md}` 的部分
-- 标题：文件名在 `.page.{vue,md}` 的部分
+- 导航名称：文件名在 `.page.{vue,md}` 前的部分文字
+- ID：文件名在 `.page.{vue,md}` 前的部分文字
+- 标题：文件名在 `.page.{vue,md}` 前的部分文字
 - 描述：无
 
 ### Markdown 文档页面
@@ -23,9 +23,9 @@
 
 ### Vue 文档页面
 
-基于 `@idux/archive-page-loader-vue`，Idux Archive 可以将 vue SFC 解析为 `PageInstance` 并添加为文档页面，在任意目录创建 `.page.vue` 结尾的文件即可。
+基于 `@idux/archive-loader-vue`，Idux Archive 可以将 vue SFC 解析为 `ArchiveInstance` 并添加为文档页面，在任意目录创建 `.page.vue` 结尾的文件即可。
 
-> 关于 `Page Loader` 相关请查看[页面加载器](/guide/customization/PageLoader/)
+> 关于 `Loader` 相关请查看[Loader](/guide/customization/Loader/)
 
 ## Demo 页面
 
@@ -43,7 +43,7 @@
 ```
 `demoPage` 文件夹将被解析为一个 Demo 页面，包含 `Demo1.demo.vue`、`Demo2.demo.vue` 两个 demo。
 
-::: info demo 除了 vue 格式以外还可以是其他的任何格式，具体请查看 // TODO
+::: info demo 除了 vue 格式以外还可以是其他的任何格式，具体请查看 [Demo 编写](/guide/documents/demo/Brief)
 :::
 
 ### 页面元信息

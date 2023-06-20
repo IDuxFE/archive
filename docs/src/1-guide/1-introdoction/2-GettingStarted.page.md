@@ -9,7 +9,7 @@
 > 全部的 npm 包及其描述请参照 [相关 npm 包](/guide/introdoction/Introdoction/#相关-npm-包)
 
 ``` bash
-pnpm add -D @idux/archive @idux/archive-collector-vue @idux/archive-page-loader-vue @idux/archive-utils vite
+pnpm add -D @idux/archive @idux/archive-loader-vue @idux/archive-utils vite
 ```
 
 ::: info 注：这里引入了 @idux/archive-utils 以便使用暴露的工具函数，非必须
@@ -39,30 +39,24 @@ pnpm add -D @idux/archive @idux/archive-collector-vue @idux/archive-page-loader-
 在配置文件中添加以下代码：
 
 ```js
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
+const { resolve } = require('path')
+const { defineConfig } = require('@idux/archive')
+const { createArchiveVuePageLoader, createArchiveVueDemoLoader } = require('@idux/archive-loader-vue')
 
-import { defineConfig } from '@idux/archive'
-import { createVuePageLoader } from '@idux/archive-page-loader-vue'
-import { createVueCollector } from '@idux/archive-collector-vue'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-export default defineConfig({
-  root: resolve(__dirname, './docs'),
+module.exports = defineConfig({
+  root: resolve(__dirname, './demos'),
   theme: {
     themeStyle: 'seer',
     layout: {
       type: 'sider',
     },
   },
-  pageLoaders: [createVuePageLoader()],
-  collectors: [createVueCollector({ matchPattern: '**/*.demo.vue' })],
+  pageLoaders: [createArchiveVuePageLoader()],
+  demoLoaders: [createArchiveVueDemoLoader()],
 })
 ```
 
-::: warning 注：Idux Archive 当前版本仅支持 `.js` 格式文件， 且仅支持 esm 的模块管理
-在使用 `_dirname` 等 CommonJs 模式下专有变量时，请参照以上代码实现。
+::: warning 注：Idux Archive 当前版本仅支持 `.js` 格式文件
 :::
 
 在 `vite.config.ts` 文件中，将 `vue` 插件的 `include` 配置设置为支持 `.md` 格式文件，Idux Archive 内置了加载解析 `.md` 文件为 vue SFC 文件的插件，以便将 `.md` 文件作为 vue 组件处理。
@@ -174,9 +168,9 @@ import HelloWorld from './HelloWorld.vue'
 
 `<archive-meta>...</archive-meta>` 中的内容是 demo 的元信息配置。
 
-以上的demo是通过 Vue 的 demo 收集器处理的 demo, 也可以自定义支持其他形式的 demo
+以上的demo是通过 Vue 的 loader 处理的 demo, 也可以自定义支持其他形式的 demo。
 
-<!-- 更多详情请查看 // TODO -->
+更多详情请查看 [Loader](/loader/Brief)。
 
 ## 步骤6：添加相关脚本到 `package.json`
 
@@ -184,9 +178,10 @@ import HelloWorld from './HelloWorld.vue'
 {
   ...
   "scripts": {
-    "dev": "idux-archive dev", // [!code ++]
-    "build": "idux-archive build", // [!code ++]
-    "build:pages": "idux-archive build -t page" // [!code ++]
+    "dev": "archive dev", // [!code ++]
+    "build": "archive build", // [!code ++]
+    "build:pages": "archive build -t page", // [!code ++]
+    "build:instances": "archive build -t instance" // [!code ++]
   },
   ...
 }
@@ -196,7 +191,8 @@ import HelloWorld from './HelloWorld.vue'
 以上脚本：
 1. 运行 `npm run dev` 开启本地服务进行调试。
 2. 运行 `npm run build` 执行构建，构建目标默认为 app，即打包成完整的可部署的应用。
-3. 运行 `npm run build:pages` 执行页面构建，构建目标为 page，打包后的内容以esm形式提供，每个文档页面都会作为一个单独的组件导出
+3. 运行 `npm run build:pages` 执行页面构建，构建目标为 page，打包后的内容以esm形式提供，每个文档页面都会作为一个单独的vue3组件导出
+3. 运行 `npm run build:instances` 执行页面实例，构建目标为 instance，打包后的内容以esm形式提供，每个文档页面都会作为一个单独的框架无关的实例导出，运行实例的mount和unmount可以实现挂着和卸载
 
 至此，项目文档搭建的第一步已经完成，继续补充项目文档吧！
 
