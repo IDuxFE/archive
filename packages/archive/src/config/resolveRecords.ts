@@ -61,7 +61,7 @@ export function resolveRecords(navRecords: NavRecord[], pageLoaders: Loader[], d
         })
 
         parents.forEach(parent => {
-          if (parent.type === 'sub' && recordsMap.has(parent)) {
+          if (['sub', 'group'].includes(parent.type) && recordsMap.has(parent)) {
             const parentRecord = recordsMap.get(parent)!
             parentRecord.path = path
             recordsMap.delete(parent)
@@ -71,7 +71,7 @@ export function resolveRecords(navRecords: NavRecord[], pageLoaders: Loader[], d
       }
 
       resolvedRecord = { ...record } as ServerResolvedNavRecord
-      if (record.type === 'sub') {
+      if (['sub', 'group'].includes(record.type)) {
         recordsMap.set(record, resolvedRecord as ServerResolvedNavRecord & { type: 'sub' })
       }
 

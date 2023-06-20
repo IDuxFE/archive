@@ -89,7 +89,6 @@ export default defineComponent({
         })
     }, 300)
 
-    // todo: provide custom rendering
     const renderTool = (tool: DemoTool) => {
       if (tool.type === 'expandCode') {
         return (
