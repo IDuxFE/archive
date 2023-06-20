@@ -7,7 +7,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { Except, SetOptional } from 'type-fest'
+import type { Except, SetOptional, SetRequired } from 'type-fest'
 
 export interface Options {
   root?: string
@@ -83,14 +83,25 @@ export interface Loader<V = object> {
   name: string
   matched: (path: string) => boolean
   prefix?: string
-  resolve?: (absolutePath: string, query: QueryObj) => Promise<Pick<LoadedItem, 'instanceScript' | 'prependScript'> & V>
+  resolve?: (
+    absolutePath: string,
+    query: QueryObj,
+  ) => Promise<
+    Pick<LoadedItem, 'instanceScript' | 'prependScript' | 'controls' | 'title' | 'description' | 'sourceCodes'> & V
+  >
   transform?: (code: string) => Promise<string> | string
 }
 
 export type ResolvedLoader<V = object> = SetOptional<Required<Loader<V>>, 'transform'>
 
-export type ResolvedOptions = Except<Required<Options>, 'loaders'> & {
+export interface ResolvedOptions extends Except<SetRequired<Options, 'root'>, 'loaders'> {
   loaders: ResolvedLoader[]
+}
+
+export interface SourceCode {
+  filename: string
+  code: string
+  parsedCode: string
 }
 
 export interface LoadedItem {
@@ -100,6 +111,9 @@ export interface LoadedItem {
   absolutePath: string
   query: QueryObj
   loader: ResolvedLoader
+  sourceCodes?: SourceCode[]
+  title?: string
+  description?: string
   controls?: Record<string, Control>
   prependScript?: string
   instanceScript: string

@@ -5,7 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { ArchiveLoaderVue2, ArchiveLoaderVue2Options, SourceCode } from './types'
+import type { ArchiveLoaderVue2, ArchiveLoaderVue2Options } from './types'
+import type { SourceCode } from '@idux/archive-vite-plugin'
 
 import { readFileSync } from 'node:fs'
 

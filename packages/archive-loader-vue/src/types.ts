@@ -5,13 +5,13 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { Control, Instance, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
+import type { Instance, LoadedItem, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
 import type { App, ExtractPropTypes, PropType, VNode } from 'vue'
 
 export type Lang = 'zh' | 'en'
 export type Theme = 'default' | 'seer'
-export type ArchiveLoaderVue = Loader<VueItemMeta>
+export type ArchiveLoaderVue = Loader
 
 export interface ArchiveLoaderVueOptions extends SetOptional<Except<Loader, 'name'>, 'matched'> {
   setup?: string
@@ -27,25 +27,11 @@ export interface ArchiveLoaderVueSetup {
 
 export type ArchiveLoaderVueInstance<D extends object> = Instance<D>
 
-export interface SourceCode {
-  filename: string
-  code: string
-  parsedCode: string
-}
-
-export interface VueItemControls {
-  prop: string
-  type: 'string' | 'number' | 'boolean' | 'object'
-}
-
-export interface VueItemMeta {
+export interface VueItemMeta extends Pick<LoadedItem, 'description' | 'controls' | 'title'> {
   dependencies?: string[]
-  controls?: Record<string, Control>
-  title?: string
-  description?: string
 }
 
-export interface ArchiveLoaderVueResolvedItem<D extends object> extends ResolvedItem<D>, VueItemMeta {
+export interface ArchiveLoaderVueResolvedItem<D extends object> extends ResolvedItem<D> {
   instance: ArchiveLoaderVueInstance<D>
 }
 
