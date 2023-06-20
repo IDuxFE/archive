@@ -1,4 +1,4 @@
-import { W as WeakMap$1, d as defineComponent, r as ref, o as onMounted, w as watch, a as onUnmounted, h, c as createVNode, b as createTextVNode, I as IxIcon, e as computed, T as Transition, f as withDirectives, v as vShow, g as baseCreate$1, i as isObjectLike, j as isArray$1, k as isObject, l as debounce, n as nextTick, m as inject, t as throwError, u as useGlobalConfig$1, p as useControlledProp, q as useState, s as normalizeClass, x as addClass, y as removeClass, z as provide, A as isNil, B as mergeProps, C as copyArray, ɵ as ɵOverlay, D as convertElement, E as useKey, F as watchEffect, G as callEmit, H as IxInput, J as overlayDelayDef, K as overlayPlacementDef, L as overlayTriggerDef, M as onDeactivated, N as usePortalTarget, O as convertCssPixel, P as CdkPortal, Q as TransitionGroup, R as Fragment, S as setToString$1, U as isString, V as onBeforeUnmount, X as useAccessorAndControl, Y as useFormItemRegister, Z as IxSpace, _ as Logger, $ as flattenNode, a0 as useInput, a1 as useFormFocusMonitor, a2 as ɵInput, a3 as rAF, a4 as useFormSize, a5 as useFormStatus, a6 as toNumber, a7 as arrayEach, a8 as uniqueId, a9 as convertArray, aa as useFormElement, ab as FORM_TOKEN, ac as convertStringVNode, ad as ɵWave, ae as tryOnScopeDispose, af as inputCommonProps, ag as easeInOutCubic, ah as isFunction, ai as identity, aj as shortOut, ak as isIndex, al as root$1, am as apply, an as baseGetTag, ao as customRef, ap as isNumber, aq as toRaw, ar as hasSlot, as as toString, at as normalizeStyle, au as cancelRAF, av as m$1, aw as pageContextToken, ax as u, ay as off, az as convertTarget, aA as on$1, aB as appContextToken, aC as themeToken, aD as breakpointsToken, aE as getOffset, aF as convertNumber, aG as throttleRAF, aH as isHTMLElement } from "./app-default-e79bd972.js";
+import { W as WeakMap$1, d as defineComponent, r as ref, o as onMounted, w as watch, B as onUnmounted, h, b as createVNode, H as createTextVNode, I as IxIcon, c as computed, T as Transition, j as withDirectives, v as vShow, J as baseCreate$1, K as isObjectLike, L as isArray$1, g as isObject, M as debounce, n as nextTick, a as inject, N as throwError, l as useGlobalConfig$1, O as useControlledProp, P as useState, Q as addClass, R as removeClass, p as provide, S as isNil, U as mergeProps, V as copyArray, ɵ as ɵOverlay, X as convertElement, Y as useKey, k as normalizeClass, q as watchEffect, C as callEmit, Z as IxInput, _ as overlayDelayDef, $ as overlayPlacementDef, a0 as overlayTriggerDef, a1 as onDeactivated, a2 as markRaw, a3 as setToString$1, a4 as reactive, a5 as usePortalTarget, a6 as convertCssPixel, a7 as CdkPortal, a8 as TransitionGroup, a9 as Fragment, aa as useAccessorAndControl, ab as useFormItemRegister, ac as IxSpace, ad as Logger, ae as flattenNode, af as useInput, ag as useFormFocusMonitor, ah as ɵInput, ai as useFormSize, aj as useFormStatus, ak as toNumber, al as arrayEach, am as createApp, an as isString, f as onBeforeUnmount, ao as useFormElement, ap as FORM_TOKEN, aq as convertStringVNode, ar as ɵWave, as as inputCommonProps, at as rAF, au as isFunction, av as convertArray, aw as identity, ax as shortOut, ay as isIndex, az as root$1, aA as apply, aB as baseGetTag, aC as Teleport, aD as uniqueId, aE as tryOnScopeDispose, aF as customRef, aG as isNumber, aH as easeInOutCubic, aI as toRaw, aJ as hasSlot, aK as toString, aL as normalizeStyle, aM as cancelRAF } from "./app-default-06822124.js";
 var INFINITY = 1 / 0, MAX_INTEGER = 17976931348623157e292;
 function toFinite(value) {
   if (!value) {
@@ -886,12 +886,12 @@ const Ir = Sr;
 var Pr = Object.prototype, Cr = Pr.hasOwnProperty;
 function fe(t, e) {
   var n = I(t), r = !n && ie(t), a = !n && !r && ce(t), o = !n && !r && !a && Ir(t), i = n || r || a || o, s = i ? Wn(t.length, String) : [], c = s.length;
-  for (var u2 in t)
-    (e || Cr.call(t, u2)) && !(i && // Safari 9 has enumerable `arguments.length` in strict mode.
-    (u2 == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
-    a && (u2 == "offset" || u2 == "parent") || // PhantomJS 2 has enumerable non-index properties on typed arrays.
-    o && (u2 == "buffer" || u2 == "byteLength" || u2 == "byteOffset") || // Skip index properties.
-    Bn(u2, c))) && s.push(u2);
+  for (var u in t)
+    (e || Cr.call(t, u)) && !(i && // Safari 9 has enumerable `arguments.length` in strict mode.
+    (u == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
+    a && (u == "offset" || u == "parent") || // PhantomJS 2 has enumerable non-index properties on typed arrays.
+    o && (u == "buffer" || u == "byteLength" || u == "byteOffset") || // Skip index properties.
+    Bn(u, c))) && s.push(u);
   return s;
 }
 function le(t, e) {
@@ -1342,7 +1342,7 @@ var Yo = 1, qo = 2, Zo = 4, $e = "[object Arguments]", Jo = "[object Array]", Qo
 f[$e] = f[Jo] = f[ui] = f[fi] = f[Qo] = f[ko] = f[li] = f[pi] = f[di] = f[gi] = f[hi] = f[ni] = f[ri] = f[je] = f[ai] = f[oi] = f[ii] = f[si] = f[bi] = f[yi] = f[vi] = f[mi] = true;
 f[ti] = f[_e] = f[ci] = false;
 function H(t, e, n, r, a, o) {
-  var i, s = e & Yo, c = e & qo, u2 = e & Zo;
+  var i, s = e & Yo, c = e & qo, u = e & Zo;
   if (n && (i = a ? n(t, r, a, o) : n(t)), i !== void 0)
     return i;
   if (!S(t))
@@ -1373,7 +1373,7 @@ function H(t, e, n, r, a, o) {
   }) : Ko(t) && t.forEach(function(h2, d) {
     i.set(d, H(h2, e, n, d, t, o));
   });
-  var p = u2 ? c ? Te : ka : c ? ct : st, y = v ? void 0 : p(t);
+  var p = u ? c ? Te : ka : c ? ct : st, y = v ? void 0 : p(t);
   return Nn(y || t, function(h2, d) {
     y && (d = h2, h2 = t[d]), ne(i, d, H(h2, e, n, d, t, o));
   }), i;
@@ -1384,6 +1384,9 @@ function Oi(t) {
 }
 function Ai(t, e) {
   return e.length < 2 ? t : wa(t, Fa(e, 0, -1));
+}
+function Si(t) {
+  return t == null;
 }
 function Ii(t, e) {
   return e = ft(e, t), t = Ai(t, e), t == null || delete t[pe(Oi(e))];
@@ -1404,6 +1407,108 @@ Sa(function(t, e) {
     Ii(n, e[a]);
   return n;
 });
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+function Di(t) {
+  let e = null, n = 0;
+  const r = ref(/* @__PURE__ */ new Set()), a = () => [...r.value.values()].map(
+    ({ key: c, el: u, component: v, props: g }) => createVNode(
+      Teleport,
+      { to: u, key: c },
+      {
+        default: () => [createVNode(v, g)]
+      }
+    )
+  ), o = () => {
+    var _a2;
+    if (e)
+      return;
+    e = createApp({
+      render: () => (t == null ? void 0 : t.renderApp) ? t.renderApp(a()) : a()
+    }), (_a2 = t == null ? void 0 : t.setupApp) == null ? void 0 : _a2.call(t, e);
+    const c = document.createElement("div");
+    document.body.appendChild(c), e.mount(c);
+  }, i = (c, u, v) => {
+    o();
+    const g = reactive({ component: u, props: v ?? {}, key: `instance-${n++}`, el: c });
+    return r.value.add(g), g;
+  }, s = (c) => {
+    c && r.value.delete(c);
+  };
+  return (c) => {
+    let u;
+    const v = /* @__PURE__ */ new Set(), g = () => {
+      v.forEach((p) => {
+        p();
+      });
+    };
+    function w(p, y) {
+      let h2;
+      return W(p) ? h2 = () => {
+        p(u.props);
+      } : h2 = () => {
+        var _a2;
+        y == null ? void 0 : y((_a2 = u.props) == null ? void 0 : _a2[p]);
+      }, v.add(h2), () => {
+        v.delete(h2);
+      };
+    }
+    function _(p) {
+      if (!p || p === true)
+        return;
+      switch (I(p) ? p[0] : p) {
+        case Boolean:
+          return "boolean";
+        case String:
+          return "string";
+        case Number:
+          return "number";
+        case Object:
+          return "object";
+        case Array:
+          return "array";
+        default:
+          return;
+      }
+    }
+    return {
+      mount(p, y) {
+        u = i(p, markRaw(c), y);
+        const d = this.getProps().reduce((T, O) => (Si(O.default) || (T[O.key] = O.default), T), {});
+        Object.keys(d).length > 0 && this.setData(d);
+      },
+      unmount() {
+        s(u);
+      },
+      getProps() {
+        if (!("props" in c))
+          return [];
+        const p = c.props, y = [];
+        return p && Object.entries(p).forEach(([h2, d]) => {
+          let T, O;
+          he(d) && "type" in d ? (T = _(d.type), O = W(d.default) ? d.default() : d.default) : T = _(d), T && y.push({
+            key: h2,
+            type: T,
+            default: O
+          });
+        }), y;
+      },
+      getData() {
+        return u.props;
+      },
+      setData(p) {
+        p || (u.props = void 0);
+        const y = { ...u.props ?? {}, ...p };
+        u.props = y, g();
+      },
+      watchData: w
+    };
+  };
+}
 /**
  * @license
  *
@@ -1452,6 +1557,17 @@ const Oe = defineComponent({
     }), () => h("div", { ref: e });
   }
 });
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+const tt = {};
+function Ui(t, e, n) {
+  const r = t ?? "default";
+  return tt[r] || (tt[r] = Di(n)), tt[r](e);
+}
 const Bi = Oe;
 const messageProps = {
   visible: {
@@ -7088,1024 +7204,11 @@ function createControlFromProp(prop) {
     propType: prop.type
   };
 }
-function isUndefined(value) {
-  return value === void 0;
-}
-const affixProps = {
-  offset: {
-    type: [Number, String, Object],
-    default: 0
-  },
-  target: [String, HTMLElement, Function],
-  onChange: Function
-};
-const events = ["scroll", "resize"];
-const directions = ["top", "bottom", "left", "right"];
-function normalizeOffset(offset) {
-  if (!isObject(offset)) {
-    return { top: convertNumber(offset) };
-  }
-  const _offset = {};
-  Object.keys(offset).forEach((dire) => {
-    _offset[dire] = convertNumber(offset[dire]);
-  });
-  return _offset;
-}
-function getTargetRect(target, container) {
-  const targetRect = target.getBoundingClientRect();
-  const containerRect = isHTMLElement(container) ? container.getBoundingClientRect() : { top: 0, bottom: window.innerHeight, left: 0, right: window.innerWidth };
-  if (targetRect.width === 0 && targetRect.height === 0) {
-    return null;
-  }
-  return {
-    top: targetRect.top - containerRect.top,
-    left: targetRect.left - containerRect.left,
-    bottom: containerRect.bottom - targetRect.bottom,
-    right: containerRect.right - targetRect.right
-  };
-}
-function getTargetSize(target) {
-  if (target === window) {
-    return {
-      width: target.innerWidth,
-      height: target.innerHeight
-    };
-  }
-  return {
-    width: target.offsetWidth,
-    height: target.offsetHeight
-  };
-}
-function observeTarget(target, cb) {
-  events.forEach((event) => {
-    on$1(target, event, cb);
-  });
-}
-function removeObserveTarget(target, cb) {
-  events.forEach((event) => {
-    off(target, event, cb);
-  });
-}
-function isDireSticky(dire, affixRect, offsetOption) {
-  return !isUndefined(offsetOption[dire]) && affixRect[dire] <= offsetOption[dire];
-}
-function isSticky(target, container, offsetOption) {
-  const targetRect = getTargetRect(target, container);
-  return !!targetRect && directions.some((dire) => isDireSticky(dire, targetRect, offsetOption));
-}
-function calcStickyPosition(target, container, offsetOption) {
-  const targetRect = getTargetRect(target, container);
-  if (!targetRect) {
-    return {};
-  }
-  const style = {};
-  style.position = container === window ? "fixed" : "absolute";
-  const _directions = [
-    isDireSticky("bottom", targetRect, offsetOption) ? "bottom" : "top",
-    isDireSticky("right", targetRect, offsetOption) ? "right" : "left"
-  ];
-  _directions.forEach((dire) => {
-    if (isDireSticky(dire, targetRect, offsetOption)) {
-      style[dire] = `${offsetOption[dire] - (container === window ? 0 : targetRect[dire])}px`;
-    } else {
-      style[dire] = `${container === window ? targetRect[dire] : 0}px`;
-    }
-  });
-  return style;
-}
-var Affix = /* @__PURE__ */ defineComponent({
-  name: "IxAffix",
-  props: affixProps,
-  setup(props, {
-    slots,
-    expose
-  }) {
-    const common = useGlobalConfig$1("common");
-    const mergedPrefixCls = computed(() => `${common.prefixCls}-affix`);
-    const contentStyle = ref({});
-    const affixStyle = ref({});
-    const targetRef = ref(null);
-    const affixRef = ref(null);
-    const contentRef = ref(null);
-    const offset = computed(() => normalizeOffset(props.offset));
-    const isStickyRef = ref(false);
-    watch(isStickyRef, (value) => {
-      var _a2;
-      return (_a2 = props.onChange) == null ? void 0 : _a2.call(props, value);
-    });
-    const throttleMeasure = throttleRAF(measure);
-    function measure(event) {
-      if (!affixRef.value || !targetRef.value || !contentRef.value) {
-        clearStyle();
-        return;
-      }
-      isStickyRef.value = isSticky(affixRef.value, targetRef.value, offset.value);
-      if (!isStickyRef.value) {
-        clearStyle();
-        return;
-      }
-      if (event && event.type === "resize") {
-        clearStyle();
-        nextTick(measure);
-        return;
-      }
-      const {
-        width,
-        height
-      } = getTargetSize(contentRef.value);
-      contentStyle.value = {
-        ...calcStickyPosition(affixRef.value, targetRef.value, offset.value),
-        width: `${width}px`,
-        height: `${height}px`
-      };
-      affixStyle.value = {
-        width: `${width}px`,
-        height: `${height}px`
-      };
-      if (targetRef.value !== window) {
-        affixStyle.value.position = "relative";
-      }
-    }
-    function clearStyle() {
-      affixStyle.value = {};
-      contentStyle.value = {};
-    }
-    function initContainer() {
-      targetRef.value = convertTarget(props.target);
-      observeTarget(targetRef.value, throttleMeasure);
-    }
-    onMounted(() => {
-      nextTick(() => {
-        initContainer();
-        measure();
-      });
-    });
-    onUnmounted(() => {
-      var _a2;
-      removeObserveTarget(targetRef.value, throttleMeasure);
-      (_a2 = throttleMeasure.cancel) == null ? void 0 : _a2.call(throttleMeasure);
-    });
-    watch(() => props.offset, measure);
-    watch(() => props.target, () => {
-      removeObserveTarget(targetRef.value, throttleMeasure);
-      initContainer();
-      measure();
-    });
-    expose({
-      update: throttleMeasure
-    });
-    return () => {
-      var _a2;
-      const prefixCls = mergedPrefixCls.value;
-      return createVNode("div", {
-        "ref": affixRef,
-        "style": affixStyle.value,
-        "class": prefixCls
-      }, [createVNode("div", {
-        "ref": contentRef,
-        "class": `${prefixCls}-content`,
-        "style": contentStyle.value
-      }, [(_a2 = slots.default) == null ? void 0 : _a2.call(slots)])]);
-    };
-  }
-});
-const IxAffix = Affix;
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-const innerPageProps = {
-  pageData: { type: Object, required: true },
-  theme: { type: Object, required: true },
-  options: Object,
-  renderers: Object
-};
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-function usePageRender(dataBase) {
-  return (data, customRenderer, defaultRenderer) => {
-    var _a2;
-    const defaultNodes = defaultRenderer == null ? void 0 : defaultRenderer();
-    return customRenderer ? customRenderer(
-      {
-        theme: dataBase.theme,
-        route: dataBase.route,
-        breakpoints: dataBase.breakpoints,
-        activeRecords: (_a2 = dataBase.activeRecords) == null ? void 0 : _a2.value,
-        ...data ?? {}
-      },
-      defaultNodes
-    ) : defaultNodes;
-  };
-}
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-function useAsyncProp(props, key) {
-  const data = ref();
-  onMounted(() => {
-    watch(
-      () => props[key],
-      async (asyncProp) => {
-        data.value = void 0;
-        if (asyncProp) {
-          data.value = await (asyncProp == null ? void 0 : asyncProp());
-        }
-      },
-      {
-        immediate: true
-      }
-    );
-  });
-  return data;
-}
-function useArrayAsyncProp(props, key) {
-  const data = ref();
-  onMounted(() => {
-    watch(
-      () => props[key],
-      async (arrayAsyncProp) => {
-        data.value = void 0;
-        if (arrayAsyncProp) {
-          data.value = await Promise.all(arrayAsyncProp == null ? void 0 : arrayAsyncProp.map((asyncProp) => asyncProp()));
-        }
-      },
-      {
-        immediate: true
-      }
-    );
-  });
-  return data;
-}
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-function useArchiveItemImport(props, key) {
-  const data = useAsyncProp(props, key);
-  const updatedItem = ref();
-  const resolvedItem = computed(() => {
-    var _a2;
-    return updatedItem.value ?? ((_a2 = data.value) == null ? void 0 : _a2.default);
-  });
-  let stop;
-  if (__ARCHIVE_HMR_RUNTIME__) {
-    stop = __ARCHIVE_HMR_RUNTIME__.onItemChange((item) => {
-      var _a2, _b;
-      if (((_a2 = updatedItem.value) == null ? void 0 : _a2.id) === item.id || ((_b = data.value) == null ? void 0 : _b.default.id) === item.id) {
-        updatedItem.value = item;
-      }
-    });
-    onBeforeUnmount(() => {
-      stop == null ? void 0 : stop();
-    });
-  }
-  watch(data, () => {
-    updatedItem.value = void 0;
-  });
-  return resolvedItem;
-}
-function useArchiveItemImports(props, key) {
-  const data = useArrayAsyncProp(props, key);
-  const updatedItems = ref({});
-  const resolvedItems = computed(
-    () => {
-      var _a2;
-      return ((_a2 = data.value) == null ? void 0 : _a2.map((mod) => {
-        const item = mod.default;
-        return updatedItems.value[item.id] ?? item;
-      })) ?? [];
-    }
-  );
-  let stop;
-  if (__ARCHIVE_HMR_RUNTIME__) {
-    stop = __ARCHIVE_HMR_RUNTIME__.onItemChange((item) => {
-      var _a2;
-      if (!!updatedItems.value[item.id] || ((_a2 = data.value) == null ? void 0 : _a2.findIndex((loadedItem) => loadedItem.default.id === item.id))) {
-        updatedItems.value[item.id] = item;
-      }
-    });
-    onBeforeUnmount(() => {
-      stop == null ? void 0 : stop();
-    });
-  }
-  watch(data, () => {
-    updatedItems.value = {};
-  });
-  return resolvedItems;
-}
-const anchorToken = Symbol("anchorToken");
-const anchorProps = {
-  affix: {
-    type: Boolean,
-    default: true
-  },
-  bounds: Number,
-  hideLinkBall: {
-    type: Boolean,
-    default: void 0
-  },
-  offsetTop: Number,
-  target: [String, HTMLElement, Function],
-  targetOffset: Number,
-  onChange: [Function, Array],
-  onClick: [Function, Array]
-};
-const linkProps = {
-  href: {
-    type: String,
-    required: true
-  },
-  title: String
-};
-var Anchor$1 = /* @__PURE__ */ defineComponent({
-  name: "IxAnchor",
-  props: anchorProps,
-  setup(props, {
-    slots
-  }) {
-    const common = useGlobalConfig$1("common");
-    const mergedPrefixCls = computed(() => `${common.prefixCls}-anchor`);
-    const config = useGlobalConfig$1("anchor");
-    const hideLinkBall = computed(() => {
-      var _a2;
-      return (_a2 = props.hideLinkBall) != null ? _a2 : config.hideLinkBall;
-    });
-    const wrapperStyle = computed(() => {
-      const {
-        offsetTop
-      } = props;
-      return {
-        maxHeight: offsetTop ? `calc(100vh - ${offsetTop}px)` : "100vh"
-      };
-    });
-    const {
-      activeLink
-    } = useLinks(props, config);
-    const {
-      anchorRef,
-      inkBallElRef,
-      inkBallClasses,
-      inkBallTop
-    } = useInkBall(activeLink, mergedPrefixCls);
-    return () => {
-      var _a2;
-      const prefixCls = mergedPrefixCls.value;
-      const linkBall = hideLinkBall.value ? null : createVNode("span", {
-        "class": inkBallClasses.value,
-        "style": {
-          top: inkBallTop.value
-        },
-        "ref": inkBallElRef
-      }, null);
-      const anchorNode = createVNode("div", {
-        "class": `${prefixCls}-wrapper`,
-        "style": wrapperStyle.value
-      }, [createVNode("div", {
-        "class": prefixCls,
-        "ref": anchorRef
-      }, [createVNode("div", {
-        "class": `${prefixCls}-ink`
-      }, [linkBall]), (_a2 = slots.default) == null ? void 0 : _a2.call(slots)])]);
-      if (!props.affix) {
-        return anchorNode;
-      }
-      return createVNode(IxAffix, {
-        "target": props.target,
-        "offset": props.offsetTop
-      }, {
-        default: () => [anchorNode]
-      });
-    };
-  }
-});
-const useLinks = (props, config) => {
-  const links = ref([]);
-  const registerLink = (link) => {
-    if (!links.value.includes(link)) {
-      links.value.push(link);
-    }
-  };
-  const unregisterLink = (link) => {
-    const index = links.value.indexOf(link);
-    if (index !== -1) {
-      links.value.splice(index, 1);
-    }
-  };
-  const activeLink = ref();
-  const setActiveLink = (link) => {
-    if (activeLink.value !== link) {
-      activeLink.value = link;
-      callEmit(props.onChange, link);
-    }
-  };
-  const {
-    scrollTo
-  } = useScroll(props, config, links, setActiveLink);
-  const handleLinkClick = (evt, linkProps2) => {
-    callEmit(props.onClick, evt, linkProps2);
-    scrollTo(linkProps2.href);
-  };
-  provide(anchorToken, {
-    registerLink,
-    unregisterLink,
-    activeLink,
-    handleLinkClick
-  });
-  return {
-    activeLink
-  };
-};
-const useInkBall = (activeLink, mergedPrefixCls) => {
-  const anchorRef = ref();
-  const inkBallElRef = ref();
-  const inkBallClasses = computed(() => {
-    const prefixCls = mergedPrefixCls.value;
-    return {
-      [`${prefixCls}-ink-ball`]: true,
-      [`${prefixCls}-ink-ball-visible`]: !!activeLink.value
-    };
-  });
-  const inkBallTop = ref();
-  onMounted(() => {
-    watchEffect(() => {
-      var _a2, _b, _c;
-      const activeLinkElement = (_a2 = anchorRef.value) == null ? void 0 : _a2.querySelector(`a[data-href="${activeLink.value}"]`);
-      if (!activeLinkElement) {
-        return;
-      }
-      const inkBallHeight = (_c = (_b = inkBallElRef.value) == null ? void 0 : _b.getBoundingClientRect().height) != null ? _c : 9;
-      const {
-        offsetTop,
-        clientHeight
-      } = activeLinkElement;
-      inkBallTop.value = `${offsetTop + clientHeight / 2 - inkBallHeight / 2}px`;
-    }, {
-      flush: "post"
-    });
-  });
-  return {
-    anchorRef,
-    inkBallElRef,
-    inkBallClasses,
-    inkBallTop
-  };
-};
-const getTargetTop = (link, container) => {
-  const targetElement = document.getElementById(link.split("#")[1]);
-  if (targetElement) {
-    const {
-      top
-    } = getOffset(targetElement, container);
-    return top;
-  }
-  return null;
-};
-const getCurrentAnchor = (links, container, offsetTop, bounds) => {
-  if (!links.length) {
-    return "";
-  }
-  const maxSection = links.map((link) => {
-    const top = getTargetTop(link, container);
-    return {
-      link,
-      top
-    };
-  }).reduce((curr, item) => {
-    const {
-      top
-    } = item;
-    if (top !== null && top < offsetTop + bounds && curr.top < top) {
-      return item;
-    }
-    return curr;
-  });
-  return maxSection.link;
-};
-const useScroll = (props, config, links, setActiveLink) => {
-  const bounds = computed(() => {
-    var _a2;
-    return (_a2 = props.bounds) != null ? _a2 : config.bounds;
-  });
-  const container = ref();
-  const eventType = "scroll";
-  let animating = false;
-  const targetOffset = computed(() => {
-    var _a2, _b;
-    return (_b = (_a2 = props.targetOffset) != null ? _a2 : props.offsetTop) != null ? _b : 0;
-  });
-  const handleScroll = () => {
-    if (animating) {
-      return;
-    }
-    const currLink = getCurrentAnchor(links.value, container.value, targetOffset.value, bounds.value);
-    setActiveLink(currLink);
-  };
-  const scrollTo = (link) => {
-    setActiveLink(link);
-    const top = getTargetTop(link, container.value);
-    if (top === null) {
-      return;
-    }
-    animating = true;
-    scrollToTop({
-      amountOfChange: top - targetOffset.value,
-      target: container.value,
-      callback: () => {
-        animating = false;
-      }
-    });
-  };
-  watch(() => props.target, () => {
-    off(container.value, eventType, handleScroll);
-    container.value = convertTarget(props.target);
-    on$1(container.value, eventType, handleScroll);
-    handleScroll();
-  });
-  onMounted(() => {
-    container.value = convertTarget(props.target);
-    on$1(container.value, eventType, handleScroll);
-    handleScroll();
-  });
-  onBeforeUnmount(() => {
-    off(container.value, eventType, handleScroll);
-  });
-  return {
-    scrollTo
-  };
-};
-var AnchorLink = /* @__PURE__ */ defineComponent({
-  name: "IxAnchorLink",
-  props: linkProps,
-  setup(props, {
-    slots
-  }) {
-    const common = useGlobalConfig$1("common");
-    const mergedPrefixCls = computed(() => `${common.prefixCls}-anchor-link`);
-    const {
-      registerLink,
-      unregisterLink,
-      activeLink,
-      handleLinkClick
-    } = inject(anchorToken);
-    watch(() => props.href, (newHref, oldHref) => {
-      unregisterLink(oldHref);
-      registerLink(newHref);
-    });
-    onMounted(() => registerLink(props.href));
-    onBeforeUnmount(() => unregisterLink(props.href));
-    const isActive = computed(() => activeLink.value === props.href);
-    const classes = computed(() => {
-      const prefixCls = mergedPrefixCls.value;
-      return {
-        [`${prefixCls}-title`]: true,
-        [`${prefixCls}-title-active`]: isActive.value
-      };
-    });
-    const onClick = (evt) => handleLinkClick(evt, props);
-    return () => {
-      var _a2, _b, _c;
-      const {
-        href,
-        title
-      } = props;
-      const prefixCls = mergedPrefixCls.value;
-      return createVNode("div", {
-        "class": prefixCls
-      }, [createVNode("a", {
-        "class": classes.value,
-        "href": href,
-        "data-href": href,
-        "title": title,
-        "onClick": onClick
-      }, [(_b = (_a2 = slots.title) == null ? void 0 : _a2.call(slots)) != null ? _b : title]), (_c = slots.default) == null ? void 0 : _c.call(slots)]);
-    };
-  }
-});
-const IxAnchor = Anchor$1;
-const IxAnchorLink = AnchorLink;
-const Anchor = defineComponent({
-  name: "Anchor",
-  props: {
-    data: {
-      type: Array,
-      required: true
-    }
-  },
-  setup(props) {
-    const {
-      headerFixed,
-      headerHeight
-    } = inject(pageContextToken);
-    const renderLinks = (data) => {
-      return data.map((item) => createVNode(IxAnchorLink, {
-        "title": item.title,
-        "href": item.href
-      }, {
-        default: () => [renderLinks(item.children)]
-      }));
-    };
-    const anchorRef = ref();
-    const target = ref();
-    const offsetTop = computed(() => headerFixed.value ? headerHeight.value + 16 : 16);
-    onMounted(() => {
-      var _a2;
-      target.value = m$1((_a2 = anchorRef.value) == null ? void 0 : _a2.$el);
-    });
-    return () => createVNode(IxAnchor, {
-      "ref": anchorRef,
-      "offsetTop": offsetTop.value,
-      "target": target.value
-    }, {
-      default: () => [renderLinks(props.data)]
-    });
-  }
-});
-const BaseContent = defineComponent({
-  props: {
-    visible: {
-      type: Boolean,
-      required: true
-    }
-  },
-  setup(props, {
-    slots,
-    expose
-  }) {
-    const {
-      anchorOptions
-    } = inject(pageContextToken);
-    const enableAnchor = computed(() => !!anchorOptions.value.enabled);
-    const anchorMaxLevel = computed(() => isObject(anchorOptions) ? anchorOptions.value.maxLevel : 3);
-    const rootEl = ref();
-    const anchorEl = ref();
-    const anchorDatas = ref();
-    const contentPaddingReight = ref();
-    const calcContentPadding = () => {
-      var _a2;
-      const anchorWidth = (_a2 = anchorEl.value) == null ? void 0 : _a2.$el.getBoundingClientRect().width;
-      contentPaddingReight.value = anchorWidth ? `${anchorWidth}px` : void 0;
-    };
-    const updateAnchor = () => {
-      if (!rootEl.value) {
-        return;
-      }
-      anchorDatas.value = parseAnchors(rootEl.value, anchorMaxLevel.value);
-    };
-    watch([anchorDatas, () => props.visible], ([, visible]) => {
-      visible && nextTick(calcContentPadding);
-    });
-    onMounted(() => {
-      if (!enableAnchor.value) {
-        return;
-      }
-      watch(() => props.visible, (visible) => {
-        visible && nextTick(updateAnchor);
-      }, {
-        immediate: true
-      });
-    });
-    expose({
-      updateAnchor
-    });
-    return () => {
-      var _a2, _b;
-      return createVNode("div", {
-        "class": "archive-app__page__content"
-      }, [createVNode("div", {
-        "class": "archive-app__page__content__inner",
-        "ref": rootEl
-      }, [(_a2 = slots.default) == null ? void 0 : _a2.call(slots)]), ((_b = anchorDatas.value) == null ? void 0 : _b.length) ? createVNode(Anchor, {
-        "ref": anchorEl,
-        "class": "archive-app__page__content__anchor",
-        "data": anchorDatas.value
-      }, null) : void 0]);
-    };
-  }
-});
-const anchorTags = [{
-  tag: "h1",
-  level: 1
-}, {
-  tag: "h2",
-  level: 2
-}, {
-  tag: "h3",
-  level: 3
-}, {
-  tag: "h4",
-  level: 4
-}];
-function parseAnchors(root, maxLevel) {
-  const anchorRoot = {
-    level: 0,
-    title: "",
-    href: "",
-    children: []
-  };
-  let stackTop = anchorRoot;
-  const anchorStack = [anchorRoot];
-  const pushStack = (data) => {
-    anchorStack.push(data);
-    stackTop = data;
-  };
-  const popStack = () => {
-    anchorStack.pop();
-    stackTop = anchorStack[anchorStack.length - 1];
-  };
-  const hiddenEls = [];
-  u(root.children, "children", (el, parents) => {
-    var _a2;
-    if (getComputedStyle(el).display === "none") {
-      hiddenEls.push(el);
-      return;
-    }
-    if (!el.id || !el.textContent || parents.some((parent) => hiddenEls.includes(parent))) {
-      return;
-    }
-    const level = (_a2 = anchorTags.find((tag) => tag.tag === el.tagName.toLowerCase())) == null ? void 0 : _a2.level;
-    if (!level || level > maxLevel) {
-      return;
-    }
-    const data = {
-      level,
-      title: el.getAttribute("title") ?? el.textContent.replace(/^#/, "").replace(/#$/, "") ?? el.id,
-      href: `#${el.id}`,
-      children: []
-    };
-    while (level <= stackTop.level) {
-      popStack();
-    }
-    stackTop.children.push(data);
-    pushStack(data);
-  });
-  return anchorRoot.children;
-}
-const DemosContent = defineComponent({
-  props: {
-    demoImports: {
-      type: Array,
-      required: true
-    },
-    visible: {
-      type: Boolean,
-      required: true
-    }
-  },
-  setup(props) {
-    const {
-      options: {
-        getInitVisibleDemoIds,
-        getDemoTools
-      },
-      renderers: {
-        pageContent: pageContentRenderer
-      },
-      render
-    } = inject(pageContextToken);
-    const baseContentRef = ref();
-    const demoItems = useArchiveItemImports(props, "demoImports");
-    const demoIds = computed(() => demoItems.value.map((demoItem) => demoItem.id));
-    const _getInitVisibleDemoIds = () => getInitVisibleDemoIds ? getInitVisibleDemoIds(demoItems.value) : demoIds.value;
-    const visibleDemoIds = ref(_getInitVisibleDemoIds());
-    const setVisibleDemoIds = (demoIds2) => {
-      visibleDemoIds.value = demoIds2;
-    };
-    watch(demoIds, () => {
-      visibleDemoIds.value = _getInitVisibleDemoIds();
-    }, {
-      flush: "post"
-    });
-    watch(visibleDemoIds, (ids, oldIds) => {
-      if (ids.length !== oldIds.length) {
-        nextTick(() => {
-          baseContentRef.value.updateAnchor();
-        });
-      }
-    });
-    return () => {
-      return createVNode(BaseContent, {
-        "ref": baseContentRef,
-        "visible": props.visible
-      }, {
-        default: () => [render({
-          demos: demoItems.value,
-          visibleDemoIds: visibleDemoIds.value,
-          setVisibleDemoIds
-        }, pageContentRenderer, () => demoItems.value.map((demoItem) => withDirectives(createVNode(Demo, {
-          "resolvedDemoItem": demoItem,
-          "tools": getDemoTools == null ? void 0 : getDemoTools(demoItem),
-          "lang": "zh"
-        }, null), [[vShow, visibleDemoIds.value.includes(demoItem.id)]])))]
-      });
-    };
-  }
-});
-const PageContent = defineComponent({
-  props: {
-    visible: {
-      type: Boolean,
-      required: true
-    },
-    pageImport: {
-      type: Function,
-      required: true
-    }
-  },
-  setup(props) {
-    const resolvedItem = useArchiveItemImport(props, "pageImport");
-    const {
-      render,
-      renderers: {
-        pageContent: pageContentRenderer
-      }
-    } = inject(pageContextToken);
-    const instanceMounted = ref(false);
-    const onInstanceMountedChange = (mounted) => {
-      instanceMounted.value = mounted;
-    };
-    return () => createVNode(BaseContent, {
-      "visible": props.visible && instanceMounted.value
-    }, {
-      default: () => [render({
-        demos: [],
-        visibleDemoIds: [],
-        setVisibleDemoIds: () => {
-        }
-      }, pageContentRenderer, () => {
-        var _a2;
-        return [createVNode(Bi, {
-          "instance": (_a2 = resolvedItem.value) == null ? void 0 : _a2.instance,
-          "onInstanceMountedChange": onInstanceMountedChange
-        }, null)];
-      })]
-    });
-  }
-});
-const Page = defineComponent({
-  props: innerPageProps,
-  setup(props) {
-    var _a2;
-    const wrapperRef = ref();
-    const headerRef = ref();
-    const headerAffixTarget = ref();
-    const headerFixed = ref(false);
-    const headerHeight = ref(0);
-    const handleAffixChange = (value) => {
-      headerFixed.value = value;
-    };
-    const appContext = inject(appContextToken, null);
-    const theme = inject(themeToken);
-    const breakpoints = inject(breakpointsToken);
-    const render = usePageRender({
-      theme,
-      breakpoints,
-      route: appContext == null ? void 0 : appContext.route,
-      activeRecords: appContext == null ? void 0 : appContext.activeRecords
-    });
-    const anchorOptions = computed(() => ({
-      enabled: props.theme.page.enableAnchor,
-      maxLevel: props.theme.page.anchorMaxLevel
-    }));
-    const pageCls = computed(() => {
-      const prefixCls = "archive-app__page";
-      return normalizeClass({
-        [prefixCls]: true,
-        [`${prefixCls}-xs`]: breakpoints.xs,
-        [`${prefixCls}-sm`]: breakpoints.sm,
-        [`${prefixCls}-md`]: breakpoints.md,
-        [`${prefixCls}-lg`]: breakpoints.lg,
-        [`${prefixCls}-xl`]: breakpoints.xl
-      });
-    });
-    onMounted(() => {
-      var _a22;
-      if (props.theme.page.headerAffix) {
-        headerAffixTarget.value = m$1(wrapperRef.value);
-      }
-      headerHeight.value = ((_a22 = headerRef.value) == null ? void 0 : _a22.getBoundingClientRect().height) ?? 0;
-    });
-    provide(pageContextToken, {
-      headerFixed,
-      headerHeight,
-      anchorOptions,
-      options: props.options ?? {},
-      renderers: props.renderers ?? {},
-      render
-    });
-    const title = computed(() => props.pageData.title);
-    const description = computed(() => props.pageData.description);
-    const demoImports = computed(() => props.pageData.demoImports);
-    const pageImport = computed(() => props.pageData.import);
-    const tabs = computed(() => {
-      var _a22;
-      return ((_a22 = props.pageData.tabs) == null ? void 0 : _a22.filter((tab) => tab.import || tab.demoImports)) ?? [];
-    });
-    const tabsRadioData = computed(() => tabs.value.map((tab) => ({
-      label: tab.name,
-      value: tab.id
-    })));
-    const showTabs = computed(() => {
-      var _a22;
-      return !((_a22 = demoImports.value) == null ? void 0 : _a22.length) && tabs.value.length > 0;
-    });
-    const activeTabId = ref((_a2 = tabs.value[0]) == null ? void 0 : _a2.id);
-    const setActiveTabId = (tab) => {
-      activeTabId.value = tab;
-    };
-    watch(() => props.pageData, () => {
-      var _a22;
-      activeTabId.value = (_a22 = tabs.value[0]) == null ? void 0 : _a22.id;
-    });
-    const headerCls = computed(() => ["archive-app__page__header", headerFixed.value ? "archive-app__page__header--fixed" : void 0]);
-    const renderHeader = () => {
-      var _a22;
-      if (!title.value && !description.value && !tabs.value.length) {
-        return;
-      }
-      const contentNode = createVNode("section", {
-        "ref": headerRef,
-        "class": headerCls.value
-      }, [render({
-        title: title.value,
-        description: description.value,
-        tabs: tabs.value,
-        activeTabId: activeTabId.value,
-        setActiveTabId
-      }, (_a22 = props.renderers) == null ? void 0 : _a22.pageHeader, () => [createVNode("h1", {
-        "class": "archive-app__page__title"
-      }, [title.value]), createVNode("p", {
-        "class": "archive-app__page__description"
-      }, [description.value]), showTabs.value && createVNode(IxRadioGroup, {
-        "value": activeTabId.value,
-        "dataSource": tabsRadioData.value,
-        "size": "lg",
-        "mode": "primary",
-        "gap": 4,
-        "buttoned": true,
-        "onUpdate:value": setActiveTabId
-      }, null)].filter(Boolean))]);
-      if (props.theme.page.headerAffix) {
-        return createVNode(IxAffix, {
-          "class": "archive-app__page__header-affix",
-          "target": headerAffixTarget.value,
-          "onChange": handleAffixChange
-        }, {
-          default: () => [contentNode]
-        });
-      }
-      return contentNode;
-    };
-    const renderContent2 = () => {
-      let children;
-      if (demoImports.value) {
-        children = createVNode(DemosContent, {
-          "visible": true,
-          "demoImports": demoImports.value
-        }, null);
-      } else if (pageImport.value) {
-        children = createVNode(PageContent, {
-          "visible": true,
-          "pageImport": pageImport.value
-        }, null);
-      } else {
-        children = tabs.value.map((tab) => {
-          const visible = activeTabId.value === tab.id;
-          if (tab.demoImports) {
-            return withDirectives(createVNode(DemosContent, {
-              "visible": visible,
-              "demoImports": tab.demoImports
-            }, null), [[vShow, visible]]);
-          }
-          return withDirectives(createVNode(PageContent, {
-            "visible": visible,
-            "pageImport": tab.import
-          }, null), [[vShow, visible]]);
-        });
-      }
-      return createVNode("section", {
-        "class": "archive-app__page__content"
-      }, [children]);
-    };
-    return () => createVNode(IxMessageProvider, null, {
-      default: () => [createVNode("article", {
-        "ref": wrapperRef,
-        "class": pageCls.value
-      }, [renderHeader(), renderContent2()])]
-    });
-  }
-});
 export {
-  Page as default
+  Bi as B,
+  Demo as D,
+  IxMessageProvider as I,
+  Ui as U,
+  IxRadioGroup as a,
+  scrollToTop as s
 };

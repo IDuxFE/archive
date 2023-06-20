@@ -45,8 +45,8 @@ const __vitePreload = function preload(baseModule, deps, importerUrl) {
 const mountOptions = {
   el: "#app",
   theme: { "themeStyle": "default", "layout": { "type": "both", "siderCollapsable": false }, "page": { "anchorMaxLevel": 6 } },
-  navRecords: [{ "type": "sub", "id": "guide", "name": "指南", "path": "/guide/introdoction/Introdoction", children: [{ "type": "sub", "id": "introdoction", "name": "介绍", "path": "/guide/introdoction/Introdoction", children: [{ "id": "Introdoction", "name": "介绍", "type": "item", "path": "/guide/introdoction/Introdoction", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/1-Introdoction.page.md")' } }, { "id": "GettingStarted", "name": "快速上手", "type": "item", "path": "/guide/introdoction/GettingStarted", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/2-GettingStarted.page.md")' } }, { "id": "DefaultNav", "name": "内置默认导航与路由解析", "type": "item", "path": "/guide/introdoction/DefaultNav", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/3-DefaultNav.page.md")' } }, { "id": "DevAndBuilding", "name": "本地调试与打包", "type": "item", "path": "/guide/introdoction/DevAndBuilding", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/4-DevAndBuilding.page.md")' } }, { "id": "Deploying", "name": "部署", "type": "item", "path": "/guide/introdoction/Deploying", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/5-Deploying.page.md")' } }] }, { "type": "sub", "id": "documents", "name": "文档编写", "path": "/guide/documents/Nav", children: [{ "id": "Nav", "name": "导航配置", "type": "item", "path": "/guide/documents/Nav", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/1-Nav.page.md")' } }, { "id": "Page", "name": "文档页面编写", "type": "item", "path": "/guide/documents/Page", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-Page.page.md")' } }, { "type": "sub", "id": "page", "name": "page", "path": "/guide/documents/page/Brief", children: [{ "id": "Brief", "name": "文档页面编写", "type": "item", "path": "/guide/documents/page/Brief", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/1-Brief.page.md")' } }, { "id": "VueSFC", "name": "Vue SFC 格式 文档页面", "type": "item", "path": "/guide/documents/page/VueSFC", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/2-VueSFC.page.md")' } }, { "id": "Markdown", "name": "Markdown 格式 文档页面", "type": "item", "path": "/guide/documents/page/Markdown", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/3-Markdown.page.md")' } }] }, { "type": "sub", "id": "demo", "name": "Demo编写", "path": "/guide/documents/demo/Brief", children: [{ "id": "Brief", "name": "Demo编写简介", "type": "item", "path": "/guide/documents/demo/Brief", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/1-Brief.page.md")' } }, { "id": "VueSFC", "name": "Vue SFC 格式 demo", "type": "item", "path": "/guide/documents/demo/VueSFC", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/2-VueSFC.page.md")' } }] }, { "type": "sub", "id": "markdown", "name": "Markdown 文档", children: [] }] }, { "type": "sub", "id": "customization", "name": "自定义", "path": "/guide/customization/PageLoader", children: [{ "id": "PageLoader", "name": "页面加载器", "type": "item", "path": "/guide/customization/PageLoader", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-customization/1-PageLoader.page.md")' } }, { "id": "DemoCollector", "name": "Demo 收集器", "type": "item", "path": "/guide/customization/DemoCollector", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-customization/2-DemoCollector.page.md")' } }, { "id": "AppSetup", "name": "App 自定义", "type": "item", "path": "/guide/customization/AppSetup", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-customization/3-AppSetup.page.md")' } }, { "id": "Theme", "name": "主题自定义", "type": "item", "path": "/guide/customization/Theme", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-customization/4-Theme.page.md")' } }] }] }],
-  routeRecords: [{ path: "/guide/introdoction/Introdoction", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/1-Introdoction.page.md")', import: () => __vitePreload(() => import("./1-Introdoction.page-e98ab4fb.js"), true ? ["assets/1-Introdoction.page-e98ab4fb.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/introdoction/GettingStarted", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/2-GettingStarted.page.md")', import: () => __vitePreload(() => import("./2-GettingStarted.page-7c25e3d3.js"), true ? ["assets/2-GettingStarted.page-7c25e3d3.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/introdoction/DefaultNav", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/3-DefaultNav.page.md")', import: () => __vitePreload(() => import("./3-DefaultNav.page-507c371d.js"), true ? ["assets/3-DefaultNav.page-507c371d.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/introdoction/DevAndBuilding", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/4-DevAndBuilding.page.md")', import: () => __vitePreload(() => import("./4-DevAndBuilding.page-35d7829a.js"), true ? ["assets/4-DevAndBuilding.page-35d7829a.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/introdoction/Deploying", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/5-Deploying.page.md")', import: () => __vitePreload(() => import("./5-Deploying.page-a020cd15.js"), true ? ["assets/5-Deploying.page-a020cd15.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/documents/Nav", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/1-Nav.page.md")', import: () => __vitePreload(() => import("./1-Nav.page-6b7850ce.js"), true ? ["assets/1-Nav.page-6b7850ce.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/documents/Page", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-Page.page.md")', import: () => __vitePreload(() => import("./2-Page.page-46d7871f.js"), true ? ["assets/2-Page.page-46d7871f.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/documents/page/Brief", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/1-Brief.page.md")', import: () => __vitePreload(() => import("./1-Brief.page-7393cf25.js"), true ? ["assets/1-Brief.page-7393cf25.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/documents/page/VueSFC", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/2-VueSFC.page.md")', import: () => __vitePreload(() => import("./2-VueSFC.page-3dd8e7b6.js"), true ? ["assets/2-VueSFC.page-3dd8e7b6.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/documents/page/Markdown", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/3-Markdown.page.md")', import: () => __vitePreload(() => import("./3-Markdown.page-6d83c003.js"), true ? ["assets/3-Markdown.page-6d83c003.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/documents/demo/Brief", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/1-Brief.page.md")', import: () => __vitePreload(() => import("./1-Brief.page-c852b31a.js"), true ? ["assets/1-Brief.page-c852b31a.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/documents/demo/VueSFC", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/2-VueSFC.page.md")', import: () => __vitePreload(() => import("./2-VueSFC.page-be3499a9.js"), true ? ["assets/2-VueSFC.page-be3499a9.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/customization/PageLoader", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-customization/1-PageLoader.page.md")', import: () => __vitePreload(() => import("./1-PageLoader.page-3fd01f71.js"), true ? ["assets/1-PageLoader.page-3fd01f71.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/customization/DemoCollector", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-customization/2-DemoCollector.page.md")', import: () => __vitePreload(() => import("./2-DemoCollector.page-42fe0b4d.js"), true ? ["assets/2-DemoCollector.page-42fe0b4d.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/customization/AppSetup", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-customization/3-AppSetup.page.md")', import: () => __vitePreload(() => import("./3-AppSetup.page-d5adef26.js"), true ? ["assets/3-AppSetup.page-d5adef26.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }, { path: "/guide/customization/Theme", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-customization/4-Theme.page.md")', import: () => __vitePreload(() => import("./4-Theme.page-3af3b3d7.js"), true ? ["assets/4-Theme.page-3af3b3d7.js","assets/_plugin-vue_export-helper-3982510c.js"] : void 0) } }]
+  navRecords: [{ "type": "group", "id": "guide", "name": "指南", "path": "/guide/introdoction/Introdoction", children: [{ "type": "group", "id": "introdoction", "name": "介绍", "path": "/guide/introdoction/Introdoction", children: [{ "id": "Introdoction", "name": "介绍", "type": "item", "path": "/guide/introdoction/Introdoction", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/1-Introdoction.page.md")' } }, { "id": "GettingStarted", "name": "快速上手", "type": "item", "path": "/guide/introdoction/GettingStarted", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/2-GettingStarted.page.md")' } }, { "id": "DefaultNav", "name": "内置默认导航与路由解析", "type": "item", "path": "/guide/introdoction/DefaultNav", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/3-DefaultNav.page.md")' } }, { "id": "DevAndBuilding", "name": "本地调试与打包", "type": "item", "path": "/guide/introdoction/DevAndBuilding", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/4-DevAndBuilding.page.md")' } }, { "id": "Deploying", "name": "部署", "type": "item", "path": "/guide/introdoction/Deploying", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/5-Deploying.page.md")' } }] }, { "type": "group", "id": "documents", "name": "文档编写", "path": "/guide/documents/Nav", children: [{ "id": "Nav", "name": "导航配置", "type": "item", "path": "/guide/documents/Nav", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/1-Nav.page.md")' } }, { "type": "group", "id": "page", "name": "文档页面编写", "path": "/guide/documents/page/Brief", children: [{ "id": "Brief", "name": "简介", "type": "item", "path": "/guide/documents/page/Brief", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/1-Brief.page.md")' } }, { "id": "Vue", "name": "Vue 文档页面", "type": "item", "path": "/guide/documents/page/Vue", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/2-Vue.page.md")' } }, { "id": "Vue2", "name": "Vue2 文档页面", "type": "item", "path": "/guide/documents/page/Vue2", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/3-Vue2.page.md")' } }, { "id": "Markdown", "name": "Markdown 格式 文档页面", "type": "item", "path": "/guide/documents/page/Markdown", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/4-Markdown.page.md")' } }] }, { "type": "group", "id": "demo", "name": "Demo编写", "path": "/guide/documents/demo/Brief", children: [{ "id": "Brief", "name": "Demo编写简介", "type": "item", "path": "/guide/documents/demo/Brief", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/1-Brief.page.md")' } }, { "id": "Vue", "name": "Vue Demo", "type": "item", "path": "/guide/documents/demo/Vue", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/2-Vue.page.md")' } }, { "id": "Vue2", "name": "Vue2 Demo", "type": "item", "path": "/guide/documents/demo/Vue2", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/3-Vue2.page.md")' } }] }, { "type": "group", "id": "markdown", "name": "Markdown 文档", children: [] }] }, { "type": "group", "id": "customization", "name": "自定义", "path": "/guide/customization/AppSetup", children: [{ "id": "AppSetup", "name": "App 自定义", "type": "item", "path": "/guide/customization/AppSetup", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/3-customization/1-AppSetup.page.md")' } }, { "id": "Theme", "name": "主题自定义", "type": "item", "path": "/guide/customization/Theme", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/3-customization/2-Theme.page.md")' } }] }, { "type": "group", "id": "advanced", "name": "高级使用", "path": "/guide/advanced/DemoInPage", children: [{ "id": "DemoInPage", "name": "在自编写页面中使用 Demo", "type": "item", "path": "/guide/advanced/DemoInPage", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-advanced/1-DemoInPage.page.md")' } }, { "id": "InjectIntoPlatform", "name": "植入自编写平台", "type": "item", "path": "/guide/advanced/InjectIntoPlatform", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-advanced/2-InjectIntoPlatform.page.md")' } }] }] }, { "type": "group", "id": "config", "name": "配置参考", "path": "/config/Basic", children: [{ "id": "Basic", "name": "Archive 配置", "type": "item", "path": "/config/Basic", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/2-config/1-Basic.page.md")' } }, { "id": "Setup", "name": "初始化脚本", "type": "item", "path": "/config/Setup", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/2-config/2-Setup.page.md")' } }] }, { "type": "group", "id": "loader", "name": "Loader", "path": "/loader/Brief", children: [{ "id": "Brief", "name": "介绍", "type": "item", "path": "/loader/Brief", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/1-Brief.page.md")' } }, { "id": "Loader", "name": "Loader 接口定义", "type": "item", "path": "/loader/Loader", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/2-Loader.page.md")' } }, { "id": "Item", "name": "Item", "type": "item", "path": "/loader/Item", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/3-Item.page.md")' } }, { "id": "Instance", "name": "Instance", "type": "item", "path": "/loader/Instance", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/4-Instance.page.md")' } }, { "type": "group", "id": "vue", "name": "Vue Loader", "path": "/loader/vue/Usage", children: [{ "id": "Usage", "name": "基础使用", "type": "item", "path": "/loader/vue/Usage", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/5-vue/1-Usage.page.md")' } }, { "id": "Meta", "name": "元信息", "type": "item", "path": "/loader/vue/Meta", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/5-vue/2-Meta.page.md")' } }, { "id": "LoaderOptions", "name": "Loader参数", "type": "item", "path": "/loader/vue/LoaderOptions", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/5-vue/3-LoaderOptions.page.md")' } }] }, { "type": "group", "id": "vue2", "name": "Vue2 Loader", "path": "/loader/vue2/Usage", children: [{ "id": "Usage", "name": "基础使用", "type": "item", "path": "/loader/vue2/Usage", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/6-vue2/1-Usage.page.md")' } }, { "id": "Meta", "name": "元信息", "type": "item", "path": "/loader/vue2/Meta", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/6-vue2/2-Meta.page.md")' } }, { "id": "LoaderOptions", "name": "Loader参数", "type": "item", "path": "/loader/vue2/LoaderOptions", "pageData": { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/6-vue2/3-LoaderOptions.page.md")' } }] }] }],
+  routeRecords: [{ path: "/guide/introdoction/Introdoction", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/1-Introdoction.page.md")', import: () => __vitePreload(() => import("./1-Introdoction.page-d74c587e.js"), true ? ["assets/1-Introdoction.page-d74c587e.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/introdoction/GettingStarted", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/2-GettingStarted.page.md")', import: () => __vitePreload(() => import("./2-GettingStarted.page-837e5d0d.js"), true ? ["assets/2-GettingStarted.page-837e5d0d.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/introdoction/DefaultNav", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/3-DefaultNav.page.md")', import: () => __vitePreload(() => import("./3-DefaultNav.page-008488be.js"), true ? ["assets/3-DefaultNav.page-008488be.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/introdoction/DevAndBuilding", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/4-DevAndBuilding.page.md")', import: () => __vitePreload(() => import("./4-DevAndBuilding.page-c47f58da.js"), true ? ["assets/4-DevAndBuilding.page-c47f58da.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/introdoction/Deploying", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/1-introdoction/5-Deploying.page.md")', import: () => __vitePreload(() => import("./5-Deploying.page-b5118398.js"), true ? ["assets/5-Deploying.page-b5118398.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/documents/Nav", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/1-Nav.page.md")', import: () => __vitePreload(() => import("./1-Nav.page-83c091f2.js"), true ? ["assets/1-Nav.page-83c091f2.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/documents/page/Brief", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/1-Brief.page.md")', import: () => __vitePreload(() => import("./1-Brief.page-07ecb744.js"), true ? ["assets/1-Brief.page-07ecb744.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/documents/page/Vue", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/2-Vue.page.md")', import: () => __vitePreload(() => import("./2-Vue.page-0e3dddc5.js"), true ? ["assets/2-Vue.page-0e3dddc5.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/documents/page/Vue2", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/3-Vue2.page.md")', import: () => __vitePreload(() => import("./3-Vue2.page-ad7f96b1.js"), true ? ["assets/3-Vue2.page-ad7f96b1.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/documents/page/Markdown", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/2-page/4-Markdown.page.md")', import: () => __vitePreload(() => import("./4-Markdown.page-34d179b4.js"), true ? ["assets/4-Markdown.page-34d179b4.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/documents/demo/Brief", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/1-Brief.page.md")', import: () => __vitePreload(() => import("./1-Brief.page-51cde1c7.js"), true ? ["assets/1-Brief.page-51cde1c7.js","assets/_plugin-vue_export-helper-e63733f0.js","assets/Demo-f2be02ac.js"] : void 0) } }, { path: "/guide/documents/demo/Vue", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/2-Vue.page.md")', import: () => __vitePreload(() => import("./2-Vue.page-57506319.js"), true ? ["assets/2-Vue.page-57506319.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/documents/demo/Vue2", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/2-documents/3-demo/3-Vue2.page.md")', import: () => __vitePreload(() => import("./3-Vue2.page-93d455d9.js"), true ? ["assets/3-Vue2.page-93d455d9.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/customization/AppSetup", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/3-customization/1-AppSetup.page.md")', import: () => __vitePreload(() => import("./1-AppSetup.page-88384220.js"), true ? ["assets/1-AppSetup.page-88384220.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/customization/Theme", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/3-customization/2-Theme.page.md")', import: () => __vitePreload(() => import("./2-Theme.page-1e8b64d8.js"), true ? ["assets/2-Theme.page-1e8b64d8.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/advanced/DemoInPage", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-advanced/1-DemoInPage.page.md")', import: () => __vitePreload(() => import("./1-DemoInPage.page-1c16dd3c.js"), true ? ["assets/1-DemoInPage.page-1c16dd3c.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/guide/advanced/InjectIntoPlatform", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/1-guide/4-advanced/2-InjectIntoPlatform.page.md")', import: () => __vitePreload(() => import("./2-InjectIntoPlatform.page-7deae34e.js"), true ? ["assets/2-InjectIntoPlatform.page-7deae34e.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/config/Basic", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/2-config/1-Basic.page.md")', import: () => __vitePreload(() => import("./1-Basic.page-76037e94.js"), true ? ["assets/1-Basic.page-76037e94.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/config/Setup", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/2-config/2-Setup.page.md")', import: () => __vitePreload(() => import("./2-Setup.page-4219cef1.js"), true ? ["assets/2-Setup.page-4219cef1.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/Brief", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/1-Brief.page.md")', import: () => __vitePreload(() => import("./1-Brief.page-eb147eab.js"), true ? ["assets/1-Brief.page-eb147eab.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/Loader", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/2-Loader.page.md")', import: () => __vitePreload(() => import("./2-Loader.page-3a2cff1b.js"), true ? ["assets/2-Loader.page-3a2cff1b.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/Item", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/3-Item.page.md")', import: () => __vitePreload(() => import("./3-Item.page-20caafce.js"), true ? ["assets/3-Item.page-20caafce.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/Instance", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/4-Instance.page.md")', import: () => __vitePreload(() => import("./4-Instance.page-c8f1b404.js"), true ? ["assets/4-Instance.page-c8f1b404.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/vue/Usage", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/5-vue/1-Usage.page.md")', import: () => __vitePreload(() => import("./1-Usage.page-cad15b69.js"), true ? ["assets/1-Usage.page-cad15b69.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/vue/Meta", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/5-vue/2-Meta.page.md")', import: () => __vitePreload(() => import("./2-Meta.page-9a2a34a8.js"), true ? ["assets/2-Meta.page-9a2a34a8.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/vue/LoaderOptions", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/5-vue/3-LoaderOptions.page.md")', import: () => __vitePreload(() => import("./3-LoaderOptions.page-fd2865bd.js"), true ? ["assets/3-LoaderOptions.page-fd2865bd.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/vue2/Usage", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/6-vue2/1-Usage.page.md")', import: () => __vitePreload(() => import("./1-Usage.page-fc138de1.js"), true ? ["assets/1-Usage.page-fc138de1.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/vue2/Meta", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/6-vue2/2-Meta.page.md")', import: () => __vitePreload(() => import("./2-Meta.page-001e4c8d.js"), true ? ["assets/2-Meta.page-001e4c8d.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }, { path: "/loader/vue2/LoaderOptions", pageData: { "title": "", "description": "", "importScript": '() => import("archive-page:/home/runner/work/archive/archive/docs/src/3-loader/6-vue2/3-LoaderOptions.page.md")', import: () => __vitePreload(() => import("./3-LoaderOptions.page-648dc1d9.js"), true ? ["assets/3-LoaderOptions.page-648dc1d9.js","assets/_plugin-vue_export-helper-e63733f0.js"] : void 0) } }]
 };
 function makeMap(str, expectsLowerCase) {
   const map2 = /* @__PURE__ */ Object.create(null);
@@ -11553,7 +11553,7 @@ const vClickOutside = {
     stopHandleMap.delete(el);
   }
 };
-function t$1(t2) {
+function t(t2) {
   return t2.split("-")[1];
 }
 function e(t2) {
@@ -11585,7 +11585,7 @@ function i$1(i2, r2, a2) {
     default:
       p2 = { x: l2.x, y: l2.y };
   }
-  switch (t$1(r2)) {
+  switch (t(r2)) {
     case "start":
       p2[m2] -= g2 * (a2 && d2 ? -1 : 1);
       break;
@@ -11628,7 +11628,7 @@ const u$1 = (n2) => ({ name: "arrow", options: n2, async fn(i2) {
   const p2 = a$1(l2), h2 = { x: s2, y: c2 }, y2 = o$1(f2), x2 = e(y2), w2 = await g2.getDimensions(r2), v2 = "y" === y2, b2 = v2 ? "top" : "left", A2 = v2 ? "bottom" : "right", R2 = v2 ? "clientHeight" : "clientWidth", P2 = u2.reference[x2] + u2.reference[y2] - h2[y2] - u2.floating[x2], E2 = h2[y2] - u2.reference[y2], T2 = await (null == g2.getOffsetParent ? void 0 : g2.getOffsetParent(r2));
   let D2 = T2 ? T2[R2] : 0;
   D2 && await (null == g2.isElement ? void 0 : g2.isElement(T2)) || (D2 = d2.floating[R2] || u2.floating[x2]);
-  const L2 = P2 / 2 - E2 / 2, k2 = p2[b2], O2 = D2 - w2[x2] - p2[A2], B = D2 / 2 - w2[x2] / 2 + L2, C2 = m$1(k2, B, O2), H2 = null != t$1(f2) && B != C2 && u2.reference[x2] / 2 - (B < k2 ? p2[b2] : p2[A2]) - w2[x2] / 2 < 0;
+  const L2 = P2 / 2 - E2 / 2, k2 = p2[b2], O2 = D2 - w2[x2] - p2[A2], B = D2 / 2 - w2[x2] / 2 + L2, C2 = m$1(k2, B, O2), H2 = null != t(f2) && B != C2 && u2.reference[x2] / 2 - (B < k2 ? p2[b2] : p2[A2]) - w2[x2] / 2 < 0;
   return { [y2]: h2[y2] - (H2 ? B < k2 ? k2 - B : O2 - B : 0), data: { [y2]: C2, centerOffset: B - C2 } };
 } }), g$1 = ["top", "right", "bottom", "left"];
 g$1.reduce((t2, e2) => t2.concat(e2, e2 + "-start", e2 + "-end"), []);
@@ -11638,7 +11638,7 @@ function h$1(t2) {
 }
 function y$1(n2, i2, r2) {
   void 0 === r2 && (r2 = false);
-  const a2 = t$1(n2), l2 = o$1(n2), s2 = e(l2);
+  const a2 = t(n2), l2 = o$1(n2), s2 = e(l2);
   let c2 = "x" === l2 ? a2 === (r2 ? "end" : "start") ? "right" : "left" : "start" === a2 ? "bottom" : "top";
   return i2.reference[s2] > i2.floating[s2] && (c2 = h$1(c2)), { main: c2, cross: h$1(c2) };
 }
@@ -11654,7 +11654,7 @@ const b$1 = function(e2) {
       return [w$1(t2), e3, w$1(e3)];
     }(c2));
     d2 || "none" === x2 || E2.push(...function(e3, o3, i3, r3) {
-      const a3 = t$1(e3);
+      const a3 = t(e3);
       let l3 = function(t2, e4, n2) {
         const o4 = ["left", "right"], i4 = ["right", "left"], r4 = ["top", "bottom"], a4 = ["bottom", "top"];
         switch (t2) {
@@ -11725,7 +11725,7 @@ const P$1 = function(t2) {
 const D$1 = function(e2) {
   return void 0 === e2 && (e2 = 0), { name: "offset", options: e2, async fn(i2) {
     const { x: r2, y: a2 } = i2, l2 = await async function(e3, i3) {
-      const { placement: r3, platform: a3, elements: l3 } = e3, s2 = await (null == a3.isRTL ? void 0 : a3.isRTL(l3.floating)), c2 = n$1(r3), f2 = t$1(r3), m2 = "x" === o$1(r3), u2 = ["left", "top"].includes(c2) ? -1 : 1, g2 = s2 && m2 ? -1 : 1, d2 = "function" == typeof i3 ? i3(e3) : i3;
+      const { placement: r3, platform: a3, elements: l3 } = e3, s2 = await (null == a3.isRTL ? void 0 : a3.isRTL(l3.floating)), c2 = n$1(r3), f2 = t(r3), m2 = "x" === o$1(r3), u2 = ["left", "top"].includes(c2) ? -1 : 1, g2 = s2 && m2 ? -1 : 1, d2 = "function" == typeof i3 ? i3(e3) : i3;
       let { mainAxis: p2, crossAxis: h2, alignmentAxis: y2 } = "number" == typeof d2 ? { mainAxis: d2, crossAxis: 0, alignmentAxis: null } : { mainAxis: 0, crossAxis: 0, alignmentAxis: null, ...d2 };
       return f2 && "number" == typeof y2 && (h2 = "end" === f2 ? -1 * y2 : y2), m2 ? { x: h2 * g2, y: p2 * u2 } : { x: p2 * u2, y: h2 * g2 };
     }(i2, e2);
@@ -11761,13 +11761,13 @@ function n(t2) {
 function o(t2) {
   return n(t2).getComputedStyle(t2);
 }
-function i$2(t2) {
+function i(t2) {
   return t2 instanceof n(t2).Node;
 }
 function r(t2) {
-  return i$2(t2) ? (t2.nodeName || "").toLowerCase() : "";
+  return i(t2) ? (t2.nodeName || "").toLowerCase() : "";
 }
-function l$2(t2) {
+function l(t2) {
   return t2 instanceof n(t2).HTMLElement;
 }
 function c(t2) {
@@ -11778,7 +11778,7 @@ function s(t2) {
     return false;
   return t2 instanceof n(t2).ShadowRoot || t2 instanceof ShadowRoot;
 }
-function f$2(t2) {
+function f(t2) {
   const { overflow: e2, overflowX: n2, overflowY: i2, display: r2 } = o(t2);
   return /auto|scroll|overlay|hidden|clip/.test(e2 + i2 + n2) && !["inline", "contents"].includes(r2);
 }
@@ -11786,10 +11786,10 @@ function u$2(t2) {
   return ["table", "td", "th"].includes(r(t2));
 }
 function a(t2) {
-  const e2 = d$2(), n2 = o(t2);
+  const e2 = d$1(), n2 = o(t2);
   return "none" !== n2.transform || "none" !== n2.perspective || !e2 && !!n2.backdropFilter && "none" !== n2.backdropFilter || !e2 && !!n2.filter && "none" !== n2.filter || ["transform", "perspective", "filter"].some((t3) => (n2.willChange || "").includes(t3)) || ["paint", "layout", "strict", "content"].some((t3) => (n2.contain || "").includes(t3));
 }
-function d$2() {
+function d$1() {
   return !("undefined" == typeof CSS || !CSS.supports) && CSS.supports("-webkit-backdrop-filter", "none");
 }
 function h(t2) {
@@ -11799,7 +11799,7 @@ const p = Math.min, m$2 = Math.max, g = Math.round;
 function y(t2) {
   const e2 = o(t2);
   let n2 = parseFloat(e2.width) || 0, i2 = parseFloat(e2.height) || 0;
-  const r2 = l$2(t2), c2 = r2 ? t2.offsetWidth : n2, s2 = r2 ? t2.offsetHeight : i2, f2 = g(n2) !== c2 || g(i2) !== s2;
+  const r2 = l(t2), c2 = r2 ? t2.offsetWidth : n2, s2 = r2 ? t2.offsetHeight : i2, f2 = g(n2) !== c2 || g(i2) !== s2;
   return f2 && (n2 = c2, i2 = s2), { width: n2, height: i2, fallback: f2 };
 }
 function x(t2) {
@@ -11808,7 +11808,7 @@ function x(t2) {
 const w = { x: 1, y: 1 };
 function v(t2) {
   const e2 = x(t2);
-  if (!l$2(e2))
+  if (!l(e2))
     return w;
   const n2 = e2.getBoundingClientRect(), { width: o2, height: i2, fallback: r2 } = y(e2);
   let c2 = (r2 ? g(n2.width) : n2.width) / o2, s2 = (r2 ? g(n2.height) : n2.height) / i2;
@@ -11817,7 +11817,7 @@ function v(t2) {
 const b = { x: 0, y: 0 };
 function L(t2, e2, o2) {
   var i2, r2;
-  if (void 0 === e2 && (e2 = true), !d$2())
+  if (void 0 === e2 && (e2 = true), !d$1())
     return b;
   const l2 = t2 ? n(t2) : window;
   return !o2 || e2 && o2 !== l2 ? b : { x: (null == (i2 = l2.visualViewport) ? void 0 : i2.offsetLeft) || 0, y: (null == (r2 = l2.visualViewport) ? void 0 : r2.offsetTop) || 0 };
@@ -11840,7 +11840,7 @@ function E(e2, o2, i2, r2) {
   return l$1({ width: h2, height: p2, x: a2, y: d2 });
 }
 function R(t2) {
-  return ((i$2(t2) ? t2.ownerDocument : t2.document) || window.document).documentElement;
+  return ((i(t2) ? t2.ownerDocument : t2.document) || window.document).documentElement;
 }
 function T(t2) {
   return c(t2) ? { scrollLeft: t2.scrollLeft, scrollTop: t2.scrollTop } : { scrollLeft: t2.pageXOffset, scrollTop: t2.pageYOffset };
@@ -11856,13 +11856,13 @@ function C(t2) {
 }
 function F(t2) {
   const e2 = C(t2);
-  return h(e2) ? e2.ownerDocument.body : l$2(e2) && f$2(e2) ? e2 : F(e2);
+  return h(e2) ? e2.ownerDocument.body : l(e2) && f(e2) ? e2 : F(e2);
 }
 function W(t2, e2) {
   var o2;
   void 0 === e2 && (e2 = []);
   const i2 = F(t2), r2 = i2 === (null == (o2 = t2.ownerDocument) ? void 0 : o2.body), l2 = n(i2);
-  return r2 ? e2.concat(l2, l2.visualViewport || [], f$2(i2) ? i2 : []) : e2.concat(i2, W(i2));
+  return r2 ? e2.concat(l2, l2.visualViewport || [], f(i2) ? i2 : []) : e2.concat(i2, W(i2));
 }
 function D(e2, i2, r2) {
   let s2;
@@ -11872,7 +11872,7 @@ function D(e2, i2, r2) {
       let l2 = i3.clientWidth, c2 = i3.clientHeight, s3 = 0, f2 = 0;
       if (r3) {
         l2 = r3.width, c2 = r3.height;
-        const t3 = d$2();
+        const t3 = d$1();
         (!t3 || t3 && "fixed" === e3) && (s3 = r3.offsetLeft, f2 = r3.offsetTop);
       }
       return { width: l2, height: c2, x: s3, y: f2 };
@@ -11886,7 +11886,7 @@ function D(e2, i2, r2) {
     }(R(e2));
   else if (c(i2))
     s2 = function(t2, e3) {
-      const n2 = E(t2, true, "fixed" === e3), o2 = n2.top + t2.clientTop, i3 = n2.left + t2.clientLeft, r3 = l$2(t2) ? v(t2) : { x: 1, y: 1 };
+      const n2 = E(t2, true, "fixed" === e3), o2 = n2.top + t2.clientTop, i3 = n2.left + t2.clientLeft, r3 = l(t2) ? v(t2) : { x: 1, y: 1 };
       return { width: t2.clientWidth * r3.x, height: t2.clientHeight * r3.y, x: i3 * r3.x, y: o2 * r3.y };
     }(i2, r2);
   else {
@@ -11900,18 +11900,18 @@ function H(t2, e2) {
   return !(n2 === e2 || !c(n2) || h(n2)) && ("fixed" === o(n2).position || H(n2, e2));
 }
 function O(t2, e2) {
-  return l$2(t2) && "fixed" !== o(t2).position ? e2 ? e2(t2) : t2.offsetParent : null;
+  return l(t2) && "fixed" !== o(t2).position ? e2 ? e2(t2) : t2.offsetParent : null;
 }
 function P(t2, e2) {
   const i2 = n(t2);
-  if (!l$2(t2))
+  if (!l(t2))
     return i2;
   let c2 = O(t2, e2);
   for (; c2 && u$2(c2) && "static" === o(c2).position; )
     c2 = O(c2, e2);
   return c2 && ("html" === r(c2) || "body" === r(c2) && "static" === o(c2).position && !a(c2)) ? i2 : c2 || function(t3) {
     let e3 = C(t3);
-    for (; l$2(e3) && !h(e3); ) {
+    for (; l(e3) && !h(e3); ) {
       if (a(e3))
         return e3;
       e3 = C(e3);
@@ -11920,11 +11920,11 @@ function P(t2, e2) {
   }(t2) || i2;
 }
 function V(t2, e2, n2) {
-  const o2 = l$2(e2), i2 = R(e2), c2 = "fixed" === n2, s2 = E(t2, true, c2, e2);
+  const o2 = l(e2), i2 = R(e2), c2 = "fixed" === n2, s2 = E(t2, true, c2, e2);
   let u2 = { scrollLeft: 0, scrollTop: 0 };
   const a2 = { x: 0, y: 0 };
   if (o2 || !o2 && !c2)
-    if (("body" !== r(e2) || f$2(i2)) && (u2 = T(e2)), l$2(e2)) {
+    if (("body" !== r(e2) || f(i2)) && (u2 = T(e2)), l(e2)) {
       const t3 = E(e2, true, c2, e2);
       a2.x = t3.x + e2.clientLeft, a2.y = t3.y + e2.clientTop;
     } else
@@ -11942,7 +11942,7 @@ const k = { getClippingRect: function(t2) {
     let u3 = s3 ? C(t3) : t3;
     for (; c(u3) && !h(u3); ) {
       const e4 = o(u3), n4 = a(u3);
-      n4 || "fixed" !== e4.position || (l3 = null), (s3 ? !n4 && !l3 : !n4 && "static" === e4.position && l3 && ["absolute", "fixed"].includes(l3.position) || f$2(u3) && !n4 && H(t3, u3)) ? i3 = i3.filter((t4) => t4 !== u3) : l3 = e4, u3 = C(u3);
+      n4 || "fixed" !== e4.position || (l3 = null), (s3 ? !n4 && !l3 : !n4 && "static" === e4.position && l3 && ["absolute", "fixed"].includes(l3.position) || f(u3) && !n4 && H(t3, u3)) ? i3 = i3.filter((t4) => t4 !== u3) : l3 = e4, u3 = C(u3);
     }
     return e3.set(t3, i3), i3;
   }(e2, this._c) : [].concat(n2), u2 = [...s2, i2], d2 = u2[0], g2 = u2.reduce((t3, n3) => {
@@ -11952,12 +11952,12 @@ const k = { getClippingRect: function(t2) {
   return { width: g2.right - g2.left, height: g2.bottom - g2.top, x: g2.left, y: g2.top };
 }, convertOffsetParentRelativeRectToViewportRelativeRect: function(t2) {
   let { rect: e2, offsetParent: n2, strategy: o2 } = t2;
-  const i2 = l$2(n2), c2 = R(n2);
+  const i2 = l(n2), c2 = R(n2);
   if (n2 === c2)
     return e2;
   let s2 = { scrollLeft: 0, scrollTop: 0 }, u2 = { x: 1, y: 1 };
   const a2 = { x: 0, y: 0 };
-  if ((i2 || !i2 && "fixed" !== o2) && (("body" !== r(n2) || f$2(c2)) && (s2 = T(n2)), l$2(n2))) {
+  if ((i2 || !i2 && "fixed" !== o2) && (("body" !== r(n2) || f(c2)) && (s2 = T(n2)), l(n2))) {
     const t3 = E(n2);
     u2 = v(n2), a2.x = t3.x + n2.clientLeft, a2.y = t3.y + n2.clientTop;
   }
@@ -13970,7 +13970,7 @@ function u(l2, e2, n2, o2 = "pre") {
   };
   p2(l2, []);
 }
-function d$1(l2, e2, n2) {
+function d(l2, e2, n2) {
   const o2 = (p2, s2) => {
     const i2 = [];
     for (let r2 = 0; r2 < p2.length; r2++) {
@@ -18138,7 +18138,7 @@ const AppComp = defineComponent(() => {
     return theme.layout.type;
   });
   const renderItemLabel = (item) => {
-    if (item.recordType === "item" || item.recordType === "sub") {
+    if (item.recordType === "item" || item.recordType === "sub" || item.recordType === "group") {
       return createVNode(RouterLink, {
         "to": item.path
       }, {
@@ -18151,7 +18151,6 @@ const AppComp = defineComponent(() => {
         "href": item.link
       }, [createVNode("span", null, [item.name])]);
     }
-    return createVNode("span", null, [item.name]);
   };
   const renderLogo = renderers.logo ? () => render(theme.logo, renderers.logo) : void 0;
   const renderHeaderContent = renderers.layoutHeaderContent ? (menuProps2) => render(menuProps2, renderers.layoutHeaderContent) : void 0;
@@ -18263,7 +18262,7 @@ function useNavRecords(navRecords, route) {
         return "item";
     }
   };
-  const processRecords = (records) => d$1(records, "children", (record, parents) => {
+  const processRecords = (records) => d(records, "children", (record, parents) => {
     if (record.type === "item") {
       pathRecordMap.set(record.path, record);
     }
@@ -18282,7 +18281,7 @@ function useNavRecords(navRecords, route) {
   const menuData = processRecords(navRecords);
   const activeRecords = computed(() => {
     const _activeRecords = [];
-    const currentActiveRecord = pathRecordMap.get(route.path);
+    const currentActiveRecord = pathRecordMap.get(route.path.replace(/\/$/, ""));
     if (currentActiveRecord) {
       _activeRecords.push(currentActiveRecord);
       traverseParents(currentActiveRecord, (parent) => _activeRecords.push(parent));
@@ -18310,40 +18309,12 @@ function resolveRoutes(routesRecords, theme, renderers, options) {
     ...routesRecords.map((record) => {
       return {
         path: record.path,
-        component: () => __vitePreload(() => import("./Page-5d4cc8d3.js"), true ? [] : void 0),
+        component: () => __vitePreload(() => import("./Page-0812bc66.js"), true ? ["assets/Page-0812bc66.js","assets/Demo-f2be02ac.js"] : void 0),
         props: resolvePageProps(record.pageData, theme, renderers, options)
       };
     })
   ];
 }
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-const t = /* @__PURE__ */ new Set();
-function i(n2) {
-  return t.add(n2), () => {
-    t.delete(n2);
-  };
-}
-function f(n2, o2) {
-  for (const e2 of Object.keys(o2))
-    e2 !== "id" && e2 !== "instance" && (n2[e2] = o2[e2]);
-  t.forEach((e2) => e2(o2));
-}
-const d = () => typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof window < "u" ? window : typeof global < "u" ? global : {}, l = {
-  onItemChange: i,
-  _updateItem: f
-};
-d().__ARCHIVE_HMR_RUNTIME__ = l;
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
 function mountApp(options) {
   const { navRecords, routeRecords, el, renderers = {}, setupOptions, setupApp } = options;
   const theme = resolveThemeOptions(options.theme);
@@ -18395,103 +18366,108 @@ function mountApp(options) {
 const app = "";
 mountApp(mountOptions);
 export {
-  flattenNode as $,
-  isNil as A,
-  mergeProps as B,
-  copyArray as C,
-  convertElement as D,
-  useKey as E,
-  watchEffect as F,
-  callEmit as G,
-  IxInput as H,
+  overlayPlacementDef as $,
+  breakpointsToken as A,
+  onUnmounted as B,
+  callEmit as C,
+  getOffset as D,
+  convertNumber as E,
+  throttleRAF as F,
+  isHTMLElement as G,
+  createTextVNode as H,
   IxIcon as I,
-  overlayDelayDef as J,
-  overlayPlacementDef as K,
-  overlayTriggerDef as L,
-  onDeactivated as M,
-  usePortalTarget as N,
-  convertCssPixel as O,
-  CdkPortal as P,
-  TransitionGroup as Q,
-  Fragment as R,
-  setToString$1 as S,
+  baseCreate$1 as J,
+  isObjectLike as K,
+  isArray$1$1 as L,
+  debounce as M,
+  throwError as N,
+  useControlledProp as O,
+  useState as P,
+  addClass as Q,
+  removeClass as R,
+  isNil as S,
   Transition as T,
-  isString as U,
-  onBeforeUnmount as V,
+  mergeProps as U,
+  copyArray as V,
   WeakMap$1$1 as W,
-  useAccessorAndControl as X,
-  useFormItemRegister as Y,
-  IxSpace as Z,
-  Logger as _,
-  onUnmounted as a,
-  useInput as a0,
-  useFormFocusMonitor as a1,
-  ɵInput as a2,
-  rAF as a3,
-  useFormSize as a4,
-  useFormStatus as a5,
-  toNumber as a6,
-  arrayEach as a7,
-  uniqueId as a8,
-  convertArray as a9,
-  on as aA,
-  appContextToken as aB,
-  themeToken as aC,
-  breakpointsToken as aD,
-  getOffset as aE,
-  convertNumber as aF,
-  throttleRAF as aG,
-  isHTMLElement as aH,
-  useFormElement as aa,
-  FORM_TOKEN as ab,
-  convertStringVNode as ac,
-  ɵWave as ad,
-  tryOnScopeDispose as ae,
-  inputCommonProps as af,
-  easeInOutCubic as ag,
-  isFunction as ah,
-  identity as ai,
-  shortOut as aj,
-  isIndex as ak,
-  root$1 as al,
-  apply as am,
-  baseGetTag as an,
-  customRef as ao,
-  isNumber as ap,
-  toRaw as aq,
-  hasSlot as ar,
-  toString as as,
-  normalizeStyle as at,
-  cancelRAF as au,
-  m as av,
-  pageContextToken as aw,
-  u as ax,
-  off as ay,
-  convertTarget as az,
-  createTextVNode as b,
-  createVNode as c,
+  convertElement as X,
+  useKey as Y,
+  IxInput as Z,
+  overlayDelayDef as _,
+  inject as a,
+  overlayTriggerDef as a0,
+  onDeactivated as a1,
+  markRaw as a2,
+  setToString$1 as a3,
+  reactive as a4,
+  usePortalTarget as a5,
+  convertCssPixel as a6,
+  CdkPortal as a7,
+  TransitionGroup as a8,
+  Fragment as a9,
+  apply as aA,
+  baseGetTag as aB,
+  Teleport as aC,
+  uniqueId as aD,
+  tryOnScopeDispose as aE,
+  customRef as aF,
+  isNumber as aG,
+  easeInOutCubic as aH,
+  toRaw as aI,
+  hasSlot as aJ,
+  toString as aK,
+  normalizeStyle as aL,
+  cancelRAF as aM,
+  useAccessorAndControl as aa,
+  useFormItemRegister as ab,
+  IxSpace as ac,
+  Logger as ad,
+  flattenNode as ae,
+  useInput as af,
+  useFormFocusMonitor as ag,
+  ɵInput as ah,
+  useFormSize as ai,
+  useFormStatus as aj,
+  toNumber as ak,
+  arrayEach as al,
+  createApp as am,
+  isString as an,
+  useFormElement as ao,
+  FORM_TOKEN as ap,
+  convertStringVNode as aq,
+  ɵWave as ar,
+  inputCommonProps as as,
+  rAF as at,
+  isFunction as au,
+  convertArray as av,
+  identity as aw,
+  shortOut as ax,
+  isIndex as ay,
+  root$1 as az,
+  createVNode as b,
+  computed as c,
   defineComponent as d,
-  computed as e,
-  withDirectives as f,
-  baseCreate$1 as g,
+  pageContextToken as e,
+  onBeforeUnmount as f,
+  isObject as g,
   h$2 as h,
-  isObjectLike as i,
-  isArray$1$1 as j,
-  isObject as k,
-  debounce as l,
-  inject as m,
+  iduxInstall as i,
+  withDirectives as j,
+  normalizeClass as k,
+  useGlobalConfig$1 as l,
+  m,
   nextTick as n,
   onMounted as o,
-  useControlledProp as p,
-  useState as q,
+  provide as p,
+  watchEffect as q,
   ref as r,
-  normalizeClass as s,
-  throwError as t,
-  useGlobalConfig$1 as u,
+  off as s,
+  convertTarget as t,
+  u,
   vShow as v,
   watch as w,
-  addClass as x,
-  removeClass as y,
-  provide as z,
+  on as x,
+  appContextToken as y,
+  themeToken as z,
   ɵOverlay as ɵ
 };

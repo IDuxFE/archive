@@ -66,6 +66,28 @@ const HTML_TAGS = "html,body,base,head,link,meta,style,title,address,article,asi
 const SVG_TAGS = "svg,animate,animateMotion,animateTransform,circle,clipPath,color-profile,defs,desc,discard,ellipse,feBlend,feColorMatrix,feComponentTransfer,feComposite,feConvolveMatrix,feDiffuseLighting,feDisplacementMap,feDistanceLight,feDropShadow,feFlood,feFuncA,feFuncB,feFuncG,feFuncR,feGaussianBlur,feImage,feMerge,feMergeNode,feMorphology,feOffset,fePointLight,feSpecularLighting,feSpotLight,feTile,feTurbulence,filter,foreignObject,g,hatch,hatchpath,image,line,linearGradient,marker,mask,mesh,meshgradient,meshpatch,meshrow,metadata,mpath,path,pattern,polygon,polyline,radialGradient,rect,set,solidcolor,stop,switch,symbol,text,textPath,title,tspan,unknown,use,view";
 const isHTMLTag = /* @__PURE__ */ makeMap(HTML_TAGS);
 const isSVGTag = /* @__PURE__ */ makeMap(SVG_TAGS);
+const toDisplayString = (val) => {
+  return isString(val) ? val : val == null ? "" : isArray(val) || isObject(val) && (val.toString === objectToString || !isFunction(val.toString)) ? JSON.stringify(val, replacer, 2) : String(val);
+};
+const replacer = (_key, val) => {
+  if (val && val.__v_isRef) {
+    return replacer(_key, val.value);
+  } else if (isMap(val)) {
+    return {
+      [`Map(${val.size})`]: [...val.entries()].reduce((entries, [key, val2]) => {
+        entries[`${key} =>`] = val2;
+        return entries;
+      }, {})
+    };
+  } else if (isSet(val)) {
+    return {
+      [`Set(${val.size})`]: [...val.values()]
+    };
+  } else if (isObject(val) && !isArray(val) && !isPlainObject(val)) {
+    return String(val);
+  }
+  return val;
+};
 const EMPTY_OBJ = Object.freeze({});
 const EMPTY_ARR = Object.freeze([]);
 const NOOP = () => {
@@ -1881,6 +1903,12 @@ function setCurrentRenderingInstance(instance) {
   currentRenderingInstance = instance;
   currentScopeId = instance && instance.type.__scopeId || null;
   return prev;
+}
+function pushScopeId(id) {
+  currentScopeId = id;
+}
+function popScopeId() {
+  currentScopeId = null;
 }
 function withCtx(fn2, ctx = currentRenderingInstance, isNonScopedSlot) {
   if (!ctx)
@@ -6422,9 +6450,35 @@ function kt(t) {
   var e = t + "";
   return e == "0" && 1 / t == -Xe ? "-0" : e;
 }
+var Ye = /\s/;
+function qe(t) {
+  for (var e = t.length; e-- && Ye.test(t.charAt(e)); )
+    ;
+  return e;
+}
+var Ze = /^\s+/;
+function Je(t) {
+  return t && t.slice(0, qe(t) + 1).replace(Ze, "");
+}
 function S(t) {
   var e = typeof t;
   return t != null && (e == "object" || e == "function");
+}
+var $t = 0 / 0, Qe = /^[-+]0x[0-9a-f]+$/i, ke = /^0b[01]+$/i, tn = /^0o[0-7]+$/i, en = parseInt;
+function _t(t) {
+  if (typeof t == "number")
+    return t;
+  if (X(t))
+    return $t;
+  if (S(t)) {
+    var e = typeof t.valueOf == "function" ? t.valueOf() : t;
+    t = S(e) ? e + "" : e;
+  }
+  if (typeof t != "string")
+    return t === 0 ? t : +t;
+  t = Je(t);
+  var n = ke.test(t);
+  return n || tn.test(t) ? en(t.slice(2), n ? 2 : 8) : Qe.test(t) ? $t : +t;
 }
 function nn(t) {
   return t;
@@ -7141,6 +7195,58 @@ function H(t, e, n, r, a, o) {
     y && (d = h2, h2 = t[d]), ne(i, d, H(h2, e, n, d, t, o));
   }), i;
 }
+var Ti = function() {
+  return m.Date.now();
+};
+const k = Ti;
+var $i = "Expected a function", _i = Math.max, ji = Math.min;
+function wi(t, e, n) {
+  var r, a, o, i, s, c, u = 0, v = false, g = false, w = true;
+  if (typeof t != "function")
+    throw new TypeError($i);
+  e = _t(e) || 0, S(n) && (v = !!n.leading, g = "maxWait" in n, o = g ? _i(_t(n.maxWait) || 0, e) : o, w = "trailing" in n ? !!n.trailing : w);
+  function _(b) {
+    var A = r, U = a;
+    return r = a = void 0, u = b, i = t.apply(U, A), i;
+  }
+  function p2(b) {
+    return u = b, s = setTimeout(d, e), v ? _(b) : i;
+  }
+  function y(b) {
+    var A = b - c, U = b - u, bt = e - A;
+    return g ? ji(bt, o - U) : bt;
+  }
+  function h2(b) {
+    var A = b - c, U = b - u;
+    return c === void 0 || A >= e || A < 0 || g && U >= o;
+  }
+  function d() {
+    var b = k();
+    if (h2(b))
+      return T(b);
+    s = setTimeout(d, y(b));
+  }
+  function T(b) {
+    return s = void 0, w && r ? _(b) : (r = a = void 0, i);
+  }
+  function O() {
+    s !== void 0 && clearTimeout(s), u = 0, r = c = a = s = void 0;
+  }
+  function Ae() {
+    return s === void 0 ? i : T(k());
+  }
+  function Z() {
+    var b = k(), A = h2(b);
+    if (r = arguments, a = this, c = b, A) {
+      if (s === void 0)
+        return p2(c);
+      if (g)
+        return clearTimeout(s), s = setTimeout(d, e), _(c);
+    }
+    return s === void 0 && (s = setTimeout(d, e)), i;
+  }
+  return Z.cancel = O, Z.flush = Ae, Z;
+}
 function Oi(t) {
   var e = t == null ? 0 : t.length;
   return e ? t[e - 1] : void 0;
@@ -7157,8 +7263,7 @@ function Ii(t, e) {
 function Pi(t) {
   return he(t) ? void 0 : t;
 }
-var Ci = 1, xi = 2, Ei = 4;
-Sa(function(t, e) {
+var Ci = 1, xi = 2, Ei = 4, Mi = Sa(function(t, e) {
   var n = {};
   if (t == null)
     return n;
@@ -7170,6 +7275,7 @@ Sa(function(t, e) {
     Ii(n, e[a]);
   return n;
 });
+const Fi = Mi;
 /**
  * @license
  *
@@ -7288,7 +7394,7 @@ const we = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
-defineComponent({
+const Oe = defineComponent({
   name: "ArchiveInstance",
   props: we,
   setup(t) {
@@ -7326,6 +7432,31 @@ defineComponent({
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
+function Li(t, e) {
+  return defineComponent({
+    name: "ArchiveInstanceWrapper",
+    props: { ...e ?? {}, onInstanceMountedChange: we.onInstanceMountedChange },
+    setup(n) {
+      const r = wi(() => {
+        t.setData(Fi(n, "onInstanceMountedChange"));
+      }, 10);
+      return onMounted(() => {
+        watch(n, r, {
+          immediate: true
+        });
+      }), () => h(Oe, {
+        instance: t,
+        onInstanceMountedChange: n.onInstanceMountedChange
+      });
+    }
+  });
+}
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
 const tt = {};
 function Ui(t, e, n) {
   const r = t ?? "default";
@@ -7339,12 +7470,20 @@ const _export_sfc = (sfc, props) => {
   return target;
 };
 export {
+  Li as L,
   Ui as U,
   _export_sfc as _,
   createStaticVNode as a,
   createCommentVNode as b,
   createElementBlock as c,
-  createBaseVNode as d,
-  createTextVNode as e,
-  openBlock as o
+  defineComponent as d,
+  popScopeId as e,
+  createBaseVNode as f,
+  computed as g,
+  createVNode as h,
+  createTextVNode as i,
+  openBlock as o,
+  pushScopeId as p,
+  toDisplayString as t,
+  unref as u
 };
