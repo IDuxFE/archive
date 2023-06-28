@@ -52,11 +52,14 @@ async function createCommonViteConfig(
   mode: 'build' | 'dev',
 ): Promise<InlineConfig> {
   const userViteConfigFile = await loadConfigFromFile({ command: mode === 'dev' ? 'serve' : 'build', mode })
+
+  const baseUrl = archiveConfig.baseUrl ?? userViteConfigFile?.config.base ?? '/'
   const userViteConfig = mergeConfig(userViteConfigFile?.config ?? {}, {
     configFile: false,
+    base: baseUrl,
     define: {
       __DEV__: mode === 'dev',
-      __BASE_URL__: userViteConfigFile?.config.base,
+      __BASE_URL__: baseUrl,
     },
     server: { port: 8080 },
   })
@@ -94,6 +97,7 @@ async function createCommonViteConfig(
         
         export default {
           el: '#app',
+          baseUrl: ${JSON.stringify(baseUrl)},
           theme: ${JSON.stringify(archiveConfig.theme)},
           navRecords: ${navRecordsScript},
           routeRecords: [${routeRecords

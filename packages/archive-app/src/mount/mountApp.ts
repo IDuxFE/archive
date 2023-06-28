@@ -64,7 +64,7 @@ export function mountApp(options: AppMountOptions): void {
   app
     .use(
       createRouter({
-        history: createWebHistory('/'),
+        history: createWebHistory(options.baseUrl),
         scrollBehavior: (to, _, savedPosition) => {
           if (savedPosition) {
             return savedPosition

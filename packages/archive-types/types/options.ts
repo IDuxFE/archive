@@ -30,6 +30,7 @@ export interface AppSetupOptions {
 
 export interface AppMountOptions {
   el: string
+  baseUrl: string
   theme?: AppThemeOptions
   setupApp?: (app: App) => void
   setupOptions?: AppSetupOptions

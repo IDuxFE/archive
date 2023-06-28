@@ -36,6 +36,7 @@ export interface ArchiveConfig {
   theme?: ArchiveThemeOptions
   dist?: string
   root?: string
+  baseUrl?: string
 }
 
 export interface RecordsContext {
@@ -53,4 +54,5 @@ export interface ResolvedArchiveConfig {
   markdownOptions: MarkdownOptions
   dist: string
   root: string
+  baseUrl?: string
 }
