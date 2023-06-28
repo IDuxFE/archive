@@ -55,8 +55,18 @@ export async function loadConfig(cwd: string = process.cwd()): Promise<{
 }
 
 export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
-  const { setupFile, navConfig, watchNavConfig, theme, pageLoaders, demoLoaders, markdownOptions, dist, root } =
-    mergeConfig(config)
+  const {
+    setupFile,
+    navConfig,
+    watchNavConfig,
+    theme,
+    pageLoaders,
+    demoLoaders,
+    markdownOptions,
+    dist,
+    root,
+    baseUrl,
+  } = mergeConfig(config)
 
   const getResolvedRecords = () => {
     const navRecords = navConfig(root)
@@ -73,6 +83,7 @@ export function resolveConfig(config?: ArchiveConfig): ResolvedArchiveConfig {
     markdownOptions,
     dist,
     root,
+    baseUrl,
   }
 }
 
@@ -80,10 +91,20 @@ function mergeConfig(
   config?: ArchiveConfig,
 ): SetOptional<
   Required<ArchiveConfig & { theme: SetRequired<SetRequired<ArchiveConfig, 'theme'>['theme'], 'themeStyle'> }>,
-  'setupFile'
+  'setupFile' | 'baseUrl'
 > {
-  const { setupFile, navConfig, watchNavConfig, theme, pageLoaders, demoLoaders, markdownOptions, dist, root } =
-    config ?? {}
+  const {
+    setupFile,
+    navConfig,
+    watchNavConfig,
+    theme,
+    pageLoaders,
+    demoLoaders,
+    markdownOptions,
+    dist,
+    root,
+    baseUrl,
+  } = config ?? {}
   const resolvedRoot = root ?? process.cwd()
 
   const defaultWatcher = navConfig
@@ -105,6 +126,7 @@ function mergeConfig(
     markdownOptions: markdownOptions ?? {},
     dist: dist ?? 'dist',
     root: resolvedRoot,
+    baseUrl,
   }
 }
 
