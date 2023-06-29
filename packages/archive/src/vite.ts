@@ -59,7 +59,7 @@ async function createCommonViteConfig(
     base: baseUrl,
     define: {
       __DEV__: mode === 'dev',
-      __BASE_URL__: baseUrl,
+      __BASE_URL__: JSON.stringify(baseUrl),
     },
     server: { port: 8080 },
   })

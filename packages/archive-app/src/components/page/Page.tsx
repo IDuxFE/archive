@@ -26,6 +26,7 @@ import { IxRadioGroup } from '@idux/components/radio'
 
 import { type InnerPageProps, innerPageProps } from '@idux/archive-types'
 
+import { useCopyCode } from '../../composables/useCopyCode'
 import { usePageRender } from '../../composables/usePageRender'
 import { appContextToken, breakpointsToken, pageContextToken, themeToken } from '../../token'
 import DemosContent from './DemosContent'
@@ -46,6 +47,8 @@ export default defineComponent({
     const appContext = inject(appContextToken, null)
     const theme = inject(themeToken)!
     const breakpoints = inject(breakpointsToken)!
+
+    useCopyCode()
 
     const render = usePageRender({
       theme,
