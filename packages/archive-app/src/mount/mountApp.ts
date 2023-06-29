@@ -28,7 +28,7 @@ if (__DEV__) {
 
 export function mountApp(options: AppMountOptions): void {
   const { navRecords, routeRecords, el, renderers = {}, setupOptions, setupApp } = options
-  const theme = resolveThemeOptions(options.theme)
+  const theme = resolveThemeOptions(options)
   const routes = resolveRoutes(routeRecords, theme, renderers, setupOptions)
 
   const app = createApp(

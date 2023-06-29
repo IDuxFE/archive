@@ -12,8 +12,8 @@ import { resolveThemeOptions } from '../resolveThemeOptions'
 import { createPageComponent } from './createPageComponent'
 
 export function createAllPageComponent(options: AppMountOptions): Record<string, DefineComponent> {
-  const { routeRecords, theme, renderers, setupOptions, setupApp } = options
-  const reseolvedTheme = resolveThemeOptions(theme)
+  const { routeRecords, renderers, setupOptions, setupApp } = options
+  const reseolvedTheme = resolveThemeOptions(options)
 
   const components: Record<string, DefineComponent> = {}
 

@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { AppThemeOptions, ResolvedAppThemeOptions } from '@idux/archive-types'
+import type { AppMountOptions, ResolvedAppThemeOptions } from '@idux/archive-types'
 
 import { isString } from 'lodash-es'
 
@@ -20,19 +20,20 @@ const defaultBreakpoints = {
   xl: '(min-width: 1921px)',
 }
 
-export function resolveThemeOptions(options?: AppThemeOptions): ResolvedAppThemeOptions {
+export function resolveThemeOptions(options?: AppMountOptions): ResolvedAppThemeOptions {
+  const { theme, baseUrl } = options ?? {}
   return {
-    logo: options?.logo ?? {
+    logo: theme?.logo ?? {
       image: defaultLogoImg,
       title: 'IDUX Archive',
-      link: '/',
+      link: baseUrl ?? '/',
     },
-    breakpoints: options?.breakpoints ?? defaultBreakpoints,
+    breakpoints: theme?.breakpoints ?? defaultBreakpoints,
     layout: {
-      theme: options?.layout?.theme ?? 'dark',
-      type: options?.layout?.type ?? 'both',
+      theme: theme?.layout?.theme ?? 'dark',
+      type: theme?.layout?.type ?? 'both',
       siderCollapsable: (() => {
-        const siderCollapsable = options?.layout?.siderCollapsable
+        const siderCollapsable = theme?.layout?.siderCollapsable
         if (isString(siderCollapsable)) {
           return siderCollapsable
         }
@@ -44,11 +45,11 @@ export function resolveThemeOptions(options?: AppThemeOptions): ResolvedAppTheme
         return 'top'
       })(),
     },
-    footer: options?.footer,
+    footer: theme?.footer,
     page: {
-      headerAffix: options?.page?.headerAffix ?? false,
-      enableAnchor: options?.page?.enableAnchor ?? true,
-      anchorMaxLevel: options?.page?.anchorMaxLevel ?? 3,
+      headerAffix: theme?.page?.headerAffix ?? false,
+      enableAnchor: theme?.page?.enableAnchor ?? true,
+      anchorMaxLevel: theme?.page?.anchorMaxLevel ?? 3,
     },
   }
 }
