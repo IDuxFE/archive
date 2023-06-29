@@ -11,8 +11,8 @@ import { resolveThemeOptions } from '../resolveThemeOptions'
 import { createPageInstance } from './createPageInstance'
 
 export function createAllPageInstance(options: AppMountOptions): Record<string, PageInstance> {
-  const { routeRecords, theme, renderers, setupOptions, setupApp } = options
-  const reseolvedTheme = resolveThemeOptions(theme)
+  const { routeRecords, renderers, setupOptions, setupApp } = options
+  const reseolvedTheme = resolveThemeOptions(options)
 
   const instances: Record<string, PageInstance> = {}
 
