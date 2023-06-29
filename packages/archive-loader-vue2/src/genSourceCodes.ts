@@ -16,6 +16,12 @@ export function genSourceCode(filename: string, code: string, md: MarkdownRender
   return {
     filename: filename,
     code: _code,
-    parsedCode: md.render('```html \r\n' + _code + '\r\n ```'),
+    parsedCode: md.render('```' + inferCodeType(filename) + ' \r\n' + _code + '\r\n ```'),
   }
+}
+
+function inferCodeType(filename: string): string {
+  const extension = filename.split('.').pop()
+
+  return extension ?? 'js'
 }
