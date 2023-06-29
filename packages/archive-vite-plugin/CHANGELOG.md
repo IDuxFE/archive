@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/IDuxFE/archive/compare/v0.4.0...v0.4.2) (2023-06-29)
+
+### Bug Fixes
+
+- add base url config support ([a10e0ba](https://github.com/IDuxFE/archive/commit/a10e0ba3344c6f9826a7116c6e63698829a07d0b))
+- **app,vite-plugin:** hmr runtime in undefined under production ([31f97c3](https://github.com/IDuxFE/archive/commit/31f97c302d8536cf23d6d80161bfd4da5c9be5f9))
+
 ## [0.4.1](https://github.com/IDuxFE/archive/compare/v0.4.0...v0.4.1) (2023-06-20)
 
 ### Bug Fixes

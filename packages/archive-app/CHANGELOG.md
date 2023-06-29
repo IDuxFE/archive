@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/IDuxFE/archive/compare/v0.4.0...v0.4.2) (2023-06-29)
+
+### Bug Fixes
+
+- add base url config support ([a10e0ba](https://github.com/IDuxFE/archive/commit/a10e0ba3344c6f9826a7116c6e63698829a07d0b))
+- **app,vite-plugin:** hmr runtime in undefined under production ([31f97c3](https://github.com/IDuxFE/archive/commit/31f97c302d8536cf23d6d80161bfd4da5c9be5f9))
+- **app:** components shouldn't export vue3 related component ([30fed20](https://github.com/IDuxFE/archive/commit/30fed20fe6a7bc6085648b086a74d9ef471d78f6))
+- **app:** default logo link should be baseUrl ([850cc22](https://github.com/IDuxFE/archive/commit/850cc221c3f90cc444218055de0b03c6d82639d1))
+- **app:** remove unecessary reset style ([a344375](https://github.com/IDuxFE/archive/commit/a344375bc22a59b706cb8f4ec248ac179b49a162))
+- **archive, archive-app:** group type navRecord should have path ([a2988b4](https://github.com/IDuxFE/archive/commit/a2988b417329bf2f2904f5437d49af3823d480ec))
+- **markdown-plugin,app:** markdown code copy not working ([754173f](https://github.com/IDuxFE/archive/commit/754173f392ed899763f69e7a8aab9db9cf5a1c88))
+
 ## [0.4.1](https://github.com/IDuxFE/archive/compare/v0.4.0...v0.4.1) (2023-06-20)
 
 ### Bug Fixes
