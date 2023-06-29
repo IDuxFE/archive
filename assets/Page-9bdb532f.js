@@ -1,5 +1,5 @@
-import { d as defineComponent, a as inject, r as ref, c as computed, o as onMounted, m, b as createVNode, w as watch, n as nextTick, p as provide, e as pageContextToken, f as onBeforeUnmount, g as isObject, u, j as withDirectives, v as vShow, k as normalizeClass, l as useGlobalConfig$1, q as watchEffect, s as off, t as convertTarget, x as on, y as appContextToken, z as themeToken, A as breakpointsToken, B as onUnmounted, C as callEmit, D as getOffset, E as convertNumber, F as throttleRAF, G as isHTMLElement } from "./app-default-06822124.js";
-import { D as Demo, B as Bi, I as IxMessageProvider, a as IxRadioGroup, s as scrollToTop } from "./Demo-f2be02ac.js";
+import { d as defineComponent, a as inject, r as ref, c as computed, o as onMounted, m, b as createVNode, w as watch, n as nextTick, p as provide, e as pageContextToken, f as onBeforeUnmount, g as isObject, u, j as withDirectives, v as vShow, k as normalizeClass, l as useGlobalConfig$1, q as watchEffect, s as off, t as convertTarget, x as on, y as appContextToken, z as themeToken, A as breakpointsToken, B as onUnmounted, C as callEmit, D as getOffset, E as convertNumber, F as throttleRAF, G as isHTMLElement } from "./app-default-a73ca19d.js";
+import { u as useClipboard, D as Demo, B as Bi, I as IxMessageProvider, a as IxRadioGroup, s as scrollToTop } from "./Demo-099c9512.js";
 function isUndefined(value) {
   return value === void 0;
 }
@@ -194,6 +194,49 @@ const innerPageProps = {
   options: Object,
   renderers: Object
 };
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+let inited = false;
+function useCopyCode() {
+  if (inited) {
+    return;
+  }
+  const { copy } = useClipboard();
+  const timeoutIdMap = /* @__PURE__ */ new Map();
+  window.addEventListener("click", (e) => {
+    var _a;
+    const el = e.target;
+    if (el.matches('div[class*="language-"] > button.copy')) {
+      const parent = el.parentElement;
+      const sibling = (_a = el.nextElementSibling) == null ? void 0 : _a.nextElementSibling;
+      if (!parent || !sibling) {
+        return;
+      }
+      const isShell = /language-(shellscript|shell|bash|sh|zsh)/.test(parent.className);
+      let text = "";
+      sibling.querySelectorAll("span.line:not(.diff.remove)").forEach((node) => text += (node.textContent || "") + "\n");
+      text = text.slice(0, -1);
+      if (isShell) {
+        text = text.replace(/^ *(\$|>) /gm, "").trim();
+      }
+      copy(text).then(() => {
+        el.classList.add("copied");
+        clearTimeout(timeoutIdMap.get(el));
+        const timeoutId = setTimeout(() => {
+          el.classList.remove("copied");
+          el.blur();
+          timeoutIdMap.delete(el);
+        }, 2e3);
+        timeoutIdMap.set(el, timeoutId);
+      });
+    }
+  });
+  inited = true;
+}
 /**
  * @license
  *
@@ -880,6 +923,7 @@ const Page = defineComponent({
     const appContext = inject(appContextToken, null);
     const theme = inject(themeToken);
     const breakpoints = inject(breakpointsToken);
+    useCopyCode();
     const render = usePageRender({
       theme,
       breakpoints,
