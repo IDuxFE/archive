@@ -19,6 +19,7 @@ interface ArchiveConfig {
   theme?: ArchiveThemeOptions
   dist?: string
   root?: string
+  baseUrl?: string
 }
 ```
 
@@ -35,6 +36,13 @@ interface ArchiveConfig {
 - 是否可选: 是
 
 打包的目标目录，默认为配置文件所在目录的 `dist` 文件夹。
+
+### baseUrl
+
+- 类型: `string`
+- 是否可选: 是
+
+公共基础路径，同时也作为路由的基础路径，默认为 `vite` 配置中的 `base`，如果都未提供，则为 `'/'`。
 
 ### root
 
