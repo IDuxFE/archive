@@ -135,9 +135,15 @@ export interface Storage {
   notifyItemChange: (item: LoadedItem) => void
 }
 
+export  interface Fn<TParams = any, TReturn = TParams> {
+  (...arg: TParams[]): TReturn;
+}
+
 export interface Instance<Data extends object = object> {
   mount: (el: HTMLElement, data?: Data) => Promise<void> | void
   unmount: () => Promise<void> | void
+  getExpose?: (funName: string) => Fn | undefined
+  on?: (EvtName: string, fn: Fn) => void
   getData: () => Data | undefined
   getProps: () => InstanceProp<Data>[]
   setData: (data: Partial<Data>) => Promise<void> | void
