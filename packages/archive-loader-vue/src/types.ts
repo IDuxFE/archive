@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { Instance, LoadedItem, Loader, ResolvedItem } from '@idux/archive-vite-plugin'
+import type { Instance, LoadedItem, Loader, ResolvedItem, Fn } from '@idux/archive-vite-plugin'
 import type { Except, SetOptional } from 'type-fest'
 import type { App, ExtractPropTypes, PropType, VNode } from 'vue'
 
@@ -40,3 +40,7 @@ export const instanceCompProps = {
   onInstanceMountedChange: Function as PropType<(mounted: boolean) => void>,
 } as const
 export type InstanceCompProps = ExtractPropTypes<typeof instanceCompProps>
+
+export interface EmitItem {
+  [key: string]: Fn;
+}

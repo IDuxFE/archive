@@ -5,8 +5,8 @@
  * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
  */
 
-import type { ArchiveLoaderVueInstance, ArchiveLoaderVueSetup } from './types'
-import type { InstanceProp, InstancePropTypes } from '@idux/archive-vite-plugin'
+import type { ArchiveLoaderVueInstance, ArchiveLoaderVueSetup, EmitItem } from './types'
+import type { InstanceProp, InstancePropTypes, Fn } from '@idux/archive-vite-plugin'
 
 import {
   type App,
@@ -19,19 +19,50 @@ import {
   createVNode,
   markRaw,
   reactive,
+  type Ref,
   ref,
+  h,
 } from 'vue'
 
-import { isArray, isFunction, isNil, isPlainObject } from 'lodash-es'
+import { isArray, isFunction, isNil, isPlainObject, capitalize } from 'lodash-es'
 
 export interface InstanceData<P = any> {
   key: string | number | symbol
   el: HTMLElement
   props: P | undefined
   component: DefineComponent<P>
+  emitsEvents: EmitItem
 }
 
+export type InstanceRef = Record<InstanceData['key'], Ref<HTMLElement & Record<string, Fn>>>;
+
 export type InstanceFactory = <P extends object>(component: DefineComponent<P>) => ArchiveLoaderVueInstance<P>
+
+function getEmitName(funName: string): string {
+  if (!funName) {
+    return '';
+  }
+  return `on${capitalize(funName)}`;
+}
+
+function mergePropsAndEmitsEvents(props: InstanceData['props'], emitsEvents: EmitItem) {
+  const result: InstanceData['props'] = { ...props };
+
+  for (const key in emitsEvents) {
+    if (result[key]) {
+      const value = result[key];
+      if (Array.isArray(value)) {
+        value.push(emitsEvents[key]);
+      } else {
+        result[key] = [value, emitsEvents[key]];
+      }
+    } else {
+      result[key] = emitsEvents[key];
+    }
+  }
+
+  return result;
+}
 
 export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFactory {
   let instanceMountApp: App | null = null
@@ -39,17 +70,27 @@ export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFa
 
   const instanceDataRefs = ref<Set<InstanceData>>(new Set())
 
+  const instanceRefs = {} as InstanceRef
+
   const renderInstances = () => {
-    return [...instanceDataRefs.value.values()].map(({ key, el, component, props }) =>
-      createVNode(
+    return [...instanceDataRefs.value.values()].map(({ key, el, component, props, emitsEvents }) => {
+      const instanceRef = ref(null) as unknown as Ref<HTMLElement & Record<string, Fn>>
+      const vnode = createVNode(
         Teleport as unknown as VNodeTypes,
         { to: el, key },
         {
-          default: () => [createVNode(component, props)],
+          default: () => [
+            h(component, {
+              ref: instanceRef,
+              ...mergePropsAndEmitsEvents(props, emitsEvents),
+            }),
+          ],
         },
-      ),
-    )
-  }
+      )
+      instanceRefs[key] = instanceRef
+      return vnode
+    })
+  };
 
   const mountApp = () => {
     if (instanceMountApp) {
@@ -66,10 +107,10 @@ export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFa
     instanceMountApp.mount(div)
   }
 
-  const mountInstance = <P>(el: HTMLElement, component: DefineComponent<P>, data?: P): InstanceData<P> => {
+  const mountInstance = <P>(el: HTMLElement, component: DefineComponent<P>, data?: P, emitsEvents?: EmitItem): InstanceData<P> => {
     mountApp()
 
-    const instanceData = reactive({ component, props: data ?? {}, key: `instance-${instanceDataKeySeed++}`, el })
+    const instanceData = reactive({ component, props: data ?? {}, key: `instance-${instanceDataKeySeed++}`, el, emitsEvents })
     instanceDataRefs.value.add(instanceData as InstanceData<any>)
 
     return instanceData as InstanceData<P>
@@ -81,6 +122,7 @@ export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFa
 
   return <P extends object>(component: DefineComponent<P>): ArchiveLoaderVueInstance<P> => {
     let instanceData: InstanceData<P>
+    const emitsEvents = {} as EmitItem;
     const watchCallbacks = new Set<() => void>()
     const runCallbacks = () => {
       watchCallbacks.forEach(cb => {
@@ -142,7 +184,7 @@ export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFa
 
     return {
       mount(el, data) {
-        instanceData = mountInstance(el, markRaw(component), data)
+        instanceData = mountInstance(el, markRaw(component), data, emitsEvents)
 
         const instanceProps = this.getProps()
 
@@ -160,6 +202,16 @@ export function createInstanceFactory(setup?: ArchiveLoaderVueSetup): InstanceFa
       },
       unmount() {
         unmountInstance(instanceData)
+      },
+      on(EvtName: string, fn: Fn) {
+        emitsEvents[getEmitName(EvtName)] = fn;
+      },
+      getExpose(funName: string) {
+        const instanceRef = instanceRefs[instanceData.key];
+        if (!instanceRef) {
+          return;
+        }
+        return instanceRef.value?.[funName];
       },
       getProps() {
         if (!('props' in component)) {
