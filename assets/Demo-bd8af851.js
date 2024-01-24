@@ -1,4 +1,4 @@
-import { W as WeakMap$1, d as defineComponent, r as ref, o as onMounted, w as watch, B as onUnmounted, h, b as createVNode, H as createTextVNode, I as IxIcon, c as computed, T as Transition, j as withDirectives, v as vShow, J as baseCreate$1, K as isObjectLike, L as isArray$1, g as isObject, M as debounce, n as nextTick, a as inject, N as throwError, l as useGlobalConfig$1, O as useControlledProp, P as useState, Q as addClass, R as removeClass, p as provide, S as isNil, U as mergeProps, V as copyArray, ɵ as ɵOverlay, X as convertElement, Y as useKey, k as normalizeClass, q as watchEffect, C as callEmit, Z as IxInput, _ as overlayDelayDef, $ as overlayPlacementDef, a0 as overlayTriggerDef, a1 as onDeactivated, a2 as markRaw, a3 as setToString$1, a4 as reactive, a5 as usePortalTarget, a6 as convertCssPixel, a7 as CdkPortal, a8 as TransitionGroup, a9 as Fragment, aa as useAccessorAndControl, ab as useFormItemRegister, ac as IxSpace, ad as Logger, ae as flattenNode, af as useInput, ag as useFormFocusMonitor, ah as ɵInput, ai as useFormSize, aj as useFormStatus, ak as toNumber, al as arrayEach, am as createApp, an as isString, f as onBeforeUnmount, ao as useFormElement, ap as FORM_TOKEN, aq as convertStringVNode, ar as ɵWave, as as inputCommonProps, at as rAF, au as isFunction, av as convertArray, aw as identity, ax as shortOut, ay as isIndex, az as root$1, aA as apply, aB as baseGetTag, aC as Teleport, aD as uniqueId, aE as tryOnScopeDispose, aF as customRef, aG as isNumber, aH as easeInOutCubic, aI as toRaw, aJ as hasSlot, aK as toString, aL as normalizeStyle, aM as cancelRAF } from "./app-default-a73ca19d.js";
+import { W as WeakMap$1, d as defineComponent, r as ref, o as onMounted, b as watch, k as onUnmounted, h, a as createVNode, J as createTextVNode, K as IxTooltip, L as IxIcon, c as computed, T as Transition, D as withDirectives, E as vShow, N as baseCreate$1, O as isObjectLike, P as isArray$1, s as isObject, Q as debounce, n as nextTick, q as inject, R as throwError, u as useGlobalConfig$1, S as useControlledProp, U as useState, V as addClass, X as removeClass, p as provide, Y as isNil, Z as mergeProps, _ as copyArray, $ as convertElement, a0 as useKey, F as normalizeClass, w as watchEffect, l as callEmit, a1 as IxInput, a2 as markRaw, a3 as setToString$1, a4 as reactive, a5 as usePortalTarget, a6 as convertCssPixel, a7 as CdkPortal, a8 as TransitionGroup, a9 as Fragment, aa as useAccessorAndControl, ab as useFormItemRegister, ac as IxSpace, ad as Logger, ae as flattenNode, af as useInput, ag as useFormFocusMonitor, ɵ as ɵInput, ah as useFormSize, ai as useFormStatus, aj as ɵOverlay, ak as toNumber, al as arrayEach, am as createApp, an as isString, j as onBeforeUnmount, ao as useFormElement, ap as FORM_TOKEN, aq as convertStringVNode, ar as ɵWave, as as isBoolean, at as inputCommonProps, au as rAF, av as isFunction, aw as convertArray, ax as identity, ay as shortOut, az as isIndex, aA as root$1, aB as apply, aC as Teleport, aD as uniqueId, aE as tryOnScopeDispose, aF as customRef, aG as isNumber, aH as easeInOutCubic, aI as toRaw, aJ as hasSlot, aK as toString, aL as normalizeStyle, aM as cancelRAF } from "./app-default-ab78726d.js";
 var INFINITY = 1 / 0, MAX_INTEGER = 17976931348623157e292;
 function toFinite(value) {
   if (!value) {
@@ -497,10 +497,6 @@ function curry(func, arity, guard) {
   return result;
 }
 curry.placeholder = {};
-var boolTag = "[object Boolean]";
-function isBoolean(value) {
-  return value === true || value === false || isObjectLike(value) && baseGetTag(value) == boolTag;
-}
 var FUNC_ERROR_TEXT = "Expected a function";
 function throttle(func, wait, options) {
   var leading = true, trailing = true;
@@ -517,98 +513,6 @@ function throttle(func, wait, options) {
     "trailing": trailing
   });
 }
-const tooltipProps = {
-  visible: { type: Boolean, default: void 0 },
-  autoAdjust: { type: Boolean, default: void 0 },
-  closeOnDeactivated: { type: Boolean, default: true },
-  destroyOnHide: { type: Boolean, default: void 0 },
-  delay: overlayDelayDef,
-  disabled: { type: Boolean, default: false },
-  offset: Array,
-  overlayContainer: {
-    type: [String, HTMLElement, Function],
-    default: void 0
-  },
-  placement: overlayPlacementDef,
-  title: String,
-  trigger: overlayTriggerDef,
-  zIndex: Number,
-  "onUpdate:visible": [Function, Array]
-};
-function useTooltipOverlay(props, config, mergedPrefixCls) {
-  const overlayRef = ref();
-  const updatePopper = () => {
-    var _a2;
-    return (_a2 = overlayRef.value) == null ? void 0 : _a2.updatePopper();
-  };
-  const [visible, setVisible] = useControlledProp(props, "visible", false);
-  onDeactivated(() => {
-    if (visible.value && props.closeOnDeactivated) {
-      setVisible(false);
-    }
-  });
-  const overlayProps = computed(() => {
-    var _a2, _b, _c, _d, _e2, _f, _g;
-    const trigger = (_a2 = props.trigger) != null ? _a2 : config.trigger;
-    return {
-      visible: visible.value,
-      ["onUpdate:visible"]: setVisible,
-      autoAdjust: (_b = props.autoAdjust) != null ? _b : config.autoAdjust,
-      clickOutside: trigger === "click" || trigger === "contextmenu",
-      container: (_c = props.overlayContainer) != null ? _c : config.overlayContainer,
-      containerFallback: `.${mergedPrefixCls.value}-overlay-container`,
-      delay: (_d = props.delay) != null ? _d : config.delay,
-      destroyOnHide: (_e2 = props.destroyOnHide) != null ? _e2 : config.destroyOnHide,
-      disabled: props.disabled,
-      offset: (_f = props.offset) != null ? _f : config.offset,
-      showArrow: true,
-      placement: (_g = props.placement) != null ? _g : config.placement,
-      trigger,
-      zIndex: props.zIndex
-    };
-  });
-  return { overlayRef, updatePopper, visible, setVisible, overlayProps };
-}
-var Tooltip = /* @__PURE__ */ defineComponent({
-  name: "IxTooltip",
-  props: tooltipProps,
-  setup(props, {
-    slots,
-    expose
-  }) {
-    const common = useGlobalConfig$1("common");
-    const config = useGlobalConfig$1("tooltip");
-    const mergedPrefixCls = computed(() => `${common.prefixCls}-tooltip`);
-    const {
-      overlayRef,
-      updatePopper,
-      overlayProps
-    } = useTooltipOverlay(props, config, mergedPrefixCls);
-    expose({
-      updatePopper
-    });
-    return () => {
-      const prefixCls = mergedPrefixCls.value;
-      return createVNode(ɵOverlay, mergeProps({
-        "ref": overlayRef,
-        "class": prefixCls,
-        "transitionName": `${common.prefixCls}-fade-fast`
-      }, overlayProps.value), {
-        default: slots.default,
-        content: () => renderContent(props, slots, prefixCls)
-      });
-    };
-  }
-});
-const renderContent = (props, slots, prefixCls) => {
-  if (!(slots.title || props.title)) {
-    return null;
-  }
-  return createVNode("div", {
-    "class": `${prefixCls}-wrapper`
-  }, [slots.title ? slots.title() : props.title]);
-};
-const IxTooltip = Tooltip;
 var Me = typeof global == "object" && global && global.Object === Object && global;
 const Zt = Me;
 var Fe = typeof self == "object" && self && self.Object === Object && self, De = Zt || Fe || Function("return this")();
@@ -2216,10 +2120,10 @@ class PendingCopy {
     }
   }
 }
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+var __defProp$2 = Object.defineProperty;
+var __defNormalProp$2 = (obj, key, value) => key in obj ? __defProp$2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField$2 = (obj, key, value) => {
+  __defNormalProp$2(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
 const _Clipboard = class {
@@ -2242,7 +2146,7 @@ const _Clipboard = class {
   }
 };
 let Clipboard = _Clipboard;
-__publicField(Clipboard, "instance", null);
+__publicField$2(Clipboard, "instance", null);
 const useClipboard = () => {
   const clipboard = Clipboard.getInstance();
   const pendingSet = /* @__PURE__ */ new Set();
@@ -4841,7 +4745,7 @@ var Spin = /* @__PURE__ */ defineComponent({
       spinnerClassName,
       containerClassName
     } = useClasses(props, spinConfig, size, hasDefaultSlot, mergedPrefixCls);
-    const renderContent2 = () => {
+    const renderContent = () => {
       if (!slots.default) {
         return null;
       }
@@ -4893,7 +4797,7 @@ var Spin = /* @__PURE__ */ defineComponent({
     };
     return () => createVNode("div", {
       "class": mergedPrefixCls.value
-    }, [renderSpinner(), renderContent2()]);
+    }, [renderSpinner(), renderContent()]);
   }
 });
 const useSize = (props, config) => {
@@ -6763,7 +6667,7 @@ var Select = /* @__PURE__ */ defineComponent({
         default: () => [children]
       }) : children;
     };
-    const renderContent2 = () => {
+    const renderContent = () => {
       var _a2;
       const children = [renderLoading(createVNode(Panel, mergeProps({
         "ref": panelRef
@@ -6817,7 +6721,7 @@ var Select = /* @__PURE__ */ defineComponent({
       };
       const overlaySlots = {
         default: renderTrigger,
-        content: renderContent2
+        content: renderContent
       };
       return createVNode(ɵOverlay, mergeProps({
         "ref": overlayRef

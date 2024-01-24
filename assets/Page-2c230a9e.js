@@ -1,8 +1,5 @@
-import { d as defineComponent, a as inject, r as ref, c as computed, o as onMounted, m, b as createVNode, w as watch, n as nextTick, p as provide, e as pageContextToken, f as onBeforeUnmount, g as isObject, u, j as withDirectives, v as vShow, k as normalizeClass, l as useGlobalConfig$1, q as watchEffect, s as off, t as convertTarget, x as on, y as appContextToken, z as themeToken, A as breakpointsToken, B as onUnmounted, C as callEmit, D as getOffset, E as convertNumber, F as throttleRAF, G as isHTMLElement } from "./app-default-a73ca19d.js";
-import { u as useClipboard, D as Demo, B as Bi, I as IxMessageProvider, a as IxRadioGroup, s as scrollToTop } from "./Demo-099c9512.js";
-function isUndefined(value) {
-  return value === void 0;
-}
+import { d as defineComponent, u as useGlobalConfig$1, c as computed, a as createVNode, r as ref, p as provide, o as onMounted, w as watchEffect, b as watch, e as off, f as convertTarget, g as on, j as onBeforeUnmount, n as nextTick, k as onUnmounted, l as callEmit, m as getOffset, q as inject, s as isObject, v as convertNumber, x as throttleRAF, y as isHTMLElement, z as isUndefined, A as m, B as pageContextToken, C as u, D as withDirectives, E as vShow, F as normalizeClass, G as appContextToken, H as themeToken, I as breakpointsToken } from "./app-default-ab78726d.js";
+import { s as scrollToTop, u as useClipboard, D as Demo, B as Bi, I as IxMessageProvider, a as IxRadioGroup } from "./Demo-bd8af851.js";
 const affixProps = {
   offset: {
     type: [Number, String, Object],
@@ -182,184 +179,6 @@ var Affix = /* @__PURE__ */ defineComponent({
   }
 });
 const IxAffix = Affix;
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-const innerPageProps = {
-  pageData: { type: Object, required: true },
-  theme: { type: Object, required: true },
-  options: Object,
-  renderers: Object
-};
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-let inited = false;
-function useCopyCode() {
-  if (inited) {
-    return;
-  }
-  const { copy } = useClipboard();
-  const timeoutIdMap = /* @__PURE__ */ new Map();
-  window.addEventListener("click", (e) => {
-    var _a;
-    const el = e.target;
-    if (el.matches('div[class*="language-"] > button.copy')) {
-      const parent = el.parentElement;
-      const sibling = (_a = el.nextElementSibling) == null ? void 0 : _a.nextElementSibling;
-      if (!parent || !sibling) {
-        return;
-      }
-      const isShell = /language-(shellscript|shell|bash|sh|zsh)/.test(parent.className);
-      let text = "";
-      sibling.querySelectorAll("span.line:not(.diff.remove)").forEach((node) => text += (node.textContent || "") + "\n");
-      text = text.slice(0, -1);
-      if (isShell) {
-        text = text.replace(/^ *(\$|>) /gm, "").trim();
-      }
-      copy(text).then(() => {
-        el.classList.add("copied");
-        clearTimeout(timeoutIdMap.get(el));
-        const timeoutId = setTimeout(() => {
-          el.classList.remove("copied");
-          el.blur();
-          timeoutIdMap.delete(el);
-        }, 2e3);
-        timeoutIdMap.set(el, timeoutId);
-      });
-    }
-  });
-  inited = true;
-}
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-function usePageRender(dataBase) {
-  return (data, customRenderer, defaultRenderer) => {
-    var _a;
-    const defaultNodes = defaultRenderer == null ? void 0 : defaultRenderer();
-    return customRenderer ? customRenderer(
-      {
-        theme: dataBase.theme,
-        route: dataBase.route,
-        breakpoints: dataBase.breakpoints,
-        activeRecords: (_a = dataBase.activeRecords) == null ? void 0 : _a.value,
-        ...data ?? {}
-      },
-      defaultNodes
-    ) : defaultNodes;
-  };
-}
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-function useAsyncProp(props, key) {
-  const data = ref();
-  onMounted(() => {
-    watch(
-      () => props[key],
-      async (asyncProp) => {
-        data.value = void 0;
-        if (asyncProp) {
-          data.value = await (asyncProp == null ? void 0 : asyncProp());
-        }
-      },
-      {
-        immediate: true
-      }
-    );
-  });
-  return data;
-}
-function useArrayAsyncProp(props, key) {
-  const data = ref();
-  onMounted(() => {
-    watch(
-      () => props[key],
-      async (arrayAsyncProp) => {
-        data.value = void 0;
-        if (arrayAsyncProp) {
-          data.value = await Promise.all(arrayAsyncProp == null ? void 0 : arrayAsyncProp.map((asyncProp) => asyncProp()));
-        }
-      },
-      {
-        immediate: true
-      }
-    );
-  });
-  return data;
-}
-/**
- * @license
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
- */
-function useArchiveItemImport(props, key) {
-  const data = useAsyncProp(props, key);
-  const updatedItem = ref();
-  const resolvedItem = computed(() => {
-    var _a;
-    return updatedItem.value ?? ((_a = data.value) == null ? void 0 : _a.default);
-  });
-  let stop;
-  if (window.__ARCHIVE_HMR_RUNTIME__) {
-    stop = window.__ARCHIVE_HMR_RUNTIME__.onItemChange((item) => {
-      var _a, _b;
-      if (((_a = updatedItem.value) == null ? void 0 : _a.id) === item.id || ((_b = data.value) == null ? void 0 : _b.default.id) === item.id) {
-        updatedItem.value = item;
-      }
-    });
-    onBeforeUnmount(() => {
-      stop == null ? void 0 : stop();
-    });
-  }
-  watch(data, () => {
-    updatedItem.value = void 0;
-  });
-  return resolvedItem;
-}
-function useArchiveItemImports(props, key) {
-  const data = useArrayAsyncProp(props, key);
-  const updatedItems = ref({});
-  const resolvedItems = computed(
-    () => {
-      var _a;
-      return ((_a = data.value) == null ? void 0 : _a.map((mod) => {
-        const item = mod.default;
-        return updatedItems.value[item.id] ?? item;
-      })) ?? [];
-    }
-  );
-  let stop;
-  if (window.__ARCHIVE_HMR_RUNTIME__) {
-    stop = window.__ARCHIVE_HMR_RUNTIME__.onItemChange((item) => {
-      var _a;
-      if (!!updatedItems.value[item.id] || ((_a = data.value) == null ? void 0 : _a.findIndex((loadedItem) => loadedItem.default.id === item.id))) {
-        updatedItems.value[item.id] = item;
-      }
-    });
-    onBeforeUnmount(() => {
-      stop == null ? void 0 : stop();
-    });
-  }
-  watch(data, () => {
-    updatedItems.value = {};
-  });
-  return resolvedItems;
-}
 const anchorToken = Symbol("anchorToken");
 const anchorProps = {
   affix: {
@@ -650,6 +469,184 @@ var AnchorLink = /* @__PURE__ */ defineComponent({
 });
 const IxAnchor = Anchor$1;
 const IxAnchorLink = AnchorLink;
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+const innerPageProps = {
+  pageData: { type: Object, required: true },
+  theme: { type: Object, required: true },
+  options: Object,
+  renderers: Object
+};
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+let inited = false;
+function useCopyCode() {
+  if (inited) {
+    return;
+  }
+  const { copy } = useClipboard();
+  const timeoutIdMap = /* @__PURE__ */ new Map();
+  window.addEventListener("click", (e) => {
+    var _a;
+    const el = e.target;
+    if (el.matches('div[class*="language-"] > button.copy')) {
+      const parent = el.parentElement;
+      const sibling = (_a = el.nextElementSibling) == null ? void 0 : _a.nextElementSibling;
+      if (!parent || !sibling) {
+        return;
+      }
+      const isShell = /language-(shellscript|shell|bash|sh|zsh)/.test(parent.className);
+      let text = "";
+      sibling.querySelectorAll("span.line:not(.diff.remove)").forEach((node) => text += (node.textContent || "") + "\n");
+      text = text.slice(0, -1);
+      if (isShell) {
+        text = text.replace(/^ *(\$|>) /gm, "").trim();
+      }
+      copy(text).then(() => {
+        el.classList.add("copied");
+        clearTimeout(timeoutIdMap.get(el));
+        const timeoutId = setTimeout(() => {
+          el.classList.remove("copied");
+          el.blur();
+          timeoutIdMap.delete(el);
+        }, 2e3);
+        timeoutIdMap.set(el, timeoutId);
+      });
+    }
+  });
+  inited = true;
+}
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+function usePageRender(dataBase) {
+  return (data, customRenderer, defaultRenderer) => {
+    var _a;
+    const defaultNodes = defaultRenderer == null ? void 0 : defaultRenderer();
+    return customRenderer ? customRenderer(
+      {
+        theme: dataBase.theme,
+        route: dataBase.route,
+        breakpoints: dataBase.breakpoints,
+        activeRecords: (_a = dataBase.activeRecords) == null ? void 0 : _a.value,
+        ...data ?? {}
+      },
+      defaultNodes
+    ) : defaultNodes;
+  };
+}
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+function useAsyncProp(props, key) {
+  const data = ref();
+  onMounted(() => {
+    watch(
+      () => props[key],
+      async (asyncProp) => {
+        data.value = void 0;
+        if (asyncProp) {
+          data.value = await (asyncProp == null ? void 0 : asyncProp());
+        }
+      },
+      {
+        immediate: true
+      }
+    );
+  });
+  return data;
+}
+function useArrayAsyncProp(props, key) {
+  const data = ref();
+  onMounted(() => {
+    watch(
+      () => props[key],
+      async (arrayAsyncProp) => {
+        data.value = void 0;
+        if (arrayAsyncProp) {
+          data.value = await Promise.all(arrayAsyncProp == null ? void 0 : arrayAsyncProp.map((asyncProp) => asyncProp()));
+        }
+      },
+      {
+        immediate: true
+      }
+    );
+  });
+  return data;
+}
+/**
+ * @license
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/IDuxFE/archive/blob/main/LICENSE
+ */
+function useArchiveItemImport(props, key) {
+  const data = useAsyncProp(props, key);
+  const updatedItem = ref();
+  const resolvedItem = computed(() => {
+    var _a;
+    return updatedItem.value ?? ((_a = data.value) == null ? void 0 : _a.default);
+  });
+  let stop;
+  if (window.__ARCHIVE_HMR_RUNTIME__) {
+    stop = window.__ARCHIVE_HMR_RUNTIME__.onItemChange((item) => {
+      var _a, _b;
+      if (((_a = updatedItem.value) == null ? void 0 : _a.id) === item.id || ((_b = data.value) == null ? void 0 : _b.default.id) === item.id) {
+        updatedItem.value = item;
+      }
+    });
+    onBeforeUnmount(() => {
+      stop == null ? void 0 : stop();
+    });
+  }
+  watch(data, () => {
+    updatedItem.value = void 0;
+  });
+  return resolvedItem;
+}
+function useArchiveItemImports(props, key) {
+  const data = useArrayAsyncProp(props, key);
+  const updatedItems = ref({});
+  const resolvedItems = computed(
+    () => {
+      var _a;
+      return ((_a = data.value) == null ? void 0 : _a.map((mod) => {
+        const item = mod.default;
+        return updatedItems.value[item.id] ?? item;
+      })) ?? [];
+    }
+  );
+  let stop;
+  if (window.__ARCHIVE_HMR_RUNTIME__) {
+    stop = window.__ARCHIVE_HMR_RUNTIME__.onItemChange((item) => {
+      var _a;
+      if (!!updatedItems.value[item.id] || ((_a = data.value) == null ? void 0 : _a.findIndex((loadedItem) => loadedItem.default.id === item.id))) {
+        updatedItems.value[item.id] = item;
+      }
+    });
+    onBeforeUnmount(() => {
+      stop == null ? void 0 : stop();
+    });
+  }
+  watch(data, () => {
+    updatedItems.value = {};
+  });
+  return resolvedItems;
+}
 const Anchor = defineComponent({
   name: "Anchor",
   props: {

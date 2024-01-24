@@ -1,6 +1,6 @@
 import { d as defineComponent, o as openBlock, c as createElementBlock, p as pushScopeId, e as popScopeId, f as createBaseVNode, _ as _export_sfc, U as Ui$1, g as computed, t as toDisplayString, u as unref, L as Li, h as createVNode, a as createStaticVNode, i as createTextVNode } from "./_plugin-vue_export-helper-e63733f0.js";
-import { U as Ui, D as Demo, I as IxMessageProvider } from "./Demo-099c9512.js";
-import { i as iduxInstall, h } from "./app-default-a73ca19d.js";
+import { i as iduxInstall, h, t as tooltipProps, M as MapCache } from "./app-default-ab78726d.js";
+import { U as Ui, D as Demo, I as IxMessageProvider } from "./Demo-bd8af851.js";
 /**
  * @license
  *
@@ -35,6 +35,81 @@ function createDemoInstance(resolvedDemoItem, tools, setupApp) {
     watchData
   };
 }
+var FUNC_ERROR_TEXT = "Expected a function";
+function memoize(func, resolver) {
+  if (typeof func != "function" || resolver != null && typeof resolver != "function") {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  var memoized = function() {
+    var args = arguments, key = resolver ? resolver.apply(this, args) : args[0], cache = memoized.cache;
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    var result = func.apply(this, args);
+    memoized.cache = cache.set(key, result) || cache;
+    return result;
+  };
+  memoized.cache = new (memoize.Cache || MapCache)();
+  return memoized;
+}
+memoize.Cache = MapCache;
+var MAX_MEMOIZE_SIZE = 500;
+function memoizeCapped(func) {
+  var result = memoize(func, function(key) {
+    if (cache.size === MAX_MEMOIZE_SIZE) {
+      cache.clear();
+    }
+    return key;
+  });
+  var cache = result.cache;
+  return result;
+}
+var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+var reEscapeChar = /\\(\\)?/g;
+memoizeCapped(function(string) {
+  var result = [];
+  if (string.charCodeAt(0) === 46) {
+    result.push("");
+  }
+  string.replace(rePropName, function(match, number, quote, subString) {
+    result.push(quote ? subString.replace(reEscapeChar, "$1") : number || match);
+  });
+  return result;
+});
+({
+  ...tooltipProps,
+  cancelButton: Object,
+  cancelText: String,
+  okButton: Object,
+  okText: String,
+  content: String,
+  icon: {
+    type: String,
+    default: "exclamation-circle-filled"
+  },
+  footer: {
+    type: [Boolean, Array, Object],
+    default: true
+  },
+  "onUpdate:visible": [Function, Array],
+  onCancel: [Function, Array],
+  onOk: [Function, Array]
+});
+({
+  ...tooltipProps,
+  closable: {
+    type: Boolean,
+    default: false
+  },
+  closeIcon: [String, Object],
+  header: [String, Object],
+  content: String
+});
+const tableColumnKey = Symbol("IxTableColumn");
+const TableColumn = () => {
+};
+TableColumn.displayName = "IxTableColumn";
+TableColumn[tableColumnKey] = true;
 const _withScopeId$1 = (n) => (pushScopeId("data-v-4f5b670c"), n = n(), popScopeId(), n);
 const _hoisted_1$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode(
   "h3",
