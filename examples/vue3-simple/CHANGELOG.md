@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/IDuxFE/archive/compare/v0.4.2...v0.5.0) (2024-01-24)
+
+**Note:** Version bump only for package idux-archive-example-vue3-simple
+
 ## [0.4.2](https://github.com/sallerli1/archive/compare/v0.4.0...v0.4.2) (2023-06-29)
 
 **Note:** Version bump only for package idux-archive-example-vue3-simple

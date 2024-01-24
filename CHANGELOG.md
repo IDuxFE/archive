@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/IDuxFE/archive/compare/v0.4.2...v0.5.0) (2024-01-24)
+
+### Bug Fixes
+
+- **app:** remove button font-size reset style ([258a08b](https://github.com/IDuxFE/archive/commit/258a08b0a6bc6e0184ad7a8a46fddc2850e2dd0f))
+
+### Features
+
+- **app:** export all idux components ([43b36fc](https://github.com/IDuxFE/archive/commit/43b36fcd1e388deaca57f6b1f1ec5985e6c1badf))
+
 ## [0.4.2](https://github.com/IDuxFE/archive/compare/v0.4.0...v0.4.2) (2023-06-29)
 
 ### Bug Fixes
